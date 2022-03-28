@@ -26,7 +26,7 @@ hs_err_pid*
 ##############################
 ## NetBeans
 ##############################
-nbproject/private/
+nbproject/
 build/
 nbbuild/
 dist/
