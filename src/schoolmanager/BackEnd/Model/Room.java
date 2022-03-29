@@ -5,7 +5,6 @@
  */
 package schoolmanager.BackEnd.Model;
 
-import schoolmanager.BackEnd.Controller.model.*;
 
 /**
  *

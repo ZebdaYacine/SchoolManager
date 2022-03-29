@@ -1,3 +1,5 @@
+create database SchoolManager;
+use SchoolManager;
 create table student(
 id BIGINT primary key auto_increment,
 firstName varchar(20),
