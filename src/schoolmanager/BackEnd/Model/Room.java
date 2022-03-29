@@ -3,23 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package schoolmanager.BackEnd.Controller.model;
+package schoolmanager.BackEnd.Model;
+
+import schoolmanager.BackEnd.Controller.model.*;
 
 /**
  *
  * @author Zed Yacine
  */
-public class Type extends Object{
+public class Room extends Object{
 
     
-    public Type() {
+    public Room() {
     }
 
-    public Type(long id) {
+    public Room(long id) {
         super(id);
     }
 
-    public Type(long id, String arg) {
+    public Room(long id, String arg) {
         super(id, arg);
     }
     

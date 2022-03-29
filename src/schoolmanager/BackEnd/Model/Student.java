@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package schoolmanager.BackEnd.Controller.model;
+package schoolmanager.BackEnd.Model;
+
+import schoolmanager.BackEnd.Controller.model.*;
 
 /**
  *

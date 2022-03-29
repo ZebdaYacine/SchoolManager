@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import schoolmanager.BackEnd.Controller.model.Room;
-import schoolmanager.BackEnd.Controller.model.Type;
-import schoolmanager.BackEnd.Controller.model.Student;
-import schoolmanager.BackEnd.Controller.model.Teacher;
+import schoolmanager.BackEnd.Model.Room;
 
 /**
  *

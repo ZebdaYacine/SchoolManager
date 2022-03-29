@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package schoolmanager.BackEnd.Controller.model;
+package schoolmanager.BackEnd.Model;
+
 
 /**
  *
@@ -44,13 +45,13 @@ public class Object {
         String obj = this.getClass().getName();
         this.id = id;
         switch (obj) {
-            case "schoolmanager.BackEnd.Controller.model.Room":
+            case "schoolmanager.BackEnd.Model.Room":
                 this.rootName = arg;
                 break;
-            case "schoolmanager.BackEnd.Controller.model.Type":
+            case "schoolmanager.BackEnd.Model.Type":
                 this.nameType = arg;
                 break;
-            case "schoolmanager.BackEnd.Controller.model.Level":
+            case "schoolmanager.BackEnd.Model.Level":
                 this.nameLevel = arg;
                 break;
         }
