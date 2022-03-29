@@ -10,6 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import schoolmanager.BackEnd.Controller.model.Room;
+import schoolmanager.BackEnd.Controller.model.Type;
+import schoolmanager.BackEnd.Controller.model.Student;
+import schoolmanager.BackEnd.Controller.model.Teacher;
 
 /**
  *
@@ -31,6 +35,8 @@ public class SchoolManager extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        Room room = new Room(0, "room 1");
+        System.err.println(room.getRoomName());
     }
 
 }
