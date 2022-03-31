@@ -19,14 +19,15 @@ public class Teacher extends Object{
         super(id);
     }
 
-    public Teacher(String firstName, String lastName, String phone) {
-        super(firstName, lastName, phone);
+    public Teacher(String firstName, String lastName, String arg1, String arg2) {
+        super(firstName, lastName, arg1, arg2);
     }
 
-    public Teacher(long id, String firstName, String lastName, String phone) {
-        super(id, firstName, lastName, phone);
+    public Teacher(long id, String firstName, String lastName, String arg1, String arg2) {
+        super(id, firstName, lastName, arg1, arg2);
     }
-    
+
+  
     
     
 }
