@@ -19,14 +19,14 @@ public class Student extends Object{
         super(id);
     }
 
-    public Student(String firstName, String lastName, String phone) {
-        super(firstName, lastName, phone);
+    public Student(String firstName, String lastName, String arg1, String arg2) {
+        super(firstName, lastName, arg1, arg2);
     }
 
-    public Student(long id, String firstName, String lastName, String phone) {
-        super(id, firstName, lastName, phone);
+    public Student(long id, String firstName, String lastName, String arg1, String arg2) {
+        super(id, firstName, lastName, arg1, arg2);
     }
-    
+
     
     
 }

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Room;
+import schoolmanager.BackEnd.Model.Student;
 
 /**
  *
@@ -34,6 +35,7 @@ public class SchoolManager extends Application {
     public static void main(String[] args) {
         launch(args);
         DataBaseConnection.Connect();
+
     }
 
 }
