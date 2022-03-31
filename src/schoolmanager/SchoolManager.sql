@@ -64,4 +64,16 @@ FOREIGN KEY (idRoom) REFERENCES room(id),
 day date not null
 );
 
+use SchoolManager;
+alter table student
+drop column phone,
+add column phone1 varchar(10),
+add column phone2 varchar(10);
+
+alter table teacher
+add column workePlace varchar(50);
+
+alter table room
+add column nbrchair int;
+ 
  
