@@ -5,14 +5,14 @@
  */
 package schoolmanager.BackEnd.Model;
 
-
 /**
  *
  * @author Zed Yacine
  */
-public class Room extends Object{
+public class Room extends Object {
 
-    
+    private String nbrchair;
+
     public Room() {
     }
 
@@ -20,8 +20,25 @@ public class Room extends Object{
         super(id);
     }
 
-    public Room(long id, String arg) {
-        super(id, arg);
+    public Room(String name,String nbrchair) {
+        super(name);
+        this.nbrchair = nbrchair;
     }
     
+    public Room( long id, String name , String nbrchair) {
+        super(id, name);
+        this.nbrchair = nbrchair;
+    }
+
+  
+    public String getNbrchair() {
+        return nbrchair;
+    }
+
+    public void setNbrchair(String nbrchair) {
+        this.nbrchair = nbrchair;
+    }
+    
+    
+
 }

@@ -99,7 +99,7 @@ public class StudentService {
     public static Student searchStudentByName(Student student) {
         String query;
         query = "SELECT * FROM student where firstName='" + student.getFirstName() + "' and "
-                + " lastName='" + student.getLastName();
+                + " lastName='" + student.getLastName()+"'";
         Student std = new Student();
         try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);

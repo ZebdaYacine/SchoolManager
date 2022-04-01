@@ -5,12 +5,14 @@
  */
 package schoolmanager.BackEnd.Model;
 
-
 /**
  *
  * @author Zed Yacine
  */
-public class Teacher extends Object{
+public class Teacher extends Person {
+
+    private String phoneTeacher;
+    private String workePlace;
 
     public Teacher() {
     }
@@ -18,16 +20,39 @@ public class Teacher extends Object{
     public Teacher(long id) {
         super(id);
     }
-
-    public Teacher(String firstName, String lastName, String arg1, String arg2) {
-        super(firstName, lastName, arg1, arg2);
+ 
+    public Teacher(String firstName, String lastName) {
+        super(firstName, lastName);
     }
 
-    public Teacher(long id, String firstName, String lastName, String arg1, String arg2) {
-        super(id, firstName, lastName, arg1, arg2);
+    public Teacher(String firstName, String lastName, String phoneTeacher, String workePlace) {
+        super(firstName, lastName);
+        this.phoneTeacher = phoneTeacher;
+        this.workePlace = workePlace;
     }
 
-  
+    public Teacher(long id, String firstName, String lastName, String phoneTeacher, String workePlace) {
+        super(id, firstName, lastName);
+        this.phoneTeacher = phoneTeacher;
+        this.workePlace = workePlace;
+    }
+
+    public String getPhoneTeacher() {
+        return phoneTeacher;
+    }
+
+    public void setPhoneTeacher(String phoneTeacher) {
+        this.phoneTeacher = phoneTeacher;
+    }
+
+    public String getWorkePlace() {
+        return workePlace;
+    }
+
+    public void setWorkePlace(String workePlace) {
+        this.workePlace = workePlace;
+    }
     
     
+
 }
