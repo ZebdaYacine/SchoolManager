@@ -1,5 +1,13 @@
 create database SchoolManager;
 use SchoolManager;
+
+create table user(
+id BIGINT primary key auto_increment,
+userName varchar(10),
+password varchar(20),
+role varchar(10)
+);
+
 create table student(
 id BIGINT primary key auto_increment,
 firstName varchar(20),
