@@ -20,8 +20,12 @@ public class Level extends Object{
         super(id);
     }
 
-    public Level(long id, String arg) {
-        super(id, arg);
+    public Level(String name) {
+        super(name);
     }
-    
+
+    public Level(long id, String name) {
+        super(id, name);
+    }
+
 }
