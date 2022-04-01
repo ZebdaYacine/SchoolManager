@@ -10,21 +10,21 @@ package schoolmanager.BackEnd.Model;
  *
  * @author Zed Yacine
  */
-public class Level extends Object{
+public class Module extends Object{
 
     
-    public Level() {
+    public Module() {
     }
 
-    public Level(long id) {
+    public Module(long id) {
         super(id);
     }
 
-    public Level(String name) {
+    public Module(String name) {
         super(name);
     }
 
-    public Level(long id, String name) {
+    public Module(long id, String name) {
         super(id, name);
     }
 

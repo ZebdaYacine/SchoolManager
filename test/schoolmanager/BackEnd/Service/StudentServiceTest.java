@@ -43,15 +43,15 @@ public class StudentServiceTest {
     /**
      * Test of addStudent method, of class StudentService.
      */
-//    @Test
-//    public void testAddStudent() {
-//        DataBaseConnection.Connect();
-//        System.out.println("addStudent");
-//        Student student = new Student("ddsf", "sqqd", "0658185867", "05185867");
-//        Results.Rstls result = StudentService.addStudent(student);
-//        System.err.println(result);
-//        // TODO review the generated test code and remove the default call to fail.
-//    }
+    @Test
+    public void testAddStudent() {
+        DataBaseConnection.Connect();
+        System.out.println("addStudent");
+        Student student = new Student("زبدة", "ياسين", "0658185867", "05185867");
+        Results.Rstls result = StudentService.addStudent(student);
+        System.err.println(result);
+        // TODO review the generated test code and remove the default call to fail.
+    }
     /**
      * Test of updateStudent method, of class StudentService.
      */
@@ -67,14 +67,14 @@ public class StudentServiceTest {
     /**
      * Test of deleteStudent method, of class StudentService.
      */
-    @Test
-    public void testDeleteStudent() {
-        System.out.println("deleteStudent");
-        DataBaseConnection.Connect();
-        Student student = new Student(3);
-        Results.Rstls result = StudentService.deleteStudent(student);
-        System.err.println(result);
-    }
+//    @Test
+//    public void testDeleteStudent() {
+//        System.out.println("deleteStudent");
+//        DataBaseConnection.Connect();
+//        Student student = new Student(3);
+//        Results.Rstls result = StudentService.deleteStudent(student);
+//        System.err.println(result);
+//    }
     /**
      * Test of getAllStudents method, of class StudentService.
      */
@@ -90,13 +90,13 @@ public class StudentServiceTest {
     /**
      * Test of searchStudentByName method, of class StudentService.
      */
-    @Test
-    public void testSearchStudentByName() {
-        System.out.println("searchStudentByName");
-        DataBaseConnection.Connect();
-        Student student = new Student("zed","Yacine", "", "");
-        Student result = StudentService.searchStudentByName(student);
-        System.err.println(result.getId());
-    }
+//    @Test
+//    public void testSearchStudentByName() {
+//        System.out.println("searchStudentByName");
+//        DataBaseConnection.Connect();
+//        Student student = new Student("zed","Yacine", "", "");
+//        Student result = StudentService.searchStudentByName(student);
+//        System.err.println(result.getId());
+//    }
 //    
 }
