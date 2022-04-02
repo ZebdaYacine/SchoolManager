@@ -83,5 +83,11 @@ add column workePlace varchar(50);
 
 alter table room
 add column nbrchair int;
+
+
+ALTER TABLE level RENAME COLUMN nameLevel TO name;
+ALTER TABLE module RENAME COLUMN nameModule TO name;
+ALTER TABLE type RENAME COLUMN nameType TO name;
+
  
  
