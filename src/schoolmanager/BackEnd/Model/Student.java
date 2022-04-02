@@ -5,6 +5,8 @@
  */
 package schoolmanager.BackEnd.Model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  *
  * @author Zed Yacine
@@ -54,6 +56,7 @@ public class Student extends Person {
         this.phone2 = phone2;
     }
     
+     
     
     
     

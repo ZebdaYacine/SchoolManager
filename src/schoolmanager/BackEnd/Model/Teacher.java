@@ -5,6 +5,8 @@
  */
 package schoolmanager.BackEnd.Model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  *
  * @author Zed Yacine
@@ -20,7 +22,7 @@ public class Teacher extends Person {
     public Teacher(long id) {
         super(id);
     }
- 
+
     public Teacher(String firstName, String lastName) {
         super(firstName, lastName);
     }
@@ -52,7 +54,7 @@ public class Teacher extends Person {
     public void setWorkePlace(String workePlace) {
         this.workePlace = workePlace;
     }
-    
+
     
 
 }

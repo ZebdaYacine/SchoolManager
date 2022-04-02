@@ -10,7 +10,7 @@ package schoolmanager.BackEnd.Model;
  *
  * @author Zed Yacine
  */
-public class Type extends Object{
+public class Type extends Template{
 
     
     public Type() {

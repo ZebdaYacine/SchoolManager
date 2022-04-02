@@ -9,7 +9,7 @@ package schoolmanager.BackEnd.Model;
  *
  * @author Zed Yacine
  */
-public class Room extends Object {
+public class Room extends Template {
 
     private String nbrchair;
 
