@@ -29,7 +29,7 @@ public class DataBaseConnection {
             System.out.println("Connection with Data Base");
         } catch (Exception e) {
             System.out.println(e.getMessage() + " " + e.getStackTrace());
-            System.out.println("No Connection with Data Base");
+            System.err.println("No Connection with Data Base");
         }
         return con;
     }
