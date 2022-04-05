@@ -89,6 +89,18 @@ ALTER TABLE level RENAME COLUMN nameLevel TO name;
 ALTER TABLE module RENAME COLUMN nameModule TO name;
 ALTER TABLE type RENAME COLUMN nameType TO name;
 
+ALTER TABLE seance
+DROP COLUMN presenceStudent;
+
+create table follow(
+id BIGINT primary key auto_increment,
+idStudent BIGINT not null,
+idSeance BIGINT not null,
+presenceStudent boolean ,
+FOREIGN KEY (idStudent) REFERENCES student(id),
+FOREIGN KEY (idSeance) REFERENCES seance(id)
+)
+
 
 
  
