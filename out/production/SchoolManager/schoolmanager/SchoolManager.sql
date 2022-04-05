@@ -89,5 +89,7 @@ ALTER TABLE level RENAME COLUMN nameLevel TO name;
 ALTER TABLE module RENAME COLUMN nameModule TO name;
 ALTER TABLE type RENAME COLUMN nameType TO name;
 
+
+
  
  

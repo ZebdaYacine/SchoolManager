@@ -10,18 +10,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="300.0"
-            styleClass="home" stylesheets="@../style/login_css.css"
-            xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="schoolmanager.BackEnd.Controller.LoginController">
-   <!--<children>
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="300.0" styleClass="home"
+            stylesheets="@../style/login_css.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.LoginController">
+    <children>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label alignment="CENTER" styleClass="navbar" text=" Hy Stock" textFill="WHITE">
+                        <Label alignment="CENTER" styleClass="navbar" text=" Hy Manager" textFill="WHITE">
                             <font>
                                 <Font name="Times New Roman Bold" size="36.0" />
                             </font>
@@ -62,5 +59,5 @@
                 </HBox>
             </children>
         </VBox>
-    </children>-->
+    </children>
 </AnchorPane>
