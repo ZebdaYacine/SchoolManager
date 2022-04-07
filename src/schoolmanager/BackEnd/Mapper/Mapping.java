@@ -17,8 +17,12 @@ import static schoolmanager.BackEnd.uiPresenter.UiStudent.UiStudentInputIsValid;
 public class Mapping {
 
     public static Student getObjecStudentFromUiStudent(UiStudent uistd) {
-        return ((UiStudentInputIsValid(uistd)) ? null
-                : new Student(uistd.getFirstName().getText(), uistd.getLastName().getText(),
-                        uistd.getPhone1().getText(), uistd.getPhone2().getText()));
+        boolean a = UiStudent.UiStudentInputIsValid(uistd);
+        if (a) {
+            return new Student(uistd.getFirstName().getText(), uistd.getLastName().getText(),
+                    uistd.getPhone1().getText(), uistd.getPhone2().getText());
+        } else {
+            return null;
+        }
     }
 }

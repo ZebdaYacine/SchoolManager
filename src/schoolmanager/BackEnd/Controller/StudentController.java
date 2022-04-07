@@ -40,7 +40,7 @@ import schoolmanager.BackEnd.uiPresenter.UiStudent;
 public class StudentController implements Initializable {
 
     @FXML
-    private TableView<?> StudentTable;
+    private TableView<?> studentTable;
     @FXML
     private TextField firstName;
     @FXML
@@ -67,6 +67,9 @@ public class StudentController implements Initializable {
     private Label phone2_err;
 
     private Student std = new Student();
+
+    private UiStudent uistd = new UiStudent();
+
     @FXML
     private JFXButton delete;
     @FXML
@@ -80,9 +83,12 @@ public class StudentController implements Initializable {
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
             delete.setVisible(false);
+        } else {
+            update.setVisible(true);
+            delete.setVisible(true);
         }
         try {
-            refrechStudent(StudentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,7 +116,7 @@ public class StudentController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        UiStudent uistd = new UiStudent(firstName, lastName, phone2, phone1,
+        uistd = new UiStudent(firstName, lastName, phone2, phone1,
                 firstName_err, lastName_err, phone1_err, phone2_err);
         Student std = Mapping.getObjecStudentFromUiStudent(uistd);
         Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -122,7 +128,7 @@ public class StudentController implements Initializable {
             a.showAndWait();
         }
         try {
-            refrechStudent(StudentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -130,17 +136,77 @@ public class StudentController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
-
+        if (std.getId() != 0) {
+            uistd = new UiStudent(firstName, lastName, phone2, phone1,
+                    firstName_err, lastName_err, phone1_err, phone2_err);
+            Student newStd = Mapping.getObjecStudentFromUiStudent(uistd);
+            newStd.setId(std.getId());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Modifier");
+            alert.setHeaderText("Modifier confirmation");
+            alert.setContentText("Vérifier avant de modifier");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                Results.Rstls r = StudentService.updateStudent(newStd);
+                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                    Alert a = new Alert(Alert.AlertType.INFORMATION);
+                    a.setTitle("Information Dialog");
+                    a.setHeaderText(r + "");
+                    a.showAndWait();
+                } else {
+                    try {
+                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                std = new Student();
+                uistd.clearInputs();
+            }
+        }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-
+        if (std.getId() != 0) {
+            uistd = new UiStudent(firstName, lastName, phone2, phone1,
+                    firstName_err, lastName_err, phone1_err, phone2_err);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("suprimer");
+            alert.setHeaderText("suprimer confirmation");
+            alert.setContentText("Vérifier avant de supprimer");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                Results.Rstls r = StudentService.deleteStudent(std);
+                if (r == Results.Rstls.OBJECT_NOT_DELETED) {
+                    Alert a = new Alert(Alert.AlertType.INFORMATION);
+                    a.setTitle("Information Dialog");
+                    a.setHeaderText(r + "");
+                    a.showAndWait();
+                } else {
+                    try {
+                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                std = new Student();
+                uistd.clearInputs();
+            }
+        }
     }
 
     @FXML
-    private void select_provider(MouseEvent event) {
-
+    private void selectStudent(MouseEvent event) {
+        UiStudent uistd = new UiStudent(firstName, lastName, phone2, phone1,
+                firstName_err, lastName_err, phone1_err, phone2_err);
+        uistd.clearInputs();
+        std = (Student) studentTable.getSelectionModel().getSelectedItem();
+        if (std != null) {
+            firstName.setText(std.getFirstName());
+            lastName.setText(std.getLastName());
+            phone1.setText(std.getPhone1());
+            phone2.setText(std.getPhone2());
+        }
     }
-
 }

@@ -5,6 +5,10 @@
  */
 package schoolmanager.BackEnd.uiPresenter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -12,8 +16,8 @@ import javafx.scene.control.TextField;
  *
  * @author Zed Yacine
  */
-public class UiStudent extends TestingMethods{
-    
+public class UiStudent extends TestingMethods {
+
     private TextField firstName;
     private TextField lastName;
     private TextField phone2;
@@ -27,6 +31,13 @@ public class UiStudent extends TestingMethods{
     public UiStudent() {
     }
 
+    public UiStudent(TextField firstName, TextField lastName, TextField phone2, TextField phone1) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone2 = phone2;
+        this.phone1 = phone1;
+    }
+
     public UiStudent(TextField firstName, TextField lastName, TextField phone2, TextField phone1, Label firstName_err, Label lastName_err, Label phone1_err, Label phone2_err) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,7 +48,7 @@ public class UiStudent extends TestingMethods{
         this.phone1_err = phone1_err;
         this.phone2_err = phone2_err;
     }
-    
+
     public TextField getFirstName() {
         return firstName;
     }
@@ -119,24 +130,35 @@ public class UiStudent extends TestingMethods{
             blastName = true;
         }
         if (uistd.getPhone1().getText().isEmpty()) {
-            uistd.getPhone1_err().setText("le premier numiro de Telephone est vide");
+            uistd.getPhone1_err().setText("le premier numero de Telephone est vide");
             uistd.getPhone1_err().setVisible(true);
         } else {
             if (testInt(uistd.getPhone1())) {
-                uistd.getPhone1_err().setVisible(false);
-                bphone1 = true;
+                if (uistd.getPhone1().getText().length()  != 10) {
+                    uistd.getPhone1_err().setText("le numero telephone doit compose 10 chiffres");
+                    uistd.getPhone1_err().setVisible(true);
+                } else {
+                    uistd.getPhone1_err().setVisible(false);
+                    bphone1 = true;
+                }
+
             } else {
                 uistd.getPhone1_err().setText("Entrer des nombres");
                 uistd.getPhone1_err().setVisible(true);
             }
         }
         if (uistd.getPhone2().getText().isEmpty()) {
-            uistd.getPhone2_err().setText("le deuxième numiro de Telephone est vide");
+            uistd.getPhone2_err().setText("le deuxième numero de Telephone est vide");
             uistd.getPhone2_err().setVisible(true);
         } else {
             if (testInt(uistd.getPhone2())) {
-                uistd.getPhone2_err().setVisible(false);
-                bphone2 = true;
+                if (uistd.getPhone2().getText().length()  != 10) {
+                    uistd.getPhone2_err().setText("le numero telephone doit compose 10 chiffres");
+                    uistd.getPhone2_err().setVisible(true);
+                } else {
+                    uistd.getPhone2_err().setVisible(false);
+                    bphone2 = true;
+                }
             } else {
                 uistd.getPhone2_err().setText("Entrer des nombres");
                 uistd.getPhone2_err().setVisible(true);
@@ -145,4 +167,16 @@ public class UiStudent extends TestingMethods{
 
         return bFirstName && bphone1 && bphone2;
     }
+
+    public void clearInputs() {
+        this.firstName.setText("");
+        this.firstName_err.setText("");
+        this.lastName.setText("");
+        this.lastName_err.setText("");
+        this.phone1.setText("");
+        this.phone1_err.setText("");
+        this.phone2.setText("");
+        this.phone2_err.setText("");
+    }
+
 }

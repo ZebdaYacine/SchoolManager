@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
             error.setText("Le mot de passe est vide");
             error.setVisible(true);
         } else {
-            User loginUser = UserService.isauthentificated(user);
+            loginUser = UserService.isauthentificated(user);
             if (loginUser.getId() == 0) {
                 error.setText("échec de la connexion");
                 error.setVisible(true);
