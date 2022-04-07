@@ -111,7 +111,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Gestion">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#Product" text="les étudiants" />
+                  <MenuItem mnemonicParsing="false" onAction="#Student" text="les étudiants" />
                   <MenuItem mnemonicParsing="false" onAction="#Client" text="les professeurs" />
                   <MenuItem mnemonicParsing="false" onAction="#Provider" text="les niveaux" />
                   <MenuItem fx:id="user" mnemonicParsing="false" onAction="#User" text="les matières" />

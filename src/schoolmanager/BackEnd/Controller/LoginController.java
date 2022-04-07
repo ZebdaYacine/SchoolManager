@@ -27,7 +27,7 @@ import java.io.File;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Model.User;
 import schoolmanager.BackEnd.Service.UserService;
-import static schoolmanager.SchoolManager.loginstage;
+import static schoolmanager.SchoolManager.loginStage;
 
 /**
  * FXML Controller class
@@ -83,12 +83,12 @@ public class LoginController implements Initializable {
                         screenSize.height = 820;
                     }
                     Scene home_scene = new Scene(home, (screenSize.getWidth()), screenSize.getHeight());
-                    loginstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    loginstage.hide();
-                    loginstage.setScene(home_scene);
-                    loginstage.setTitle("School Manager");
+                    loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    loginStage.hide();
+                    loginStage.setScene(home_scene);
+                    loginStage.setTitle("School Manager");
                     //loginstage.setResizable(false);
-                    loginstage.show();
+                    loginStage.show();
                 } catch (IOException ex) {
                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -98,6 +98,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private void close(MouseEvent event) {
-        loginstage.close();
+        loginStage.close();
     }
 }

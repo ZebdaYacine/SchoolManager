@@ -14,6 +14,7 @@ import static schoolmanager.BackEnd.DataBaseConnection.con;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Results;
+import static schoolmanager.BackEnd.uiPresenter.UiStudent.UiStudentInputIsValid;
 
 /**
  *
@@ -22,6 +23,9 @@ import schoolmanager.BackEnd.Results;
 public class StudentService {
 
     public static Results.Rstls addStudent(Student student) {
+        if (student == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
                     + "insert into student (firstName,lastName,phone1,phone2)"
@@ -40,6 +44,9 @@ public class StudentService {
     }
 
     public static Results.Rstls updateStudent(Student student) {
+        if (student == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement("UPDATE "
                     + " student SET firstName = ?"
@@ -60,6 +67,9 @@ public class StudentService {
     }
 
     public static Results.Rstls deleteStudent(Student student) {
+        if (student == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
                     + " student WHERE id = ?");
@@ -101,7 +111,7 @@ public class StudentService {
     public static Student searchStudentByName(Student student) {
         String query;
         query = "SELECT * FROM student where firstName='" + student.getFirstName() + "' and "
-                + " lastName='" + student.getLastName()+"'";
+                + " lastName='" + student.getLastName() + "'";
         Student std = new Student();
         try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
@@ -120,5 +130,5 @@ public class StudentService {
         }
         return std;
     }
-    
+
 }

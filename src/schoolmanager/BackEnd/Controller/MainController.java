@@ -6,6 +6,7 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,9 +15,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import static schoolmanager.SchoolManager.studentStage;
 
 /**
  * FXML Controller class
@@ -84,8 +87,18 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void Product(ActionEvent event) throws IOException {
-
+    private void Student(ActionEvent event) throws IOException {
+        URL url = new File("src/schoolmanager/FrontEnd/layout/Student.fxml").toURI().toURL();
+        Parent uistd = FXMLLoader.load(url);
+        Scene scene = new Scene(uistd);
+        if (!studentStage.isShowing()) {
+            studentStage.setScene(scene);
+            studentStage.setTitle("gestion des etudiant");
+            studentStage.showAndWait();
+        } else {
+            studentStage.setAlwaysOnTop(true);
+            studentStage.setAlwaysOnTop(false);
+        }
     }
 
     @FXML
@@ -134,4 +147,3 @@ public class MainController implements Initializable {
     }
 
 }
-

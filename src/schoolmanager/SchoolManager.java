@@ -19,16 +19,17 @@ import schoolmanager.BackEnd.Model.Student;
  * @author Zed Yacine
  */
 public class SchoolManager extends Application {
-    
-    public static Stage loginstage = new Stage();
-    
+
+    public static Stage loginStage = new Stage();
+    public static Stage studentStage = new Stage();
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FrontEnd/layout/Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
+
     }
 
     /**
@@ -37,12 +38,12 @@ public class SchoolManager extends Application {
     public static void main(String[] args) {
         DataBaseConnection.Connect();
         new Thread(() -> {
-            while (DataBaseConnection.con == null) {                
-                
+            while (DataBaseConnection.con == null) {
+
             }
             launch(args);
         }).start();
-        
+
     }
-    
+
 }
