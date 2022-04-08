@@ -22,12 +22,13 @@ public class SchoolManager extends Application {
     public static Stage loginStage = new Stage();
     public static Stage studentStage = new Stage();
     public static Stage teacherStage = new Stage();
+    public static Stage levelstage = new Stage();
 
-    public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION
-            , "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
-    public static final Alert alertDelete = Template(Alert.AlertType.CONFIRMATION, 
+    public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION,
+             "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
+    public static final Alert alertDelete = Template(Alert.AlertType.CONFIRMATION,
             "suprimer", "suprimer confirmation", "Vérifier avant de supprimer");
-    
+
     public static Alert Template(Alert.AlertType type, String titel, String header, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(titel);

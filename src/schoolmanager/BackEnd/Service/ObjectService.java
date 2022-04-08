@@ -19,10 +19,10 @@ import schoolmanager.BackEnd.Results;
  */
 public class ObjectService {
 
-    public static Results.Rstls addObject(Template objTemplate,String tab) {
+    public static Results.Rstls addObject(Template objTemplate, String tab) {
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
-                    + "insert into "+tab+" (nameLevel) values (?)");
+                    + "insert into " + tab + " (name) values (?)");
             stm.setString(1, objTemplate.getName());
             stm.executeUpdate();
             stm.close();
@@ -33,10 +33,10 @@ public class ObjectService {
         }
     }
 
-    public static Results.Rstls updateObject(Template objTemplate , String tab) {
+    public static Results.Rstls updateObject(Template objTemplate, String tab) {
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement("UPDATE "
-                    + " "+tab+" SET name = ?"
+                    + " " + tab + " SET name = ?"
                     + " WHERE id = ? ");
             stm.setString(1, objTemplate.getName());
             stm.setLong(2, objTemplate.getId());
@@ -49,10 +49,10 @@ public class ObjectService {
         }
     }
 
-     public static Results.Rstls deleteObject(Template objTemplate, String tab) {
+    public static Results.Rstls deleteObject(Template objTemplate, String tab) {
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
-                    + " "+tab+" WHERE id = ?");
+                    + " " + tab + " WHERE id = ?");
             stm.setLong(1, objTemplate.getId());
             stm.executeUpdate();
             stm.close();
@@ -63,10 +63,10 @@ public class ObjectService {
         }
     }
 
-    public static ObservableList<Template> getAllObjects(String tab) {
+    public static ObservableList<Object> getAllObjects(String tab) {
         String query;
-        query = "SELECT * FROM  "+tab;
-        ObservableList<Template> listObjects = FXCollections.observableArrayList(new Template());
+        query = "SELECT * FROM  " + tab;
+        ObservableList<Object> listObjects = FXCollections.observableArrayList(new Template());
         listObjects.remove(0);
         try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
@@ -74,7 +74,7 @@ public class ObjectService {
             while (rs.next()) {
                 Template objTemplate = new Template();
                 objTemplate.setId(rs.getLong("id"));
-                objTemplate.setName(rs.getString("nameLevel"));
+                objTemplate.setName(rs.getString("name"));
                 listObjects.add(objTemplate);
             }
             rs.close();
@@ -85,23 +85,26 @@ public class ObjectService {
         return listObjects;
     }
 
-    public static Template searchObjectByName(Template obTemplate,String tab) {
+    public static ObservableList<Object> searchObjectByName(Template obTemplate, String tab) {
         String query;
-        query = "SELECT * FROM "+tab+" where name='" + obTemplate.getName();
+        query = "SELECT * FROM " + tab + " where name LIKE '" + obTemplate.getName() + "%'";
         Template obTemplate1 = new Template();
+        ObservableList<Object> listObjects = FXCollections.observableArrayList(new Template());
+        listObjects.remove(0);
         try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 obTemplate1.setId(rs.getLong("id"));
                 obTemplate1.setName(rs.getString("name"));
+                listObjects.add(obTemplate);
             }
             rs.close();
             ps.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return obTemplate1;
+        return listObjects;
     }
 
 }

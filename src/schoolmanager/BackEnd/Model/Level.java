@@ -27,5 +27,7 @@ public class Level extends Template{
     public Level(long id, String name) {
         super(id, name);
     }
+    
+    
 
 }

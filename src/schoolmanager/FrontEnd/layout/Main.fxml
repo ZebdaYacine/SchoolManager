@@ -113,7 +113,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#goToStudent" text="les étudiants" />
                   <MenuItem mnemonicParsing="false" onAction="#goToTeacher" text="les professeurs" />
-                  <MenuItem mnemonicParsing="false" onAction="#Provider" text="les niveaux" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToLevel" text="les niveaux" />
                   <MenuItem fx:id="user" mnemonicParsing="false" onAction="#User" text="les matières" />
                   <MenuItem mnemonicParsing="false" onAction="#Provider" text="les types" />
                   <MenuItem mnemonicParsing="false" onAction="#Provider" text="les salles" />

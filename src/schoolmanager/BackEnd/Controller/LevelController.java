@@ -6,31 +6,33 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
-import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.Level;
 import schoolmanager.BackEnd.Model.Teacher;
+import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.StudentService;
+import schoolmanager.BackEnd.Service.LevelService;
 import schoolmanager.BackEnd.Service.TeacherService;
+import schoolmanager.BackEnd.uiPresenter.UiLevel;
 import schoolmanager.BackEnd.uiPresenter.UiTeacher;
 import static schoolmanager.SchoolManager.alertUpdate;
 
@@ -39,38 +41,20 @@ import static schoolmanager.SchoolManager.alertUpdate;
  *
  * @author kadri
  */
-public class TeacherController implements Initializable {
+public class LevelController implements Initializable {
 
     @FXML
-    private TableView<?> teacherTable;
+    private TableView<?> levelTable;
     @FXML
-    private TextField firstName;
+    private TextField name;
     @FXML
-    private TextField lastName;
+    private TableColumn<?, ?> nameC;
     @FXML
-    private TextField phone;
-    @FXML
-    private TextField workePlace;
-    @FXML
-    private TableColumn<?, ?> firstNameC;
-    @FXML
-    private TableColumn<?, ?> lastNameC;
-    @FXML
-    private TableColumn<?, ?> phoneC;
-    @FXML
-    private TableColumn<?, ?> workPlaceC;
-    @FXML
-    private Label firstName_err;
-    @FXML
-    private Label lastName_err;
-    @FXML
-    private Label phone_err;
-    @FXML
-    private Label workeSpace_err;
+    private Label name_err;
 
-    private Teacher tech = new Teacher();
+    private Level levl = new Level();
 
-    private UiTeacher uitech = new UiTeacher();
+    private UiLevel uilevl = new UiLevel();
 
     @FXML
     private JFXButton delete;
@@ -82,8 +66,7 @@ public class TeacherController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uitech = new UiTeacher(firstName, lastName, phone, workePlace,
-                firstName_err, lastName_err, phone_err, workeSpace_err);
+        uilevl = new UiLevel(name, name_err);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
             delete.setVisible(false);
@@ -91,104 +74,98 @@ public class TeacherController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        try {
-            refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refrech(levelTable, nameC, "", new Template());
 
     }
 
-    public static void refrechTeacher(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, Teacher tech)
-            throws SQLException {
-        ObservableList<Teacher> pr = (ObservableList<Teacher>) TeacherService.getAllTeachers();
+    public static void refrech(TableView table, TableColumn Column1, String type, Template template) {
+        ObservableList<Object> pr;
+        switch (type) {
+            case "search": {
+                pr = (ObservableList<Object>) LevelService.searchObjectByName(template, "level");
+                break;
+            }
+            default: {
+                pr = (ObservableList<Object>) LevelService.getAllObjects("level");
+                break;
+            }
+        }
         Column1.setCellValueFactory(
-                new PropertyValueFactory<>("firstName")
-        );
-        Column2.setCellValueFactory(
-                new PropertyValueFactory<>("lastName")
-        );
-        Column3.setCellValueFactory(
-                new PropertyValueFactory<>("phone")
-        );
-        Column4.setCellValueFactory(
-                new PropertyValueFactory<>("workePlace")
+                new PropertyValueFactory<>("name")
         );
         table.setItems(pr);
     }
 
     @FXML
     private void add(ActionEvent event) {
-        Teacher tech = Mapping.getObjecTeacherFromUiTeacher(uitech);
-        Results.Rstls r = TeacherService.addTeacher(tech);
+        Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
+        Results.Rstls r = LevelService.addObject(lvel, "level");
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
         }
-        try {
-            refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refrech(levelTable, nameC, "", new Template());
     }
 
     @FXML
     private void update(ActionEvent event) {
-        if (tech.getId() != 0) {
-            Teacher newtech = Mapping.getObjecTeacherFromUiTeacher(uitech);
-            newtech.setId(tech.getId());
+        if (levl.getId() != 0) {
+            Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
+            lvel.setId(levl.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = TeacherService.updateTeacher(newtech);
+                Results.Rstls r = LevelService.updateObject(lvel, "level");
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
-                    try {
-                        refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
-                    } catch (SQLException ex) {
-                        Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    refrech(levelTable, nameC, "", new Template());
                 }
-                tech = new Teacher();
-                uitech.clearInputs();
+                levl = new Level();
+                uilevl.clearInputs();
             }
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if (tech.getId() != 0) {
-            Teacher newtech = Mapping.getObjecTeacherFromUiTeacher(uitech);
-            newtech.setId(tech.getId());
+        if (levl.getId() != 0) {
+            Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
+            lvel.setId(levl.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = TeacherService.deleteTeacher(newtech);
+                Results.Rstls r = LevelService.deleteObject(lvel, "level");
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
-                    try {
-                        refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
-                    } catch (SQLException ex) {
-                        Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    refrech(levelTable, nameC, "", new Template());
                 }
-                tech = new Teacher();
-                uitech.clearInputs();
+                levl = new Level();
+                uilevl.clearInputs();
             }
         }
     }
 
     @FXML
-    private void selectTeacher(MouseEvent event) {
-        UiTeacher uitech = new UiTeacher(firstName, lastName, phone, workePlace,
-                firstName_err, lastName_err, phone_err, workeSpace_err);
-        uitech.clearInputs();
-        tech = (Teacher) teacherTable.getSelectionModel().getSelectedItem();
-        if (tech != null) {
-            firstName.setText(tech.getFirstName());
-            lastName.setText(tech.getLastName());
-            phone.setText(tech.getPhone());
-            workePlace.setText(tech.getWorkePlace());
+    private void selectLevels(MouseEvent event) {
+        UiLevel uilevl = new UiLevel(name, name_err);
+        uilevl.clearInputs();
+        Template tmp = (Template) levelTable.getSelectionModel().getSelectedItem();
+        levl.setName(tmp.getName());
+        levl.setId(tmp.getId());
+        if (levl != null) {
+            name.setText(levl.getName());
+        }
+    }
+
+    @FXML
+    private void search(KeyEvent event) {
+        Template g = new Template();
+        String s = "";
+        if (!name.getText().isEmpty()) {
+            g.setName(name.getText());
+            s = "name";
+            refrech(levelTable, nameC, "search", g);
+        } else {
+            refrech(levelTable, nameC, "", new Template());
         }
     }
 }
