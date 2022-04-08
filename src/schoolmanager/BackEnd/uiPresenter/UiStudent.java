@@ -141,7 +141,6 @@ public class UiStudent extends TestingMethods {
                     uistd.getPhone1_err().setVisible(false);
                     bphone1 = true;
                 }
-
             } else {
                 uistd.getPhone1_err().setText("Entrer des nombres");
                 uistd.getPhone1_err().setVisible(true);

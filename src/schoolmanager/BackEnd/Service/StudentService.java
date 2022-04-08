@@ -5,16 +5,13 @@
  */
 package schoolmanager.BackEnd.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Results;
-import static schoolmanager.BackEnd.uiPresenter.UiStudent.UiStudentInputIsValid;
 
 /**
  *
@@ -85,7 +82,7 @@ public class StudentService {
 
     public static ObservableList<Student> getAllStudents() {
         String query;
-        query = "SELECT * FROM student ";
+        query = "SELECT * FROM student order by id desc ";
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {

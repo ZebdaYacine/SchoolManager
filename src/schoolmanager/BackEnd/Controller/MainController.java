@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import static schoolmanager.SchoolManager.studentStage;
 
 /**
@@ -87,23 +90,15 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void Student(ActionEvent event) throws IOException {
+    private void goToStudent(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Student.fxml").toURI().toURL();
-        Parent uistd = FXMLLoader.load(url);
-        Scene scene = new Scene(uistd);
-        if (!studentStage.isShowing()) {
-            studentStage.setScene(scene);
-            studentStage.setTitle("gestion des etudiant");
-            studentStage.showAndWait();
-        } else {
-            studentStage.setAlwaysOnTop(true);
-            studentStage.setAlwaysOnTop(false);
-        }
+        swithchLayout(url, studentStage, "gestion des etudiant");
     }
 
     @FXML
-    private void Client(ActionEvent event) throws IOException {
-
+    private void goToTeacher(ActionEvent event) throws IOException {
+        URL url = new File("src/schoolmanager/FrontEnd/layout/Teacher.fxml").toURI().toURL();
+        swithchLayout(url, studentStage, "gestion des professeurs");
     }
 
     @FXML
@@ -143,6 +138,24 @@ public class MainController implements Initializable {
 
     @FXML
     private void User(ActionEvent event) throws IOException {
+
+    }
+
+    private void swithchLayout(URL url, Stage stage, String title) {
+        try {
+            Parent uistd = FXMLLoader.load(url);
+            Scene scene = new Scene(uistd);
+            if (!stage.isShowing()) {
+                stage.setScene(scene);
+                stage.setTitle(title);
+                stage.showAndWait();
+            } else {
+                stage.setAlwaysOnTop(true);
+                stage.setAlwaysOnTop(false);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

@@ -9,10 +9,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import schoolmanager.BackEnd.DataBaseConnection;
-import schoolmanager.BackEnd.Model.Room;
-import schoolmanager.BackEnd.Model.Student;
 
 /**
  *
@@ -22,6 +21,20 @@ public class SchoolManager extends Application {
 
     public static Stage loginStage = new Stage();
     public static Stage studentStage = new Stage();
+    public static Stage teacherStage = new Stage();
+
+    public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION
+            , "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
+    public static final Alert alertDelete = Template(Alert.AlertType.CONFIRMATION, 
+            "suprimer", "suprimer confirmation", "Vérifier avant de supprimer");
+    
+    public static Alert Template(Alert.AlertType type, String titel, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titel);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        return alert;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {

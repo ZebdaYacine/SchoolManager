@@ -27,9 +27,11 @@ import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.StudentService;
-import schoolmanager.BackEnd.uiPresenter.UiStudent;
+import schoolmanager.BackEnd.Service.TeacherService;
+import schoolmanager.BackEnd.uiPresenter.UiTeacher;
 import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
@@ -37,38 +39,38 @@ import static schoolmanager.SchoolManager.alertUpdate;
  *
  * @author kadri
  */
-public class StudentController implements Initializable {
+public class TeacherController implements Initializable {
 
     @FXML
-    private TableView<?> studentTable;
+    private TableView<?> teacherTable;
     @FXML
     private TextField firstName;
     @FXML
     private TextField lastName;
     @FXML
-    private TextField phone2;
+    private TextField phone;
     @FXML
-    private TextField phone1;
+    private TextField workePlace;
     @FXML
     private TableColumn<?, ?> firstNameC;
     @FXML
     private TableColumn<?, ?> lastNameC;
     @FXML
-    private TableColumn<?, ?> phone1C;
+    private TableColumn<?, ?> phoneC;
     @FXML
-    private TableColumn<?, ?> phone2C;
+    private TableColumn<?, ?> workPlaceC;
     @FXML
     private Label firstName_err;
     @FXML
     private Label lastName_err;
     @FXML
-    private Label phone1_err;
+    private Label phone_err;
     @FXML
-    private Label phone2_err;
+    private Label workeSpace_err;
 
-    private Student std = new Student();
+    private Teacher tech = new Teacher();
 
-    private UiStudent uistd = new UiStudent();
+    private UiTeacher uitech = new UiTeacher();
 
     @FXML
     private JFXButton delete;
@@ -80,8 +82,8 @@ public class StudentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uistd = new UiStudent(firstName, lastName, phone2, phone1,
-                firstName_err, lastName_err, phone1_err, phone2_err);
+        uitech = new UiTeacher(firstName, lastName, phone, workePlace,
+                firstName_err, lastName_err, phone_err, workeSpace_err);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
             delete.setVisible(false);
@@ -90,17 +92,17 @@ public class StudentController implements Initializable {
             delete.setVisible(true);
         }
         try {
-            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+            refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
         } catch (SQLException ex) {
-            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, Student std)
+    public static void refrechTeacher(TableView table, TableColumn Column1, TableColumn Column2,
+            TableColumn Column3, TableColumn Column4, Teacher tech)
             throws SQLException {
-        ObservableList<Student> pr = (ObservableList<Student>) StudentService.getAllStudents();
+        ObservableList<Teacher> pr = (ObservableList<Teacher>) TeacherService.getAllTeachers();
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
         );
@@ -108,83 +110,85 @@ public class StudentController implements Initializable {
                 new PropertyValueFactory<>("lastName")
         );
         Column3.setCellValueFactory(
-                new PropertyValueFactory<>("phone1")
+                new PropertyValueFactory<>("phone")
         );
         Column4.setCellValueFactory(
-                new PropertyValueFactory<>("phone2")
+                new PropertyValueFactory<>("workePlace")
         );
         table.setItems(pr);
     }
 
     @FXML
     private void add(ActionEvent event) {
-        Student std = Mapping.getObjecStudentFromUiStudent(uistd);
-        Results.Rstls r = StudentService.addStudent(std);
+        Teacher tech = Mapping.getObjecTeacherFromUiTeacher(uitech);
+        Results.Rstls r = TeacherService.addTeacher(tech);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
         }
         try {
-            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+            refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
         } catch (SQLException ex) {
-            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
     private void update(ActionEvent event) {
-        if (std.getId() != 0) {
-            Student newStd = Mapping.getObjecStudentFromUiStudent(uistd);
-            newStd.setId(std.getId());
+        if (tech.getId() != 0) {
+            Teacher newtech = Mapping.getObjecTeacherFromUiTeacher(uitech);
+            newtech.setId(tech.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.updateStudent(newStd);
+                Results.Rstls r = TeacherService.updateTeacher(newtech);
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
                     try {
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+                        refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
                     } catch (SQLException ex) {
-                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                std = new Student();
-                uistd.clearInputs();
+                tech = new Teacher();
+                uitech.clearInputs();
             }
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if (std.getId() != 0) {
+        if (tech.getId() != 0) {
+            Teacher newtech = Mapping.getObjecTeacherFromUiTeacher(uitech);
+            newtech.setId(tech.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.deleteStudent(std);
-                if (r == Results.Rstls.OBJECT_NOT_DELETED) {
+                Results.Rstls r = TeacherService.deleteTeacher(newtech);
+                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
                     try {
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student());
+                        refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
                     } catch (SQLException ex) {
-                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                std = new Student();
-                uistd.clearInputs();
+                tech = new Teacher();
+                uitech.clearInputs();
             }
         }
     }
 
     @FXML
-    private void selectStudent(MouseEvent event) {
-        UiStudent uistd = new UiStudent(firstName, lastName, phone2, phone1,
-                firstName_err, lastName_err, phone1_err, phone2_err);
-        uistd.clearInputs();
-        std = (Student) studentTable.getSelectionModel().getSelectedItem();
-        if (std != null) {
-            firstName.setText(std.getFirstName());
-            lastName.setText(std.getLastName());
-            phone1.setText(std.getPhone1());
-            phone2.setText(std.getPhone2());
+    private void selectTeacher(MouseEvent event) {
+        UiTeacher uitech = new UiTeacher(firstName, lastName, phone, workePlace,
+                firstName_err, lastName_err, phone_err, workeSpace_err);
+        uitech.clearInputs();
+        tech = (Teacher) teacherTable.getSelectionModel().getSelectedItem();
+        if (tech != null) {
+            firstName.setText(tech.getFirstName());
+            lastName.setText(tech.getLastName());
+            phone.setText(tech.getPhone());
+            workePlace.setText(tech.getWorkePlace());
         }
     }
 }

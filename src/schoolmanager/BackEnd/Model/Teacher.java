@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class Teacher extends Person {
 
-    private String phoneTeacher;
+    private String phone;
     private String workePlace;
 
     public Teacher() {
@@ -29,22 +29,22 @@ public class Teacher extends Person {
 
     public Teacher(String firstName, String lastName, String phoneTeacher, String workePlace) {
         super(firstName, lastName);
-        this.phoneTeacher = phoneTeacher;
+        this.phone = phoneTeacher;
         this.workePlace = workePlace;
     }
 
     public Teacher(long id, String firstName, String lastName, String phoneTeacher, String workePlace) {
         super(id, firstName, lastName);
-        this.phoneTeacher = phoneTeacher;
+        this.phone = phoneTeacher;
         this.workePlace = workePlace;
     }
 
-    public String getPhoneTeacher() {
-        return phoneTeacher;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneTeacher(String phoneTeacher) {
-        this.phoneTeacher = phoneTeacher;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getWorkePlace() {

@@ -20,13 +20,16 @@ import schoolmanager.BackEnd.Results;
 public class TeacherService {
 
     public static Results.Rstls addTeacher(Teacher teacher) {
+        if (teacher == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
                     + "insert into teacher (firstName,lastName,phone,workePlace)"
                     + " values (?,?,?,?)");
             stm.setString(1, teacher.getFirstName());
             stm.setString(2, teacher.getLastName());
-            stm.setString(3, teacher.getPhoneTeacher());
+            stm.setString(3, teacher.getPhone());
             stm.setString(4, teacher.getWorkePlace());
             stm.executeUpdate();
             stm.close();
@@ -45,7 +48,7 @@ public class TeacherService {
                     + " WHERE id = ? ");
             stm.setString(1, teacher.getFirstName());
             stm.setString(2, teacher.getLastName());
-            stm.setString(3, teacher.getPhoneTeacher());
+            stm.setString(3, teacher.getPhone());
             stm.setString(4, teacher.getWorkePlace());
             stm.setLong(5, teacher.getId());
             stm.executeUpdate();
@@ -57,7 +60,7 @@ public class TeacherService {
         }
     }
 
-     public static Results.Rstls deleteTeacher(Teacher teacher) {
+    public static Results.Rstls deleteTeacher(Teacher teacher) {
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
                     + " teacher WHERE id = ?");
@@ -73,7 +76,7 @@ public class TeacherService {
 
     public static ObservableList<Teacher> getAllTeachers() {
         String query;
-        query = "SELECT * FROM teacher ";
+        query = "SELECT * FROM teacher order by id desc ";
         ObservableList<Teacher> listTeachers = FXCollections.observableArrayList(new Teacher());
         listTeachers.remove(0);
         try {
@@ -84,7 +87,7 @@ public class TeacherService {
                 student.setId(rs.getLong("id"));
                 student.setFirstName(rs.getString("firstName"));
                 student.setLastName(rs.getString("lastName"));
-                student.setPhoneTeacher(rs.getString("phone"));
+                student.setPhone(rs.getString("phone"));
                 student.setWorkePlace(rs.getString("workePlace"));
                 listTeachers.add(student);
             }
@@ -108,7 +111,7 @@ public class TeacherService {
                 tchr.setId(rs.getLong("id"));
                 tchr.setFirstName(rs.getString("firstName"));
                 tchr.setLastName(rs.getString("lastName"));
-                tchr.setPhoneTeacher(rs.getString("phone"));
+                tchr.setPhone(rs.getString("phone"));
                 tchr.setWorkePlace(rs.getString("workePlace"));
             }
             rs.close();

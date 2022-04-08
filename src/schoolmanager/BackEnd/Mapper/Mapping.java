@@ -7,8 +7,10 @@ package schoolmanager.BackEnd.Mapper;
 
 import javafx.scene.control.TextField;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
 import static schoolmanager.BackEnd.uiPresenter.UiStudent.UiStudentInputIsValid;
+import schoolmanager.BackEnd.uiPresenter.UiTeacher;
 
 /**
  *
@@ -21,6 +23,16 @@ public class Mapping {
         if (a) {
             return new Student(uistd.getFirstName().getText(), uistd.getLastName().getText(),
                     uistd.getPhone1().getText(), uistd.getPhone2().getText());
+        } else {
+            return null;
+        }
+    }
+    
+    public static Teacher getObjecTeacherFromUiTeacher(UiTeacher uitech) {
+        boolean a = UiTeacher.UiTeacherInputIsValid(uitech);
+        if (a) {
+            return new Teacher(uitech.getFirstName().getText(), uitech.getLastName().getText(),
+                    uitech.getPhone().getText(), uitech.getWorkeSpace().getText());
         } else {
             return null;
         }
