@@ -100,7 +100,7 @@ public class TeacherServiceTest {
     public void testSearchStudentByName() {
         System.out.println("searchStudentByName");
         Teacher yacine = new Teacher("zed", "yacine");
-        Teacher yacTeacher = TeacherService.searchStudentByName(yacine);
+        Teacher yacTeacher = (Teacher) TeacherService.searchTeacherByName(yacine);
         System.err.println(yacTeacher.getId());
     }
 

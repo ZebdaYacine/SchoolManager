@@ -13,12 +13,12 @@ import javafx.scene.control.TextField;
  *
  * @author Zed Yacine
  */
-public class UiLevel extends UiTemplate {
+public class UiModule extends UiTemplate {
 
-    public UiLevel() {
+    public UiModule() {
     }
 
-    public UiLevel(TextField name, Label name_err) {
+    public UiModule(TextField name, Label name_err) {
         super(name, name_err);
     }
     

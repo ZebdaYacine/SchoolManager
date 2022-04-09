@@ -5,13 +5,13 @@
  */
 package schoolmanager.BackEnd.Mapper;
 
-import javafx.scene.control.TextField;
 import schoolmanager.BackEnd.Model.Level;
+import schoolmanager.BackEnd.Model.Module;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.uiPresenter.UiLevel;
+import schoolmanager.BackEnd.uiPresenter.UiModule;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
-import static schoolmanager.BackEnd.uiPresenter.UiStudent.UiStudentInputIsValid;
 import schoolmanager.BackEnd.uiPresenter.UiTeacher;
 
 /**
@@ -41,9 +41,18 @@ public class Mapping {
     }
     
     public static Level getObjecLevelFromUiLevl(UiLevel uiLevl) {
-        boolean a = UiLevel.UiLevelInputIsValid(uiLevl);
+        boolean a = UiLevel.UiInputIsValid(uiLevl);
         if (a) {
             return new Level(uiLevl.getName().getText());
+        } else {
+            return null;
+        }
+    }
+    
+    public static Module getObjecModuleFromUiModule(UiModule uiModule) {
+        boolean a = UiModule.UiInputIsValid(uiModule);
+        if (a) {
+            return new Module(uiModule.getName().getText());
         } else {
             return null;
         }

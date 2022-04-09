@@ -22,7 +22,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import static schoolmanager.SchoolManager.levelstage;
+import static schoolmanager.SchoolManager.modulelstage;
 import static schoolmanager.SchoolManager.studentStage;
+import static schoolmanager.SchoolManager.teacherStage;
 
 /**
  * FXML Controller class
@@ -98,17 +101,23 @@ public class MainController implements Initializable {
     @FXML
     private void goToTeacher(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Teacher.fxml").toURI().toURL();
-        swithchLayout(url, studentStage, "gestion des professeurs");
+        swithchLayout(url, teacherStage, "gestion des professeurs");
     }
 
     @FXML
     private void goToLevel(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/level.fxml").toURI().toURL();
-        swithchLayout(url, studentStage, "gestion des niveaux");
+        swithchLayout(url, levelstage, "gestion des niveaux");
 
     }
-    
-     @FXML
+
+    @FXML
+    private void goToModule(ActionEvent event) throws IOException {
+        URL url = new File("src/schoolmanager/FrontEnd/layout/module.fxml").toURI().toURL();
+        swithchLayout(url, modulelstage, "gestion des modules");
+    }
+
+    @FXML
     private void Provider(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/level.fxml").toURI().toURL();
         swithchLayout(url, studentStage, "gestion des niveaux");
@@ -142,11 +151,6 @@ public class MainController implements Initializable {
 
     @FXML
     private void press(MouseEvent event) {
-
-    }
-
-    @FXML
-    private void User(ActionEvent event) throws IOException {
 
     }
 

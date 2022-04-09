@@ -99,11 +99,12 @@ public class TeacherService {
         return listTeachers;
     }
 
-    public static Teacher searchStudentByName(Teacher teacher) {
+    public static ObservableList<Teacher> searchTeacherByName(Teacher teacher) {
         String query;
-        query = "SELECT * FROM student where firstName='" + teacher.getFirstName() + "' and "
-                + " lastName='" + teacher.getLastName() + "'";
+        query = "SELECT * FROM teacher where firstName LIKE '" + teacher.getFirstName() + "'";
         Teacher tchr = new Teacher();
+        ObservableList<Teacher> listTeachers = FXCollections.observableArrayList(new Teacher());
+        listTeachers.remove(0);
         try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -113,13 +114,14 @@ public class TeacherService {
                 tchr.setLastName(rs.getString("lastName"));
                 tchr.setPhone(rs.getString("phone"));
                 tchr.setWorkePlace(rs.getString("workePlace"));
+                listTeachers.add(tchr);
             }
             rs.close();
             ps.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return tchr;
+        return listTeachers;
     }
 
 }

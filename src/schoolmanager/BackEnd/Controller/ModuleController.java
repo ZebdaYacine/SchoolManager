@@ -24,13 +24,13 @@ import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Level;
-import schoolmanager.BackEnd.Model.Teacher;
+import schoolmanager.BackEnd.Model.Module;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.LevelService;
-import schoolmanager.BackEnd.Service.TeacherService;
+import schoolmanager.BackEnd.Service.ModuleService;
 import schoolmanager.BackEnd.uiPresenter.UiLevel;
-import schoolmanager.BackEnd.uiPresenter.UiTeacher;
+import schoolmanager.BackEnd.uiPresenter.UiModule;
 import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
@@ -38,10 +38,10 @@ import static schoolmanager.SchoolManager.alertUpdate;
  *
  * @author kadri
  */
-public class LevelController implements Initializable {
+public class ModuleController implements Initializable {
 
     @FXML
-    private TableView<?> levelTable;
+    private TableView<?> moduleTable;
     @FXML
     private TextField name;
     @FXML
@@ -49,9 +49,9 @@ public class LevelController implements Initializable {
     @FXML
     private Label name_err;
 
-    private Level levl = new Level();
+    private Module module = new Module();
 
-    private UiLevel uilevl = new UiLevel();
+    private UiModule uiModule = new UiModule();
 
     @FXML
     private JFXButton delete;
@@ -63,7 +63,7 @@ public class LevelController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uilevl = new UiLevel(name, name_err);
+        uiModule = new UiModule(name, name_err);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
             delete.setVisible(false);
@@ -71,19 +71,18 @@ public class LevelController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        refrech(levelTable, nameC, "", new Template());
-
+        refrech(moduleTable, nameC, "", new Template());
     }
 
     public static void refrech(TableView table, TableColumn Column1, String type, Template template) {
         ObservableList<Object> pr;
         switch (type) {
             case "search": {
-                pr = (ObservableList<Object>) LevelService.searchObjectByName(template, "level");
+                pr = (ObservableList<Object>) ModuleService.searchObjectByName(template, "module");
                 break;
             }
             default: {
-                pr = (ObservableList<Object>) LevelService.getAllObjects("level");
+                pr = (ObservableList<Object>) ModuleService.getAllObjects("module");
                 break;
             }
         }
@@ -95,48 +94,48 @@ public class LevelController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
-        Results.Rstls r = LevelService.addObject(lvel, "level");
+        Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
+        Results.Rstls r = ModuleService.addObject(mdl, "module");
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
         }
-        refrech(levelTable, nameC, "", new Template());
+        refrech(moduleTable, nameC, "", new Template());
     }
 
     @FXML
     private void update(ActionEvent event) {
-        if (levl.getId() != 0) {
-            Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
-            lvel.setId(levl.getId());
+        if (module.getId() != 0) {
+            Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
+            mdl.setId(module.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = LevelService.updateObject(lvel, "level");
+                Results.Rstls r = LevelService.updateObject(mdl, "module");
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
-                    refrech(levelTable, nameC, "", new Template());
+                    refrech(moduleTable, nameC, "", new Template());
                 }
-                levl = new Level();
-                uilevl.clearInputs();
+                module = new Module();
+                uiModule.clearInputs();
             }
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if (levl.getId() != 0) {
-            Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
-            lvel.setId(levl.getId());
+        if (module.getId() != 0) {
+            Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
+            mdl.setId(module.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = LevelService.deleteObject(lvel, "level");
+                Results.Rstls r = LevelService.deleteObject(mdl, "module");
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
-                    refrech(levelTable, nameC, "", new Template());
+                    refrech(moduleTable, nameC, "", new Template());
                 }
-                levl = new Level();
-                uilevl.clearInputs();
+                module = new Module();
+                uiModule.clearInputs();
             }
         }
     }
@@ -145,11 +144,11 @@ public class LevelController implements Initializable {
     private void selectLevels(MouseEvent event) {
         UiLevel uilevl = new UiLevel(name, name_err);
         uilevl.clearInputs();
-        Template tmp = (Template) levelTable.getSelectionModel().getSelectedItem();
-        levl.setName(tmp.getName());
-        levl.setId(tmp.getId());
-        if (levl != null) {
-            name.setText(levl.getName());
+        Template tmp = (Template) moduleTable.getSelectionModel().getSelectedItem();
+        module.setName(tmp.getName());
+        module.setId(tmp.getId());
+        if (module != null) {
+            name.setText(module.getName());
         }
     }
 
@@ -160,9 +159,9 @@ public class LevelController implements Initializable {
         if (!name.getText().isEmpty()) {
             g.setName(name.getText());
             s = "name";
-            refrech(levelTable, nameC, "search", g);
+            refrech(moduleTable, nameC, "search", g);
         } else {
-            refrech(levelTable, nameC, "", new Template());
+            refrech(moduleTable, nameC, "", new Template());
         }
     }
 }

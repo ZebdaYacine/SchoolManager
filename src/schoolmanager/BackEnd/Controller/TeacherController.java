@@ -6,6 +6,7 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -76,12 +77,54 @@ public class TeacherController implements Initializable {
     private JFXButton delete;
     @FXML
     private JFXButton update;
+    @FXML
+    private JFXToggleButton enableSearch;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        enableSearch.setSelected(false);
+        enableSearch.setOnAction(((event) -> {
+            if (enableSearch.isSelected()) {
+                if (!firstName.getText().equals("")) {
+                    try {
+                        tech.setFirstName(firstName.getText());
+                        refrechTeacher(teacherTable, firstNameC,
+                                lastNameC, phoneC, workPlaceC,
+                                tech, "searche");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else {
+                    enableSearch.setSelected(false);
+                    uitech.clearInputs();
+                }
+            } else {
+                try {
+                    refrechTeacher(teacherTable, firstNameC,
+                            lastNameC, phoneC, workPlaceC,
+                            tech, "");
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                uitech.clearInputs();
+            }
+        }));
+        firstName.setOnKeyTyped(((event) -> {
+            if (firstName.getText().equals("")) {
+                enableSearch.setSelected(false);
+                try {
+                    refrechTeacher(teacherTable, firstNameC,
+                            lastNameC, phoneC, workPlaceC,
+                            tech, "");
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }));
         uitech = new UiTeacher(firstName, lastName, phone, workePlace,
                 firstName_err, lastName_err, phone_err, workeSpace_err);
         if (loginUser.getRole().equals("simple")) {
@@ -92,17 +135,23 @@ public class TeacherController implements Initializable {
             delete.setVisible(true);
         }
         try {
-            refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
+            refrechTeacher(teacherTable, firstNameC, lastNameC,
+                    phoneC, workPlaceC, new Teacher(), "");
         } catch (SQLException ex) {
             Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public static void refrechTeacher(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, Teacher tech)
+    public void refrechTeacher(TableView table, TableColumn Column1, TableColumn Column2,
+            TableColumn Column3, TableColumn Column4, Teacher tech, String type)
             throws SQLException {
-        ObservableList<Teacher> pr = (ObservableList<Teacher>) TeacherService.getAllTeachers();
+        ObservableList<Teacher> pr;
+        if (type.equals("searche")) {
+            pr = (ObservableList<Teacher>) TeacherService.searchTeacherByName(tech);
+        } else {
+            pr = (ObservableList<Teacher>) TeacherService.getAllTeachers();
+        }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
         );
@@ -116,6 +165,7 @@ public class TeacherController implements Initializable {
                 new PropertyValueFactory<>("workePlace")
         );
         table.setItems(pr);
+
     }
 
     @FXML
@@ -124,11 +174,14 @@ public class TeacherController implements Initializable {
         Results.Rstls r = TeacherService.addTeacher(tech);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
-        }
-        try {
-            refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            uitech.clearInputs();
+            try {
+                refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC,
+                        workPlaceC, new Teacher(), "");
+            } catch (SQLException ex) {
+                Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -144,7 +197,8 @@ public class TeacherController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     try {
-                        refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
+                        refrechTeacher(teacherTable, firstNameC, lastNameC,
+                                phoneC, workPlaceC, new Teacher(), "");
                     } catch (SQLException ex) {
                         Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -167,7 +221,8 @@ public class TeacherController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     try {
-                        refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC, workPlaceC, new Teacher());
+                        refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC,
+                                workPlaceC, new Teacher(), "");
                     } catch (SQLException ex) {
                         Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
                     }

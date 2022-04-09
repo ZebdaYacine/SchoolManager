@@ -23,9 +23,10 @@ public class SchoolManager extends Application {
     public static Stage studentStage = new Stage();
     public static Stage teacherStage = new Stage();
     public static Stage levelstage = new Stage();
+    public static Stage modulelstage = new Stage();
 
     public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION,
-             "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
+            "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
     public static final Alert alertDelete = Template(Alert.AlertType.CONFIRMATION,
             "suprimer", "suprimer confirmation", "Vérifier avant de supprimer");
 
