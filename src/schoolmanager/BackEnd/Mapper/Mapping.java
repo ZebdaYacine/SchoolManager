@@ -9,10 +9,12 @@ import schoolmanager.BackEnd.Model.Level;
 import schoolmanager.BackEnd.Model.Module;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Model.Teacher;
+import schoolmanager.BackEnd.Model.Type;
 import schoolmanager.BackEnd.uiPresenter.UiLevel;
 import schoolmanager.BackEnd.uiPresenter.UiModule;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
 import schoolmanager.BackEnd.uiPresenter.UiTeacher;
+import schoolmanager.BackEnd.uiPresenter.UiType;
 
 /**
  *
@@ -53,6 +55,15 @@ public class Mapping {
         boolean a = UiModule.UiInputIsValid(uiModule);
         if (a) {
             return new Module(uiModule.getName().getText());
+        } else {
+            return null;
+        }
+    }
+    
+    public static Type getObjecTypeFromUiType(UiType uiType) {
+        boolean a = UiType.UiInputIsValid(uiType);
+        if (a) {
+            return new Type(uiType.getName().getText());
         } else {
             return null;
         }

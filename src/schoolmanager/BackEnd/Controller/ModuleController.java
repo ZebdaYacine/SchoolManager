@@ -141,14 +141,16 @@ public class ModuleController implements Initializable {
     }
 
     @FXML
-    private void selectLevels(MouseEvent event) {
-        UiLevel uilevl = new UiLevel(name, name_err);
-        uilevl.clearInputs();
+    private void select(MouseEvent event) {
+        UiModule uiMdl = new UiModule(name, name_err);
+        uiMdl.clearInputs();
         Template tmp = (Template) moduleTable.getSelectionModel().getSelectedItem();
-        module.setName(tmp.getName());
-        module.setId(tmp.getId());
-        if (module != null) {
-            name.setText(module.getName());
+        if (tmp != null) {
+            module.setName(tmp.getName());
+            module.setId(tmp.getId());
+            if (module != null) {
+                name.setText(module.getName());
+            }
         }
     }
 

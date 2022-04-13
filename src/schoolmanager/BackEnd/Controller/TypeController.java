@@ -26,11 +26,14 @@ import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Level;
 import schoolmanager.BackEnd.Model.Module;
 import schoolmanager.BackEnd.Model.Template;
+import schoolmanager.BackEnd.Model.Type;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.LevelService;
 import schoolmanager.BackEnd.Service.ModuleService;
+import schoolmanager.BackEnd.Service.TypeService;
 import schoolmanager.BackEnd.uiPresenter.UiLevel;
 import schoolmanager.BackEnd.uiPresenter.UiModule;
+import schoolmanager.BackEnd.uiPresenter.UiType;
 import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
@@ -38,10 +41,10 @@ import static schoolmanager.SchoolManager.alertUpdate;
  *
  * @author kadri
  */
-public class ModuleController implements Initializable {
+public class TypeController implements Initializable {
 
     @FXML
-    private TableView<?> moduleTable;
+    private TableView<?> typeTable;
     @FXML
     private TextField name;
     @FXML
@@ -49,9 +52,9 @@ public class ModuleController implements Initializable {
     @FXML
     private Label name_err;
 
-    private Module module = new Module();
+    private Type type = new Type();
 
-    private UiModule uiModule = new UiModule();
+    private UiType uiType = new UiType();
 
     @FXML
     private JFXButton delete;
@@ -63,7 +66,7 @@ public class ModuleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uiModule = new UiModule(name, name_err);
+        uiType = new UiType(name, name_err);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
             delete.setVisible(false);
@@ -71,18 +74,18 @@ public class ModuleController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        refrech(moduleTable, nameC, "", new Template());
+        refrech(typeTable, nameC, "", new Template());
     }
 
     public static void refrech(TableView table, TableColumn Column1, String type, Template template) {
         ObservableList<Object> pr;
         switch (type) {
             case "search": {
-                pr = (ObservableList<Object>) ModuleService.searchObjectByName(template, "module");
+                pr = (ObservableList<Object>) ModuleService.searchObjectByName(template, "type");
                 break;
             }
             default: {
-                pr = (ObservableList<Object>) ModuleService.getAllObjects("module");
+                pr = (ObservableList<Object>) ModuleService.getAllObjects("type");
                 break;
             }
         }
@@ -94,61 +97,63 @@ public class ModuleController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
-        Results.Rstls r = ModuleService.addObject(mdl, "module");
+        Type type = Mapping.getObjecTypeFromUiType(uiType);
+        Results.Rstls r = TypeService.addObject(type, "type");
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
         }
-        refrech(moduleTable, nameC, "", new Template());
+        refrech(typeTable, nameC, "", new Template());
     }
 
     @FXML
     private void update(ActionEvent event) {
-        if (module.getId() != 0) {
-            Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
-            mdl.setId(module.getId());
+        if (type.getId() != 0) {
+            type = Mapping.getObjecTypeFromUiType(uiType);
+            type.setId(type.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = LevelService.updateObject(mdl, "module");
+                Results.Rstls r = TypeService.updateObject(type, "type");
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
-                    refrech(moduleTable, nameC, "", new Template());
+                    refrech(typeTable, nameC, "", new Template());
                 }
-                module = new Module();
-                uiModule.clearInputs();
+                type = new Type();
+                uiType.clearInputs();
             }
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if (module.getId() != 0) {
-            Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
-            mdl.setId(module.getId());
+        if (type.getId() != 0) {
+            type = Mapping.getObjecTypeFromUiType(uiType);
+            type.setId(type.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = LevelService.deleteObject(mdl, "module");
+                Results.Rstls r = TypeService.deleteObject(type, "type");
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
-                    refrech(moduleTable, nameC, "", new Template());
+                    refrech(typeTable, nameC, "", new Template());
                 }
-                module = new Module();
-                uiModule.clearInputs();
+                type = new Type();
+                uiType.clearInputs();
             }
         }
     }
 
     @FXML
-    private void selectLevels(MouseEvent event) {
-        UiLevel uilevl = new UiLevel(name, name_err);
-        uilevl.clearInputs();
-        Template tmp = (Template) moduleTable.getSelectionModel().getSelectedItem();
-        module.setName(tmp.getName());
-        module.setId(tmp.getId());
-        if (module != null) {
-            name.setText(module.getName());
+    private void select(MouseEvent event) {
+        UiType uiType = new UiType(name, name_err);
+        uiType.clearInputs();
+        Template tmp = (Template) typeTable.getSelectionModel().getSelectedItem();
+        if (tmp != null) {
+            type.setName(tmp.getName());
+            type.setId(tmp.getId());
+            if (type != null) {
+                name.setText(type.getName());
+            }
         }
     }
 
@@ -159,9 +164,9 @@ public class ModuleController implements Initializable {
         if (!name.getText().isEmpty()) {
             g.setName(name.getText());
             s = "name";
-            refrech(moduleTable, nameC, "search", g);
+            refrech(typeTable, nameC, "search", g);
         } else {
-            refrech(moduleTable, nameC, "", new Template());
+            refrech(typeTable, nameC, "", new Template());
         }
     }
 }

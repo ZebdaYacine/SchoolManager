@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="559.0" styleClass="back" stylesheets="@../Style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.ModuleController">
+<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="559.0" styleClass="back" stylesheets="@../Style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.TypeController">
    <children>
-      <JFXTextField fx:id="name" focusColor="WHITE" labelFloat="true" layoutX="30.0" layoutY="40.0" onAction="#add" onKeyReleased="#search" prefHeight="30.0" prefWidth="180.0" promptText="Module" styleClass="jfxtextfield" stylesheets="@../Style/style.css" unFocusColor="#ff4d00" />
+      <JFXTextField fx:id="name" focusColor="WHITE" labelFloat="true" layoutX="30.0" layoutY="40.0" onAction="#add" onKeyReleased="#search" prefHeight="30.0" prefWidth="180.0" promptText="Type" styleClass="jfxtextfield" stylesheets="@../Style/style.css" unFocusColor="#ff4d00" />
       <Label fx:id="name_err" layoutX="30.0" layoutY="75.0" styleClass="labels_err" stylesheets="@../Style/style.css" visible="false" />
       <JFXButton layoutX="30.0" layoutY="154.0" onAction="#add" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter" textFill="GHOSTWHITE">
          <graphic>
@@ -38,9 +38,9 @@
             <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
          </graphic>
       </JFXButton>
-      <TableView fx:id="moduleTable" layoutX="231.0" layoutY="38.0" onMouseClicked="#selectLevels" prefHeight="333.0" prefWidth="299.0" stylesheets="@../Style/Table_Gestion_Css.css" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="38.0">
+      <TableView fx:id="typeTable" layoutX="231.0" layoutY="38.0" onMouseClicked="#select" prefHeight="333.0" prefWidth="299.0" stylesheets="@../Style/Table_Gestion_Css.css" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="38.0">
          <columns>
-            <TableColumn fx:id="nameC" prefWidth="286.0" text="Niveau" />
+            <TableColumn fx:id="nameC" prefWidth="286.0" text="Type" />
          </columns>
       </TableView>
    </children>

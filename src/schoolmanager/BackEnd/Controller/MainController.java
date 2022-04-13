@@ -118,9 +118,16 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    private void goToType(ActionEvent event) throws IOException {
+        URL url = new File("src/schoolmanager/FrontEnd/layout/Type.fxml").toURI().toURL();
+        swithchLayout(url, studentStage, "gestion des types");
+
+    }
+    
+    @FXML
     private void Provider(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/level.fxml").toURI().toURL();
-        swithchLayout(url, studentStage, "gestion des niveaux");
+        URL url = new File("src/schoolmanager/FrontEnd/layout/Type.fxml").toURI().toURL();
+        swithchLayout(url, studentStage, "gestion des types");
 
     }
 
