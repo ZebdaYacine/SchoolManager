@@ -116,6 +116,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#goToLevel" text="les niveaux" />
                   <MenuItem fx:id="user" mnemonicParsing="false" onAction="#goToModule" text="les matières" />
                   <MenuItem mnemonicParsing="false" onAction="#goToType" text="les types" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToSections" text="les sections" />
                   <MenuItem mnemonicParsing="false" onAction="#Provider" text="les salles" />
                </items>
             </Menu>

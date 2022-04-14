@@ -10,7 +10,7 @@ package schoolmanager.BackEnd;
  * @author Zed Yacine
  */
 public class Results {
-     public enum Rstls {
+     public enum  Rstls {
         OBJECT_INSERTED,
         OBJECT_NOT_INSERTED,
         OBJECT_UPDATED,

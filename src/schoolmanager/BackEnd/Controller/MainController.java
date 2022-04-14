@@ -123,7 +123,14 @@ public class MainController implements Initializable {
         swithchLayout(url, studentStage, "gestion des types");
 
     }
-    
+
+    @FXML
+    private void goToSections(ActionEvent event) throws IOException {
+        URL url = new File("src/schoolmanager/FrontEnd/layout/Section.fxml").toURI().toURL();
+        swithchLayout(url, studentStage, "gestion des types");
+
+    }
+
     @FXML
     private void Provider(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Type.fxml").toURI().toURL();

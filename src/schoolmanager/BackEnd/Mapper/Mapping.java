@@ -5,16 +5,8 @@
  */
 package schoolmanager.BackEnd.Mapper;
 
-import schoolmanager.BackEnd.Model.Level;
-import schoolmanager.BackEnd.Model.Module;
-import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Model.Teacher;
-import schoolmanager.BackEnd.Model.Type;
-import schoolmanager.BackEnd.uiPresenter.UiLevel;
-import schoolmanager.BackEnd.uiPresenter.UiModule;
-import schoolmanager.BackEnd.uiPresenter.UiStudent;
-import schoolmanager.BackEnd.uiPresenter.UiTeacher;
-import schoolmanager.BackEnd.uiPresenter.UiType;
+import schoolmanager.BackEnd.Model.*;
+import schoolmanager.BackEnd.uiPresenter.*;
 
 /**
  *
@@ -64,6 +56,15 @@ public class Mapping {
         boolean a = UiType.UiInputIsValid(uiType);
         if (a) {
             return new Type(uiType.getName().getText());
+        } else {
+            return null;
+        }
+    }
+
+    public static Section getObjecSectionFromUiSection(UiSection uiSection) {
+        boolean a = UiSection.UiInputIsValid(uiSection);
+        if (a) {
+            return new Section(uiSection.getName().getText());
         } else {
             return null;
         }
