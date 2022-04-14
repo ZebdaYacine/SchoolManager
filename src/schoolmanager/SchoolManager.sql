@@ -99,9 +99,25 @@ idSeance BIGINT not null,
 presenceStudent boolean ,
 FOREIGN KEY (idStudent) REFERENCES student(id),
 FOREIGN KEY (idSeance) REFERENCES seance(id)
-)
+);s
 
+create table section(
+id BIGINT primary key auto_increment,
+name varchar(50) 
+);
 
+alter table student
+add idSection bigint not null ;
 
- 
- 
+delete from student where id>0;
+alter table student
+add foreign key (idSection) references section(id);
+
+alter table seance 
+drop constraint seance_ibfk_2;
+
+alter table seance 
+drop column idStudent;
+
+alter table follow
+add column status boolean;
