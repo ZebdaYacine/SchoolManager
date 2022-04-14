@@ -17,7 +17,7 @@
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
-      <JFXTextField fx:id="phone" focusColor="WHITE" labelFloat="true" layoutX="420.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone " styleClass="jfxtextfield" stylesheets="@../Style/style.css" unFocusColor="#ff4d00">
+      <JFXTextField fx:id="phone" focusColor="WHITE" labelFloat="true" layoutX="450.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone " styleClass="jfxtextfield" stylesheets="@../Style/style.css" unFocusColor="#ff4d00">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
@@ -30,7 +30,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="phone_err" layoutX="420.0" layoutY="65.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="2" visible="false">
+      <Label fx:id="phone_err" layoutX="450.0" layoutY="65.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="2" visible="false">
          <font>
             <Font size="14.0" />
          </font>
@@ -40,7 +40,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="workeSpace_err" layoutX="420.0" layoutY="145.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="4" visible="false">
+      <Label fx:id="workeSpace_err" layoutX="450.0" layoutY="145.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="4" visible="false">
          <font>
             <Font size="14.0" />
          </font>
@@ -69,7 +69,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
          </graphic>
       </JFXButton>
-      <TableView fx:id="teacherTable" layoutX="20.0" layoutY="233.0" onMouseClicked="#selectTeacher" prefHeight="260.0" prefWidth="622.0" stylesheets="@../Style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="233.0">
+      <TableView fx:id="teacherTable" layoutX="20.0" layoutY="233.0" onMouseClicked="#selectTeacher" prefHeight="260.0" prefWidth="622.0" stylesheets="@../Style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
          <columns>
             <TableColumn fx:id="firstNameC" prefWidth="153.0" text="Nom" />
             <TableColumn fx:id="lastNameC" prefWidth="158.0" text="Prenom" />
@@ -77,7 +77,7 @@
             <TableColumn fx:id="workPlaceC" prefWidth="169.0" text="lieu de Travialle" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="workePlace" focusColor="WHITE" labelFloat="true" layoutX="420.0" layoutY="95.0" prefHeight="30.0" prefWidth="200.0" promptText="lieu de travaille" styleClass="jfxtextfield" stylesheets="@../Style/style.css" unFocusColor="#ff4d00">
+      <JFXTextField fx:id="workePlace" focusColor="WHITE" labelFloat="true" layoutX="450.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="lieu de travaille" styleClass="jfxtextfield" stylesheets="@../Style/style.css" unFocusColor="#ff4d00">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>

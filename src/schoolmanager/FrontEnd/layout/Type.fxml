@@ -38,7 +38,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
          </graphic>
       </JFXButton>
-      <TableView fx:id="typeTable" layoutX="231.0" layoutY="38.0" onMouseClicked="#select" prefHeight="333.0" prefWidth="299.0" stylesheets="@../Style/Table_Gestion_Css.css" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="38.0">
+      <TableView fx:id="typeTable" layoutX="231.0" layoutY="38.0" onMouseClicked="#select" prefHeight="333.0" prefWidth="299.0" stylesheets="@../Style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <columns>
             <TableColumn fx:id="nameC" prefWidth="286.0" text="Type" />
          </columns>
