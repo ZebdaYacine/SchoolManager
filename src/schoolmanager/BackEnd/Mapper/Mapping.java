@@ -12,7 +12,7 @@ import schoolmanager.BackEnd.uiPresenter.*;
  *
  * @author Zed Yacine
  */
-public class Mapping {
+public abstract class Mapping {
 
     public static Student getObjectStudentFromUiStudent(UiStudent uistd) {
         boolean a = UiStudent.UiStudentInputIsValid(uistd);
@@ -67,6 +67,15 @@ public class Mapping {
         boolean a = UiSection.UiInputIsValid(uiSection);
         if (a) {
             return new Section(uiSection.getName().getText());
+        } else {
+            return null;
+        }
+    }
+
+    public static Room getObjectRoomFromUiRoom(UiRoom uiRoom) {
+        boolean a = UiRoom.UiRoomInputIsValid(uiRoom);
+        if (a) {
+            return new Room(uiRoom.getName().getText(),Integer.parseInt(uiRoom.getNbrChair().toString()));
         } else {
             return null;
         }

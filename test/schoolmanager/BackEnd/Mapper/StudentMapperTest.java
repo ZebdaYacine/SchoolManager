@@ -63,7 +63,6 @@ public class StudentMapperTest {
     @Test
     public void testGetInput() {
         System.out.println("getInput");
-        Mapping instance = new Mapping();
     }
 
 }
