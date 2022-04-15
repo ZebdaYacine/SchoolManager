@@ -62,10 +62,10 @@ class Person {
         this.lastName = lastName;
     }
 
-    public void PresentObject(Person person) {
+    public void PresentObject() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(person);
+            String jsonString = mapper.writeValueAsString(this);
             System.out.println(jsonString);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);

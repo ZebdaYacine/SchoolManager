@@ -167,7 +167,7 @@ public class TeacherController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Teacher tech = Mapping.getObjectTeacherFromUiTeacher(uitech);
+        tech = Mapping.getObjectTeacherFromUiTeacher(uitech);
         Results.Rstls r = TeacherService.addTeacher(tech);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -232,8 +232,6 @@ public class TeacherController implements Initializable {
 
     @FXML
     private void selectTeacher(MouseEvent event) {
-        UiTeacher uitech = new UiTeacher(firstName, lastName, phone, workePlace,
-                firstName_err, lastName_err, phone_err, workeSpace_err);
         uitech.clearInputs();
         tech = (Teacher) teacherTable.getSelectionModel().getSelectedItem();
         if (tech != null) {
@@ -241,6 +239,8 @@ public class TeacherController implements Initializable {
             lastName.setText(tech.getLastName());
             phone.setText(tech.getPhone());
             workePlace.setText(tech.getWorkePlace());
+            uitech = new UiTeacher(firstName, lastName, phone, workePlace,
+                    firstName_err, lastName_err, phone_err, workeSpace_err);
         }
     }
 }

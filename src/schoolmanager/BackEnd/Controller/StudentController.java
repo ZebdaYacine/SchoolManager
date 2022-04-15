@@ -167,7 +167,7 @@ public class StudentController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Student std = Mapping.getObjectStudentFromUiStudent(uistd);
+        std = Mapping.getObjectStudentFromUiStudent(uistd);
         Results.Rstls r = StudentService.addStudent(std);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -237,7 +237,7 @@ public class StudentController implements Initializable {
             phone1.setText(std.getPhone1());
             phone2.setText(std.getPhone2());
             sectionName.getSelectionModel().select(new String(std.getSectionName()));
-            std.PresentObject(std);
+            std.PresentObject();
             uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
                     firstName_err, lastName_err, phone1_err, phone2_err);
         }

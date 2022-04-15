@@ -89,7 +89,7 @@ public class TeacherServiceTest {
         System.out.println("getAllTeachers");
         ObservableList<Teacher> teachers = TeacherService.getAllTeachers();
         teachers.forEach((t) -> {
-           t.PresentObject(t);
+           t.PresentObject();
         });
     }
 
