@@ -50,10 +50,10 @@ public class Template {
         this.name = name;
     }
     
-     public void PresentTemplate(Template obTemplate) {
+     public void PresentTemplate() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(obTemplate);
+            String jsonString = mapper.writeValueAsString(this);
             System.out.println(jsonString);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(Person.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

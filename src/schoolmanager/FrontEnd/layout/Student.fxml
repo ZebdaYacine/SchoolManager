@@ -51,7 +51,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" layoutX="425.0" layoutY="211.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter" textFill="GHOSTWHITE">
+      <JFXButton buttonType="RAISED" layoutX="327.0" layoutY="204.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter" textFill="GHOSTWHITE">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -59,7 +59,7 @@
             <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_PLUS" size="16" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="update" buttonType="RAISED" layoutX="555.0" layoutY="211.0" onAction="#update" prefWidth="120.0" styleClass="upbtn" stylesheets="@../Style/buttons_style.css" text="Modifier" textFill="GHOSTWHITE">
+      <JFXButton fx:id="update" buttonType="RAISED" layoutX="457.0" layoutY="204.0" onAction="#update" prefWidth="120.0" styleClass="upbtn" stylesheets="@../Style/buttons_style.css" text="Modifier" textFill="GHOSTWHITE">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -67,7 +67,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="290.0" layoutY="197.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer" textFill="GHOSTWHITE" visible="false">
+      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="587.0" layoutY="203.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer" textFill="GHOSTWHITE" visible="false">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>

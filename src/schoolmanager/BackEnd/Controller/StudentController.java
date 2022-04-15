@@ -9,11 +9,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,31 +86,22 @@ public class StudentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> sectionsName = SectionService.getAllSectionName("section");
+        ObservableList<String> sectionsName = SectionService.getAllObjectName("section");
         this.sectionName.setItems(sectionsName);
         enableSearch.setSelected(false);
         enableSearch.setOnAction(((event) -> {
             if (enableSearch.isSelected()) {
                 if (!firstName.getText().equals("")) {
-                    try {
                         std.setFirstName(firstName.getText());
                         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
                                 std, "searche");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
                 } else {
                     enableSearch.setSelected(false);
                 }
             } else {
-                try {
                     uistd.clearInputs();
                     refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
                             std, "");
-                } catch (SQLException ex) {
-                    Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
         }));
         firstName.setOnKeyTyped(((event) -> {
@@ -130,17 +118,13 @@ public class StudentController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        try {
-            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
 
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type)
-            throws SQLException {
+              {
         ObservableList<Student> pr;
         if (type.equals("searche")) {
             pr = (ObservableList<Student>) StudentService.searchStudentByName(std);
@@ -174,11 +158,8 @@ public class StudentController implements Initializable {
         } else {
             uistd.clearInputs();
         }
-        try {
-            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
+
     }
 
     @FXML
@@ -193,11 +174,7 @@ public class StudentController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uistd.clearInputs();
-                    try {
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
                 }
                 std = new Student();
                 uistd.clearInputs();
@@ -215,11 +192,7 @@ public class StudentController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uistd.clearInputs();
-                    try {
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
                 }
                 std = new Student();
                 uistd.clearInputs();

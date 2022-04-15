@@ -143,9 +143,9 @@ public class ObjectService {
         return name;
     }
 
-    public static ObservableList<String> getAllSectionName(String tab) {
+    public static ObservableList<String> getAllObjectName(String tab) {
         String query;
-        query = "SELECT * FROM "+tab;
+        query = "SELECT name FROM "+tab;
         ObservableList<String> list = (ObservableList<String>) FXCollections.observableArrayList(new String());
         list.remove(0);
         try {

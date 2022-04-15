@@ -118,7 +118,6 @@ public class StudentService {
     public static ObservableList<Student> searchStudentByName(Student student) {
         String query;
         query = "SELECT * FROM student where firstName LIKE'" + student.getFirstName() + "%'";
-        System.err.println(query);
         Student std = new Student();
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);

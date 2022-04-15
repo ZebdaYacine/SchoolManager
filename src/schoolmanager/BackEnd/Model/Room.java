@@ -11,7 +11,7 @@ package schoolmanager.BackEnd.Model;
  */
 public class Room extends Template {
 
-    private String nbrchair;
+    private int nbrchair;
 
     public Room() {
     }
@@ -20,22 +20,27 @@ public class Room extends Template {
         super(id);
     }
 
-    public Room(String name,String nbrchair) {
+    public Room(String name) {
+        super(name);
+    }
+
+    public Room(String name,int nbrchair) {
         super(name);
         this.nbrchair = nbrchair;
     }
+
     
-    public Room( long id, String name , String nbrchair) {
+    public Room( long id, String name , int nbrchair) {
         super(id, name);
         this.nbrchair = nbrchair;
     }
 
   
-    public String getNbrchair() {
+    public int getNbrchair() {
         return nbrchair;
     }
 
-    public void setNbrchair(String nbrchair) {
+    public void setNbrchair(int nbrchair) {
         this.nbrchair = nbrchair;
     }
     
