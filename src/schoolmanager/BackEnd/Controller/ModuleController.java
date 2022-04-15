@@ -23,13 +23,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
-import schoolmanager.BackEnd.Model.Level;
 import schoolmanager.BackEnd.Model.Module;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.LevelService;
 import schoolmanager.BackEnd.Service.ModuleService;
-import schoolmanager.BackEnd.uiPresenter.UiLevel;
 import schoolmanager.BackEnd.uiPresenter.UiModule;
 import static schoolmanager.SchoolManager.alertUpdate;
 
@@ -94,7 +92,7 @@ public class ModuleController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
+        Module mdl = Mapping.getObjectModuleFromUiModule(uiModule);
         Results.Rstls r = ModuleService.addObject(mdl, "module");
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -105,7 +103,7 @@ public class ModuleController implements Initializable {
     @FXML
     private void update(ActionEvent event) {
         if (module.getId() != 0) {
-            Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
+            Module mdl = Mapping.getObjectModuleFromUiModule(uiModule);
             mdl.setId(module.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -124,7 +122,7 @@ public class ModuleController implements Initializable {
     @FXML
     private void delete(ActionEvent event) {
         if (module.getId() != 0) {
-            Module mdl = Mapping.getObjecModuleFromUiModule(uiModule);
+            Module mdl = Mapping.getObjectModuleFromUiModule(uiModule);
             mdl.setId(module.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {

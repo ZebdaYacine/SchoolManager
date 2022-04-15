@@ -14,17 +14,19 @@ import schoolmanager.BackEnd.uiPresenter.*;
  */
 public class Mapping {
 
-    public static Student getObjecStudentFromUiStudent(UiStudent uistd) {
+    public static Student getObjectStudentFromUiStudent(UiStudent uistd) {
         boolean a = UiStudent.UiStudentInputIsValid(uistd);
         if (a) {
             return new Student(uistd.getFirstName().getText(), uistd.getLastName().getText(),
-                    uistd.getPhone1().getText(), uistd.getPhone2().getText());
+                    uistd.getPhone1().getText(),
+                    uistd.getPhone2().getText(),
+                    uistd.getSectionName().getSelectionModel().getSelectedItem().toString());
         } else {
             return null;
         }
     }
     
-    public static Teacher getObjecTeacherFromUiTeacher(UiTeacher uitech) {
+    public static Teacher getObjectTeacherFromUiTeacher(UiTeacher uitech) {
         boolean a = UiTeacher.UiTeacherInputIsValid(uitech);
         if (a) {
             return new Teacher(uitech.getFirstName().getText(), uitech.getLastName().getText(),
@@ -34,7 +36,7 @@ public class Mapping {
         }
     }
     
-    public static Level getObjecLevelFromUiLevl(UiLevel uiLevl) {
+    public static Level getObjectLevelFromUiLevl(UiLevel uiLevl) {
         boolean a = UiLevel.UiInputIsValid(uiLevl);
         if (a) {
             return new Level(uiLevl.getName().getText());
@@ -43,7 +45,7 @@ public class Mapping {
         }
     }
     
-    public static Module getObjecModuleFromUiModule(UiModule uiModule) {
+    public static Module getObjectModuleFromUiModule(UiModule uiModule) {
         boolean a = UiModule.UiInputIsValid(uiModule);
         if (a) {
             return new Module(uiModule.getName().getText());
@@ -52,7 +54,7 @@ public class Mapping {
         }
     }
     
-    public static Type getObjecTypeFromUiType(UiType uiType) {
+    public static Type getObjectTypeFromUiType(UiType uiType) {
         boolean a = UiType.UiInputIsValid(uiType);
         if (a) {
             return new Type(uiType.getName().getText());
@@ -61,7 +63,7 @@ public class Mapping {
         }
     }
 
-    public static Section getObjecSectionFromUiSection(UiSection uiSection) {
+    public static Section getObjectSectionFromUiSection(UiSection uiSection) {
         boolean a = UiSection.UiInputIsValid(uiSection);
         if (a) {
             return new Section(uiSection.getName().getText());

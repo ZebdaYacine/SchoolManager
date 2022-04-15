@@ -107,4 +107,59 @@ public class ObjectService {
         return listObjects;
     }
 
+    public static long getIdObject(Template objTemplate, String tab) {
+        String query;
+        query = "SELECT id FROM " + tab + " where name = '" + objTemplate.getName() + "'";
+        long id=0;
+        try {
+            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                id=rs.getLong("id");
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return id;
+    }
+
+    public static String getNameFromIdObject(Template template,String tab) {
+        String query;
+        query = "SELECT name FROM "+tab+" where id ="+template.getId();
+        String name ="";
+        try {
+            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                name=rs.getString("name");
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return name;
+    }
+
+    public static ObservableList<String> getAllSectionName(String tab) {
+        String query;
+        query = "SELECT * FROM "+tab;
+        ObservableList<String> list = (ObservableList<String>) FXCollections.observableArrayList(new String());
+        list.remove(0);
+        try {
+            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getString("name"));
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
 }

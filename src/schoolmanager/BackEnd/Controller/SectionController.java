@@ -90,7 +90,7 @@ public class SectionController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Section section1 = Mapping.getObjecSectionFromUiSection(uiSection);
+        Section section1 = Mapping.getObjectSectionFromUiSection(uiSection);
         Results.Rstls r = LevelService.addObject(section1, "section");
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -101,7 +101,7 @@ public class SectionController implements Initializable {
     @FXML
     private void update(ActionEvent event) {
         if (section.getId() != 0) {
-            Section section1 = Mapping.getObjecSectionFromUiSection(uiSection);
+            Section section1 = Mapping.getObjectSectionFromUiSection(uiSection);
             section1.setId(section.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -120,7 +120,7 @@ public class SectionController implements Initializable {
     @FXML
     private void delete(ActionEvent event) {
         if (section.getId() != 0) {
-            Section section1 = Mapping.getObjecSectionFromUiSection(uiSection);
+            Section section1 = Mapping.getObjectSectionFromUiSection(uiSection);
             section1.setId(section.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {

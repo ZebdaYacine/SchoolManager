@@ -17,7 +17,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -27,10 +26,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
-import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.Service.TeacherService;
 import schoolmanager.BackEnd.uiPresenter.UiTeacher;
 import static schoolmanager.SchoolManager.alertUpdate;
@@ -170,7 +167,7 @@ public class TeacherController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Teacher tech = Mapping.getObjecTeacherFromUiTeacher(uitech);
+        Teacher tech = Mapping.getObjectTeacherFromUiTeacher(uitech);
         Results.Rstls r = TeacherService.addTeacher(tech);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -188,7 +185,7 @@ public class TeacherController implements Initializable {
     @FXML
     private void update(ActionEvent event) {
         if (tech.getId() != 0) {
-            Teacher newtech = Mapping.getObjecTeacherFromUiTeacher(uitech);
+            Teacher newtech = Mapping.getObjectTeacherFromUiTeacher(uitech);
             newtech.setId(tech.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -212,7 +209,7 @@ public class TeacherController implements Initializable {
     @FXML
     private void delete(ActionEvent event) {
         if (tech.getId() != 0) {
-            Teacher newtech = Mapping.getObjecTeacherFromUiTeacher(uitech);
+            Teacher newtech = Mapping.getObjectTeacherFromUiTeacher(uitech);
             newtech.setId(tech.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {

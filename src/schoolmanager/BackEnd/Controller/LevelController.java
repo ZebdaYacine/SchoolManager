@@ -24,13 +24,11 @@ import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Level;
-import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.LevelService;
-import schoolmanager.BackEnd.Service.TeacherService;
 import schoolmanager.BackEnd.uiPresenter.UiLevel;
-import schoolmanager.BackEnd.uiPresenter.UiTeacher;
+
 import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
@@ -95,7 +93,7 @@ public class LevelController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
+        Level lvel = Mapping.getObjectLevelFromUiLevl(uilevl);
         Results.Rstls r = LevelService.addObject(lvel, "level");
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -106,7 +104,7 @@ public class LevelController implements Initializable {
     @FXML
     private void update(ActionEvent event) {
         if (levl.getId() != 0) {
-            Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
+            Level lvel = Mapping.getObjectLevelFromUiLevl(uilevl);
             lvel.setId(levl.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -125,7 +123,7 @@ public class LevelController implements Initializable {
     @FXML
     private void delete(ActionEvent event) {
         if (levl.getId() != 0) {
-            Level lvel = Mapping.getObjecLevelFromUiLevl(uilevl);
+            Level lvel = Mapping.getObjectLevelFromUiLevl(uilevl);
             lvel.setId(levl.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {

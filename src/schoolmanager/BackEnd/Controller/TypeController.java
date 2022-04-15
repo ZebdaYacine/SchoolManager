@@ -23,16 +23,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
-import schoolmanager.BackEnd.Model.Level;
-import schoolmanager.BackEnd.Model.Module;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Model.Type;
 import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.LevelService;
 import schoolmanager.BackEnd.Service.ModuleService;
 import schoolmanager.BackEnd.Service.TypeService;
-import schoolmanager.BackEnd.uiPresenter.UiLevel;
-import schoolmanager.BackEnd.uiPresenter.UiModule;
 import schoolmanager.BackEnd.uiPresenter.UiType;
 import static schoolmanager.SchoolManager.alertUpdate;
 
@@ -97,7 +92,7 @@ public class TypeController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Type type = Mapping.getObjecTypeFromUiType(uiType);
+        Type type = Mapping.getObjectTypeFromUiType(uiType);
         Results.Rstls r = TypeService.addObject(type, "type");
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -108,7 +103,7 @@ public class TypeController implements Initializable {
     @FXML
     private void update(ActionEvent event) {
         if (type.getId() != 0) {
-            type = Mapping.getObjecTypeFromUiType(uiType);
+            type = Mapping.getObjectTypeFromUiType(uiType);
             type.setId(type.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -127,7 +122,7 @@ public class TypeController implements Initializable {
     @FXML
     private void delete(ActionEvent event) {
         if (type.getId() != 0) {
-            type = Mapping.getObjecTypeFromUiType(uiType);
+            type = Mapping.getObjectTypeFromUiType(uiType);
             type.setId(type.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {

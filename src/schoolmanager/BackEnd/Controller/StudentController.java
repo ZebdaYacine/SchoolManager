@@ -6,6 +6,7 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
 import java.sql.SQLException;
@@ -13,9 +14,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
@@ -29,6 +30,7 @@ import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Results;
+import schoolmanager.BackEnd.Service.SectionService;
 import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
 import static schoolmanager.SchoolManager.alertUpdate;
@@ -51,6 +53,8 @@ public class StudentController implements Initializable {
     @FXML
     private TextField phone1;
     @FXML
+    private JFXComboBox sectionName;
+    @FXML
     private TableColumn<?, ?> firstNameC;
     @FXML
     private TableColumn<?, ?> lastNameC;
@@ -58,6 +62,8 @@ public class StudentController implements Initializable {
     private TableColumn<?, ?> phone1C;
     @FXML
     private TableColumn<?, ?> phone2C;
+    @FXML
+    private TableColumn<?, ?> sectionNameC;
     @FXML
     private Label firstName_err;
     @FXML
@@ -83,13 +89,15 @@ public class StudentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ObservableList<String> sectionsName = SectionService.getAllSectionName("section");
+        this.sectionName.setItems(sectionsName);
         enableSearch.setSelected(false);
         enableSearch.setOnAction(((event) -> {
             if (enableSearch.isSelected()) {
                 if (!firstName.getText().equals("")) {
                     try {
                         std.setFirstName(firstName.getText());
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
+                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
                                 std, "searche");
                     } catch (SQLException ex) {
                         Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,7 +109,7 @@ public class StudentController implements Initializable {
             } else {
                 try {
                     uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
+                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
                             std, "");
                 } catch (SQLException ex) {
                     Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,7 +121,7 @@ public class StudentController implements Initializable {
                 enableSearch.setSelected(false);
             }
         }));
-        uistd = new UiStudent(firstName, lastName, phone2, phone1,
+        uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
                 firstName_err, lastName_err, phone1_err, phone2_err);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
@@ -123,7 +131,7 @@ public class StudentController implements Initializable {
             delete.setVisible(true);
         }
         try {
-            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student(), "");
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,7 +139,7 @@ public class StudentController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, Student std, String type)
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type)
             throws SQLException {
         ObservableList<Student> pr;
         if (type.equals("searche")) {
@@ -151,12 +159,15 @@ public class StudentController implements Initializable {
         Column4.setCellValueFactory(
                 new PropertyValueFactory<>("phone2")
         );
+        Column5.setCellValueFactory(
+                new PropertyValueFactory<>("sectionName")
+        );
         table.setItems(pr);
     }
 
     @FXML
     private void add(ActionEvent event) {
-        Student std = Mapping.getObjecStudentFromUiStudent(uistd);
+        Student std = Mapping.getObjectStudentFromUiStudent(uistd);
         Results.Rstls r = StudentService.addStudent(std);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -164,7 +175,7 @@ public class StudentController implements Initializable {
             uistd.clearInputs();
         }
         try {
-            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student(), "");
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -173,7 +184,7 @@ public class StudentController implements Initializable {
     @FXML
     private void update(ActionEvent event) {
         if (std.getId() != 0) {
-            Student newStd = Mapping.getObjecStudentFromUiStudent(uistd);
+            Student newStd = Mapping.getObjectStudentFromUiStudent(uistd);
             newStd.setId(std.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -183,7 +194,7 @@ public class StudentController implements Initializable {
                 } else {
                     uistd.clearInputs();
                     try {
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student(), "");
+                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
                     } catch (SQLException ex) {
                         Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -205,7 +216,7 @@ public class StudentController implements Initializable {
                 } else {
                     uistd.clearInputs();
                     try {
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, new Student(), "");
+                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
                     } catch (SQLException ex) {
                         Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -218,8 +229,6 @@ public class StudentController implements Initializable {
 
     @FXML
     private void selectStudent(MouseEvent event) {
-        UiStudent uistd = new UiStudent(firstName, lastName, phone2, phone1,
-                firstName_err, lastName_err, phone1_err, phone2_err);
         uistd.clearInputs();
         std = (Student) studentTable.getSelectionModel().getSelectedItem();
         if (std != null) {
@@ -227,6 +236,10 @@ public class StudentController implements Initializable {
             lastName.setText(std.getLastName());
             phone1.setText(std.getPhone1());
             phone2.setText(std.getPhone2());
+            sectionName.getSelectionModel().select(new String(std.getSectionName()));
+            std.PresentObject(std);
+            uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
+                    firstName_err, lastName_err, phone1_err, phone2_err);
         }
     }
 

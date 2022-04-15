@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
+
+import schoolmanager.BackEnd.Model.Section;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Results;
 
@@ -19,18 +21,22 @@ import schoolmanager.BackEnd.Results;
  */
 public class StudentService {
 
+    private static Section section = new Section();
+
     public static Results.Rstls addStudent(Student student) {
         if (student == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
-                    + "insert into student (firstName,lastName,phone1,phone2)"
-                    + " values (?,?,?,?)");
+                    + "insert into student (firstName,lastName,phone1,phone2,idSection)"
+                    + " values (?,?,?,?,?)");
             stm.setString(1, student.getFirstName());
             stm.setString(2, student.getLastName());
             stm.setString(3, student.getPhone1());
             stm.setString(4, student.getPhone2());
+            section.setName(student.getSectionName());
+            stm.setLong(5, ObjectService.getIdObject(section,"section"));
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_INSERTED;
@@ -47,13 +53,15 @@ public class StudentService {
         try {
             PreparedStatement stm = (PreparedStatement) con.prepareStatement("UPDATE "
                     + " student SET firstName = ?"
-                    + ", lastName = ? ,phone1 = ? ,phone2 = ? "
+                    + ", lastName = ? ,phone1 = ? ,phone2 = ? , idSection=? "
                     + " WHERE id = ? ");
             stm.setString(1, student.getFirstName());
             stm.setString(2, student.getLastName());
             stm.setString(3, student.getPhone1());
             stm.setString(4, student.getPhone2());
-            stm.setLong(5, student.getId());
+            section.setName(student.getSectionName());
+            stm.setLong(5, ObjectService.getIdObject(section,"section"));
+            stm.setLong(6, student.getId());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_UPDATED;
@@ -95,6 +103,8 @@ public class StudentService {
                 student.setLastName(rs.getString("lastName"));
                 student.setPhone1(rs.getString("phone1"));
                 student.setPhone2(rs.getString("phone2"));
+                student.setSectionName(
+                        ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
                 listStudents.add(student);
             }
             rs.close();
@@ -121,6 +131,8 @@ public class StudentService {
                 std.setLastName(rs.getString("lastName"));
                 std.setPhone1(rs.getString("phone1"));
                 std.setPhone2(rs.getString("phone2"));
+                student.setSectionName(
+                        ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
                 listStudents.add(std);
             }
             rs.close();

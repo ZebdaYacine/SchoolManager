@@ -15,6 +15,7 @@ public class Student extends Person {
 
     private String phone1;
     private String phone2;
+    private String sectionName;
 
     public Student() {
     }
@@ -27,10 +28,11 @@ public class Student extends Person {
         super(firstName, lastName);
     }
 
-    public Student(String firstName, String lastName,String phone1, String phone2) {
+    public Student(String firstName, String lastName,String phone1, String phone2,String  sectionName) {
         super(firstName, lastName);
         this.phone1 = phone1;
         this.phone2 = phone2;
+        this.sectionName=sectionName;
     }
 
     public Student(long id, String firstName, String lastName,String phone1, String phone2) {
@@ -38,7 +40,7 @@ public class Student extends Person {
         this.phone1 = phone1;
         this.phone2 = phone2;
     }
-        
+
 
     public String getPhone1() {
         return phone1;
@@ -55,10 +57,12 @@ public class Student extends Person {
     public void setPhone2(String phone2) {
         this.phone2 = phone2;
     }
-    
-     
-    
-    
-    
 
+    public String getSectionName() {
+        return sectionName;
+    }
+
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
+    }
 }

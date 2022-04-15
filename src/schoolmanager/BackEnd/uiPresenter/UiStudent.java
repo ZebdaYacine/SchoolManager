@@ -9,6 +9,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.jfoenix.controls.JFXComboBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -22,6 +25,8 @@ public class UiStudent extends TestingMethods {
     private TextField lastName;
     private TextField phone2;
     private TextField phone1;
+    private ComboBox sectionName;
+
 
     private Label firstName_err;
     private Label lastName_err;
@@ -31,14 +36,15 @@ public class UiStudent extends TestingMethods {
     public UiStudent() {
     }
 
-    public UiStudent(TextField firstName, TextField lastName, TextField phone2, TextField phone1) {
+    public UiStudent(TextField firstName, TextField lastName, TextField phone2, TextField phone1,ComboBox sectionName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone2 = phone2;
         this.phone1 = phone1;
+        this.sectionName=sectionName;
     }
 
-    public UiStudent(TextField firstName, TextField lastName, TextField phone2, TextField phone1, Label firstName_err, Label lastName_err, Label phone1_err, Label phone2_err) {
+    public UiStudent(TextField firstName, TextField lastName, TextField phone2, TextField phone1, JFXComboBox sectionName, Label firstName_err, Label lastName_err, Label phone1_err, Label phone2_err) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone2 = phone2;
@@ -47,6 +53,7 @@ public class UiStudent extends TestingMethods {
         this.lastName_err = lastName_err;
         this.phone1_err = phone1_err;
         this.phone2_err = phone2_err;
+        this.sectionName=sectionName;
     }
 
     public TextField getFirstName() {
@@ -113,6 +120,14 @@ public class UiStudent extends TestingMethods {
         this.phone2_err = phone2_err;
     }
 
+    public ComboBox getSectionName() {
+        return sectionName;
+    }
+
+    public void setSectionName(ComboBox sectionName) {
+        this.sectionName = sectionName;
+    }
+
     public static boolean UiStudentInputIsValid(UiStudent uistd) {
         boolean bFirstName = false, blastName = false, bphone1 = false, bphone2 = false;
         if (uistd.getFirstName().getText().isEmpty()) {
@@ -168,6 +183,7 @@ public class UiStudent extends TestingMethods {
     }
 
     public void clearInputs() {
+        this.sectionName.getSelectionModel().clearSelection();
         this.firstName.setText("");
         this.firstName_err.setText("");
         this.lastName.setText("");
