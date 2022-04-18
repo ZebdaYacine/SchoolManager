@@ -37,7 +37,7 @@ import static schoolmanager.SchoolManager.alertUpdate;
  *
  * @author kadri
  */
-public class StudentController implements Initializable {
+public class RoomController implements Initializable {
 
     @FXML
     private TableView<?> studentTable;

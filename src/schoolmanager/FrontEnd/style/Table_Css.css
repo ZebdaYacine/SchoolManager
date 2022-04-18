@@ -1,4 +1,10 @@
-
+.headerHbox{
+    -fx-background-color: linear-gradient(to left, rgba(13,25,37,1) 0%, rgba(25,39,52,1) 45%,rgba(25,39,52,1) 55%, rgba(13,25,37,1) 100%);
+}
+.pane_border {
+    -fx-border-color: #ffffff;
+    -fx-border-radius: 5 5 5 5 ;
+}
 .table-view,
 .table-view:focused,
 .table-view .corner ,
@@ -8,56 +14,44 @@
 .table-view > .virtual-flow > .scroll-bar:horizontal,
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track,
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track-background{
-    -fx-background-color: #081018;
-    -fx-border-color: #081018;
-    -fx-border-radius: 5 ;
-    -fx-background-radius: 5 ;
-    -fx-border-width: 2
+    -fx-background-color: white;
+    -fx-border-color: white;
 }
-
 
 .table-view .column-header ,
 .table-view .column-header-background,
 .table-view .column-header-background .filler{
-    -fx-background-color: #283f54;
-    -fx-border-radius: 5 ;
-    -fx-background-radius: 5 ;
-    
+    -fx-background-color: white;
 }
 
-
-.table-view .column-header-background .label{
-    -fx-alignment:CENTER_LEFT;
-    -fx-background-color: #283f54;
+.table-view .column-header-background .label {
+    -fx-alignment: CENTER;
+    -fx-background-color: #081018;
     -fx-text-fill: white;
-    -fx-border-radius: 5 ;
-    -fx-background-radius: 5 ;
-    -fx-font-size:15px;
+    -fx-font-size:14px;
+    -fx-font-family: "Times New Roman";
 }
+.table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: black;
+    -fx-alignment:CENTER;
+    -fx-border-color: transparent;
+    -fx-font-size:13px;
+    -fx-font-family: "Times New Roman";
+}
+
 
 .table-row-cell:hover {
-    -fx-background-color: #506D84;
+    -fx-background-color: #8cb3d9;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #889EAF;
+    -fx-background-color: #538dc6;
 }
 
-.table-view .table-cell {
-    -fx-text-fill: white;
-    -fx-font-size:15px;
-}
-.table-row-cell {
-    -fx-background-color: #081018;
-}
-.table-view  .table-cell{
-    -fx-alignment:CENTER_LEFT;
-}
-
-
-.table-view .table-cell{
-    -fx-border-color: transparent;
-}
 
 .table-view > .virtual-flow > .scroll-bar > .increment-button, 
 .table-view > .virtual-flow > .scroll-bar > .decrement-button {

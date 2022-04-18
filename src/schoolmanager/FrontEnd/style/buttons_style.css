@@ -1,47 +1,46 @@
 .addbtn
 {
-    -fx-background-color: linear-gradient( #081018 90%, #20c700 100%);
+    -fx-background-color: linear-gradient( white 90%, #20c700 100%);
 }
 
 .addbtn:hover 
 {
-    -fx-background-color :  linear-gradient( #081018 60%, #20c700 100%);
+    -fx-background-color :  linear-gradient( white 60%, #20c700 100%);
+}
+
+.datebtn
+{
+    -fx-background-color: #385976;
+}
+
+.datebtn:hover 
+{
+    -fx-background-color :  #0099cc;
 }
 
 .delbtn
 {
-    -fx-background-color: linear-gradient( #081018 90%, #ff3313 100%);
+    -fx-background-color: linear-gradient( white 90%, #ff3313 100%);
 }
 
 .delbtn:hover 
 {
-    -fx-background-color :  linear-gradient( #081018 60%, #ff3313 100%);
+    -fx-background-color :  linear-gradient( white 60%, #ff3313 100%);
 }
 
 .upbtn
 {
-    -fx-background-color: linear-gradient( #081018 90%, #fc8b18 100%);
+    -fx-background-color: linear-gradient( white 90%, #fc8b18 100%);
 }
 
-.upbtn:hover 
+.upbtn:hover
 {
-    -fx-background-color :  linear-gradient( #081018 60%, #fc8b18 100%);
-}
-
-.gbtn
-{
-    -fx-background-color : transparent;
-    -fx-border-color: #192734;
-}
-
-.gbtn:hover 
-{
-    -fx-border-color: white;
+    -fx-background-color :  linear-gradient( white 60%, #fc8b18 100%);
 }
 
 .printbtn
 {
-    -fx-background-color : #3d7ec4;
+    -fx-background-color : #0099cc;
 }
 
 .printbtn:hover 
