@@ -31,9 +31,10 @@
             </Label>
          </children>
       </Pane>
-      <HBox alignment="TOP_CENTER" layoutX="335.0" prefHeight="60.0" prefWidth="670.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0099cc transparent transparent transparent;" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
+      <HBox alignment="TOP_CENTER" layoutX="335.0" prefHeight="55.0" prefWidth="670.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="0.0">
          <children>
-               <JFXButton fx:id="stat" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btn2" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
+               <JFXButton fx:id="stat" alignment="CENTER" contentDisplay="TOP" onAction="#stat" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -48,7 +49,7 @@
                </padding>
             </JFXButton>
 
-            <JFXButton fx:id="paiement" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btn2" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Paiement">
+            <JFXButton fx:id="paiement" alignment="CENTER" contentDisplay="TOP" onAction="#paiement" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Paiement">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -62,7 +63,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="presence" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btn3" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Présence">
+            <JFXButton fx:id="presence" alignment="CENTER" contentDisplay="TOP" onAction="#presence" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Présence">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -76,7 +77,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="seance" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#Facture_Sale" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Séances">
+            <JFXButton fx:id="seance" alignment="CENTER" contentDisplay="TOP" onAction="#seance" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Séances">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -90,7 +91,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="offres" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#Facture_Purchase" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Offres">
+            <JFXButton fx:id="offres" alignment="CENTER" contentDisplay="TOP" onAction="#offre" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Offres">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -106,7 +107,6 @@
             </JFXButton>
          </children>
       </HBox>
-      <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
       <MenuBar layoutX="1177.0" styleClass="menu-item" stylesheets="@../style/style.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
             <Menu mnemonicParsing="false" text="Gestion">
