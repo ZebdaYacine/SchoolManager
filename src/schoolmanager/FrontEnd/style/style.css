@@ -5,13 +5,13 @@
 
 .back
 {
-    -fx-background-color : white;
+    -fx-background-color : #dfe3ee;
 }
 
 
 .home
 { 
-    -fx-background-color : #dfe3ee;
+    -fx-background-color : white;
 }
 
 
@@ -44,29 +44,6 @@
 .jfxtextfield{
     -fx-prompt-text-fill: black;
     -fx-text-inner-color:black;
-}
-#statbordPrd
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
-}
-
-#statbordSale
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
-}
-
-#statbordPurchase
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
-}
-
-#statbordDette
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
 }
 
 .img
