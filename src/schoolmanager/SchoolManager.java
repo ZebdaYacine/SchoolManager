@@ -20,10 +20,7 @@ import schoolmanager.BackEnd.DataBaseConnection;
 public class SchoolManager extends Application {
 
     public static Stage loginStage = new Stage();
-    public static Stage studentStage = new Stage();
-    public static Stage teacherStage = new Stage();
-    public static Stage levelstage = new Stage();
-    public static Stage modulelstage = new Stage();
+    public static Stage SecodStage = new Stage();
 
     public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION,
             "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
@@ -44,7 +41,6 @@ public class SchoolManager extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
     /**

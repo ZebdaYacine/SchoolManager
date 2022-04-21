@@ -75,7 +75,8 @@ public abstract class Mapping {
     public static Room getObjectRoomFromUiRoom(UiRoom uiRoom) {
         boolean a = UiRoom.UiRoomInputIsValid(uiRoom);
         if (a) {
-            return new Room(uiRoom.getName().getText(),Integer.parseInt(uiRoom.getNbrChair().toString()));
+            int nbr =Integer.parseInt(uiRoom.getNbrChair().getText().toString());
+            return new Room(uiRoom.getName().getText(),nbr);
         } else {
             return null;
         }

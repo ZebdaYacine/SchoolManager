@@ -17,7 +17,7 @@ import schoolmanager.BackEnd.Results;
  *
  * @author Zed Yacine
  */
-public class ObjectService {
+public class ObjectService  {
 
     public static Results.Rstls addObject(Template objTemplate, String tab) {
         try {

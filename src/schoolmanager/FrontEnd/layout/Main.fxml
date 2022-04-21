@@ -18,12 +18,12 @@
    <children>
       <Pane prefHeight="60.0" prefWidth="376.0">
          <children>
-            <Label layoutX="4.0" text="Hy School Manager" textFill="WHITE">
+            <Label layoutX="4.0" text="Hy School Manager">
                <font>
                   <Font name="Times New Roman" size="36.0" />
                </font>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="VIEW_DASHBOARD" size="50" />
+                  <MaterialDesignIconView glyphName="VIEW_DASHBOARD" size="50" />
                </graphic>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
@@ -31,14 +31,15 @@
             </Label>
          </children>
       </Pane>
-      <HBox alignment="TOP_CENTER" layoutX="335.0" prefHeight="60.0" prefWidth="670.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0099cc transparent transparent transparent;" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
+      <HBox alignment="TOP_CENTER" layoutX="335.0" prefHeight="55.0" prefWidth="670.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="0.0">
          <children>
-               <JFXButton fx:id="stat" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btn2" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques" textFill="WHITE">
+               <JFXButton fx:id="stat" alignment="CENTER" contentDisplay="TOP" onAction="#stat" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" text="" />
+                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" text="" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -48,12 +49,12 @@
                </padding>
             </JFXButton>
 
-            <JFXButton fx:id="paiement" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btn2" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Paiement" textFill="WHITE">
+            <JFXButton fx:id="paiement" alignment="CENTER" contentDisplay="TOP" onAction="#paiement" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Paiement">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="DATABASE_MINUS" size="24" text="" />
+                  <MaterialDesignIconView glyphName="DATABASE_MINUS" size="24" text="" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -62,12 +63,12 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="presence" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btn3" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Présence" textFill="WHITE">
+            <JFXButton fx:id="presence" alignment="CENTER" contentDisplay="TOP" onAction="#presence" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Présence">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fx:id="" fill="WHITE" glyphName="DATABASE_PLUS" size="24" />
+                  <MaterialDesignIconView fx:id="" glyphName="DATABASE_PLUS" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -76,12 +77,12 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="seance" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#Facture_Sale" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Séances" textFill="WHITE">
+            <JFXButton fx:id="seance" alignment="CENTER" contentDisplay="TOP" onAction="#seance" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Séances">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -90,12 +91,12 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="offres" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#Facture_Purchase" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Offres" textFill="WHITE">
+            <JFXButton fx:id="offres" alignment="CENTER" contentDisplay="TOP" onAction="#offre" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Offres">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -106,18 +107,17 @@
             </JFXButton>
          </children>
       </HBox>
-      <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
       <MenuBar layoutX="1177.0" styleClass="menu-item" stylesheets="@../style/style.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
             <Menu mnemonicParsing="false" text="Gestion">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#goToStudent" text="les étudiants" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToTeacher" text="les professeurs" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToLevel" text="les niveaux" />
-                  <MenuItem fx:id="user" mnemonicParsing="false" onAction="#goToModule" text="les matières" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToType" text="les types" />
                   <MenuItem mnemonicParsing="false" onAction="#goToSections" text="les sections" />
-                  <MenuItem mnemonicParsing="false" onAction="#Provider" text="les salles" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToLevel" text="les niveaux" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToType" text="les types" />
+                  <MenuItem fx:id="user" mnemonicParsing="false" onAction="#goToModule" text="les matières" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToRooms" text="les salles" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToTeacher" text="les professeurs" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToStudent" text="les étudiants" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="à propos">

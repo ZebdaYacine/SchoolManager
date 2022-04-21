@@ -6,30 +6,25 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXToggleButton;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
-import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.Room;
 import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.SectionService;
-import schoolmanager.BackEnd.Service.StudentService;
-import schoolmanager.BackEnd.uiPresenter.UiStudent;
+import schoolmanager.BackEnd.Service.RoomService;
+import schoolmanager.BackEnd.uiPresenter.UiRoom;
+
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
@@ -37,80 +32,39 @@ import static schoolmanager.SchoolManager.alertUpdate;
  *
  * @author kadri
  */
-public class StudentController implements Initializable {
+public class RoomController implements Initializable {
 
     @FXML
-    private TableView<?> studentTable;
+    private TableView<?> RoomTable;
     @FXML
-    private TextField firstName;
+    private TextField name;
     @FXML
-    private TextField lastName;
+    private TextField nbrChair;
     @FXML
-    private TextField phone2;
+    private TableColumn<?, ?> nameC;
     @FXML
-    private TextField phone1;
+    private TableColumn<?, ?> nbrChairC;
     @FXML
-    private JFXComboBox sectionName;
+    private Label name_err;
     @FXML
-    private TableColumn<?, ?> firstNameC;
-    @FXML
-    private TableColumn<?, ?> lastNameC;
-    @FXML
-    private TableColumn<?, ?> phone1C;
-    @FXML
-    private TableColumn<?, ?> phone2C;
-    @FXML
-    private TableColumn<?, ?> sectionNameC;
-    @FXML
-    private Label firstName_err;
-    @FXML
-    private Label lastName_err;
-    @FXML
-    private Label phone1_err;
-    @FXML
-    private Label phone2_err;
+    private Label nbrChair_err;
 
-    private Student std = new Student();
 
-    private UiStudent uistd = new UiStudent();
+    private Room rm = new Room();
+
+    private UiRoom uirm = new UiRoom();
 
     @FXML
     private JFXButton delete;
     @FXML
     private JFXButton update;
-    @FXML
-    private JFXToggleButton enableSearch;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> sectionsName = SectionService.getAllObjectName("section");
-        this.sectionName.setItems(sectionsName);
-        enableSearch.setSelected(false);
-        enableSearch.setOnAction(((event) -> {
-            if (enableSearch.isSelected()) {
-                if (!firstName.getText().equals("")) {
-                        std.setFirstName(firstName.getText());
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
-                                std, "searche");
-                } else {
-                    enableSearch.setSelected(false);
-                }
-            } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
-                            std, "");
-            }
-        }));
-        firstName.setOnKeyTyped(((event) -> {
-            if (firstName.getText().equals("")) {
-                enableSearch.setSelected(false);
-            }
-        }));
-        uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
-                firstName_err, lastName_err, phone1_err, phone2_err);
+        uirm = new UiRoom(name, nbrChair, name_err, nbrChair_err);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
             delete.setVisible(false);
@@ -118,101 +72,95 @@ public class StudentController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-
+        refrechRoom(RoomTable, nameC, nbrChairC,rm, "");
     }
 
-    public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type)
-              {
-        ObservableList<Student> pr;
-        if (type.equals("searche")) {
-            pr = (ObservableList<Student>) StudentService.searchStudentByName(std);
+    public static void refrechRoom(TableView table, TableColumn Column1, TableColumn Column2,
+                                   Room rm, String type) {
+        ObservableList<Room> pr;
+        if (type.equals("search")) {
+            pr = RoomService.searchRoomByName(rm);
         } else {
-            pr = (ObservableList<Student>) StudentService.getAllStudents();
+            pr =  RoomService.getAllRoom();
         }
         Column1.setCellValueFactory(
-                new PropertyValueFactory<>("firstName")
+                new PropertyValueFactory<>("name")
         );
         Column2.setCellValueFactory(
-                new PropertyValueFactory<>("lastName")
-        );
-        Column3.setCellValueFactory(
-                new PropertyValueFactory<>("phone1")
-        );
-        Column4.setCellValueFactory(
-                new PropertyValueFactory<>("phone2")
-        );
-        Column5.setCellValueFactory(
-                new PropertyValueFactory<>("sectionName")
+                new PropertyValueFactory<>("nbrchair")
         );
         table.setItems(pr);
     }
 
     @FXML
     private void add(ActionEvent event) {
-        std = Mapping.getObjectStudentFromUiStudent(uistd);
-        Results.Rstls r = StudentService.addStudent(std);
+        rm = Mapping.getObjectRoomFromUiRoom(uirm);
+        Results.Rstls r = RoomService.addRoom(rm);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
         } else {
-            uistd.clearInputs();
+            uirm.clearInputs();
         }
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-
+        refrechRoom(RoomTable, nameC, nbrChairC, new Room(), "");
     }
 
     @FXML
     private void update(ActionEvent event) {
-        if (std.getId() != 0) {
-            Student newStd = Mapping.getObjectStudentFromUiStudent(uistd);
-            newStd.setId(std.getId());
+        if (rm.getId() != 0) {
+            Room newRm = Mapping.getObjectRoomFromUiRoom(uirm);
+            newRm.setId(rm.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.updateStudent(newStd);
+                Results.Rstls r = RoomService.updateRoom(newRm);
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
+                    uirm.clearInputs();
+                    refrechRoom(RoomTable, nameC, nbrChairC,rm, "");
                 }
-                std = new Student();
-                uistd.clearInputs();
+                rm = new Room();
+                uirm.clearInputs();
             }
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if (std.getId() != 0) {
+        if (rm.getId() != 0) {
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.deleteStudent(std);
+                Results.Rstls r = RoomService.deleteRoom(rm);
                 if (r == Results.Rstls.OBJECT_NOT_DELETED) {
                     CommunController.alert(r.toString());
                 } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
+                    uirm.clearInputs();
+                    refrechRoom(RoomTable, nameC, nbrChairC,rm, "");
                 }
-                std = new Student();
-                uistd.clearInputs();
+                rm = new Room();
+                uirm.clearInputs();
             }
         }
     }
 
     @FXML
     private void selectStudent(MouseEvent event) {
-        uistd.clearInputs();
-        std = (Student) studentTable.getSelectionModel().getSelectedItem();
-        if (std != null) {
-            firstName.setText(std.getFirstName());
-            lastName.setText(std.getLastName());
-            phone1.setText(std.getPhone1());
-            phone2.setText(std.getPhone2());
-            sectionName.getSelectionModel().select(new String(std.getSectionName()));
-            std.PresentObject();
-            uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
-                    firstName_err, lastName_err, phone1_err, phone2_err);
+        uirm.clearInputs();
+        rm = (Room) RoomTable.getSelectionModel().getSelectedItem();
+        if (rm != null) {
+            name.setText(rm.getName());
+            nbrChair.setText(rm.getNbrchair()+"");
+            rm.PresentTemplate();
+            uirm = new UiRoom(name, nbrChair,name_err, nbrChair_err);
+        }
+    }
+
+    @FXML
+    private void search(KeyEvent event) {
+        if (!name.getText().isEmpty()) {
+            rm.setName(name.getText());
+            refrechRoom(RoomTable, nameC,nbrChairC,rm ,"search");
+        } else {
+            refrechRoom(RoomTable, nameC,nbrChairC,rm ,"");
         }
     }
 
