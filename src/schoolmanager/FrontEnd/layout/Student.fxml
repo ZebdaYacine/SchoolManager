@@ -14,21 +14,21 @@
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="750.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.StudentController">
    <children>
-<<<<<<< HEAD
-      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font></JFXTextField>
-      <JFXTextField fx:id="phone1" focusColor="#0077cc" labelFloat="true" layoutX="500.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 1 " styleClass="jfxtextfield" unFocusColor="#0099cc">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font></JFXTextField>
-      <JFXTextField fx:id="lastName" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="Prenom" styleClass="jfxtextfield" unFocusColor="#0099cc">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font></JFXTextField>
-      <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="500.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 2 " styleClass="jfxtextfield" unFocusColor="#0099cc">
-=======
+<!--<<<<<<< HEAD-->
+<!--      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">-->
+<!--         <font>-->
+<!--            <Font name="Times New Roman" size="14.0" />-->
+<!--         </font></JFXTextField>-->
+<!--      <JFXTextField fx:id="phone1" focusColor="#0077cc" labelFloat="true" layoutX="500.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 1 " styleClass="jfxtextfield" unFocusColor="#0099cc">-->
+<!--         <font>-->
+<!--            <Font name="Times New Roman" size="14.0" />-->
+<!--         </font></JFXTextField>-->
+<!--      <JFXTextField fx:id="lastName" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="Prenom" styleClass="jfxtextfield" unFocusColor="#0099cc">-->
+<!--         <font>-->
+<!--            <Font name="Times New Roman" size="14.0" />-->
+<!--         </font></JFXTextField>-->
+<!--      <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="500.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 2 " styleClass="jfxtextfield" unFocusColor="#0099cc">-->
+<!--=======-->
       <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">
          <font>
             <Font name="Times New Roman" size="14.0" />
@@ -42,87 +42,87 @@
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
       <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="510.0" layoutY="100.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 2 " styleClass="jfxtextfield" unFocusColor="#0099cc">
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </JFXTextField>
       <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="20.0" layoutY="190.0" prefHeight="30.0" prefWidth="200.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />
-      <Label fx:id="firstName_err" layoutX="20.0" layoutY="55.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="1" textFill="#cc3300" visible="false">
+      <Label fx:id="firstName_err" layoutX="20.0" layoutY="55.0" styleClass="labels_err" stylesheets="@../style/style.css" text="1" textFill="#cc3300" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-<<<<<<< HEAD
-      <Label fx:id="phone1_err" layoutX="500.0" layoutY="65.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="2" visible="false">
-=======
-      <Label fx:id="phone1_err" layoutX="510.0" layoutY="55.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="2" visible="false">
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+<!--<<<<<<< HEAD-->
+<!--      <Label fx:id="phone1_err" layoutX="500.0" layoutY="65.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="2" visible="false">-->
+<!--=======-->
+      <Label fx:id="phone1_err" layoutX="510.0" layoutY="55.0" styleClass="labels_err" stylesheets="@../style/style.css" text="2" visible="false">
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastName_err" layoutX="20.0" layoutY="135.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="3" visible="false">
+      <Label fx:id="lastName_err" layoutX="20.0" layoutY="135.0" styleClass="labels_err" stylesheets="@../style/style.css" text="3" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-<<<<<<< HEAD
-      <Label fx:id="phone2_err" layoutX="500.0" layoutY="145.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="4" visible="false">
-=======
-      <Label fx:id="phone2_err" layoutX="510.0" layoutY="135.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="4" visible="false">
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+<!--<<<<<<< HEAD-->
+<!--      <Label fx:id="phone2_err" layoutX="500.0" layoutY="145.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="4" visible="false">-->
+<!--=======-->
+      <Label fx:id="phone2_err" layoutX="510.0" layoutY="135.0" styleClass="labels_err" stylesheets="@../style/style.css" text="4" visible="false">
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-<<<<<<< HEAD
-      <JFXButton buttonType="RAISED" layoutX="300.0" layoutY="200.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter">
-=======
-      <JFXButton buttonType="RAISED" layoutX="300.0" layoutY="200.0" onAction="#add" prefHeight="31.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter">
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+<!--<<<<<<< HEAD-->
+<!--      <JFXButton buttonType="RAISED" layoutX="300.0" layoutY="200.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter">-->
+<!--=======-->
+      <JFXButton buttonType="RAISED" layoutX="300.0" layoutY="200.0" onAction="#add" prefHeight="31.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="Ajouter">
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-<<<<<<< HEAD
-            <MaterialDesignIconView glyphName="ACCOUNT_PLUS" size="16" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="update" buttonType="RAISED" layoutX="450.0" layoutY="200.0" onAction="#update" prefWidth="120.0" styleClass="upbtn" stylesheets="@../Style/buttons_style.css" text="Modifier">
-=======
+<!--<<<<<<< HEAD-->
+<!--            <MaterialDesignIconView glyphName="ACCOUNT_PLUS" size="16" />-->
+<!--         </graphic>-->
+<!--      </JFXButton>-->
+<!--      <JFXButton fx:id="update" buttonType="RAISED" layoutX="450.0" layoutY="200.0" onAction="#update" prefWidth="120.0" styleClass="upbtn" stylesheets="@../Style/buttons_style.css" text="Modifier">-->
+<!--=======-->
             <MaterialDesignIconView glyphName="ACCOUNT_PLUS" size="20" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="update" buttonType="RAISED" layoutX="450.0" layoutY="200.0" onAction="#update" prefHeight="31.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../Style/buttons_style.css" text="Modifier">
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+      <JFXButton fx:id="update" buttonType="RAISED" layoutX="450.0" layoutY="200.0" onAction="#update" prefHeight="31.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="Modifier">
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-<<<<<<< HEAD
-            <FontAwesomeIconView glyphName="EDIT" size="16" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="600.0" layoutY="200.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer">
-=======
+<!--<<<<<<< HEAD-->
+<!--            <FontAwesomeIconView glyphName="EDIT" size="16" />-->
+<!--         </graphic>-->
+<!--      </JFXButton>-->
+<!--      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="600.0" layoutY="200.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer">-->
+<!--=======-->
             <FontAwesomeIconView glyphName="EDIT" size="20" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="600.0" layoutY="200.0" onAction="#delete" prefHeight="31.0" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer">
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="600.0" layoutY="200.0" onAction="#delete" prefHeight="31.0" prefWidth="120.0" styleClass="delbtn" stylesheets="@../style/buttons_style.css" text="Supprimer">
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-<<<<<<< HEAD
-            <FontAwesomeIconView glyphName="EDIT" size="16" />
-=======
+<!--<<<<<<< HEAD-->
+<!--            <FontAwesomeIconView glyphName="EDIT" size="16" />-->
+<!--=======-->
             <FontAwesomeIconView glyphName="EDIT" size="20" />
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          </graphic>
       </JFXButton>
-      <TableView fx:id="studentTable" layoutX="20.0" layoutY="263.0" onMouseClicked="#selectStudent" prefHeight="325.0" prefWidth="721.0" stylesheets="@../Style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
+      <TableView fx:id="studentTable" layoutX="20.0" layoutY="263.0" onMouseClicked="#selectStudent" prefHeight="325.0" prefWidth="721.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
          <columns>
             <TableColumn fx:id="firstNameC" prefWidth="110.0" text="Nom" />
             <TableColumn fx:id="lastNameC" prefWidth="150.0" text="Prenom" />
@@ -131,20 +131,20 @@
             <TableColumn fx:id="sectionNameC" prefWidth="180.0" text="Section" />
          </columns>
       </TableView>
-<<<<<<< HEAD
-      <JFXToggleButton fx:id="enableSearch" layoutX="232.0" layoutY="31.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
-      <Label layoutX="242.0" layoutY="25.0" text="Recherche">
-=======
+<!--<<<<<<< HEAD-->
+<!--      <JFXToggleButton fx:id="enableSearch" layoutX="232.0" layoutY="31.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />-->
+<!--      <Label layoutX="242.0" layoutY="25.0" text="Recherche">-->
+<!--=======-->
       <JFXToggleButton fx:id="enableSearch" layoutX="240.0" layoutY="20.0" prefWidth="143.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
       <Label layoutX="252.0" layoutY="20.0" text="Recherche">
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-<<<<<<< HEAD
-      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="30.0" layoutY="198.0" prefHeight="25.0" prefWidth="200.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />
-=======
->>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+<!--<<<<<<< HEAD-->
+<!--      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="30.0" layoutY="198.0" prefHeight="25.0" prefWidth="200.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />-->
+<!--=======-->
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
    </children>
 </AnchorPane>

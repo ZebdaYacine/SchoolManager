@@ -1,6 +1,6 @@
 .button 
 {
-    -fx-background-color : #283f54;
+    -fx-background-color : #326df0;
     -fx-text-fill: #ffffff
 }
 
@@ -13,9 +13,9 @@
 
 .home
 {
-    -fx-background-color : #dfe3ee;
+    -fx-background-color : #f9f9f9;
 }
-.button:hover 
+.button:hover
 {
-    -fx-background-color :  #0099cc;
+    -fx-background-color :  #5489ff;
 }

@@ -42,8 +42,8 @@
 }
 
 .jfxtextfield{
-    -fx-prompt-text-fill: #ffffff;
-    -fx-text-inner-color:#ffffff;
+    -fx-prompt-text-fill: #3d7ec4;
+    -fx-text-inner-color:#000;
 }
 #statbordPrd
 {
