@@ -74,11 +74,11 @@ public class SectionController implements Initializable {
         ObservableList<Object> pr;
         switch (type) {
             case "search": {
-                pr = (ObservableList<Object>) LevelService.searchObjectByName(template, "section");
+                pr = LevelService.searchObjectByName(template, "section");
                 break;
             }
             default: {
-                pr = (ObservableList<Object>) LevelService.getAllObjects("section");
+                pr = LevelService.getAllObjects("section");
                 break;
             }
         }

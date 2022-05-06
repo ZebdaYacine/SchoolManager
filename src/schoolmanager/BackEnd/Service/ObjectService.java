@@ -21,7 +21,7 @@ public class ObjectService  {
 
     public static Results.Rstls addObject(Template objTemplate, String tab) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
+            PreparedStatement stm = con.prepareStatement(""
                     + "insert into " + tab + " (name) values (?)");
             stm.setString(1, objTemplate.getName());
             stm.executeUpdate();
@@ -35,7 +35,7 @@ public class ObjectService  {
 
     public static Results.Rstls updateObject(Template objTemplate, String tab) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("UPDATE "
+            PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " " + tab + " SET name = ?"
                     + " WHERE id = ? ");
             stm.setString(1, objTemplate.getName());
@@ -51,7 +51,7 @@ public class ObjectService  {
 
     public static Results.Rstls deleteObject(Template objTemplate, String tab) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
+            PreparedStatement stm = con.prepareStatement("DELETE FROM "
                     + " " + tab + " WHERE id = ?");
             stm.setLong(1, objTemplate.getId());
             stm.executeUpdate();
@@ -69,7 +69,7 @@ public class ObjectService  {
         ObservableList<Object> listObjects = FXCollections.observableArrayList(new Template());
         listObjects.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Template objTemplate = new Template();
@@ -92,7 +92,7 @@ public class ObjectService  {
         ObservableList<Object> listObjects = FXCollections.observableArrayList(new Template());
         listObjects.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 obTemplate1.setId(rs.getLong("id"));
@@ -110,9 +110,10 @@ public class ObjectService  {
     public static long getIdObject(Template objTemplate, String tab) {
         String query;
         query = "SELECT id FROM " + tab + " where name = '" + objTemplate.getName() + "'";
+        System.out.println(query);
         long id=0;
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 id=rs.getLong("id");
@@ -130,7 +131,7 @@ public class ObjectService  {
         query = "SELECT name FROM "+tab+" where id ="+template.getId();
         String name ="";
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 name=rs.getString("name");
@@ -146,10 +147,10 @@ public class ObjectService  {
     public static ObservableList<String> getAllObjectName(String tab) {
         String query;
         query = "SELECT name FROM "+tab;
-        ObservableList<String> list = (ObservableList<String>) FXCollections.observableArrayList(new String());
+        ObservableList<String> list = FXCollections.observableArrayList("");
         list.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(rs.getString("name"));

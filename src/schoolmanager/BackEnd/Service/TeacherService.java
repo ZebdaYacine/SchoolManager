@@ -24,7 +24,7 @@ public class TeacherService {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
+            PreparedStatement stm = con.prepareStatement(""
                     + "insert into teacher (firstName,lastName,phone,workePlace)"
                     + " values (?,?,?,?)");
             stm.setString(1, teacher.getFirstName());
@@ -42,7 +42,7 @@ public class TeacherService {
 
     public static Results.Rstls updateTeacher(Teacher teacher) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("UPDATE "
+            PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " teacher SET firstName = ?"
                     + ", lastName = ? ,phone = ? ,workePlace = ? "
                     + " WHERE id = ? ");
@@ -62,7 +62,7 @@ public class TeacherService {
 
     public static Results.Rstls deleteTeacher(Teacher teacher) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
+            PreparedStatement stm = con.prepareStatement("DELETE FROM "
                     + " teacher WHERE id = ?");
             stm.setLong(1, teacher.getId());
             stm.executeUpdate();
@@ -80,7 +80,7 @@ public class TeacherService {
         ObservableList<Teacher> listTeachers = FXCollections.observableArrayList(new Teacher());
         listTeachers.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Teacher student = new Teacher();
@@ -106,7 +106,7 @@ public class TeacherService {
         ObservableList<Teacher> listTeachers = FXCollections.observableArrayList(new Teacher());
         listTeachers.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 tchr.setId(rs.getLong("id"));

@@ -5,19 +5,19 @@
 
 .back
 {
-    -fx-background-color : #081018;
+    -fx-background-color : #f9f9f0;
 }
 
 
 .home
 { 
-    -fx-background-color : #283f54;
+    -fx-background-color : #f9f9f9;
 }
 
 
 .menu-item .label {
     -fx-background-color : transparent; 
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 

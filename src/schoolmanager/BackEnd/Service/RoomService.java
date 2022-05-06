@@ -22,14 +22,14 @@ import static schoolmanager.BackEnd.DataBaseConnection.con;
  */
 public final class RoomService {
 
-    private static Room room = new Room();
+    private static final Room room = new Room();
 
     public static  Results.Rstls addRoom(Room rm) {
         if (rm == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
+            PreparedStatement stm = con.prepareStatement(""
                     + "insert into room (name,nbrchair)"
                     + " values (?,?)");
             stm.setString(1, rm.getName());
@@ -48,7 +48,7 @@ public final class RoomService {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("UPDATE "
+            PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " room SET name = ?"
                     + ", nbrchair = ? WHERE id = ? ");
             stm.setString(1, rm.getName());
@@ -69,7 +69,7 @@ public final class RoomService {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
+            PreparedStatement stm = con.prepareStatement("DELETE FROM "
                     + " room WHERE id = ?");
             stm.setLong(1, rm.getId());
             stm.executeUpdate();
@@ -87,7 +87,7 @@ public final class RoomService {
         ObservableList<Room> listRooms = FXCollections.observableArrayList(new Room());
         listRooms.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Room rm = new Room();
@@ -112,7 +112,7 @@ public final class RoomService {
         ObservableList<Room> listRooms = FXCollections.observableArrayList(new Room());
         listRooms.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Room rm = new Room();

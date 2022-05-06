@@ -25,7 +25,7 @@ public class DataBaseConnection {
 
     public static Connection Connect() {
         try {
-            con = (Connection) DriverManager.getConnection(url, user, Password);
+            con = DriverManager.getConnection(url, user, Password);
             System.out.println("Connection with Data Base");
         } catch (Exception e) {
             System.out.println(e.getMessage() + " " + e.getStackTrace());

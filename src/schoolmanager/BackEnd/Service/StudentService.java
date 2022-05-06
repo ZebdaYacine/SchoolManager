@@ -21,14 +21,14 @@ import schoolmanager.BackEnd.Results;
  */
 public class StudentService {
 
-    private static Section section = new Section();
+    private static final Section section = new Section();
 
     public static Results.Rstls addStudent(Student student) {
         if (student == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement(""
+            PreparedStatement stm = con.prepareStatement(""
                     + "insert into student (firstName,lastName,phone1,phone2,idSection)"
                     + " values (?,?,?,?,?)");
             stm.setString(1, student.getFirstName());
@@ -51,7 +51,7 @@ public class StudentService {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("UPDATE "
+            PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " student SET firstName = ?"
                     + ", lastName = ? ,phone1 = ? ,phone2 = ? , idSection=? "
                     + " WHERE id = ? ");
@@ -76,7 +76,7 @@ public class StudentService {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
+            PreparedStatement stm = con.prepareStatement("DELETE FROM "
                     + " student WHERE id = ?");
             stm.setLong(1, student.getId());
             stm.executeUpdate();
@@ -94,7 +94,7 @@ public class StudentService {
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Student student = new Student();
@@ -122,7 +122,7 @@ public class StudentService {
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 std.setId(rs.getLong("id"));

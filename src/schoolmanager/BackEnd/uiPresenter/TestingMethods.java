@@ -14,18 +14,12 @@ import javafx.scene.control.TextField;
 public class TestingMethods {
 
     public static boolean testDouble(TextField t) {
-        boolean var = false;
-        if (t.getText().matches("\\d+\\.\\d+") || t.getText().matches("\\d+") || t.getText().matches("\\d+\\.")) {
-            var = true;
-        }
+        boolean var = t.getText().matches("\\d+\\.\\d+") || t.getText().matches("\\d+") || t.getText().matches("\\d+\\.");
         return var;
     }
 
     public static boolean testInt(TextField t) {
-        boolean var = false;
-        if (t.getText().matches("\\d+")) {
-            var = true;
-        }
+        boolean var = t.getText().matches("\\d+");
         return var;
     }
 

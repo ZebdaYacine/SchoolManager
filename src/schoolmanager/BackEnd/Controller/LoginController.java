@@ -44,7 +44,7 @@ public class LoginController implements Initializable {
     private JFXPasswordField password;
 
     public static User loginUser;
-    private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     /**
      * Initializes the controller class.

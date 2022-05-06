@@ -75,8 +75,21 @@ public abstract class Mapping {
     public static Room getObjectRoomFromUiRoom(UiRoom uiRoom) {
         boolean a = UiRoom.UiRoomInputIsValid(uiRoom);
         if (a) {
-            int nbr =Integer.parseInt(uiRoom.getNbrChair().getText().toString());
+            int nbr =Integer.parseInt(uiRoom.getNbrChair().getText());
             return new Room(uiRoom.getName().getText(),nbr);
+        } else {
+            return null;
+        }
+    }
+
+    public static Offer getOffreObjectFromOffreUi(UiOffre uiOffre) {
+        boolean a = UiOffre.UiOffreInputIsValid(uiOffre);
+        if (a) {
+            return new Offer(uiOffre.getName().getText(),
+                    uiOffre.getTypeCmb().getSelectionModel().getSelectedItem().toString(),
+                    uiOffre.getModuleCmb().getSelectionModel().getSelectedItem().toString(),
+                    uiOffre.getLevelCmb().getSelectionModel().getSelectedItem().toString(),
+                    Integer.parseInt(uiOffre.getPrice().getText()));
         } else {
             return null;
         }

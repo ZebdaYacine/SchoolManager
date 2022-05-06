@@ -87,10 +87,12 @@ public class MainController implements Initializable {
         btn3.setStyle("-fx-background-color : transparent;");
         btn4.setStyle("-fx-background-color : transparent;");
         btn5.setStyle("-fx-background-color : transparent;");
-        Parent root = FXMLLoader.load(getClass().getResource("/FrontEnd/layout/" + rsc + ".fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/schoolmanager/FrontEnd/layout/" + rsc + ".fxml"));
         main.setCenter(null);
         if (root != null) {
             main.setCenter(root);
+        }else{
+            System.out.println(root);
         }
     }
 
@@ -185,7 +187,9 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void stat(ActionEvent event) {
+    private void stat(ActionEvent event) throws IOException {
+        String rsc="stat";
+        changePane(stat,offres,paiement,presence,seance,rsc);
     }
 
     @FXML
@@ -201,7 +205,9 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void offre(ActionEvent event) {
+    private void offer(ActionEvent event) throws IOException {
+        String rsc="Offer";
+        changePane(offres,stat,paiement,presence,seance,rsc);
     }
 
 }

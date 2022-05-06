@@ -23,7 +23,7 @@ public class UserService {
 
     public static Results.Rstls addUser(User user) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("insert into "
+            PreparedStatement stm = con.prepareStatement("insert into "
                     + " user(userName,password,role) "
                     + "values (?,?,?)");
             stm.setString(1, user.getUserName());
@@ -39,7 +39,7 @@ public class UserService {
 
     public static Results.Rstls deleteUser(User user) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("DELETE FROM "
+            PreparedStatement stm = con.prepareStatement("DELETE FROM "
                     + " user WHERE id = ?");
             stm.setInt(1, user.getId());
             stm.executeUpdate();
@@ -52,7 +52,7 @@ public class UserService {
 
     public static Results.Rstls updateUser(User user) {
         try {
-            PreparedStatement stm = (PreparedStatement) con.prepareStatement("update  user set userName=?,password=?"
+            PreparedStatement stm = con.prepareStatement("update  user set userName=?,password=?"
                     + " ,role=? where id =?");
             stm.setString(1, user.getUserName());
             stm.setString(2, user.getPassword());
@@ -90,7 +90,7 @@ public class UserService {
         ObservableList<User> ListUsers = FXCollections.observableArrayList(new User());
         ListUsers.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User usr = new User();
@@ -113,7 +113,7 @@ public class UserService {
         ObservableList<User> ListUsers = FXCollections.observableArrayList(new User());
         ListUsers.remove(0);
         try {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 if (user.getUserName().equals(rs.getString("userName"))) {

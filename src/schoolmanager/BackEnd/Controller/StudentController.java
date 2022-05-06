@@ -127,9 +127,9 @@ public class StudentController implements Initializable {
               {
         ObservableList<Student> pr;
         if (type.equals("searche")) {
-            pr = (ObservableList<Student>) StudentService.searchStudentByName(std);
+            pr = StudentService.searchStudentByName(std);
         } else {
-            pr = (ObservableList<Student>) StudentService.getAllStudents();
+            pr = StudentService.getAllStudents();
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
@@ -159,7 +159,6 @@ public class StudentController implements Initializable {
             uistd.clearInputs();
         }
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-
     }
 
     @FXML
@@ -209,7 +208,7 @@ public class StudentController implements Initializable {
             lastName.setText(std.getLastName());
             phone1.setText(std.getPhone1());
             phone2.setText(std.getPhone2());
-            sectionName.getSelectionModel().select(new String(std.getSectionName()));
+            sectionName.getSelectionModel().select(std.getSectionName());
             std.PresentObject();
             uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
                     firstName_err, lastName_err, phone1_err, phone2_err);

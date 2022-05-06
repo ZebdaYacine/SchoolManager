@@ -76,11 +76,11 @@ public class ModuleController implements Initializable {
         ObservableList<Object> pr;
         switch (type) {
             case "search": {
-                pr = (ObservableList<Object>) ModuleService.searchObjectByName(template, "module");
+                pr = ModuleService.searchObjectByName(template, "module");
                 break;
             }
             default: {
-                pr = (ObservableList<Object>) ModuleService.getAllObjects("module");
+                pr = ModuleService.getAllObjects("module");
                 break;
             }
         }

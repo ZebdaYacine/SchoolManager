@@ -10,16 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <AnchorPane id="AnchorPane" prefHeight="405.0" prefWidth="622.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.RoomController">
    <children>
 <!--<<<<<<< HEAD-->
-      <JFXTextField fx:id="name" focusColor="WHITE" labelFloat="true" layoutX="30.0" layoutY="30.0" onKeyReleased="#search" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#ff4d00">
+      <JFXTextField fx:id="name" focusColor="#326df0" labelFloat="true" layoutX="30.0" layoutY="30.0" onKeyReleased="#search" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#326df0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
-      <JFXTextField fx:id="nbrChair" focusColor="WHITE" labelFloat="true" layoutX="30.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="Nomber des Chaises" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#ff4d00">
+      <JFXTextField fx:id="nbrChair" focusColor="#326df0" labelFloat="true" layoutX="30.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="Nomber des Chaises" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#326df0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
@@ -110,12 +108,5 @@
             <TableColumn fx:id="nbrChairC" prefWidth="146.0" text="Nomber de chaises" />
          </columns>
       </TableView>
-<!--      <JFXToggleButton fx:id="enableSearch" layoutX="232.0" layoutY="31.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />-->
-<!--      <Label layoutX="242.0" layoutY="25.0" text="Recherche">-->
-<!--         <font>-->
-<!--            <Font name="Times New Roman" size="16.0" />-->
-<!--         </font>-->
-<!--      </Label>-->
-      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="30.0" layoutY="198.0" prefHeight="25.0" prefWidth="208.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />
    </children>
 </AnchorPane>

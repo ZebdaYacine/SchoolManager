@@ -76,11 +76,11 @@ public class TypeController implements Initializable {
         ObservableList<Object> pr;
         switch (type) {
             case "search": {
-                pr = (ObservableList<Object>) ModuleService.searchObjectByName(template, "type");
+                pr = ModuleService.searchObjectByName(template, "type");
                 break;
             }
             default: {
-                pr = (ObservableList<Object>) ModuleService.getAllObjects("type");
+                pr = ModuleService.getAllObjects("type");
                 break;
             }
         }

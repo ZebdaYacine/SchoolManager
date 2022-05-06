@@ -145,9 +145,9 @@ public class TeacherController implements Initializable {
             throws SQLException {
         ObservableList<Teacher> pr;
         if (type.equals("searche")) {
-            pr = (ObservableList<Teacher>) TeacherService.searchTeacherByName(tech);
+            pr = TeacherService.searchTeacherByName(tech);
         } else {
-            pr = (ObservableList<Teacher>) TeacherService.getAllTeachers();
+            pr = TeacherService.getAllTeachers();
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")

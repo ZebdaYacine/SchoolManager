@@ -77,11 +77,11 @@ public class LevelController implements Initializable {
         ObservableList<Object> pr;
         switch (type) {
             case "search": {
-                pr = (ObservableList<Object>) LevelService.searchObjectByName(template, "level");
+                pr = LevelService.searchObjectByName(template, "level");
                 break;
             }
             default: {
-                pr = (ObservableList<Object>) LevelService.getAllObjects("level");
+                pr = LevelService.getAllObjects("level");
                 break;
             }
         }
