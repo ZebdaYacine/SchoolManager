@@ -201,7 +201,9 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void seance(ActionEvent event) {
+    private void seance(ActionEvent event) throws IOException {
+        String rsc="seance";
+        changePane(seance,stat,paiement,presence,offres,rsc);
     }
 
     @FXML
