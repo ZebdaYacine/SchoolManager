@@ -14,10 +14,8 @@
 .table-view > .virtual-flow > .scroll-bar:horizontal,
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track,
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track-background{
-    -fx-background-color: #385976;
-    -fx-border-color: #385976;
-    -fx-border-radius: 5 ;
-    -fx-background-radius: 5 ;
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: #dfe3ee;
     -fx-border-width: 2
 }
 
@@ -25,20 +23,16 @@
 .table-view .column-header-background,
 .table-view .column-header-background .filler{
     -fx-background-color: #081018;
-    -fx-border-radius: 5 ;
-    -fx-background-radius: 5 ;
 }
 
 .table-view .column-header-background .label {
     -fx-alignment: CENTER_LEFT;
     -fx-background-color: #081018;
     -fx-text-fill: white;
-    -fx-border-radius: 5 ;
-    -fx-background-radius: 5 ;
     -fx-font-size:14px;
 }
 .table-row-cell {
-    -fx-background-color: #385976;
+    -fx-background-color: #dfe3ee;
 }
 
 .table-view .table-cell{
