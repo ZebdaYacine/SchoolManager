@@ -1,0 +1,75 @@
+.button
+{
+    -fx-background-color : transparent;
+}
+
+.back
+{
+    -fx-background-color : #f9f9f0;
+}
+
+
+.home
+{ 
+    -fx-background-color : #f9f9f9;
+}
+
+
+.menu-item .label {
+    -fx-background-color : transparent; 
+    -fx-text-fill: black;
+}
+
+
+.context-menu .label{
+    -fx-text-fill: black;
+}
+
+.statheader
+{
+    -fx-background-color : #6699cc;
+    -fx-background-radius: 5 5 5 5;
+}
+.statbord
+{
+    -fx-background-color : #FFFAFA;
+    -fx-background-radius: 10 10 5 5;
+}
+
+.labels_err
+{
+    -fx-text-fill: f70d1b;
+}
+
+.jfxtextfield{
+    -fx-prompt-text-fill: #3d7ec4;
+    -fx-text-inner-color:#000;
+}
+#statbordPrd
+{
+    -fx-background-color : #0a94b8;
+    -fx-background-radius: 10 10 5 5;
+}
+
+#statbordSale
+{
+    -fx-background-color : #0a94b8;
+    -fx-background-radius: 10 10 5 5;
+}
+
+#statbordPurchase
+{
+    -fx-background-color : #0a94b8;
+    -fx-background-radius: 10 10 5 5;
+}
+
+#statbordDette
+{
+    -fx-background-color : #0a94b8;
+    -fx-background-radius: 10 10 5 5;
+}
+
+.img
+{
+    -fx-background-color : #ffffff;
+}

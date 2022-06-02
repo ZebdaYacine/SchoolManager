@@ -9,7 +9,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import schoolmanager.BackEnd.DataBaseConnection;
 
 /**
  *
@@ -17,11 +19,26 @@ import javafx.stage.Stage;
  */
 public class SchoolManager extends Application {
 
+    public static Stage loginStage = new Stage();
+    public static Stage SecodStage = new Stage();
+
+    public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION,
+            "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
+    public static final Alert alertDelete = Template(Alert.AlertType.CONFIRMATION,
+            "suprimer", "suprimer confirmation", "Vérifier avant de supprimer");
+
+    public static Alert Template(Alert.AlertType type, String titel, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titel);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        return alert;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FrontEnd/layout/RootFxml.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FrontEnd/layout/Login.fxml"));
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
         stage.show();
     }
@@ -30,7 +47,14 @@ public class SchoolManager extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        DataBaseConnection.Connect();
+        new Thread(() -> {
+            while (DataBaseConnection.con == null) {
+
+            }
+            launch(args);
+        }).start();
+
     }
 
 }

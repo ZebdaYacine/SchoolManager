@@ -1,0 +1,164 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package schoolmanager.BackEnd.Service;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import schoolmanager.BackEnd.Model.Offer;
+import schoolmanager.BackEnd.Model.Section;
+import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.Template;
+import schoolmanager.BackEnd.Results;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import static schoolmanager.BackEnd.DataBaseConnection.con;
+
+/**
+ *
+ * @author Zed Yacine
+ */
+public class OffreService  {
+
+    private static final Offer offer = new Offer();
+
+    public static Results.Rstls addOffre(Offer offer) {
+        if (offer == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+        try {
+            PreparedStatement stm = con.prepareStatement(""
+                    + "insert into offer (offerName,nameModule,nameType,nameLevel,price,idModule,idType,idLevel)"
+                    + " values (?,?,?,?,?,?,?,?)");
+            stm.setString(1, offer.getName());
+            stm.setString(2, offer.getModule());
+            stm.setString(3, offer.getType());
+            stm.setString(4, offer.getLevel());
+            stm.setInt(5, offer.getPrice());
+            System.out.println(offer.getLevel()+" "+offer.getType()+" "+offer.getModule());
+            Template template = offer;
+            template.setName(offer.getModule());
+            stm.setLong(6, ObjectService.getIdObject(template,"module"));
+            template.setName(offer.getType());
+            stm.setLong(7, ObjectService.getIdObject(template,"type"));
+            template.setName(offer.getLevel());
+            stm.setLong(8, ObjectService.getIdObject(template,"level"));
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_INSERTED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+    }
+
+    public static Results.Rstls updateStudent(Student student) {
+        if (student == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE "
+                    + " student SET firstName = ?"
+                    + ", lastName = ? ,phone1 = ? ,phone2 = ? , idSection=? "
+                    + " WHERE id = ? ");
+            stm.setString(1, student.getFirstName());
+            stm.setString(2, student.getLastName());
+            stm.setString(3, student.getPhone1());
+            stm.setString(4, student.getPhone2());
+            offer.setName(student.getSectionName());
+            stm.setLong(5, ObjectService.getIdObject(offer,"section"));
+            stm.setLong(6, student.getId());
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_UPDATED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_UPDATED;
+        }
+    }
+
+    public static Results.Rstls deleteStudent(Student student) {
+        if (student == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+        try {
+            PreparedStatement stm = con.prepareStatement("DELETE FROM "
+                    + " student WHERE id = ?");
+            stm.setLong(1, student.getId());
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_DELETED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_DELETED;
+        }
+    }
+
+    public static ObservableList<Offer> getAllOffers() {
+        String query;
+        query = "SELECT * FROM Offer order by id desc ";
+        ObservableList<Offer> listOffers = FXCollections.observableArrayList(new Offer());
+        listOffers.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Offer offer = new Offer();
+                offer.setId(rs.getLong("id"));
+                offer.setName(rs.getString("OfferName"));
+                offer.setModule(rs.getString("nameModule"));
+                offer.setLevel(rs.getString("nameLevel"));
+                offer.setType(rs.getString("nameType"));
+                offer.setIdLevel(
+                        ObjectService.getIdObject(new Offer(rs.getLong("idLevel")), "level"));
+                offer.setIdModule(
+                        ObjectService.getIdObject(new Offer(rs.getLong("idModule")), "module"));
+                offer.setIdLevel(
+                        ObjectService.getIdObject(new Offer(rs.getLong("idType")), "type"));
+                offer.setPrice(rs.getInt("price"));
+                listOffers.add(offer);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listOffers;
+    }
+
+    public static ObservableList<Offer> searchStudentByName(Offer offer) {
+        String query;
+        query = "SELECT * FROM offer where name LIKE'" + offer.getName() + "%'";
+        ObservableList<Offer> listOffers = FXCollections.observableArrayList(new Offer());
+        listOffers.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Offer ofr = new Offer();
+                ofr.setId(rs.getLong("id"));
+                ofr.setName(rs.getString("name"));
+                ofr.setModule(rs.getString("nameModule"));
+                ofr.setLevel(rs.getString("nameLevel"));
+                ofr.setType(rs.getString("nameType"));
+                ofr.setIdLevel(
+                        ObjectService.getIdObject(new Offer(rs.getLong("idLevel")), "level"));
+                ofr.setIdModule(
+                        ObjectService.getIdObject(new Offer(rs.getLong("idModule")), "module"));
+                ofr.setIdLevel(
+                        ObjectService.getIdObject(new Offer(rs.getLong("idType")), "type"));
+                listOffers.add(ofr);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listOffers;
+    }
+
+}
