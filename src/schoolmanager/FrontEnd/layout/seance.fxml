@@ -68,7 +68,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="16" />
          </graphic>
       </JFXButton>
-      <TableView fx:id="SeanceTable" layoutX="565.0" layoutY="70.0" onMouseClicked="#selectOffer" prefHeight="610.0" prefWidth="1050.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <TableView fx:id="SeanceTable" layoutX="565.0" layoutY="70.0" onMouseClicked="#selectOffer" prefHeight="610.0" prefWidth="400.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
          <columns>
             <TableColumn fx:id="nameC" prefWidth="100.0" text="Offer" />
             <TableColumn fx:id="TypeC" prefWidth="100.0" text="Teacher" />
@@ -76,5 +76,33 @@
             <TableColumn fx:id="LevelC" prefWidth="100.0" text="Date" />
          </columns>
       </TableView>
+      <TableView fx:id="studentPTable" layoutX="790.0" layoutY="50.0" prefHeight="320.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+         <columns>
+            <TableColumn fx:id="firstNameC" prefWidth="110.0" text="Nom" />
+            <TableColumn fx:id="lastNameC" prefWidth="150.0" text="Prenom" />
+            <TableColumn fx:id="phone1C" prefWidth="134.0" text="N°  Téléphone 1" />
+            <TableColumn fx:id="phone2C" prefWidth="144.0" text="N°  Téléphone 2" />
+            <TableColumn fx:id="sectionNameC" prefWidth="180.0" text="Section" />
+         </columns>
+      </TableView>
+      <TableView fx:id="studentATable" layoutX="920.0" layoutY="400.0" prefHeight="220.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0">
+         <columns>
+            <TableColumn prefWidth="110.0" text="Nom" />
+            <TableColumn prefWidth="150.0" text="Prenom" />
+            <TableColumn prefWidth="134.0" text="N°  Téléphone 1" />
+            <TableColumn prefWidth="144.0" text="N°  Téléphone 2" />
+            <TableColumn prefWidth="180.0" text="Section" />
+         </columns>
+      </TableView>
+      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants présents" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants absents" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

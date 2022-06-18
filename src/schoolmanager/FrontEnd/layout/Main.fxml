@@ -48,21 +48,6 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-
-            <JFXButton fx:id="paiement" alignment="CENTER" contentDisplay="TOP" onAction="#paiement" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Paiement">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <graphic>
-                  <MaterialDesignIconView glyphName="DATABASE_MINUS" size="24" text="" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </JFXButton>
             <JFXButton fx:id="presence" alignment="CENTER" contentDisplay="TOP" onAction="#presence" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Présence">
                <opaqueInsets>
                   <Insets />

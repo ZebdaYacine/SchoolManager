@@ -7,13 +7,11 @@ package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +21,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author kadri
  */
-public class SeanceController implements Initializable {
+public class FollowController implements Initializable {
 
     @FXML
     private JFXButton update;
@@ -40,24 +38,6 @@ public class SeanceController implements Initializable {
     @FXML
     private TableColumn<?, ?> LevelC;
     @FXML
-    private JFXComboBox<?> OfferCmb;
-    @FXML
-    private JFXComboBox<?> teacherCmb;
-    @FXML
-    private JFXComboBox<?> RoomCmb;
-    @FXML
-    private JFXDatePicker dateSeance;
-    @FXML
-    private Label OfferErr;
-    @FXML
-    private Label teacherErr;
-    @FXML
-    private Label roomErr;
-    @FXML
-    private Label dateErr;
-    @FXML
-    private Label timeErr;
-    @FXML
     private TableView<?> studentPTable;
     @FXML
     private TableColumn<?, ?> firstNameC;
@@ -69,6 +49,8 @@ public class SeanceController implements Initializable {
     private TableColumn<?, ?> phone2C;
     @FXML
     private TableColumn<?, ?> sectionNameC;
+    @FXML
+    private TableColumn<?, ?> sectionNameC1;
     @FXML
     private TableView<?> studentATable;
 
