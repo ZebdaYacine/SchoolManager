@@ -6,6 +6,7 @@
 package schoolmanager.BackEnd.Controller;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -19,12 +20,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Offer;
+import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.OffreService;
+import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.Service.TypeService;
+import schoolmanager.BackEnd.uiPresenter.UiLevel;
 import schoolmanager.BackEnd.uiPresenter.UiOffre;
+import schoolmanager.BackEnd.uiPresenter.UiStudent;
 
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
+import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
  * FXML Controller class
@@ -53,7 +60,8 @@ public class OfferController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            ObservableList<String> typesNameList = TypeService.getAllObjectName("type");
+        refrechOffre(offerTable,nameC,TypeC,ModuleC,LevelC,PriceC, offer,"");
+        ObservableList<String> typesNameList = TypeService.getAllObjectName("type");
         ObservableList<String> ModulesNameList = TypeService.getAllObjectName("module");
         ObservableList<String> LevelsNameList = TypeService.getAllObjectName("level");
         this.typeCmb.setItems(typesNameList);
@@ -100,29 +108,71 @@ public class OfferController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         offer = Mapping.getOffreObjectFromOffreUi(uiOffre);
-        Results.Rstls r = OffreService.addOffre(offer);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
-        } else {
-            uiOffre.clearInputs();
+        if(offer!= null){
+            Results.Rstls r = OffreService.addOffer(offer);
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            } else {
+                uiOffre.clearInputs();
+            }
+            refrechOffre(offerTable,nameC,TypeC,ModuleC,LevelC,PriceC, offer,"");
         }
-        refrechOffre(offerTable,nameC,TypeC,ModuleC,LevelC,PriceC, offer,"");
     }
 
     @FXML
     private void update(ActionEvent event) {
-
+        if (offer.getId() != 0) {
+            Offer newOffer = Mapping.getOffreObjectFromOffreUi(uiOffre);
+            newOffer.setId(offer.getId());
+            Optional<ButtonType> option = alertUpdate.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                Results.Rstls r = OffreService.updateOffer(newOffer);
+                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uiOffre.clearInputs();
+                    refrechOffre(offerTable,nameC,TypeC,ModuleC,LevelC,PriceC, offer,"");
+                }
+                offer = new Offer();
+                uiOffre.clearInputs();
+            }
+        }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-
+        if (offer.getId() != 0) {
+            Offer newOffer = Mapping.getOffreObjectFromOffreUi(uiOffre);
+            newOffer.setId(offer.getId());
+            Optional<ButtonType> option = alertUpdate.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                Results.Rstls r = OffreService.deleteOffer(newOffer);
+                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uiOffre.clearInputs();
+                    refrechOffre(offerTable,nameC,TypeC,ModuleC,LevelC,PriceC, offer,"");
+                }
+                offer = new Offer();
+                uiOffre.clearInputs();
+            }
+        }
     }
 
 
     @FXML
     private void selectOffer(MouseEvent event) {
-
+        uiOffre.clearInputs();
+        offer = (Offer) offerTable.getSelectionModel().getSelectedItem();
+        if (offer != null) {
+            name.setText(offer.getName());
+            price.setText(offer.getPrice()+"");
+            moduleCmb.getSelectionModel().select(offer.getModule());
+            levelCmb.getSelectionModel().select(offer.getLevel());
+            typeCmb.getSelectionModel().select(offer.getType());
+            uiOffre = new UiOffre( name, price, nameErr, priceErr, typeErr, moduleErr, levelErr, typeCmb
+                    ,  moduleCmb,  levelCmb);
+        }
     }
 
     @FXML

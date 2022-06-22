@@ -7,10 +7,7 @@ package schoolmanager.BackEnd.Service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import schoolmanager.BackEnd.Model.Offer;
-import schoolmanager.BackEnd.Model.Section;
-import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Model.Template;
+import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
 
 import java.sql.PreparedStatement;
@@ -26,7 +23,7 @@ public class OffreService  {
 
     private static final Offer offer = new Offer();
 
-    public static Results.Rstls addOffre(Offer offer) {
+    public static Results.Rstls addOffer(Offer offer) {
         if (offer == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
@@ -56,22 +53,24 @@ public class OffreService  {
         }
     }
 
-    public static Results.Rstls updateStudent(Student student) {
-        if (student == null) {
+    public static Results.Rstls updateOffer(Offer offer) {
+        if (offer == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE "
-                    + " student SET firstName = ?"
-                    + ", lastName = ? ,phone1 = ? ,phone2 = ? , idSection=? "
+                    + " offer SET offerName = ?"
+                    + ", nameModule = ? , nameType = ? ,nameLevel=? , idModule = ? ,idType = ? , idLevel=? ,price = ? "
                     + " WHERE id = ? ");
-            stm.setString(1, student.getFirstName());
-            stm.setString(2, student.getLastName());
-            stm.setString(3, student.getPhone1());
-            stm.setString(4, student.getPhone2());
-            offer.setName(student.getSectionName());
-            stm.setLong(5, ObjectService.getIdObject(offer,"section"));
-            stm.setLong(6, student.getId());
+            stm.setString(1, offer.getName());
+            stm.setString(2, offer.getModule());
+            stm.setString(3, offer.getType());
+            stm.setString(4, offer.getLevel());
+            stm.setLong(5, ModuleService.getIdObject(new Module(offer.getModule()),"module"));
+            stm.setLong(6, TypeService.getIdObject(new Type(offer.getType()),"type"));
+            stm.setLong(7, TypeService.getIdObject(new Level(offer.getLevel()),"level"));
+            stm.setInt(8, offer.getPrice());
+            stm.setLong(9, offer.getId());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_UPDATED;
@@ -81,14 +80,14 @@ public class OffreService  {
         }
     }
 
-    public static Results.Rstls deleteStudent(Student student) {
-        if (student == null) {
+    public static Results.Rstls deleteOffer(Offer offer) {
+        if (offer == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
             PreparedStatement stm = con.prepareStatement("DELETE FROM "
-                    + " student WHERE id = ?");
-            stm.setLong(1, student.getId());
+                    + " offer WHERE id = ?");
+            stm.setLong(1, offer.getId());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_DELETED;
