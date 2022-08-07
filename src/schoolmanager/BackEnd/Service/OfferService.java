@@ -19,7 +19,7 @@ import static schoolmanager.BackEnd.DataBaseConnection.con;
  *
  * @author Zed Yacine
  */
-public class OffreService  {
+public class OfferService {
 
     private static final Offer offer = new Offer();
 
@@ -158,6 +158,24 @@ public class OffreService  {
             ex.printStackTrace();
         }
         return listOffers;
+    }
+
+    public static String getOfferNameFromIdOffer(Offer offer) {
+        String query;
+        query = "SELECT offerName FROM Offer where id ="+offer.getId();
+        String name ="";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                name=rs.getString("offerName");
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return name;
     }
 
 }

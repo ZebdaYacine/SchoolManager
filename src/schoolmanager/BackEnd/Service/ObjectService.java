@@ -128,13 +128,17 @@ public class ObjectService  {
 
     public static String getNameFromIdObject(Template template,String tab) {
         String query;
-        query = "SELECT name FROM "+tab+" where id ="+template.getId();
+        String nameAtt="name";
+        if(tab.equals("Offer")){
+            nameAtt="OfferName";
+        }
+        query = "SELECT "+nameAtt+" FROM "+tab+" where id ="+template.getId();
         String name ="";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                name=rs.getString("name");
+                name=rs.getString(nameAtt);
             }
             rs.close();
             ps.close();

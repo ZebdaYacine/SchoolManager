@@ -32,7 +32,7 @@
          </children>
       </Pane>
       <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0099cc transparent transparent transparent;" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
-      <HBox alignment="TOP_CENTER" layoutX="335.0" prefHeight="55.0" prefWidth="670.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="TOP_CENTER" layoutX="394.0" prefHeight="55.0" prefWidth="698.0" AnchorPane.leftAnchor="394.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="0.0">
          <children>
                <JFXButton fx:id="stat" alignment="CENTER" contentDisplay="TOP" onAction="#stat" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
                <opaqueInsets>
@@ -72,6 +72,17 @@
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </JFXButton>
+            <JFXButton fx:id="groupes" alignment="CENTER" contentDisplay="TOP" layoutX="355.0" layoutY="10.0" onAction="#groupes" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Groupes">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" />
+               </graphic>
                <padding>
                   <Insets top="10.0" />
                </padding>

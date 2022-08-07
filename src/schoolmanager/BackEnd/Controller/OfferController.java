@@ -20,15 +20,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Offer;
-import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.OffreService;
-import schoolmanager.BackEnd.Service.StudentService;
+import schoolmanager.BackEnd.Service.OfferService;
 import schoolmanager.BackEnd.Service.TypeService;
-import schoolmanager.BackEnd.uiPresenter.UiLevel;
 import schoolmanager.BackEnd.uiPresenter.UiOffre;
-import schoolmanager.BackEnd.uiPresenter.UiStudent;
 
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import static schoolmanager.SchoolManager.alertUpdate;
@@ -83,9 +78,9 @@ public class OfferController implements Initializable {
     {
         ObservableList<Offer> pr;
         if (type.equals("searche")) {
-            pr = OffreService.searchStudentByName(offer);
+            pr = OfferService.searchStudentByName(offer);
         } else {
-            pr = OffreService.getAllOffers();
+            pr = OfferService.getAllOffers();
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("name")
@@ -109,7 +104,7 @@ public class OfferController implements Initializable {
     private void add(ActionEvent event) {
         offer = Mapping.getOffreObjectFromOffreUi(uiOffre);
         if(offer!= null){
-            Results.Rstls r = OffreService.addOffer(offer);
+            Results.Rstls r = OfferService.addOffer(offer);
             if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
                 CommunController.alert(r.toString());
             } else {
@@ -126,7 +121,7 @@ public class OfferController implements Initializable {
             newOffer.setId(offer.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = OffreService.updateOffer(newOffer);
+                Results.Rstls r = OfferService.updateOffer(newOffer);
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
@@ -146,7 +141,7 @@ public class OfferController implements Initializable {
             newOffer.setId(offer.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
-                Results.Rstls r = OffreService.deleteOffer(newOffer);
+                Results.Rstls r = OfferService.deleteOffer(newOffer);
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
                 } else {
