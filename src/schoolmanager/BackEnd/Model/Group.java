@@ -29,8 +29,8 @@ public class Group {
         this.id = id;
     }
 
-    public Group(String name, String nameGroupe, int nbrPlace) {
-        this.nameOffer = name;
+    public Group(String nameOffer, String nameGroupe, int nbrPlace) {
+        this.nameOffer = nameOffer;
         this.nameGroup = nameGroupe;
         this.nbrPlace = nbrPlace;
     }
@@ -88,10 +88,10 @@ public class Group {
         this.nameGroup = nameGroup;
     }
 
-    public static void PresentGroupe(Group grp) {
+    public void PresentGroupe() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(grp);
+            String jsonString = mapper.writeValueAsString(this);
             System.out.println(jsonString);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(Person.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

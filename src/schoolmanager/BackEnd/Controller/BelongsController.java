@@ -6,31 +6,25 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import schoolmanager.BackEnd.Mapper.Mapping;
+import schoolmanager.BackEnd.Model.Belongs;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.SectionService;
+import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
-import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
  * FXML Controller class
@@ -42,15 +36,13 @@ public class BelongsController implements Initializable {
     @FXML
     private TableView<?> studentTable;
     @FXML
-    private TextField firstName;
-   /* @FXML
-    private TextField lastName;
+    private TableView<?> belongsTable;
     @FXML
-    private TextField phone2;*/
+    private TextField firstName;
+
     @FXML
     private TextField phone1;
-    /*@FXML
-    private JFXComboBox sectionName;*/
+
     @FXML
     private TableColumn<?, ?> firstNameC;
     @FXML
@@ -61,23 +53,17 @@ public class BelongsController implements Initializable {
     private TableColumn<?, ?> phone2C;
     @FXML
     private TableColumn<?, ?> sectionNameC;
+
     @FXML
-    private Label firstName_err;
+    private Label nbrPlace;
     @FXML
-    private Label lastName_err;
+    private Label groupName;
     @FXML
-    private Label phone1_err;
-    @FXML
-    private Label phone2_err;
+    private Label offerName;
 
     private Student std = new Student();
+    private static Group group = new Group();
 
-    private UiStudent uistd = new UiStudent();
-
-   /* @FXML
-    private JFXButton delete;
-    @FXML
-    private JFXButton update;*/
     @FXML
     private JFXToggleButton enableSearch;
 
@@ -86,22 +72,17 @@ public class BelongsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /* ObservableList<String> sectionsName = SectionService.getAllObjectName("section");
-        *//*this.sectionName.setItems(sectionsName);*//*
         enableSearch.setSelected(false);
         enableSearch.setOnAction(((event) -> {
             if (enableSearch.isSelected()) {
                 if (!firstName.getText().equals("")) {
-                        std.setFirstName(firstName.getText());
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
-                                std, "searche");
+                    std.setFirstName(firstName.getText());
+/*
+                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "belongs");
+*/
                 } else {
                     enableSearch.setSelected(false);
                 }
-            } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
-                            std, "");
             }
         }));
         firstName.setOnKeyTyped(((event) -> {
@@ -109,27 +90,18 @@ public class BelongsController implements Initializable {
                 enableSearch.setSelected(false);
             }
         }));
-       *//* uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
-                firstName_err, lastName_err, phone1_err, phone2_err);
-        if (loginUser.getRole().equals("simple")) {
-            update.setVisible(false);
-            delete.setVisible(false);
-        } else {
-            update.setVisible(true);
-            delete.setVisible(true);
-        }*//*
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-*/
+
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "student");
+
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type)
-              {
-        /*ObservableList<Student> pr;
-        if (type.equals("searche")) {
-            pr = StudentService.searchStudentByName(std);
-        } else {
+                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, String type) {
+        ObservableList<Student> pr = null;
+        if(type.equals("student")){
             pr = StudentService.getAllStudents();
+        }else if (type.equals("belongs")){
+            pr = BelongsService.getStudentsOfGroup(group.getId());
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
@@ -146,7 +118,7 @@ public class BelongsController implements Initializable {
         Column5.setCellValueFactory(
                 new PropertyValueFactory<>("sectionName")
         );
-        table.setItems(pr);*/
+        table.setItems(pr);
     }
 
     @FXML
@@ -157,8 +129,12 @@ public class BelongsController implements Initializable {
             CommunController.alert(r.toString());
         } else {
             uistd.clearInputs();
-        }
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");*/
+        }*/
+    }
+
+    @FXML
+    private void printList(ActionEvent event) {
+      group.PresentGroupe();
     }
 
     @FXML
@@ -201,22 +177,21 @@ public class BelongsController implements Initializable {
 
     @FXML
     private void selectStudent(MouseEvent event) {
-        /*uistd.clearInputs();
         std = (Student) studentTable.getSelectionModel().getSelectedItem();
         if (std != null) {
-            firstName.setText(std.getFirstName());
-            lastName.setText(std.getLastName());
-            phone1.setText(std.getPhone1());
-            phone2.setText(std.getPhone2());
-            sectionName.getSelectionModel().select(std.getSectionName());
             std.PresentObject();
-            uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
-                    firstName_err, lastName_err, phone1_err, phone2_err);
-        }*/
+            group.PresentGroupe();
+            BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
+            refrechStudent(belongsTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "belongs");
+        }
     }
 
-    public void setGroup(Group group){
-
+    public void setInputs(Group grp) {
+        group = grp;
+        group.PresentGroupe();
+        nbrPlace.setText(Integer.toString(group.getNbrPlace()));
+        groupName.setText(group.getNameGroup());
+        offerName.setText("Offer :" + group.getNameOffer());
     }
 
 }

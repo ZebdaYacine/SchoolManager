@@ -63,7 +63,9 @@
             <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="16" />
          </graphic>
       </JFXButton>
-      <TableView fx:id="GroupeTable" layoutX="565.0" layoutY="70.0" onMouseClicked="#selectGroupe" prefHeight="610.0" prefWidth="1061.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
+      <TableView fx:id="GroupeTable" layoutX="565.0" layoutY="70.0" onMouseClicked="#selectGroup" prefHeight="610.0"
+                 prefWidth="1061.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0"
+                 AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
          <columns>
             <TableColumn fx:id="groupeC" prefWidth="275.9999694824219" text="Groupe" />
             <TableColumn fx:id="placeC" prefWidth="315.0" text="nombre de places" />

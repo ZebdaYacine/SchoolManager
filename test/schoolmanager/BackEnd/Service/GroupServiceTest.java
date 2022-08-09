@@ -22,7 +22,7 @@ public class GroupServiceTest {
     public void getAllGroups() {
         ObservableList<Group> groups=  GroupService.getAllGroups();
         for (Group group: groups) {
-            Group.PresentGroupe(group);
+            group.PresentGroupe();
         }
     }
 }
