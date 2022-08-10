@@ -21,6 +21,7 @@ public class Group {
     private String nameGroup;
     private long idOffer;
     private int nbrPlace;
+    private int nbrRest;
 
     public Group() {
     }
@@ -40,6 +41,8 @@ public class Group {
         this.idOffer = idOffer;
         this.nbrPlace = nbrPlace;
     }
+
+
 
     public Group(int id, String name, int idOffer, int nbrPlace) {
         this.id = id;
@@ -86,6 +89,14 @@ public class Group {
 
     public void setNameGroup(String nameGroup) {
         this.nameGroup = nameGroup;
+    }
+
+    public int getNbrRest() {
+        return nbrRest;
+    }
+
+    public void setNbrRest(int nbrRest) {
+        this.nbrRest = nbrRest;
     }
 
     public void PresentGroupe() {

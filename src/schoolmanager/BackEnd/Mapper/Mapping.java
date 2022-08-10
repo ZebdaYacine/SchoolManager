@@ -98,9 +98,8 @@ public abstract class Mapping {
     public static Group getObjectGroupeFromUiGroupe(UiGroupe uigrp) {
         boolean a = UiGroupe.UiGroupeInputIsValid(uigrp);
         if (a) {
-            return new Group(uigrp.getName().getText(),
-                    uigrp.getOfferCmb().getSelectionModel().getSelectedItem().toString()
-                    ,Integer.parseInt(uigrp.getNbrPlace().getText()));
+            return new Group(uigrp.getOfferCmb().getSelectionModel().getSelectedItem().toString()
+                    ,uigrp.getName().getText(),Integer.parseInt(uigrp.getNbrPlace().getText()));
         } else {
             return null;
         }

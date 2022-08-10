@@ -109,7 +109,11 @@ public class ObjectService  {
 
     public static long getIdObject(Template objTemplate, String tab) {
         String query;
-        query = "SELECT id FROM " + tab + " where name = '" + objTemplate.getName() + "'";
+        String nameAtt="name";
+        if(tab.equals("offer")){
+            nameAtt="OfferName";
+        }
+        query = "SELECT id FROM " + tab + " where "+nameAtt+" = '" + objTemplate.getName() + "'";
         System.out.println(query);
         long id=0;
         try {

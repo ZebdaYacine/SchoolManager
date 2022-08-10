@@ -41,7 +41,7 @@ public class BelongsController implements Initializable {
     private TextField firstName;
 
     @FXML
-    private TextField phone1;
+    private Label idG;
 
     @FXML
     private TableColumn<?, ?> firstNameC;
@@ -53,7 +53,16 @@ public class BelongsController implements Initializable {
     private TableColumn<?, ?> phone2C;
     @FXML
     private TableColumn<?, ?> sectionNameC;
-
+    @FXML
+    private TableColumn<?, ?> firstNameC1;
+    @FXML
+    private TableColumn<?, ?> lastNameC1;
+    @FXML
+    private TableColumn<?, ?> phone1C1;
+    @FXML
+    private TableColumn<?, ?> phone2C1;
+    @FXML
+    private TableColumn<?, ?> sectionNameC1;
     @FXML
     private Label nbrPlace;
     @FXML
@@ -90,7 +99,6 @@ public class BelongsController implements Initializable {
                 enableSearch.setSelected(false);
             }
         }));
-
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "student");
 
     }
@@ -181,17 +189,26 @@ public class BelongsController implements Initializable {
         if (std != null) {
             std.PresentObject();
             group.PresentGroupe();
-            BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
-            refrechStudent(belongsTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "belongs");
+            if(group.getNbrRest()>0){
+                BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
+                refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
+                group.setNbrRest(group.getNbrPlace()-(BelongsService.getStudentsOfGroup(group.getId()).size()));
+                nbrPlace.setText(Integer.toString(group.getNbrRest()));
+            }else{
+                CommunController.alert("group est plain ");
+            }
+
         }
     }
 
     public void setInputs(Group grp) {
-        group = grp;
+        group=grp;
         group.PresentGroupe();
-        nbrPlace.setText(Integer.toString(group.getNbrPlace()));
+        group.setNbrRest(group.getNbrPlace()-(BelongsService.getStudentsOfGroup(group.getId()).size()));
+        nbrPlace.setText(Integer.toString(group.getNbrRest()));
         groupName.setText(group.getNameGroup());
         offerName.setText("Offer :" + group.getNameOffer());
+        refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
     }
 
 }

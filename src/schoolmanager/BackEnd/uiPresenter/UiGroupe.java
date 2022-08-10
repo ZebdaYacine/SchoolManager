@@ -99,14 +99,14 @@ public class UiGroupe extends TestingMethods {
                 bnbrPlace = true;
             }
         }
-        if (uiGroupe.getOfferCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
-            uiGroupe.OfferCmb_err.setText("le niveau est vide");
+       /* if (uiGroupe.getOfferCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+            uiGroupe.OfferCmb_err.setText("l'Offer est vide");
             uiGroupe.OfferCmb_err.setVisible(true);
         } else {
             uiGroupe.OfferCmb_err.setVisible(false);
             bOffer=true;
-        }
-        return bName && bnbrPlace && bOffer && bOffer ;
+        }*/
+        return bName && bnbrPlace ;
     }
 
     public void clearInputs() {

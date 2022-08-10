@@ -23,8 +23,11 @@ import javafx.util.Callback;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Offer;
+import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.GroupService;
 import schoolmanager.BackEnd.Service.OfferService;
+import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.uiPresenter.UiGroupe;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
 
@@ -128,7 +131,6 @@ public class GroupeController implements Initializable {
             Scene scene = new Scene(uigrp);
             if (!SecodStage.isShowing()) {
                 SecodStage.setScene(scene);
-                SecodStage.setUserData(grp);
                 SecodStage.setTitle("Inscription des étudiants");
                 SecodStage.showAndWait();
             } else {
@@ -168,6 +170,13 @@ public class GroupeController implements Initializable {
     private void add(ActionEvent event) {
         grp = Mapping.getObjectGroupeFromUiGroupe(uigrp);
         grp.PresentGroupe();
+        Results.Rstls r = GroupService.addGroup(grp);
+        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+            CommunController.alert(r.toString());
+        } else {
+            uigrp.clearInputs();
+        }
+        refrechGroup(GroupeTable, groupeC, offerC, placeC, new Group(), "");
     }
 
     @FXML

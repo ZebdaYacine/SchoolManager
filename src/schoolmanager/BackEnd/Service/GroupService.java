@@ -31,8 +31,8 @@ public class GroupService {
             PreparedStatement stm = con.prepareStatement(""
                     + "insert into groupe (name,idOffer,nbrPlace)"
                     + " values (?,?,?)");
-            stm.setString(1, group.getNameOffer());
-            stm.setLong(2, group.getIdOffer());
+            stm.setString(1, group.getNameGroup());
+            stm.setLong(2, ObjectService.getIdObject(new Template(group.getNameOffer()),"offer"));
             stm.setInt(3, group.getNbrPlace());
             stm.executeUpdate();
             stm.close();
