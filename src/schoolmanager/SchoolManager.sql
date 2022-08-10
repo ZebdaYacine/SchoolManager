@@ -1,4 +1,3 @@
-create database SchoolManager;
 use SchoolManager;
 
 create table user(
@@ -99,7 +98,7 @@ idSeance BIGINT not null,
 presenceStudent boolean ,
 FOREIGN KEY (idStudent) REFERENCES student(id),
 FOREIGN KEY (idSeance) REFERENCES seance(id)
-);s
+);
 
 create table section(
 id BIGINT primary key auto_increment,
@@ -121,3 +120,37 @@ drop column idStudent;
 
 alter table follow
 add column status boolean;
+
+ALTER TABLE room 
+CHANGE roomName name VARCHAR(25);
+
+create table groupe (
+id BIGINT primary key auto_increment,
+name varchar(50) unique,
+idOffer BIGINT not null,
+FOREIGN KEY (idOffer) REFERENCES Offer(id) on delete cascade on update cascade ,
+nbrPlace int 
+);
+
+create table belongs(
+id BIGINT primary key auto_increment,
+idGroupe BIGINT not null,
+idStudnet BIGINT not null,
+FOREIGN KEY (idGroupe) REFERENCES groupe(id)  on delete cascade on update cascade ,
+FOREIGN KEY (idStudnet) REFERENCES student(id)  on delete cascade on update cascade 
+);
+
+alter table follow
+add idBelongs bigint not null ,
+add foreign key (idBelongs) references belongs(id);
+
+  
+alter table follow
+DROP FOREIGN KEY follow_ibfk_3;
+
+alter table seance
+add idBelongs bigint not null ,
+add foreign key (idBelongs) references belongs(id) on delete cascade on update cascade;
+
+
+
