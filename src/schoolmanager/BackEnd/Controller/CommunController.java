@@ -21,4 +21,12 @@ public class CommunController {
         a.setHeaderText(header);
         a.showAndWait();
     }
+
+    public static boolean confirm(String header) {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Information Dialog");
+        a.setContentText(header);
+        final Optional<ButtonType> result = a.showAndWait();
+        return result.get() == ButtonType.OK;
+    }
 }

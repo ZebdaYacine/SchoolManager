@@ -8,6 +8,7 @@ package schoolmanager.BackEnd.Service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 
@@ -40,6 +41,42 @@ public class GroupService {
         } catch (Exception ex) {
             ex.printStackTrace();
             return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+    }
+
+    public static Results.Rstls deleteGroup(Group group) {
+        if (group == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+        try {
+            PreparedStatement stm = con.prepareStatement("DELETE FROM "
+                    + " groupe WHERE id = ?");
+            stm.setLong(1, group.getId());
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_DELETED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_DELETED;
+        }
+    }
+
+    public static Results.Rstls updateGroup(Group group) {
+        if (group == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+        try {
+            String query= "UPDATE groupe SET name = '"+group.getNameGroup()+"', " +
+                    "idOffer = '"+ObjectService.getIdObject(new Template(group.getNameOffer()),"offer")+"' , " +
+                    "nbrPlace = '"+group.getNbrPlace()+"' WHERE id =  "+group.getId();
+            System.out.println(query);
+            PreparedStatement stm = con.prepareStatement(query);
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_UPDATED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_UPDATED;
         }
     }
 

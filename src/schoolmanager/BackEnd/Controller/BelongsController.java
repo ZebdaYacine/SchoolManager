@@ -13,10 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import schoolmanager.BackEnd.Model.Belongs;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
@@ -24,6 +27,7 @@ import schoolmanager.BackEnd.uiPresenter.UiStudent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static javafx.scene.paint.Color.GREEN;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 
 /**
@@ -75,6 +79,13 @@ public class BelongsController implements Initializable {
 
     @FXML
     private JFXToggleButton enableSearch;
+    private final ContextMenu contextMenu1 = new ContextMenu();
+    private final ContextMenu contextMenu2 = new ContextMenu();
+    private final MenuItem delete = new MenuItem("supprimer");
+    private final MenuItem add = new MenuItem("ajouter");
+    private final MenuItem showProfile = new MenuItem("voir le dossier de l'etudiant");
+    private final MenuItem showProfile1 = new MenuItem("voir le dossier de l'etudiant");
+
 
     /**
      * Initializes the controller class.
@@ -99,16 +110,73 @@ public class BelongsController implements Initializable {
                 enableSearch.setSelected(false);
             }
         }));
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "student");
 
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "student");
+        contextMenu1.getItems().addAll(delete, showProfile1);
+        contextMenu2.getItems().addAll(add, showProfile);
+        studentTable.setOnMouseClicked(event -> {
+            std = (Student) studentTable.getSelectionModel().getSelectedItem();
+            if (std != null) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if(event.getClickCount()==2){
+                        addingToBelongs(std);
+                    }
+                } else if (event.getButton() == MouseButton.SECONDARY) {
+                    studentTable.setContextMenu(contextMenu2);
+                    add.setOnAction(event1 -> {
+                        addingToBelongs(std);
+                    });
+                    showProfile.setOnAction(event1 -> {
+                        CommunController.alert("details profile");
+                    });
+                }
+            }
+        });
+        belongsTable.setOnMouseClicked(event -> {
+            std = (Student) belongsTable.getSelectionModel().getSelectedItem();
+            if (std != null) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    //belongsTable.setContextMenu(contextMenu1);
+                } else if (event.getButton() == MouseButton.SECONDARY) {
+                    std.PresentObject();
+                    group.PresentGroupe();
+                    belongsTable.setContextMenu(contextMenu1);
+                    delete.setOnAction(event1 -> {
+                        boolean a= CommunController.confirm("sure de supprimer cet etudiant ?");
+                        if(a){
+                            BelongsService.deleteBelongs(new Belongs(std.getId(),group.getId()));
+                            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
+                            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
+                            nbrPlace.setText(Integer.toString(group.getNbrRest()));
+                        }
+                    });
+                    showProfile1.setOnAction(event1 -> {
+                        CommunController.alert("details profile 1");
+                    });
+                }
+            }
+        });
+    }
+
+    private  void addingToBelongs(Student std){
+        std.PresentObject();
+        group.PresentGroupe();
+        if (group.getNbrRest() > 0) {
+            BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
+            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
+            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
+            nbrPlace.setText(Integer.toString(group.getNbrRest()));
+        } else {
+            CommunController.alert("group est plain ");
+        }
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
                                       TableColumn Column3, TableColumn Column4, TableColumn Column5, String type) {
         ObservableList<Student> pr = null;
-        if(type.equals("student")){
+        if (type.equals("student")) {
             pr = StudentService.getAllStudents();
-        }else if (type.equals("belongs")){
+        } else if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
         }
         Column1.setCellValueFactory(
@@ -142,7 +210,7 @@ public class BelongsController implements Initializable {
 
     @FXML
     private void printList(ActionEvent event) {
-      group.PresentGroupe();
+        group.PresentGroupe();
     }
 
     @FXML
@@ -185,26 +253,26 @@ public class BelongsController implements Initializable {
 
     @FXML
     private void selectStudent(MouseEvent event) {
-        std = (Student) studentTable.getSelectionModel().getSelectedItem();
+        /*std = (Student) studentTable.getSelectionModel().getSelectedItem();
         if (std != null) {
             std.PresentObject();
             group.PresentGroupe();
-            if(group.getNbrRest()>0){
+            if (group.getNbrRest() > 0) {
                 BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
                 refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
-                group.setNbrRest(group.getNbrPlace()-(BelongsService.getStudentsOfGroup(group.getId()).size()));
+                group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
                 nbrPlace.setText(Integer.toString(group.getNbrRest()));
-            }else{
+            } else {
                 CommunController.alert("group est plain ");
             }
 
-        }
+        }*/
     }
 
     public void setInputs(Group grp) {
-        group=grp;
+        group = grp;
         group.PresentGroupe();
-        group.setNbrRest(group.getNbrPlace()-(BelongsService.getStudentsOfGroup(group.getId()).size()));
+        group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
         nbrPlace.setText(Integer.toString(group.getNbrRest()));
         groupName.setText(group.getNameGroup());
         offerName.setText("Offer :" + group.getNameOffer());

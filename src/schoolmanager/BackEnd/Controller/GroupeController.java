@@ -91,7 +91,6 @@ public class GroupeController implements Initializable {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
                 switch (event.getClickCount()) {
                     case 1: {
-                        System.out.println("One click...!");
                         fillInputs();
                         return;
                     }
@@ -169,7 +168,6 @@ public class GroupeController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         grp = Mapping.getObjectGroupeFromUiGroupe(uigrp);
-        grp.PresentGroupe();
         Results.Rstls r = GroupService.addGroup(grp);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -181,15 +179,34 @@ public class GroupeController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
+        if(CommunController.confirm("sure de modifier  le group")){
+            Group newGrp = Mapping.getObjectGroupeFromUiGroupe(uigrp);
+            newGrp.setId((int) grp.getId());
+            Results.Rstls r = GroupService.updateGroup(newGrp);
+            if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                CommunController.alert(r.toString());
+            } else {
+                uigrp.clearInputs();
+                refrechGroup(GroupeTable, groupeC, offerC, placeC, new Group(), "");
+            }
+        }
     }
 
     @FXML
     private void delete(ActionEvent event) {
+        if(CommunController.confirm("sure de supprimer  le group")){
+            Results.Rstls r = GroupService.deleteGroup(grp);
+            if (r == Results.Rstls.OBJECT_NOT_DELETED) {
+                CommunController.alert(r.toString());
+            } else {
+                uigrp.clearInputs();
+                refrechGroup(GroupeTable, groupeC, offerC, placeC, new Group(), "");
+            }
+        }
     }
 
     @FXML
     private void selectGroup(MouseEvent event) {
-        System.out.println("Clicked");
     }
 
 }

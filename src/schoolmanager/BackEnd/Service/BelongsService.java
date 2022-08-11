@@ -41,6 +41,23 @@ public class BelongsService {
         }
     }
 
+    public static Results.Rstls deleteBelongs(Belongs blgns) {
+        if (blgns == null) {
+            return Results.Rstls.OBJECT_NOT_DELETED;
+        }
+        try {
+            String query="delete from  belongs  where idStudnet="+blgns.getIdStudent()
+                    +" and idGroupe ="+blgns.getIdGroup();
+            PreparedStatement stm = con.prepareStatement(query);
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_DELETED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_DELETED;
+        }
+    }
+
     public static ObservableList<Student> getStudentsOfGroup(long id) {
         String query;
         query = "SELECT * FROM student S , belongs B " +
