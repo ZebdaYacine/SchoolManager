@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -43,7 +44,8 @@ public class BelongsController implements Initializable {
     private TableView<?> belongsTable;
     @FXML
     private TextField firstName;
-
+    @FXML
+    private TextField phone;
     @FXML
     private Label idG;
 
@@ -77,8 +79,6 @@ public class BelongsController implements Initializable {
     private Student std = new Student();
     private static Group group = new Group();
 
-    @FXML
-    private JFXToggleButton enableSearch;
     private final ContextMenu contextMenu1 = new ContextMenu();
     private final ContextMenu contextMenu2 = new ContextMenu();
     private final MenuItem delete = new MenuItem("supprimer");
@@ -92,26 +92,8 @@ public class BelongsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        enableSearch.setSelected(false);
-        enableSearch.setOnAction(((event) -> {
-            if (enableSearch.isSelected()) {
-                if (!firstName.getText().equals("")) {
-                    std.setFirstName(firstName.getText());
-/*
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "belongs");
-*/
-                } else {
-                    enableSearch.setSelected(false);
-                }
-            }
-        }));
-        firstName.setOnKeyTyped(((event) -> {
-            if (firstName.getText().equals("")) {
-                enableSearch.setSelected(false);
-            }
-        }));
-
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, "student");
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
+                sectionNameC, new Student(),"student");
         contextMenu1.getItems().addAll(delete, showProfile1);
         contextMenu2.getItems().addAll(add, showProfile);
         studentTable.setOnMouseClicked(event -> {
@@ -145,7 +127,8 @@ public class BelongsController implements Initializable {
                         boolean a= CommunController.confirm("sure de supprimer cet etudiant ?");
                         if(a){
                             BelongsService.deleteBelongs(new Belongs(std.getId(),group.getId()));
-                            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
+                            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1
+                                    , phone2C1, sectionNameC1,new Student(), "belongs");
                             group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
                             nbrPlace.setText(Integer.toString(group.getNbrRest()));
                         }
@@ -163,7 +146,8 @@ public class BelongsController implements Initializable {
         group.PresentGroupe();
         if (group.getNbrRest() > 0) {
             BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
-            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
+            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
+                    phone2C1, sectionNameC1,new Student(), "belongs");
             group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
             nbrPlace.setText(Integer.toString(group.getNbrRest()));
         } else {
@@ -172,12 +156,17 @@ public class BelongsController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, String type) {
+                                      TableColumn Column3, TableColumn Column4, TableColumn Column5,Student std,String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
             pr = StudentService.getAllStudents();
         } else if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
+        }else  {
+            pr = BelongsService.searchStudentByName(std);
+        }
+        for ( Student s : pr){
+            System.out.println(s.getSectionName());
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
@@ -274,9 +263,35 @@ public class BelongsController implements Initializable {
         group.PresentGroupe();
         group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
         nbrPlace.setText(Integer.toString(group.getNbrRest()));
-        groupName.setText(group.getNameGroup());
-        offerName.setText("Offer :" + group.getNameOffer());
-        refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
+        groupName.setText("Group: "+group.getNameGroup());
+        offerName.setText("Offer: " + group.getNameOffer());
+        refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
+                phone2C1, sectionNameC1, new Student(),"belongs");
     }
+
+    @FXML
+    private void searchByNameAndPhone(KeyEvent event) {
+        Student std = new Student();
+        String name = firstName.getText();
+        String phn = phone.getText();
+        if(!name.isEmpty() && !phn.isEmpty()){
+            std.setFirstName(name);
+            std.setPhone1(phn);
+            std.setPhone2(phn);
+        }else if(!name.isEmpty()){
+            std.setFirstName(name);
+            std.setPhone1("");
+            std.setPhone2("");
+        }else{
+            std.setFirstName("");
+            std.setPhone1(phn);
+            std.setPhone2(phn);
+        }
+        std.PresentObject();
+        refrechStudent(studentTable, firstNameC1, lastNameC1, phone1C1,
+                phone2C1, sectionNameC1, std,"");
+    }
+
+
 
 }

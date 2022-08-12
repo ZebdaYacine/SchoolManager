@@ -87,5 +87,33 @@ public class BelongsService {
         return listStudents;
     }
 
-
+    public static ObservableList<Student> searchStudentByName(Student student) {
+        String query;
+        query = "SELECT * FROM student where firstName LIKE'" + student.getFirstName() + "%'" +
+                    " and  ( phone1 LIKE'"+student.getPhone1()+"%' or " +
+                    "phone2 LIKE'"+student.getPhone2()+"%')";
+        System.out.println(query);
+        ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
+        listStudents.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student std = new Student();
+                std.setId(rs.getLong("id"));
+                std.setFirstName(rs.getString("firstName"));
+                std.setLastName(rs.getString("lastName"));
+                std.setPhone1(rs.getString("phone1"));
+                std.setPhone2(rs.getString("phone2"));
+                student.setSectionName(
+                        ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
+                listStudents.add(std);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listStudents;
+    }
 }

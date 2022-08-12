@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -27,11 +26,11 @@
 <!--         </font></JFXTextField>-->
 <!--      <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="500.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 2 " styleClass="jfxtextfield" unFocusColor="#0099cc">-->
 <!--=======-->
-      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">
+      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="14.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
-      <JFXTextField fx:id="phone1" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="105.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 1 " styleClass="jfxtextfield" unFocusColor="#0099cc">
+      <JFXTextField fx:id="phone" focusColor="#0077cc" labelFloat="true" layoutX="348.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 1 " styleClass="jfxtextfield" unFocusColor="#0099cc">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
@@ -63,7 +62,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="studentTable" layoutX="12.0" layoutY="168.0" onMouseClicked="#selectStudent" prefHeight="462.0" prefWidth="621.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="707.0" AnchorPane.topAnchor="168.0">
+      <TableView fx:id="studentTable" layoutX="12.0" layoutY="82.0" onMouseClicked="#selectStudent" prefHeight="548.0" prefWidth="621.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="707.0" AnchorPane.topAnchor="82.0">
          <columns>
             <TableColumn fx:id="firstNameC" prefWidth="110.0" text="Nom" />
             <TableColumn fx:id="lastNameC" prefWidth="117.99996948242188" text="Prenom" />
@@ -72,17 +71,6 @@
             <TableColumn fx:id="sectionNameC" prefWidth="158.0" text="Section" />
          </columns>
       </TableView>
-<!--<<<<<<< HEAD-->
-<!--      <JFXToggleButton fx:id="enableSearch" layoutX="232.0" layoutY="31.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />-->
-<!--      <Label layoutX="242.0" layoutY="25.0" text="Recherche">-->
-<!--=======-->
-      <JFXToggleButton fx:id="enableSearch" layoutX="245.0" layoutY="97.0" prefWidth="143.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
-      <Label layoutX="264.0" layoutY="75.0" text="Recherche">
-<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
-         <font>
-            <Font name="Times New Roman Bold" size="16.0" />
-         </font>
-      </Label>
       <TableView fx:id="belongsTable" layoutX="705.0" layoutY="168.0" prefHeight="462.0" prefWidth="621.0" stylesheets="@../style/Table_Gestion_Css.css">
          <columns>
             <TableColumn fx:id="firstNameC1" prefWidth="110.0" text="Nom" />

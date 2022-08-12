@@ -7,8 +7,10 @@ package schoolmanager.BackEnd.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 
 import schoolmanager.BackEnd.Model.Section;
@@ -16,7 +18,6 @@ import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Results;
 
 /**
- *
  * @author Zed Yacine
  */
 public class StudentService {
@@ -36,7 +37,7 @@ public class StudentService {
             stm.setString(3, student.getPhone1());
             stm.setString(4, student.getPhone2());
             section.setName(student.getSectionName());
-            stm.setLong(5, ObjectService.getIdObject(section,"section"));
+            stm.setLong(5, ObjectService.getIdObject(section, "section"));
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_INSERTED;
@@ -60,7 +61,7 @@ public class StudentService {
             stm.setString(3, student.getPhone1());
             stm.setString(4, student.getPhone2());
             section.setName(student.getSectionName());
-            stm.setLong(5, ObjectService.getIdObject(section,"section"));
+            stm.setLong(5, ObjectService.getIdObject(section, "section"));
             stm.setLong(6, student.getId());
             stm.executeUpdate();
             stm.close();
@@ -116,8 +117,9 @@ public class StudentService {
     }
 
     public static ObservableList<Student> searchStudentByName(Student student) {
-        String query;
+        String query = "";
         query = "SELECT * FROM student where firstName LIKE'" + student.getFirstName() + "%'";
+        System.out.println(query);
         Student std = new Student();
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
