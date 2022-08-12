@@ -71,6 +71,12 @@ public class SeanceController implements Initializable {
     private TableColumn<?, ?> sectionNameC;
     @FXML
     private TableView<?> studentATable;
+    @FXML
+    private JFXComboBox<?> GroupCmb;
+    @FXML
+    private Label groupErr;
+    @FXML
+    private TableColumn<?, ?> GroupC;
 
     /**
      * Initializes the controller class.

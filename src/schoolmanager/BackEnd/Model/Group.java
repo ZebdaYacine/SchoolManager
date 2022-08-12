@@ -26,7 +26,7 @@ public class Group {
     public Group() {
     }
 
-    public Group(int id) {
+    public Group(Long id) {
         this.id = id;
     }
 

@@ -123,5 +123,30 @@ public class TeacherService {
         }
         return listTeachers;
     }
+    
+    public static ObservableList<Teacher> searchTeacherById(Teacher teacher) {
+        String query;
+        query = "SELECT * FROM teacher where id = " + teacher.getId()+ "";
+        Teacher tchr = new Teacher();
+        ObservableList<Teacher> listTeachers = FXCollections.observableArrayList(new Teacher());
+        listTeachers.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tchr.setId(rs.getLong("id"));
+                tchr.setFirstName(rs.getString("firstName"));
+                tchr.setLastName(rs.getString("lastName"));
+                tchr.setPhone(rs.getString("phone"));
+                tchr.setWorkePlace(rs.getString("workePlace"));
+                listTeachers.add(tchr);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listTeachers;
+    }
 
 }

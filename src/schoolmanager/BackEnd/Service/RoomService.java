@@ -128,5 +128,29 @@ public final class RoomService {
         }
         return listRooms;
     }
+    
+    public static ObservableList<Room> searchRoomById(Room room) {
+        String query;
+        query = "SELECT * FROM room where id = " + room.getId()+ "";
+        System.out.println(query);
+        ObservableList<Room> listRooms = FXCollections.observableArrayList(new Room());
+        listRooms.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Room rm = new Room();
+                rm.setName(rs.getString("name"));
+                rm.setNbrchair(rs.getInt("nbrchair"));
+                rm.setId(rs.getLong("id"));
+                listRooms.add(rm);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listRooms;
+    }
 
 }

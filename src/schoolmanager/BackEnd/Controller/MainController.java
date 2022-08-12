@@ -216,7 +216,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void groupes(ActionEvent event) throws IOException {
-        String rsc="groupes";
+        String rsc="Groupes";
         changePane(groupes,offres,stat,presence,seance,rsc);
     }
 

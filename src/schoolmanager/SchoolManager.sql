@@ -152,5 +152,15 @@ alter table seance
 add idBelongs bigint not null ,
 add foreign key (idBelongs) references belongs(id) on delete cascade on update cascade;
 
+alter table seance 
+drop foreign key seance_ibfk_5;
+
+alter table seance 
+drop column idBelongs;
+
+alter table seance
+add idGroupe bigint not null ,
+add foreign key (idGroupe) references groupe(id) on delete cascade on update cascade;
+
 
 

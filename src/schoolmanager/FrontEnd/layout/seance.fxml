@@ -32,19 +32,25 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXDatePicker fx:id="dateSeance" defaultColor="#0077cc" editable="false" layoutX="31.0" layoutY="244.0" prefHeight="30.0" prefWidth="200.0" promptText="date seance" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0" />
-      <Label fx:id="dateErr" layoutX="37.0" layoutY="341.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="275.0">
+      <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" layoutX="30.0" layoutY="234.0" prefHeight="30.0" prefWidth="200.0" promptText="Group" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0" />
+      <Label fx:id="groupErr" layoutX="30.0" layoutY="269.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="275.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTimePicker defaultColor="#0077cc" layoutX="30.0" layoutY="324.0" prefHeight="30.0" prefWidth="200.0" promptText="time seance" AnchorPane.topAnchor="310.0" />
-      <Label fx:id="timeErr" layoutX="40.0" layoutY="285.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="345.0">
+      <JFXDatePicker fx:id="dateSeance" defaultColor="#0077cc" editable="false" layoutX="30.0" layoutY="298.0" prefHeight="30.0" prefWidth="200.0" promptText="date seance" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="310.0" />
+      <Label fx:id="dateErr" layoutX="30.0" layoutY="333.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="345.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" layoutX="31.0" layoutY="339.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="Ajouter" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="450.0">
+      <JFXTimePicker defaultColor="#0077cc" layoutX="30.0" layoutY="368.0" prefHeight="30.0" prefWidth="200.0" promptText="time seance" AnchorPane.topAnchor="380.0" />
+      <Label fx:id="timeErr" layoutX="30.0" layoutY="403.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="415.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="30.0" layoutY="480.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="Ajouter" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="480.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -52,7 +58,7 @@
             <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_PLUS" size="16" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="update" buttonType="RAISED" layoutX="30.0" layoutY="381.0" onAction="#update" prefHeight="27.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="Modifier" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="490.0">
+      <JFXButton fx:id="update" buttonType="RAISED" layoutX="30.0" layoutY="520.0" onAction="#update" prefHeight="27.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="Modifier" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="520.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -60,7 +66,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="30.0" layoutY="421.0" onAction="#delete" prefHeight="27.0" prefWidth="120.0" styleClass="delbtn" stylesheets="@../style/buttons_style.css" text="Supprimer" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="530.0">
+      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="30.0" layoutY="560.0" onAction="#delete" prefHeight="27.0" prefWidth="120.0" styleClass="delbtn" stylesheets="@../style/buttons_style.css" text="Supprimer" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="560.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -68,38 +74,44 @@
             <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="16" />
          </graphic>
       </JFXButton>
-      <TableView fx:id="SeanceTable" layoutX="565.0" layoutY="70.0" onMouseClicked="#selectOffer" prefHeight="610.0" prefWidth="400.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
+      <TableView fx:id="SeanceTable" layoutX="565.0" layoutY="52.0" onMouseClicked="#selectOffer" prefHeight="578.0" prefWidth="450.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="50.0">
          <columns>
             <TableColumn fx:id="nameC" prefWidth="100.0" text="Offer" />
             <TableColumn fx:id="TypeC" prefWidth="100.0" text="Teacher" />
-            <TableColumn fx:id="ModuleC" prefWidth="100.0" text="Room" />
+            <TableColumn fx:id="ModuleC" text="Room" />
+            <TableColumn fx:id="GroupC" text="Group" />
             <TableColumn fx:id="LevelC" prefWidth="100.0" text="Date" />
          </columns>
       </TableView>
-      <TableView fx:id="studentPTable" layoutX="790.0" layoutY="50.0" prefHeight="320.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+      <TableView fx:id="studentPTable" layoutX="790.0" layoutY="50.0" prefHeight="320.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="740.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
          <columns>
-            <TableColumn fx:id="firstNameC" prefWidth="110.0" text="Nom" />
-            <TableColumn fx:id="lastNameC" prefWidth="150.0" text="Prenom" />
-            <TableColumn fx:id="phone1C" prefWidth="134.0" text="N°  Téléphone 1" />
-            <TableColumn fx:id="phone2C" prefWidth="144.0" text="N°  Téléphone 2" />
-            <TableColumn fx:id="sectionNameC" prefWidth="180.0" text="Section" />
+            <TableColumn fx:id="firstNameC" prefWidth="100.0" text="Nom" />
+            <TableColumn fx:id="lastNameC" prefWidth="100.0" text="Prenom" />
+            <TableColumn fx:id="phone1C" prefWidth="120.0" text="N°  Téléphone 1" />
+            <TableColumn fx:id="phone2C" prefWidth="120.0" text="N°  Téléphone 2" />
+            <TableColumn fx:id="sectionNameC" prefWidth="120.0" text="Section" />
          </columns>
       </TableView>
-      <TableView fx:id="studentATable" layoutX="920.0" layoutY="400.0" prefHeight="220.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0">
+      <TableView fx:id="studentATable" layoutX="920.0" layoutY="400.0" prefHeight="220.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="740.0" AnchorPane.rightAnchor="20.0">
          <columns>
-            <TableColumn prefWidth="110.0" text="Nom" />
-            <TableColumn prefWidth="150.0" text="Prenom" />
-            <TableColumn prefWidth="134.0" text="N°  Téléphone 1" />
-            <TableColumn prefWidth="144.0" text="N°  Téléphone 2" />
-            <TableColumn prefWidth="180.0" text="Section" />
+            <TableColumn prefWidth="100.0" text="Nom" />
+            <TableColumn prefWidth="100.0" text="Prenom" />
+            <TableColumn prefWidth="120.0" text="N°  Téléphone 1" />
+            <TableColumn prefWidth="120.0" text="N°  Téléphone 2" />
+            <TableColumn prefWidth="120.0" text="Section" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants présents" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants présents" AnchorPane.leftAnchor="740.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants absents" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="690.0" AnchorPane.rightAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants absents" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="740.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" style="-fx-background-color: #dfe3ee;" text="Les seances" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

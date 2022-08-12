@@ -23,7 +23,6 @@ import static schoolmanager.BackEnd.DataBaseConnection.con;
  */
 public class GroupService {
 
-
     public static Results.Rstls addGroup(Group group) {
         if (group == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
@@ -33,7 +32,7 @@ public class GroupService {
                     + "insert into groupe (name,idOffer,nbrPlace)"
                     + " values (?,?,?)");
             stm.setString(1, group.getNameGroup());
-            stm.setLong(2, ObjectService.getIdObject(new Template(group.getNameOffer()),"offer"));
+            stm.setLong(2, ObjectService.getIdObject(new Template(group.getNameOffer()), "offer"));
             stm.setInt(3, group.getNbrPlace());
             stm.executeUpdate();
             stm.close();
@@ -66,9 +65,9 @@ public class GroupService {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            String query= "UPDATE groupe SET name = '"+group.getNameGroup()+"', " +
-                    "idOffer = '"+ObjectService.getIdObject(new Template(group.getNameOffer()),"offer")+"' , " +
-                    "nbrPlace = '"+group.getNbrPlace()+"' WHERE id =  "+group.getId();
+            String query = "UPDATE groupe SET name = '" + group.getNameGroup() + "', "
+                    + "idOffer = '" + ObjectService.getIdObject(new Template(group.getNameOffer()), "offer") + "' , "
+                    + "nbrPlace = '" + group.getNbrPlace() + "' WHERE id =  " + group.getId();
             System.out.println(query);
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();
@@ -94,10 +93,10 @@ public class GroupService {
                 group.setNameGroup(rs.getString("name"));
                 group.setIdOffer(rs.getInt("idOffer"));
                 group.setNameOffer(ObjectService.getNameFromIdObject(
-                        new Template(rs.getInt("idOffer"))
-                        ,"Offer"));
+                        new Template(rs.getInt("idOffer")),
+                         "Offer"));
                 group.setNbrPlace(rs.getInt("nbrPlace"));
-               listGroups.add(group);
+                listGroups.add(group);
             }
             rs.close();
             ps.close();
@@ -107,5 +106,31 @@ public class GroupService {
         return listGroups;
     }
 
+    public static ObservableList<Group> getGroupbyId(Group g) {
+        String query;
+        query = "SELECT * FROM groupe where id = " + g.getId() + "";
+        ObservableList<Group> listGroups = FXCollections.observableArrayList(new Group());
+        listGroups.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Group group = new Group();
+                group.setId(rs.getInt("id"));
+                group.setNameGroup(rs.getString("name"));
+                group.setIdOffer(rs.getInt("idOffer"));
+                group.setNameOffer(ObjectService.getNameFromIdObject(
+                        new Template(rs.getInt("idOffer")),
+                         "Offer"));
+                group.setNbrPlace(rs.getInt("nbrPlace"));
+                listGroups.add(group);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listGroups;
+    }
 
 }
