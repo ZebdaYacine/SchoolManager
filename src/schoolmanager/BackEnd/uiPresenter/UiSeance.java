@@ -5,12 +5,11 @@
  */
 package schoolmanager.BackEnd.uiPresenter;
 
+
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import static schoolmanager.BackEnd.uiPresenter.TestingMethods.testInt;
 
 /**
  *
@@ -190,4 +189,4 @@ public class UiSeance {
         this.RoomCmb.getSelectionModel().clearSelection();
         this.GroupCmb.getSelectionModel().clearSelection();
     }
-}
+    }
