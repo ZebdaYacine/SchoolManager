@@ -8,6 +8,7 @@ package schoolmanager.BackEnd.Controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -77,6 +78,8 @@ public class SeanceController implements Initializable {
     private Label groupErr;
     @FXML
     private TableColumn<?, ?> GroupC;
+    @FXML
+    private JFXTimePicker time;
 
     /**
      * Initializes the controller class.
@@ -84,6 +87,7 @@ public class SeanceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
 
     @FXML

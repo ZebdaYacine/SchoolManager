@@ -5,188 +5,188 @@
  */
 package schoolmanager.BackEnd.uiPresenter;
 
-import com.jfoenix.controls.JFXComboBox;
+
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 /**
  *
- * @author Zed Yacine
+ * @author kadri
  */
-public class UiSeance extends TestingMethods {
+public class UiSeance {
 
-    private TextField firstName;
-    private TextField lastName;
-    private TextField phone2;
-    private TextField phone1;
-    private ComboBox sectionName;
-
-
-    private Label firstName_err;
-    private Label lastName_err;
-    private Label phone1_err;
-    private Label phone2_err;
+    private Label OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr;
+    private ComboBox OfferCmb, teacherCmb, RoomCmb, GroupCmb;
+    private JFXDatePicker date;
+    private JFXTimePicker time;
 
     public UiSeance() {
     }
 
-    public UiSeance(TextField firstName, TextField lastName, TextField phone2, TextField phone1, ComboBox sectionName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone2 = phone2;
-        this.phone1 = phone1;
-        this.sectionName=sectionName;
+    public UiSeance(Label OfferErr, Label teacherErr, Label roomErr, Label dateErr, Label timeErr, Label groupErr, ComboBox OfferCmb, ComboBox teacherCmb, ComboBox RoomCmb, ComboBox GroupCmb, JFXDatePicker date, JFXTimePicker time) {
+        this.OfferErr = OfferErr;
+        this.teacherErr = teacherErr;
+        this.roomErr = roomErr;
+        this.dateErr = dateErr;
+        this.timeErr = timeErr;
+        this.groupErr = groupErr;
+        this.OfferCmb = OfferCmb;
+        this.teacherCmb = teacherCmb;
+        this.RoomCmb = RoomCmb;
+        this.GroupCmb = GroupCmb;
+        this.date = date;
+        this.time = time;
     }
 
-    public UiSeance(TextField firstName, TextField lastName, TextField phone2, TextField phone1, JFXComboBox sectionName, Label firstName_err, Label lastName_err, Label phone1_err, Label phone2_err) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone2 = phone2;
-        this.phone1 = phone1;
-        this.firstName_err = firstName_err;
-        this.lastName_err = lastName_err;
-        this.phone1_err = phone1_err;
-        this.phone2_err = phone2_err;
-        this.sectionName=sectionName;
+    public JFXDatePicker getDate() {
+        return date;
     }
 
-    public TextField getFirstName() {
-        return firstName;
+    public void setDate(JFXDatePicker date) {
+        this.date = date;
     }
 
-    public void setFirstName(TextField firstName) {
-        this.firstName = firstName;
+    public JFXTimePicker getTime() {
+        return time;
     }
 
-    public TextField getLastName() {
-        return lastName;
+    public void setTime(JFXTimePicker time) {
+        this.time = time;
     }
 
-    public void setLastName(TextField lastName) {
-        this.lastName = lastName;
+    public Label getOfferErr() {
+        return OfferErr;
     }
 
-    public TextField getPhone2() {
-        return phone2;
+    public void setOfferErr(Label OfferErr) {
+        this.OfferErr = OfferErr;
     }
 
-    public void setPhone2(TextField phone2) {
-        this.phone2 = phone2;
+    public Label getTeacherErr() {
+        return teacherErr;
     }
 
-    public TextField getPhone1() {
-        return phone1;
+    public void setTeacherErr(Label teacherErr) {
+        this.teacherErr = teacherErr;
     }
 
-    public void setPhone1(TextField phone1) {
-        this.phone1 = phone1;
+    public Label getRoomErr() {
+        return roomErr;
     }
 
-    public Label getFirstName_err() {
-        return firstName_err;
+    public void setRoomErr(Label roomErr) {
+        this.roomErr = roomErr;
     }
 
-    public void setFirstName_err(Label firstName_err) {
-        this.firstName_err = firstName_err;
+    public Label getDateErr() {
+        return dateErr;
     }
 
-    public Label getLastName_err() {
-        return lastName_err;
+    public void setDateErr(Label dateErr) {
+        this.dateErr = dateErr;
     }
 
-    public void setLastName_err(Label lastName_err) {
-        this.lastName_err = lastName_err;
+    public Label getTimeErr() {
+        return timeErr;
     }
 
-    public Label getPhone1_err() {
-        return phone1_err;
+    public void setTimeErr(Label timeErr) {
+        this.timeErr = timeErr;
     }
 
-    public void setPhone1_err(Label phone1_err) {
-        this.phone1_err = phone1_err;
+    public Label getGroupErr() {
+        return groupErr;
     }
 
-    public Label getPhone2_err() {
-        return phone2_err;
+    public void setGroupErr(Label groupErr) {
+        this.groupErr = groupErr;
     }
 
-    public void setPhone2_err(Label phone2_err) {
-        this.phone2_err = phone2_err;
+    public ComboBox getOfferCmb() {
+        return OfferCmb;
     }
 
-    public ComboBox getSectionName() {
-        return sectionName;
+    public void setOfferCmb(ComboBox OfferCmb) {
+        this.OfferCmb = OfferCmb;
     }
 
-    public void setSectionName(ComboBox sectionName) {
-        this.sectionName = sectionName;
+    public ComboBox getTeacherCmb() {
+        return teacherCmb;
     }
 
-    public static boolean UiStudentInputIsValid(UiSeance uistd) {
-        boolean bFirstName = false, blastName = false, bphone1 = false, bphone2 = false;
-        if (uistd.getFirstName().getText().isEmpty()) {
-            uistd.getFirstName_err().setText("le nom est vide");
-            uistd.getFirstName_err().setVisible(true);
+    public void setTeacherCmb(ComboBox teacherCmb) {
+        this.teacherCmb = teacherCmb;
+    }
+
+    public ComboBox getRoomCmb() {
+        return RoomCmb;
+    }
+
+    public void setRoomCmb(ComboBox RoomCmb) {
+        this.RoomCmb = RoomCmb;
+    }
+
+    public ComboBox getGroupCmb() {
+        return GroupCmb;
+    }
+
+    public void setGroupCmb(ComboBox GroupCmb) {
+        this.GroupCmb = GroupCmb;
+    }
+
+    public static boolean UiSeanceInputIsValid(UiSeance uiSeance) {
+        boolean bTeacher = false, bRoom = false, bOffer = false, bGroup = false, bdate = false, btime = false;
+        if (uiSeance.getOfferCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+            uiSeance.getOfferErr().setText("le offer est vide");
+            uiSeance.getOfferErr().setVisible(true);
         } else {
-            uistd.getFirstName_err().setVisible(false);
-            bFirstName = true;
+            uiSeance.getOfferErr().setVisible(false);
+            bOffer = true;
         }
-        if (uistd.getLastName().getText().isEmpty()) {
-            uistd.getLastName_err().setText("le prenom est vide");
-            uistd.getLastName_err().setVisible(true);
+        if (uiSeance.getTeacherCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+            uiSeance.getTeacherErr().setText("prof est vide");
+            uiSeance.getTeacherErr().setVisible(true);
         } else {
-            uistd.getLastName_err().setVisible(false);
-            blastName = true;
+            uiSeance.getTeacherErr().setVisible(false);
+            bTeacher = true;
         }
-        if (uistd.getPhone1().getText().isEmpty()) {
-            uistd.getPhone1_err().setText("le premier numero de Telephone est vide");
-            uistd.getPhone1_err().setVisible(true);
+        if (uiSeance.getRoomCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+            uiSeance.getRoomErr().setText("room est vide");
+            uiSeance.getRoomErr().setVisible(true);
         } else {
-            if (testInt(uistd.getPhone1())) {
-                if (uistd.getPhone1().getText().length()  != 10) {
-                    uistd.getPhone1_err().setText("le numero telephone doit compose 10 chiffres");
-                    uistd.getPhone1_err().setVisible(true);
-                } else {
-                    uistd.getPhone1_err().setVisible(false);
-                    bphone1 = true;
-                }
-            } else {
-                uistd.getPhone1_err().setText("Entrer des nombres");
-                uistd.getPhone1_err().setVisible(true);
-            }
+            uiSeance.getRoomErr().setVisible(false);
+            bRoom = true;
         }
-        if (uistd.getPhone2().getText().isEmpty()) {
-            uistd.getPhone2_err().setText("le deuxième numero de Telephone est vide");
-            uistd.getPhone2_err().setVisible(true);
+        if (uiSeance.getGroupCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+            uiSeance.getGroupErr().setText("group est vide");
+            uiSeance.getGroupErr().setVisible(true);
         } else {
-            if (testInt(uistd.getPhone2())) {
-                if (uistd.getPhone2().getText().length()  != 10) {
-                    uistd.getPhone2_err().setText("le numero telephone doit compose 10 chiffres");
-                    uistd.getPhone2_err().setVisible(true);
-                } else {
-                    uistd.getPhone2_err().setVisible(false);
-                    bphone2 = true;
-                }
-            } else {
-                uistd.getPhone2_err().setText("Entrer des nombres");
-                uistd.getPhone2_err().setVisible(true);
-            }
+            uiSeance.getGroupErr().setVisible(false);
+            bGroup = true;
         }
-
-        return bFirstName && bphone1 && bphone2;
+        if (uiSeance.getDate().toString().isEmpty()) {
+            uiSeance.getDateErr().setText("date est vide");
+            uiSeance.getDateErr().setVisible(true);
+        } else {
+            uiSeance.getDateErr().setVisible(false);
+            bdate = true;
+        }
+        if (uiSeance.getTime().toString().isEmpty()) {
+            uiSeance.getTimeErr().setText("time est vide");
+            uiSeance.getTimeErr().setVisible(true);
+        } else {
+            uiSeance.getTimeErr().setVisible(false);
+            btime = true;
+        }
+        return bTeacher && bRoom && bOffer && bGroup && bdate && btime;
     }
 
     public void clearInputs() {
-        this.sectionName.getSelectionModel().clearSelection();
-        this.firstName.setText("");
-        this.firstName_err.setText("");
-        this.lastName.setText("");
-        this.lastName_err.setText("");
-        this.phone1.setText("");
-        this.phone1_err.setText("");
-        this.phone2.setText("");
-        this.phone2_err.setText("");
+        this.OfferCmb.getSelectionModel().clearSelection();
+        this.teacherCmb.getSelectionModel().clearSelection();
+        this.RoomCmb.getSelectionModel().clearSelection();
+        this.GroupCmb.getSelectionModel().clearSelection();
     }
-
-}
+    }
