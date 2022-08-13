@@ -5,6 +5,7 @@
  */
 package schoolmanager.BackEnd.Service;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javafx.collections.FXCollections;
@@ -26,6 +27,7 @@ import static schoolmanager.BackEnd.Service.TeacherService.searchTeacherById;
  *
  * @author kadri
  */
+
 public class SeanceService {
 
     public static Results.Rstls addSeance(Seance seance) {
@@ -40,7 +42,7 @@ public class SeanceService {
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
             stm.setInt(4, seance.getPresenceTeacher());
-            stm.setString(5, seance.getDate());
+            stm.setDate(5, Date.valueOf(seance.getDate()));
             stm.setLong(6, seance.getIdGroupe());
             stm.executeUpdate();
             stm.close();

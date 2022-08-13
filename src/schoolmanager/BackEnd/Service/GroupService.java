@@ -8,7 +8,6 @@ package schoolmanager.BackEnd.Service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 
