@@ -80,7 +80,7 @@ public class GroupService {
 
     public static ObservableList<Group> getAllGroups() {
         String query;
-        query = "SELECT * FROM groupe order by id desc ";
+        query = "SELECT * FROM groupe G, offer O  where O.id=G.idOffer order by O.idLevel asc";
         ObservableList<Group> listGroups = FXCollections.observableArrayList(new Group());
         listGroups.remove(0);
         try {
@@ -94,6 +94,8 @@ public class GroupService {
                 group.setNameOffer(ObjectService.getNameFromIdObject(
                         new Template(rs.getInt("idOffer")),
                          "Offer"));
+                group.setLevel(rs.getString("nameLevel"));
+                group.setModule(rs.getString("nameModule"));
                 group.setNbrPlace(rs.getInt("nbrPlace"));
                 listGroups.add(group);
             }

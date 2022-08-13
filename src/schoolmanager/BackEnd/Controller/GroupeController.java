@@ -68,7 +68,11 @@ public class GroupeController implements Initializable {
     @FXML
     private TableColumn<?, ?> offerC;
     @FXML
-    private TableView<?> GroupeTable;
+    private TableColumn<?, ?> moduleC;
+    @FXML
+    private TableColumn<?, ?> levelC;
+    @FXML
+    private TableView<Group> GroupeTable;
     @FXML
     private Label name_err, OfferCmb_err, nbrPlace_err;
     private Group grp = new Group();
@@ -101,8 +105,35 @@ public class GroupeController implements Initializable {
                 }
             }
         });
-        refrechGroup(GroupeTable, groupeC, offerC, placeC, new Group(), "");
-
+        GroupeTable.setRowFactory(new Callback<TableView<Group>, TableRow<Group>>() {
+            @Override
+            public TableRow<Group> call(TableView param) {
+                return new TableRow<Group>() {
+                    protected void updateItem(Group grp, boolean b) {
+                        super.updateItem(grp, b);
+                        if (grp != null) {
+                            switch (grp.getLevel().toLowerCase()){
+                                case "lycee" :{
+                                    setStyle("-fx-background-color: #00ff7f;");
+                                    break;
+                                }
+                                case "ciam" :{
+                                    setStyle("-fx-background-color: #ef910e;");
+                                    break;
+                                }
+                                case "premier" :{
+                                    setStyle("-fx-background-color: #d48eaf;");
+                                    break;
+                                }
+                            }
+                        } else {
+                            setStyle("-fx-background-color: #ffffff;");
+                        }
+                    }
+                };
+            }
+        });
+        refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
     }
 
     private void fillInputs(){
@@ -143,7 +174,8 @@ public class GroupeController implements Initializable {
     }
 
     public static void refrechGroup(TableView table, TableColumn Column1, TableColumn Column2,
-                                    TableColumn Column3, Group group, String type) {
+                                    TableColumn Column3,TableColumn Column4,TableColumn Column5,
+                                    Group group, String type) {
         ObservableList<Group> pr;
         if (type.equals("searche")) {
             //pr = StudentService.searchStudentByName(group);
@@ -161,7 +193,12 @@ public class GroupeController implements Initializable {
         Column3.setCellValueFactory(
                 new PropertyValueFactory<>("nameOffer")
         );
-
+        Column4.setCellValueFactory(
+                new PropertyValueFactory<>("module")
+        );
+        Column5.setCellValueFactory(
+                new PropertyValueFactory<>("level")
+        );
         table.setItems(pr);
     }
 
@@ -174,7 +211,7 @@ public class GroupeController implements Initializable {
         } else {
             uigrp.clearInputs();
         }
-        refrechGroup(GroupeTable, groupeC, offerC, placeC, new Group(), "");
+        refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
     }
 
     @FXML
@@ -187,7 +224,7 @@ public class GroupeController implements Initializable {
                 CommunController.alert(r.toString());
             } else {
                 uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, offerC, placeC, new Group(), "");
+                refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
             }
         }
     }
@@ -200,7 +237,7 @@ public class GroupeController implements Initializable {
                 CommunController.alert(r.toString());
             } else {
                 uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, offerC, placeC, new Group(), "");
+                refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
             }
         }
     }

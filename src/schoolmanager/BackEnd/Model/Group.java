@@ -14,11 +14,13 @@ import java.util.logging.Logger;
  *
  * @author RD°INFO
  */
-public class Group {
+public class Group  {
 
     private long id;
     private String nameOffer;
     private String nameGroup;
+    private String module;
+    private String level;
     private long idOffer;
     private int nbrPlace;
     private int nbrRest;
@@ -97,6 +99,30 @@ public class Group {
 
     public void setNbrRest(int nbrRest) {
         this.nbrRest = nbrRest;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public void setIdOffer(long idOffer) {
+        this.idOffer = idOffer;
     }
 
     public void PresentGroupe() {

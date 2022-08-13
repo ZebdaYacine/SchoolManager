@@ -6,6 +6,7 @@
 package schoolmanager.BackEnd.Controller;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
@@ -18,9 +19,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 import schoolmanager.BackEnd.Mapper.Mapping;
+import schoolmanager.BackEnd.Model.Level;
 import schoolmanager.BackEnd.Model.Offer;
+import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
+import schoolmanager.BackEnd.Service.ObjectService;
 import schoolmanager.BackEnd.Service.OfferService;
 import schoolmanager.BackEnd.Service.TypeService;
 import schoolmanager.BackEnd.uiPresenter.UiOffre;
@@ -36,7 +42,7 @@ import static schoolmanager.SchoolManager.alertUpdate;
 public class OfferController implements Initializable {
 
     @FXML
-    private TableView<?> offerTable;
+    private TableView<Offer> offerTable;
     @FXML
     private TextField name, price;
     @FXML
@@ -71,11 +77,40 @@ public class OfferController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
+        offerTable.setRowFactory(new Callback<TableView<Offer>, TableRow<Offer>>() {
+            @Override
+            public TableRow<Offer> call(TableView param) {
+                return new TableRow<Offer>() {
+                    protected void updateItem(Offer offer, boolean b) {
+                        super.updateItem(offer, b);
+                        if (offer != null) {
+                            switch (offer.getLevel().toLowerCase()){
+                                case "lycee" :{
+                                    setStyle("-fx-background-color: #00ff7f;");
+                                    break;
+                                }
+                                case "ciam" :{
+                                    setStyle("-fx-background-color: #ef910e;");
+                                    break;
+                                }
+                                case "premier" :{
+                                    setStyle("-fx-background-color: #d48eaf;");
+                                    break;
+                                }
+                            }
+                        } else {
+                            setStyle("-fx-background-color: #ffffff;");
+                        }
+                    }
+                };
+            }
+        });
+
     }
 
     public static void refrechOffre(TableView table, TableColumn Column1, TableColumn Column2,
-                                    TableColumn Column3, TableColumn Column4, TableColumn Column5, Offer offer, String type)
-    {
+                                    TableColumn Column3, TableColumn Column4,
+                                    TableColumn Column5, Offer offer, String type) {
         ObservableList<Offer> pr;
         if (type.equals("searche")) {
             pr = OfferService.searchStudentByName(offer);

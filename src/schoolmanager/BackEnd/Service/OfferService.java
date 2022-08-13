@@ -99,7 +99,7 @@ public class OfferService {
 
     public static ObservableList<Offer> getAllOffers() {
         String query;
-        query = "SELECT * FROM Offer order by id desc ";
+        query = "SELECT * FROM Offer O , level L where O.idLevel=L.id order by L.id ASC ";
         ObservableList<Offer> listOffers = FXCollections.observableArrayList(new Offer());
         listOffers.remove(0);
         try {
