@@ -16,6 +16,11 @@ public class Room extends Template {
     public Room() {
     }
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
     public Room(long id) {
         super(id);
     }
@@ -24,18 +29,16 @@ public class Room extends Template {
         super(name);
     }
 
-    public Room(String name,int nbrchair) {
+    public Room(String name, int nbrchair) {
         super(name);
         this.nbrchair = nbrchair;
     }
 
-    
-    public Room( long id, String name , int nbrchair) {
+    public Room(long id, String name, int nbrchair) {
         super(id, name);
         this.nbrchair = nbrchair;
     }
 
-  
     public int getNbrchair() {
         return nbrchair;
     }
@@ -43,7 +46,5 @@ public class Room extends Template {
     public void setNbrchair(int nbrchair) {
         this.nbrchair = nbrchair;
     }
-    
-    
 
 }

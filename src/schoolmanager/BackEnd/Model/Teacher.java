@@ -19,6 +19,11 @@ public class Teacher extends Person {
     public Teacher() {
     }
 
+    @Override
+    public String toString() {
+        return this.getFirstName() + " " + this.getLastName();
+    }
+
     public Teacher(long id) {
         super(id);
     }
@@ -54,7 +59,5 @@ public class Teacher extends Person {
     public void setWorkePlace(String workePlace) {
         this.workePlace = workePlace;
     }
-
-    
 
 }

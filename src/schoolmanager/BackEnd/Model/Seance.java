@@ -26,13 +26,18 @@ public class Seance {
         this.id = id;
     }
 
-    public Seance( long idOffer, long idTeacher, long idRoom, long idGroupe,
-                   String date, String nameOffer, String nameGroup, String nameTeacher,
-                   String nameRoom, int presenceTeacher) {
+    public Seance(long idOffer, long idTeacher, long idRoom, long idGroupe, String date, int presenceTeacher) {
         this.idOffer = idOffer;
         this.idTeacher = idTeacher;
         this.idRoom = idRoom;
         this.idGroupe = idGroupe;
+        this.date = date;
+        this.presenceTeacher = presenceTeacher;
+    }
+
+    
+    
+    public Seance(String date, String nameOffer, String nameGroup, String nameTeacher, String nameRoom, int presenceTeacher) {
         this.date = date;
         this.nameOffer = nameOffer;
         this.nameGroup = nameGroup;
@@ -41,9 +46,9 @@ public class Seance {
         this.presenceTeacher = presenceTeacher;
     }
 
-    public Seance(long id, long idOffer, long idTeacher, long idRoom, long idGroupe,
-                  String date, String nameOffer, String nameGroup, String nameTeacher,
-                  String nameRoom, int presenceTeacher) {
+    
+    
+    public Seance(long id, long idOffer, long idTeacher, long idRoom, long idGroupe, String date, String nameOffer, String nameGroup, String nameTeacher, String nameRoom, int presenceTeacher) {
         this.id = id;
         this.idOffer = idOffer;
         this.idTeacher = idTeacher;
@@ -56,6 +61,7 @@ public class Seance {
         this.nameRoom = nameRoom;
         this.presenceTeacher = presenceTeacher;
     }
+
 
     public String getNameRoom() {
         return nameRoom;

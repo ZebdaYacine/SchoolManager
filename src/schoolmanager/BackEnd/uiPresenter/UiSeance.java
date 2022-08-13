@@ -5,11 +5,17 @@
  */
 package schoolmanager.BackEnd.uiPresenter;
 
-
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Offer;
+import schoolmanager.BackEnd.Model.Room;
+import schoolmanager.BackEnd.Model.Teacher;
 
 /**
  *
@@ -18,42 +24,31 @@ import javafx.scene.control.Label;
 public class UiSeance {
 
     private Label OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr;
-    private ComboBox OfferCmb, teacherCmb, RoomCmb, GroupCmb;
+    private JFXComboBox<Group> GroupCmb;
+    private JFXComboBox<Offer> OfferCmb;
+    private JFXComboBox<Teacher> teacherCmb;
+    private JFXComboBox<Room> RoomCmb;
     private JFXDatePicker date;
     private JFXTimePicker time;
+    private JFXCheckBox presenceTeacher;
 
     public UiSeance() {
     }
 
-    public UiSeance(Label OfferErr, Label teacherErr, Label roomErr, Label dateErr, Label timeErr, Label groupErr, ComboBox OfferCmb, ComboBox teacherCmb, ComboBox RoomCmb, ComboBox GroupCmb, JFXDatePicker date, JFXTimePicker time) {
+    public UiSeance(Label OfferErr, Label teacherErr, Label roomErr, Label dateErr, Label timeErr, Label groupErr, JFXComboBox<Group> GroupCmb, JFXComboBox<Offer> OfferCmb, JFXComboBox<Teacher> teacherCmb, JFXComboBox<Room> RoomCmb, JFXDatePicker date, JFXTimePicker time, JFXCheckBox presenceTeacher) {
         this.OfferErr = OfferErr;
         this.teacherErr = teacherErr;
         this.roomErr = roomErr;
         this.dateErr = dateErr;
         this.timeErr = timeErr;
         this.groupErr = groupErr;
+        this.GroupCmb = GroupCmb;
         this.OfferCmb = OfferCmb;
         this.teacherCmb = teacherCmb;
         this.RoomCmb = RoomCmb;
-        this.GroupCmb = GroupCmb;
         this.date = date;
         this.time = time;
-    }
-
-    public JFXDatePicker getDate() {
-        return date;
-    }
-
-    public void setDate(JFXDatePicker date) {
-        this.date = date;
-    }
-
-    public JFXTimePicker getTime() {
-        return time;
-    }
-
-    public void setTime(JFXTimePicker time) {
-        this.time = time;
+        this.presenceTeacher = presenceTeacher;
     }
 
     public Label getOfferErr() {
@@ -104,76 +99,100 @@ public class UiSeance {
         this.groupErr = groupErr;
     }
 
-    public ComboBox getOfferCmb() {
-        return OfferCmb;
-    }
-
-    public void setOfferCmb(ComboBox OfferCmb) {
-        this.OfferCmb = OfferCmb;
-    }
-
-    public ComboBox getTeacherCmb() {
-        return teacherCmb;
-    }
-
-    public void setTeacherCmb(ComboBox teacherCmb) {
-        this.teacherCmb = teacherCmb;
-    }
-
-    public ComboBox getRoomCmb() {
-        return RoomCmb;
-    }
-
-    public void setRoomCmb(ComboBox RoomCmb) {
-        this.RoomCmb = RoomCmb;
-    }
-
-    public ComboBox getGroupCmb() {
+    public JFXComboBox<Group> getGroupCmb() {
         return GroupCmb;
     }
 
-    public void setGroupCmb(ComboBox GroupCmb) {
+    public void setGroupCmb(JFXComboBox<Group> GroupCmb) {
         this.GroupCmb = GroupCmb;
+    }
+
+    public JFXComboBox<Offer> getOfferCmb() {
+        return OfferCmb;
+    }
+
+    public void setOfferCmb(JFXComboBox<Offer> OfferCmb) {
+        this.OfferCmb = OfferCmb;
+    }
+
+    public JFXComboBox<Teacher> getTeacherCmb() {
+        return teacherCmb;
+    }
+
+    public void setTeacherCmb(JFXComboBox<Teacher> teacherCmb) {
+        this.teacherCmb = teacherCmb;
+    }
+
+    public JFXComboBox<Room> getRoomCmb() {
+        return RoomCmb;
+    }
+
+    public void setRoomCmb(JFXComboBox<Room> RoomCmb) {
+        this.RoomCmb = RoomCmb;
+    }
+
+    public JFXDatePicker getDate() {
+        return date;
+    }
+
+    public void setDate(JFXDatePicker date) {
+        this.date = date;
+    }
+
+    public JFXTimePicker getTime() {
+        return time;
+    }
+
+    public void setTime(JFXTimePicker time) {
+        this.time = time;
+    }
+
+    public JFXCheckBox getPresenceTeacher() {
+        return presenceTeacher;
+    }
+
+    public void setPresenceTeacher(JFXCheckBox presenceTeacher) {
+        this.presenceTeacher = presenceTeacher;
     }
 
     public static boolean UiSeanceInputIsValid(UiSeance uiSeance) {
         boolean bTeacher = false, bRoom = false, bOffer = false, bGroup = false, bdate = false, btime = false;
-        if (uiSeance.getOfferCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+        if (uiSeance.getOfferCmb().getSelectionModel().getSelectedItem() == null) {
             uiSeance.getOfferErr().setText("le offer est vide");
             uiSeance.getOfferErr().setVisible(true);
         } else {
             uiSeance.getOfferErr().setVisible(false);
             bOffer = true;
         }
-        if (uiSeance.getTeacherCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+        if (uiSeance.getTeacherCmb().getSelectionModel().getSelectedItem() == null) {
             uiSeance.getTeacherErr().setText("prof est vide");
             uiSeance.getTeacherErr().setVisible(true);
         } else {
             uiSeance.getTeacherErr().setVisible(false);
             bTeacher = true;
         }
-        if (uiSeance.getRoomCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+        if (uiSeance.getRoomCmb().getSelectionModel().getSelectedItem() == null) {
             uiSeance.getRoomErr().setText("room est vide");
             uiSeance.getRoomErr().setVisible(true);
         } else {
             uiSeance.getRoomErr().setVisible(false);
             bRoom = true;
         }
-        if (uiSeance.getGroupCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+        if (uiSeance.getGroupCmb().getSelectionModel().getSelectedItem() == null) {
             uiSeance.getGroupErr().setText("group est vide");
             uiSeance.getGroupErr().setVisible(true);
         } else {
             uiSeance.getGroupErr().setVisible(false);
             bGroup = true;
         }
-        if (uiSeance.getDate().toString().isEmpty()) {
+        if (uiSeance.getDate()==null) {
             uiSeance.getDateErr().setText("date est vide");
             uiSeance.getDateErr().setVisible(true);
         } else {
             uiSeance.getDateErr().setVisible(false);
             bdate = true;
         }
-        if (uiSeance.getTime().toString().isEmpty()) {
+        if (uiSeance.getTime()==null) {
             uiSeance.getTimeErr().setText("time est vide");
             uiSeance.getTimeErr().setVisible(true);
         } else {
@@ -189,4 +208,4 @@ public class UiSeance {
         this.RoomCmb.getSelectionModel().clearSelection();
         this.GroupCmb.getSelectionModel().clearSelection();
     }
-    }
+}

@@ -25,7 +25,27 @@ public abstract class Mapping {
             return null;
         }
     }
-    
+
+    public static Seance getObjectSeanceFromUiSeance(UiSeance uiseance) {
+        boolean a = UiSeance.UiSeanceInputIsValid(uiseance);
+        int pT = 0;
+        if (a) {
+            if (uiseance.getPresenceTeacher().isSelected()) {
+                pT = 1;
+            }
+            return new Seance(
+                    uiseance.getOfferCmb().getSelectionModel().getSelectedItem().getId(),
+                    uiseance.getTeacherCmb().getSelectionModel().getSelectedItem().getId(),
+                    uiseance.getRoomCmb().getSelectionModel().getSelectedItem().getId(),
+                    uiseance.getGroupCmb().getSelectionModel().getSelectedItem().getId(),
+                    uiseance.getDate().getValue().toString(),
+                    pT
+            );
+        } else {
+            return null;
+        }
+    }
+
     public static Teacher getObjectTeacherFromUiTeacher(UiTeacher uitech) {
         boolean a = UiTeacher.UiTeacherInputIsValid(uitech);
         if (a) {
@@ -35,7 +55,7 @@ public abstract class Mapping {
             return null;
         }
     }
-    
+
     public static Level getObjectLevelFromUiLevl(UiLevel uiLevl) {
         boolean a = UiLevel.UiInputIsValid(uiLevl);
         if (a) {
@@ -44,7 +64,7 @@ public abstract class Mapping {
             return null;
         }
     }
-    
+
     public static Module getObjectModuleFromUiModule(UiModule uiModule) {
         boolean a = UiModule.UiInputIsValid(uiModule);
         if (a) {
@@ -53,7 +73,7 @@ public abstract class Mapping {
             return null;
         }
     }
-    
+
     public static Type getObjectTypeFromUiType(UiType uiType) {
         boolean a = UiType.UiInputIsValid(uiType);
         if (a) {
@@ -75,8 +95,8 @@ public abstract class Mapping {
     public static Room getObjectRoomFromUiRoom(UiRoom uiRoom) {
         boolean a = UiRoom.UiRoomInputIsValid(uiRoom);
         if (a) {
-            int nbr =Integer.parseInt(uiRoom.getNbrChair().getText());
-            return new Room(uiRoom.getName().getText(),nbr);
+            int nbr = Integer.parseInt(uiRoom.getNbrChair().getText());
+            return new Room(uiRoom.getName().getText(), nbr);
         } else {
             return null;
         }
@@ -98,8 +118,8 @@ public abstract class Mapping {
     public static Group getObjectGroupeFromUiGroupe(UiGroupe uigrp) {
         boolean a = UiGroupe.UiGroupeInputIsValid(uigrp);
         if (a) {
-            return new Group(uigrp.getOfferCmb().getSelectionModel().getSelectedItem().toString()
-                    ,uigrp.getName().getText(),Integer.parseInt(uigrp.getNbrPlace().getText()));
+            return new Group(uigrp.getOfferCmb().getSelectionModel().getSelectedItem().toString(),
+                    uigrp.getName().getText(), Integer.parseInt(uigrp.getNbrPlace().getText()));
         } else {
             return null;
         }

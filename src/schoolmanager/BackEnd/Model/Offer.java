@@ -18,6 +18,11 @@ public class Offer extends Template {
 
     public Offer() {
     }
+    
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 
     public Offer(long id) {
         this.id = id;

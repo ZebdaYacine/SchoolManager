@@ -28,6 +28,11 @@ public class Group  {
     public Group() {
     }
 
+    @Override
+    public String toString() {
+        return this.getNameGroup();
+    }
+    
     public Group(Long id) {
         this.id = id;
     }
