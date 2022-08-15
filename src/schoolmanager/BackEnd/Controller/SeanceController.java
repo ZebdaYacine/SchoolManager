@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -214,6 +215,15 @@ public class SeanceController implements Initializable {
 
     @FXML
     private void delete(ActionEvent event) {
+        if(CommunController.confirm("sure de supprimer  le seance")){
+            Results.Rstls r = SeanceService.deleteSeance(seanceSelect);
+            if (r == Results.Rstls.OBJECT_NOT_DELETED) {
+                CommunController.alert(r.toString());
+            } else {
+                uiseance.clearInputs();
+                refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
+            }
+        }
     }
 
     @FXML
@@ -236,6 +246,18 @@ public class SeanceController implements Initializable {
             ObservableList<Offer> listO = OfferService.getOfferbyid(o);
             System.err.println(listO.get(0).getName());
             OfferCmb.getSelectionModel().select(listO.get(0));
+            Teacher t = new Teacher(seanceSelect.getIdTeacher());
+            ObservableList<Teacher> listT = TeacherService.searchTeacherById(t);
+            System.err.println(listT.get(0).getFirstName() + " " + listT.get(0).getLastName());
+            teacherCmb.getSelectionModel().select(listT.get(0));
+            Room r = new Room(seanceSelect.getIdRoom());
+            ObservableList<Room> listR =RoomService.searchRoomById(r);
+            System.err.println(listR.get(0).getName());
+            RoomCmb.getSelectionModel().select(listR.get(0));
+            Group g = new Group(seanceSelect.getIdGroupe());
+            ObservableList<Group> listg =GroupService.getGroupbyId(g);
+            System.err.println(listg.get(0).getNameGroup());
+            GroupCmb.getSelectionModel().select(listg.get(0));
             uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         }
     }
