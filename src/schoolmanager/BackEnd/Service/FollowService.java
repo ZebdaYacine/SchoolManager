@@ -24,7 +24,6 @@ import static schoolmanager.BackEnd.DataBaseConnection.con;
  */
 public class FollowService {
 
-
     public static Results.Rstls addFollow(Follow follow) {
         if (follow == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
@@ -51,8 +50,8 @@ public class FollowService {
             return Results.Rstls.OBJECT_NOT_DELETED;
         }
         try {
-            String query="delete from  follow  where idStudent="+follow.getIdStudent()
-                    +" and idSeance ="+follow.getIdSeance();
+            String query = "delete from  follow  where idStudent=" + follow.getIdStudent()
+                    + " and idSeance =" + follow.getIdSeance();
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();
             stm.close();
@@ -65,8 +64,8 @@ public class FollowService {
 
     public static ObservableList<Student> getStudentsPresence(long id) {
         String query;
-        query = "SELECT * FROM student S , follow F , seance SN " +
-                " where S.id=F.idStudent and SN.id=F.idSeance and SN.id ="+id+" order by S.id desc ";
+        query = "SELECT * FROM student S , follow F , seance SN "
+                + " where S.id=F.idStudent and SN.id=F.idSeance and SN.id =" + id + " order by S.id desc ";
         System.out.println(query);
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);

@@ -11,31 +11,34 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import static schoolmanager.BackEnd.Controller.GroupeController.refrechGroup;
 import schoolmanager.BackEnd.Mapper.Mapping;
+import schoolmanager.BackEnd.Model.Follow;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Offer;
 import schoolmanager.BackEnd.Model.Room;
 import schoolmanager.BackEnd.Model.Seance;
+import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Results;
+import schoolmanager.BackEnd.Service.FollowService;
 import schoolmanager.BackEnd.Service.GroupService;
 import schoolmanager.BackEnd.Service.OfferService;
 import schoolmanager.BackEnd.Service.RoomService;
 import schoolmanager.BackEnd.Service.SeanceService;
+import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.Service.TeacherService;
 import schoolmanager.BackEnd.uiPresenter.UiSeance;
 
@@ -84,7 +87,13 @@ public class SeanceController implements Initializable {
     private JFXTimePicker time;
 
     private UiSeance uiseance = new UiSeance();
-    private Seance seance = new Seance();
+    private Seance seanceSelect = new Seance();
+    private final ContextMenu ApsentMenu = new ContextMenu();
+    private final ContextMenu PresentMenu = new ContextMenu();
+    private final MenuItem delItem = new MenuItem("Apsent");
+    private final MenuItem addItem = new MenuItem("Present");
+    private final MenuItem showProfile = new MenuItem("voir le dossier de l'etudiant");
+    private final MenuItem showProfile1 = new MenuItem("voir le dossier de l'etudiant");
 
     @FXML
     private TableColumn<?, ?> OfferC;
@@ -116,45 +125,34 @@ public class SeanceController implements Initializable {
     private TableColumn<?, ?> sectionNameAC;
     @FXML
     private JFXCheckBox pTeacher;
+    @FXML
+    private TableColumn<?, ?> pTeacherC;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ApsentMenu.getItems().addAll(addItem, showProfile1);
+        PresentMenu.getItems().addAll(delItem, showProfile);
         uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         ObservableList<Offer> listOffers = OfferService.getAllOffers();
         OfferCmb.setItems(listOffers);
-        ObservableList<Group> grouplist = GroupService.getAllGroups();
-        GroupCmb.setItems(grouplist);
+
         ObservableList<Room> roomlist = RoomService.getAllRoom();
         RoomCmb.getItems().addAll(roomlist);
         ObservableList<Teacher> teacherlist = TeacherService.getAllTeachers();
         teacherCmb.getItems().addAll(teacherlist);
-        /*
-        studentATable.setOnMouseClicked(event -> {
-            if (event.getButton().equals(MouseButton.PRIMARY)) {
-                switch (event.getClickCount()) {
-                    case 1: {
-                        fillInputs();
-                        return;
-                    }
-                    case 2: {
-                        showBelongsScene();
-                        return;
-                    }
-                }
-            }
-        });
-         */
-        refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, new Seance(), "");
+        refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
     }
 
-    public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5,
-            Seance group, String type) {
-        ObservableList<Seance> pr;
-        pr = SeanceService.getAllSeances();
+    public void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, TableColumn Column6,
+            Seance seance, String type) {
+        ObservableList<Seance> pr = SeanceService.getAllSeances();
+        seanceSelect = pr.get(0);
+        refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
+        refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, pr.get(0), "present");
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("nameOffer")
         );
@@ -170,20 +168,44 @@ public class SeanceController implements Initializable {
         Column5.setCellValueFactory(
                 new PropertyValueFactory<>("date")
         );
+        Column6.setCellValueFactory(
+                new PropertyValueFactory<>("presenceTeacher")
+        );
+        table.setItems(pr);
+    }
+
+    public static void refrechStudents(TableView table, TableColumn Column1, TableColumn Column2,
+            TableColumn Column3, TableColumn Column4, TableColumn Column5,
+            Seance seance, String type) {
+        ObservableList<Student> pr = StudentService.getAllStudentsFollow(seance, type);
+        Column1.setCellValueFactory(
+                new PropertyValueFactory<>("firstName")
+        );
+        Column2.setCellValueFactory(
+                new PropertyValueFactory<>("lastName")
+        );
+        Column3.setCellValueFactory(
+                new PropertyValueFactory<>("phone1")
+        );
+        Column4.setCellValueFactory(
+                new PropertyValueFactory<>("phone2")
+        );
+        Column5.setCellValueFactory(
+                new PropertyValueFactory<>("sectionName")
+        );
         table.setItems(pr);
     }
 
     @FXML
     private void add(ActionEvent event) {
-        seance = Mapping.getObjectSeanceFromUiSeance(uiseance);
-        Results.Rstls r = SeanceService.addSeance(seance);
+        seanceSelect = Mapping.getObjectSeanceFromUiSeance(uiseance);
+        Results.Rstls r = SeanceService.addSeance(seanceSelect);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
         } else {
             uiseance.clearInputs();
         }
-        refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, new Seance(), "");
-        
+        refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
     }
 
     @FXML
@@ -195,7 +217,77 @@ public class SeanceController implements Initializable {
     }
 
     @FXML
-    private void selectOffer(MouseEvent event) {
+    private void onchangecontent(ActionEvent event) {
+        Offer off = OfferCmb.getSelectionModel().getSelectedItem();
+        if (off != null) {
+            ObservableList<Group> grouplist = GroupService.getAllGroupsOnOffer(off);
+            GroupCmb.setItems(grouplist);
+        }
+
+    }
+
+    @FXML
+    private void selectSeance(MouseEvent event) {
+        seanceSelect = (Seance) SeanceTable.getSelectionModel().getSelectedItem();
+        if (seanceSelect != null) {
+            refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
+            refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+            Offer o = new Offer(seanceSelect.getIdOffer());
+            ObservableList<Offer> listO = OfferService.getOfferbyid(o);
+            System.err.println(listO.get(0).getName());
+            OfferCmb.getSelectionModel().select(listO.get(0));
+            uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
+        }
+    }
+
+    @FXML
+    private void selectStudentPresent(MouseEvent event) {
+        Student std = (Student) studentPTable.getSelectionModel().getSelectedItem();
+        if (std != null) {
+            if (event.getButton() == MouseButton.PRIMARY) {
+
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                studentPTable.setContextMenu(PresentMenu);
+                delItem.setOnAction(event1 -> {
+                    Follow f = new Follow();
+                    f.setIdSeance(seanceSelect.getId());
+                    f.setIdStudent(std.getId());
+                    FollowService.deleteFollow(f);
+                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
+                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+
+                });
+                showProfile1.setOnAction(event1 -> {
+                    CommunController.alert("details profile");
+                });
+            }
+        }
+
+    }
+
+    @FXML
+    private void selectStudentApsent(MouseEvent event) {
+        Student std = (Student) studentATable.getSelectionModel().getSelectedItem();
+        if (std != null) {
+            if (event.getButton() == MouseButton.PRIMARY) {
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                studentATable.setContextMenu(ApsentMenu);
+                addItem.setOnAction(event1 -> {
+                    Follow f = new Follow();
+                    f.setIdSeance(seanceSelect.getId());
+                    f.setIdStudent(std.getId());
+                    f.setPresenceStudent(1);
+                    f.setStatus(1);
+                    FollowService.addFollow(f);
+                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
+                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+                });
+                showProfile.setOnAction(event1 -> {
+                    CommunController.alert("details profile");
+                });
+            }
+        }
+
     }
 
 }

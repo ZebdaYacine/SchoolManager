@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static schoolmanager.BackEnd.DataBaseConnection.con;
+import schoolmanager.BackEnd.Model.Offer;
 
 /**
  *
@@ -93,9 +94,36 @@ public class GroupService {
                 group.setIdOffer(rs.getInt("idOffer"));
                 group.setNameOffer(ObjectService.getNameFromIdObject(
                         new Template(rs.getInt("idOffer")),
-                         "Offer"));
+                        "Offer"));
                 group.setLevel(rs.getString("nameLevel"));
                 group.setModule(rs.getString("nameModule"));
+                group.setNbrPlace(rs.getInt("nbrPlace"));
+                listGroups.add(group);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listGroups;
+    }
+
+    public static ObservableList<Group> getAllGroupsOnOffer(Offer o) {
+        String query;
+        query = "SELECT * FROM groupe where idOffer = " + o.getId();
+        ObservableList<Group> listGroups = FXCollections.observableArrayList(new Group());
+        listGroups.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Group group = new Group();
+                group.setId(rs.getInt("id"));
+                group.setNameGroup(rs.getString("name"));
+                group.setIdOffer(rs.getInt("idOffer"));
+                group.setNameOffer(ObjectService.getNameFromIdObject(
+                        new Template(rs.getInt("idOffer")),
+                        "Offer"));
                 group.setNbrPlace(rs.getInt("nbrPlace"));
                 listGroups.add(group);
             }
@@ -122,7 +150,7 @@ public class GroupService {
                 group.setIdOffer(rs.getInt("idOffer"));
                 group.setNameOffer(ObjectService.getNameFromIdObject(
                         new Template(rs.getInt("idOffer")),
-                         "Offer"));
+                        "Offer"));
                 group.setNbrPlace(rs.getInt("nbrPlace"));
                 listGroups.add(group);
             }

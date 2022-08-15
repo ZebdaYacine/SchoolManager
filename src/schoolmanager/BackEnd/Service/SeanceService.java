@@ -27,7 +27,6 @@ import static schoolmanager.BackEnd.Service.TeacherService.searchTeacherById;
  *
  * @author kadri
  */
-
 public class SeanceService {
 
     public static Results.Rstls addSeance(Seance seance) {
@@ -95,7 +94,7 @@ public class SeanceService {
         }
     }
 
-    public static ObservableList<Seance> getAllSeances() { 
+    public static ObservableList<Seance> getAllSeances() {
         String query;
         query = "SELECT * FROM seance order by id desc ";
         ObservableList<Seance> listOffers = FXCollections.observableArrayList(new Seance());
@@ -121,6 +120,11 @@ public class SeanceService {
                 seance.setNameRoom(r.getName());
                 //
                 seance.setPresenceTeacher(rs.getInt("presenceTeacher"));
+                if (seance.getPresenceTeacher() == 1) {
+                    seance.setpTeacher("present");
+                } else {
+                    seance.setpTeacher("apsent");
+                }
                 seance.setDate(rs.getString("day"));
                 seance.setIdGroupe(rs.getLong("idGroupe"));
                 Group g = new Group(seance.getIdGroupe());

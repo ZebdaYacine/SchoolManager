@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import static schoolmanager.BackEnd.DataBaseConnection.con;
+import schoolmanager.BackEnd.Model.Seance;
 
 import schoolmanager.BackEnd.Model.Section;
 import schoolmanager.BackEnd.Model.Student;
@@ -94,6 +95,40 @@ public class StudentService {
         query = "SELECT * FROM student order by id desc ";
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setId(rs.getLong("id"));
+                student.setFirstName(rs.getString("firstName"));
+                student.setLastName(rs.getString("lastName"));
+                student.setPhone1(rs.getString("phone1"));
+                student.setPhone2(rs.getString("phone2"));
+                student.setSectionName(
+                        ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
+                listStudents.add(student);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listStudents;
+    }
+
+    public static ObservableList<Student> getAllStudentsFollow(Seance s, String type) {
+        String query = "";
+        if (type.equals("apsent")) {
+            query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
+        } else if (type.equals("present")) {
+            query = "SELECT * FROM student where id in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
+        }
+
+        ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
+
+        listStudents.remove(
+                0);
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();

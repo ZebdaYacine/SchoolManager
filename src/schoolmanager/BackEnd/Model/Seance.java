@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class Seance {
     private long id,idOffer,idTeacher,idRoom,idGroupe;
-    private String date,nameOffer,nameGroup,nameTeacher,nameRoom;
+    private String date,nameOffer,nameGroup,nameTeacher,nameRoom,pTeacher;
     private int presenceTeacher;
 
     public Seance() {
@@ -35,20 +35,7 @@ public class Seance {
         this.presenceTeacher = presenceTeacher;
     }
 
-    
-    
-    public Seance(String date, String nameOffer, String nameGroup, String nameTeacher, String nameRoom, int presenceTeacher) {
-        this.date = date;
-        this.nameOffer = nameOffer;
-        this.nameGroup = nameGroup;
-        this.nameTeacher = nameTeacher;
-        this.nameRoom = nameRoom;
-        this.presenceTeacher = presenceTeacher;
-    }
-
-    
-    
-    public Seance(long id, long idOffer, long idTeacher, long idRoom, long idGroupe, String date, String nameOffer, String nameGroup, String nameTeacher, String nameRoom, int presenceTeacher) {
+    public Seance(long id, long idOffer, long idTeacher, long idRoom, long idGroupe, String date, String nameOffer, String nameGroup, String nameTeacher, String nameRoom, String pTeacher, int presenceTeacher) {
         this.id = id;
         this.idOffer = idOffer;
         this.idTeacher = idTeacher;
@@ -59,9 +46,17 @@ public class Seance {
         this.nameGroup = nameGroup;
         this.nameTeacher = nameTeacher;
         this.nameRoom = nameRoom;
+        this.pTeacher = pTeacher;
         this.presenceTeacher = presenceTeacher;
     }
 
+    public String getpTeacher() {
+        return pTeacher;
+    }
+
+    public void setpTeacher(String pTeacher) {
+        this.pTeacher = pTeacher;
+    }
 
     public String getNameRoom() {
         return nameRoom;
