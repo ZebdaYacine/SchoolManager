@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -211,11 +212,22 @@ public class SeanceController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
+        if (CommunController.confirm("sure de modifier  le seance")) {
+            Seance newSnc = Mapping.getObjectSeanceFromUiSeance(uiseance);
+            newSnc.setId(seanceSelect.getId());
+            Results.Rstls r = SeanceService.updateSeance(newSnc);
+            if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                CommunController.alert(r.toString());
+            } else {
+                uiseance.clearInputs();
+            }
+            refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
+        }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if(CommunController.confirm("sure de supprimer  le seance")){
+        if (CommunController.confirm("sure de supprimer  le seance")) {
             Results.Rstls r = SeanceService.deleteSeance(seanceSelect);
             if (r == Results.Rstls.OBJECT_NOT_DELETED) {
                 CommunController.alert(r.toString());
@@ -230,6 +242,7 @@ public class SeanceController implements Initializable {
     private void onchangecontent(ActionEvent event) {
         Offer off = OfferCmb.getSelectionModel().getSelectedItem();
         if (off != null) {
+            GroupCmb.getSelectionModel().select(null);
             ObservableList<Group> grouplist = GroupService.getAllGroupsOnOffer(off);
             GroupCmb.setItems(grouplist);
         }
@@ -251,13 +264,22 @@ public class SeanceController implements Initializable {
             System.err.println(listT.get(0).getFirstName() + " " + listT.get(0).getLastName());
             teacherCmb.getSelectionModel().select(listT.get(0));
             Room r = new Room(seanceSelect.getIdRoom());
-            ObservableList<Room> listR =RoomService.searchRoomById(r);
+            ObservableList<Room> listR = RoomService.searchRoomById(r);
             System.err.println(listR.get(0).getName());
             RoomCmb.getSelectionModel().select(listR.get(0));
             Group g = new Group(seanceSelect.getIdGroupe());
-            ObservableList<Group> listg =GroupService.getGroupbyId(g);
+            ObservableList<Group> listg = GroupService.getGroupbyId(g);
             System.err.println(listg.get(0).getNameGroup());
             GroupCmb.getSelectionModel().select(listg.get(0));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dat = LocalDate.parse(seanceSelect.getDate(), formatter);
+            dateSeance.setValue(dat);
+            if (seanceSelect.getPresenceTeacher() == 1) {
+                pTeacher.setSelected(true);
+            } else {
+                pTeacher.setSelected(false);
+            }
+
             uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         }
     }
@@ -277,7 +299,6 @@ public class SeanceController implements Initializable {
                     FollowService.deleteFollow(f);
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
-
                 });
                 showProfile1.setOnAction(event1 -> {
                     CommunController.alert("details profile");

@@ -168,4 +168,12 @@ add foreign key (idGroupe) references groupe(id) on delete cascade on update cas
 alter table follow 
 add CONSTRAINT uni_idStudent_idSeance UNIQUE (idStudent,idSeance);
 
+alter table follow
+drop foreign key follow_ibfk_1;
 
+alter table follow
+drop foreign key follow_ibfk_2;
+
+alter table follow
+add foreign key (idStudent) references student(id) on delete cascade on update cascade,
+add foreign key (idSeance) references seance(id) on delete cascade on update cascade
