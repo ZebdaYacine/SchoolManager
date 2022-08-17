@@ -6,6 +6,7 @@
 package schoolmanager.BackEnd.Model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.logging.Logger;

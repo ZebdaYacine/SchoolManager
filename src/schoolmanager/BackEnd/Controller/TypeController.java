@@ -102,9 +102,10 @@ public class TypeController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
-        if (type.getId() != 0) {
+        long id = type.getId();
+        if (id != 0) {
             type = Mapping.getObjectTypeFromUiType(uiType);
-            type.setId(type.getId());
+            type.setId(id);
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
                 Results.Rstls r = TypeService.updateObject(type, "type");
@@ -122,8 +123,6 @@ public class TypeController implements Initializable {
     @FXML
     private void delete(ActionEvent event) {
         if (type.getId() != 0) {
-            type = Mapping.getObjectTypeFromUiType(uiType);
-            type.setId(type.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
                 Results.Rstls r = TypeService.deleteObject(type, "type");
@@ -132,33 +131,27 @@ public class TypeController implements Initializable {
                 } else {
                     refrech(typeTable, nameC, "", new Template());
                 }
-                type = new Type();
-                uiType.clearInputs();
             }
+            type = new Type();
+            uiType.clearInputs();
         }
     }
 
     @FXML
     private void select(MouseEvent event) {
-        UiType uiType = new UiType(name, name_err);
-        uiType.clearInputs();
         Template tmp = (Template) typeTable.getSelectionModel().getSelectedItem();
         if (tmp != null) {
             type.setName(tmp.getName());
             type.setId(tmp.getId());
-            if (type != null) {
-                name.setText(type.getName());
-            }
+            name.setText(type.getName());
         }
     }
 
     @FXML
     private void search(KeyEvent event) {
         Template g = new Template();
-        String s = "";
         if (!name.getText().isEmpty()) {
             g.setName(name.getText());
-            s = "name";
             refrech(typeTable, nameC, "search", g);
         } else {
             refrech(typeTable, nameC, "", new Template());

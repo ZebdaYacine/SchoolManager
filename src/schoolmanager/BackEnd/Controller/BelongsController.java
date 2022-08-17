@@ -5,8 +5,6 @@
  */
 package schoolmanager.BackEnd.Controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,21 +14,36 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Belongs;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.StudentService;
-import schoolmanager.BackEnd.uiPresenter.UiStudent;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import schoolmanager.BackEnd.Printer.Print;
 
-import static javafx.scene.paint.Color.GREEN;
-import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
-
+/*import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;*/
 /**
  * FXML Controller class
  *
@@ -86,21 +99,20 @@ public class BelongsController implements Initializable {
     private final MenuItem showProfile = new MenuItem("voir le dossier de l'etudiant");
     private final MenuItem showProfile1 = new MenuItem("voir le dossier de l'etudiant");
 
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
-                sectionNameC, new Student(),"student");
+                sectionNameC, new Student(), "student");
         contextMenu1.getItems().addAll(delete, showProfile1);
         contextMenu2.getItems().addAll(add, showProfile);
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if(event.getClickCount()==2){
+                    if (event.getClickCount() == 2) {
                         addingToBelongs(std);
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -124,11 +136,11 @@ public class BelongsController implements Initializable {
                     group.PresentGroupe();
                     belongsTable.setContextMenu(contextMenu1);
                     delete.setOnAction(event1 -> {
-                        boolean a= CommunController.confirm("sure de supprimer cet etudiant ?");
-                        if(a){
-                            BelongsService.deleteBelongs(new Belongs(std.getId(),group.getId()));
-                            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1
-                                    , phone2C1, sectionNameC1,new Student(), "belongs");
+                        boolean a = CommunController.confirm("sure de supprimer cet etudiant ?");
+                        if (a) {
+                            BelongsService.deleteBelongs(new Belongs(std.getId(), group.getId()));
+                            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
+                                    phone2C1, sectionNameC1, new Student(), "belongs");
                             group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
                             nbrPlace.setText(Integer.toString(group.getNbrRest()));
                         }
@@ -141,13 +153,13 @@ public class BelongsController implements Initializable {
         });
     }
 
-    private  void addingToBelongs(Student std){
+    private void addingToBelongs(Student std) {
         std.PresentObject();
         group.PresentGroupe();
         if (group.getNbrRest() > 0) {
             BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
             refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
-                    phone2C1, sectionNameC1,new Student(), "belongs");
+                    phone2C1, sectionNameC1, new Student(), "belongs");
             group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
             nbrPlace.setText(Integer.toString(group.getNbrRest()));
         } else {
@@ -156,16 +168,16 @@ public class BelongsController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-                                      TableColumn Column3, TableColumn Column4, TableColumn Column5,Student std,String type) {
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
             pr = StudentService.getAllStudents();
         } else if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
-        }else  {
+        } else {
             pr = BelongsService.searchStudentByName(std);
         }
-        for ( Student s : pr){
+        for (Student s : pr) {
             System.out.println(s.getSectionName());
         }
         Column1.setCellValueFactory(
@@ -188,7 +200,7 @@ public class BelongsController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-       /* std = Mapping.getObjectStudentFromUiStudent(uistd);
+        /* std = Mapping.getObjectStudentFromUiStudent(uistd);
         Results.Rstls r = StudentService.addStudent(std);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
@@ -198,13 +210,20 @@ public class BelongsController implements Initializable {
     }
 
     @FXML
-    private void printList(ActionEvent event) {
-        group.PresentGroupe();
+    private void printList(ActionEvent event) throws JRException {
+        Print prt = new Print(group);
+        new Thread(() -> {
+            try {
+                prt.PrintListStudent();
+            } catch (JRException ex) {
+                Logger.getLogger(BelongsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).start();
     }
 
     @FXML
     private void update(ActionEvent event) {
-       /* if (std.getId() != 0) {
+        /* if (std.getId() != 0) {
             Student newStd = Mapping.getObjectStudentFromUiStudent(uistd);
             newStd.setId(std.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
@@ -263,10 +282,10 @@ public class BelongsController implements Initializable {
         group.PresentGroupe();
         group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
         nbrPlace.setText(Integer.toString(group.getNbrRest()));
-        groupName.setText("Group: "+group.getNameGroup());
+        groupName.setText("Group: " + group.getNameGroup());
         offerName.setText("Offer: " + group.getNameOffer());
         refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
-                phone2C1, sectionNameC1, new Student(),"belongs");
+                phone2C1, sectionNameC1, new Student(), "belongs");
     }
 
     @FXML
@@ -274,24 +293,22 @@ public class BelongsController implements Initializable {
         Student std = new Student();
         String name = firstName.getText();
         String phn = phone.getText();
-        if(!name.isEmpty() && !phn.isEmpty()){
+        if (!name.isEmpty() && !phn.isEmpty()) {
             std.setFirstName(name);
             std.setPhone1(phn);
             std.setPhone2(phn);
-        }else if(!name.isEmpty()){
+        } else if (!name.isEmpty()) {
             std.setFirstName(name);
             std.setPhone1("");
             std.setPhone2("");
-        }else{
+        } else {
             std.setFirstName("");
             std.setPhone1(phn);
             std.setPhone2(phn);
         }
         std.PresentObject();
         refrechStudent(studentTable, firstNameC1, lastNameC1, phone1C1,
-                phone2C1, sectionNameC1, std,"");
+                phone2C1, sectionNameC1, std, "");
     }
-
-
 
 }

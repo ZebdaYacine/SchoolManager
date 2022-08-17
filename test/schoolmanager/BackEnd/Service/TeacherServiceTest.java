@@ -5,7 +5,6 @@
  */
 package schoolmanager.BackEnd.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.AfterClass;

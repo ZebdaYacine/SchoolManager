@@ -109,6 +109,7 @@ public class GroupeController implements Initializable {
             @Override
             public TableRow<Group> call(TableView param) {
                 return new TableRow<Group>() {
+
                     protected void updateItem(Group grp, boolean b) {
                         super.updateItem(grp, b);
                         if (grp != null) {
