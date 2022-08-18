@@ -35,7 +35,6 @@ public class Print {
         String query = "SELECT S.firstName , S.lastName , G.name FROM student "
                 + "S , belongs B , Groupe G  where "
                 + "S.id=B.idStudnet and G.id= B.idGroupe and  B.idGroupe =" + grp.getId() + " order by S.id desc ";
-        System.err.println(query);
         JRDesignQuery qr = new JRDesignQuery();
         qr.setText(query);
         Jds.setQuery(qr);

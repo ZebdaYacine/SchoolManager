@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="61fb7ab5-5393-408c-a0b0-7490ea9953fe">
-	<property name="ireport.zoom" value="1.4641000000000033"/>
+	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -13,8 +13,13 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<queryString language="SQL">
-		<![CDATA[SELECT * FROM STUDENT]]>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT S.firstName , S.lastName , G.name FROM student S , belongs B 
+                    , Groupe G  where S.id=B.idStudnet and G.id= B.idGroupe 
+                     and  B.idGroupe= $P{id}]]>
 	</queryString>
 	<field name="firstName" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -22,18 +27,21 @@
 	<field name="lastName" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="102" splitType="Stretch">
+		<band height="119" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="797" height="66" backcolor="#000000" uuid="88cb39ea-2c75-4a4f-9f7c-ac3099c84cb6"/>
+				<reportElement mode="Opaque" x="0" y="0" width="797" height="66" forecolor="#6666FF" backcolor="#3366FF" uuid="88cb39ea-2c75-4a4f-9f7c-ac3099c84cb6"/>
 				<staticText>
-					<reportElement style="Title" x="0" y="0" width="370" height="62" uuid="14965ff7-341c-4929-81e9-ed6a585f8880"/>
+					<reportElement style="Title" x="3" y="11" width="117" height="40" uuid="14965ff7-341c-4929-81e9-ed6a585f8880"/>
 					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
 					<textElement verticalAlignment="Bottom">
-						<font size="40" isBold="false"/>
+						<font size="20" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Group ]]></text>
 				</staticText>
@@ -44,9 +52,16 @@
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="50" y="17" width="101" height="38" forecolor="#FFFFFF" uuid="9824be67-6760-4d82-8d4d-2c77e9267752"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="20"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
-				<reportElement mode="Opaque" x="0" y="70" width="796" height="32" forecolor="#000000" backcolor="#CC0000" uuid="44f87758-de4e-44ae-88f4-e0e3aa070f28"/>
+				<reportElement mode="Opaque" x="0" y="70" width="796" height="32" forecolor="#000000" backcolor="#0066FF" uuid="44f87758-de4e-44ae-88f4-e0e3aa070f28"/>
 				<staticText>
 					<reportElement style="Title" x="6" y="3" width="191" height="21" uuid="3d2cfb7f-fbaa-4673-91d3-23c280ba2909"/>
 					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
@@ -87,7 +102,7 @@
 				<text><![CDATA[Nom & Prenom]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="199" y="0" width="597" height="29" forecolor="#000000" uuid="431144d9-5888-4aab-aefb-3621ec440500"/>
+				<reportElement style="Column header" x="199" y="0" width="597" height="30" forecolor="#000000" uuid="431144d9-5888-4aab-aefb-3621ec440500"/>
 				<textElement textAlignment="Justified">
 					<font fontName="Tahoma" size="20" isBold="true"/>
 				</textElement>
@@ -206,7 +221,7 @@
 				<text><![CDATA[5]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="535" y="29" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="b2d799e3-7b0f-481f-9563-cd516089253c"/>
+				<reportElement style="Column header" x="535" y="30" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="b2d799e3-7b0f-481f-9563-cd516089253c"/>
 				<box leftPadding="0">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -220,7 +235,7 @@
 				<text><![CDATA[2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="619" y="29" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="12da7302-eb94-449b-a24a-6b67b68cee22"/>
+				<reportElement style="Column header" x="619" y="30" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="12da7302-eb94-449b-a24a-6b67b68cee22"/>
 				<box leftPadding="0">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -234,7 +249,7 @@
 				<text><![CDATA[5]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="507" y="29" width="28" height="18" forecolor="#000000" uuid="4d85e447-f0b0-4938-bd85-b11846c20d70"/>
+				<reportElement style="Column header" x="507" y="30" width="28" height="18" forecolor="#000000" uuid="4d85e447-f0b0-4938-bd85-b11846c20d70"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -248,7 +263,7 @@
 				<text><![CDATA[1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="647" y="29" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="9cde30db-9101-41db-a256-2753090fd4ce"/>
+				<reportElement style="Column header" x="647" y="30" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="9cde30db-9101-41db-a256-2753090fd4ce"/>
 				<box leftPadding="0">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -262,7 +277,7 @@
 				<text><![CDATA[6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="591" y="29" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="cb77304c-56f3-4691-bb5d-51f22776415f"/>
+				<reportElement style="Column header" x="591" y="30" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="cb77304c-56f3-4691-bb5d-51f22776415f"/>
 				<box leftPadding="0">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -276,7 +291,7 @@
 				<text><![CDATA[4]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="675" y="29" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="45881672-e43d-438c-8f18-e9cd47a3cabb"/>
+				<reportElement style="Column header" x="675" y="30" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="45881672-e43d-438c-8f18-e9cd47a3cabb"/>
 				<box leftPadding="0">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -290,7 +305,7 @@
 				<text><![CDATA[7]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="703" y="29" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="3c952cad-ada8-4500-9735-9a35621cfc05"/>
+				<reportElement style="Column header" x="703" y="30" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="3c952cad-ada8-4500-9735-9a35621cfc05"/>
 				<box leftPadding="0">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -304,7 +319,7 @@
 				<text><![CDATA[8]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="563" y="29" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="b37919b5-5432-46c3-b598-c86b95da5eb6"/>
+				<reportElement style="Column header" x="563" y="30" width="28" height="18" forecolor="#000000" backcolor="#000000" uuid="b37919b5-5432-46c3-b598-c86b95da5eb6"/>
 				<box leftPadding="0">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -577,7 +592,7 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="ff939a66-a533-4105-98f6-6d5f3c1beefb"/>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#0066CC" uuid="ff939a66-a533-4105-98f6-6d5f3c1beefb"/>
 				<textField evaluationTime="Report">
 					<reportElement style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF" uuid="3a1fe298-f63f-4a6b-8682-c44bbc4ddc30"/>
 					<textElement verticalAlignment="Middle">
