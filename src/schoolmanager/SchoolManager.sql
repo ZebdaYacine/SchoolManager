@@ -176,4 +176,7 @@ drop foreign key follow_ibfk_2;
 
 alter table follow
 add foreign key (idStudent) references student(id) on delete cascade on update cascade,
-add foreign key (idSeance) references seance(id) on delete cascade on update cascade
+add foreign key (idSeance) references seance(id) on delete cascade on update cascade;
+
+alter table seance
+modify day datetime;

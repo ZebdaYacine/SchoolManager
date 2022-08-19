@@ -16,7 +16,6 @@ import schoolmanager.BackEnd.Model.Offer;
 import schoolmanager.BackEnd.Model.Room;
 import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Teacher;
-import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 import static schoolmanager.BackEnd.Service.GroupService.getGroupbyId;
 import static schoolmanager.BackEnd.Service.OfferService.getOfferNameFromIdOffer;
@@ -41,7 +40,7 @@ public class SeanceService {
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
             stm.setInt(4, seance.getPresenceTeacher());
-            stm.setDate(5, Date.valueOf(seance.getDate()));
+            stm.setString(5, seance.getDate());
             stm.setLong(6, seance.getIdGroupe());
             stm.executeUpdate();
             stm.close();

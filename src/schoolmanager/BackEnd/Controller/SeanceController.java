@@ -12,6 +12,8 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -93,7 +95,8 @@ public class SeanceController implements Initializable {
     private final ContextMenu ApsentMenu = new ContextMenu();
     private final ContextMenu PresentMenu = new ContextMenu();
     private final MenuItem delItem = new MenuItem("Apsent");
-    private final MenuItem addItem = new MenuItem("Present");
+    private final MenuItem addPayItem = new MenuItem("Present et pay");
+    private final MenuItem addNoPayItem = new MenuItem("Present et non pay");
     private final MenuItem showProfile = new MenuItem("voir le dossier de l'etudiant");
     private final MenuItem showProfile1 = new MenuItem("voir le dossier de l'etudiant");
 
@@ -135,7 +138,7 @@ public class SeanceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ApsentMenu.getItems().addAll(addItem, showProfile1);
+        ApsentMenu.getItems().addAll(addPayItem, addNoPayItem, showProfile1);
         PresentMenu.getItems().addAll(delItem, showProfile);
         uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         ObservableList<Offer> listOffers = OfferService.getAllOffers();
@@ -153,6 +156,7 @@ public class SeanceController implements Initializable {
             Seance seance, String type) {
         ObservableList<Seance> pr = SeanceService.getAllSeances();
         seanceSelect = pr.get(0);
+        System.err.println(pr.get(0).getpTeacher());
         refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
         refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, pr.get(0), "present");
         Column1.setCellValueFactory(
@@ -171,7 +175,7 @@ public class SeanceController implements Initializable {
                 new PropertyValueFactory<>("date")
         );
         Column6.setCellValueFactory(
-                new PropertyValueFactory<>("presenceTeacher")
+                new PropertyValueFactory<>("pTeacher")
         );
         table.setItems(pr);
     }
@@ -271,9 +275,10 @@ public class SeanceController implements Initializable {
             ObservableList<Group> listg = GroupService.getGroupbyId(g);
             System.err.println(listg.get(0).getNameGroup());
             GroupCmb.getSelectionModel().select(listg.get(0));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate dat = LocalDate.parse(seanceSelect.getDate(), formatter);
-            dateSeance.setValue(dat);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime dattime = LocalDateTime.parse(seanceSelect.getDate(), formatter);
+            dateSeance.setValue(dattime.toLocalDate());
+            time.setValue(dattime.toLocalTime());
             if (seanceSelect.getPresenceTeacher() == 1) {
                 pTeacher.setSelected(true);
             } else {
@@ -299,9 +304,11 @@ public class SeanceController implements Initializable {
                     FollowService.deleteFollow(f);
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+                    studentPTable.setContextMenu(null);
                 });
                 showProfile1.setOnAction(event1 -> {
                     CommunController.alert("details profile");
+                    studentPTable.setContextMenu(null);
                 });
             }
         }
@@ -315,7 +322,7 @@ public class SeanceController implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY) {
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 studentATable.setContextMenu(ApsentMenu);
-                addItem.setOnAction(event1 -> {
+                addPayItem.setOnAction(event1 -> {
                     Follow f = new Follow();
                     f.setIdSeance(seanceSelect.getId());
                     f.setIdStudent(std.getId());
@@ -324,9 +331,22 @@ public class SeanceController implements Initializable {
                     FollowService.addFollow(f);
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+                    studentPTable.setContextMenu(null);
+                });
+                addNoPayItem.setOnAction(event1 -> {
+                    Follow f = new Follow();
+                    f.setIdSeance(seanceSelect.getId());
+                    f.setIdStudent(std.getId());
+                    f.setPresenceStudent(1);
+                    f.setStatus(0);
+                    FollowService.addFollow(f);
+                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
+                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+                    studentPTable.setContextMenu(null);
                 });
                 showProfile.setOnAction(event1 -> {
                     CommunController.alert("details profile");
+                    studentPTable.setContextMenu(null);
                 });
             }
         }

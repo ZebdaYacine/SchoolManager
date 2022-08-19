@@ -33,12 +33,13 @@ public abstract class Mapping {
             if (uiseance.getPresenceTeacher().isSelected()) {
                 pT = 1;
             }
+            String dt = uiseance.getDate().getValue().toString() + " " + uiseance.getTime().getValue().toString();
             return new Seance(
                     uiseance.getOfferCmb().getSelectionModel().getSelectedItem().getId(),
                     uiseance.getTeacherCmb().getSelectionModel().getSelectedItem().getId(),
                     uiseance.getRoomCmb().getSelectionModel().getSelectedItem().getId(),
                     uiseance.getGroupCmb().getSelectionModel().getSelectedItem().getId(),
-                    uiseance.getDate().getValue().toString(),
+                    dt,
                     pT
             );
         } else {

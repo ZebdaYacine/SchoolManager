@@ -81,8 +81,8 @@
             <TableColumn fx:id="TeacherC" prefWidth="100.0" text="Teacher" />
             <TableColumn fx:id="pTeacherC" text="pTeacher" />
             <TableColumn fx:id="RoomC" text="Room" />
-            <TableColumn fx:id="GroupC" text="Group" />
-            <TableColumn fx:id="dateC" prefWidth="100.0" text="Date" />
+            <TableColumn fx:id="GroupC" prefWidth="70.0" text="Group" />
+            <TableColumn fx:id="dateC" prefWidth="120.0" text="Date" />
          </columns>
       </TableView>
       <TableView fx:id="studentPTable" layoutX="790.0" layoutY="50.0" onMouseClicked="#selectStudentPresent" prefHeight="320.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
