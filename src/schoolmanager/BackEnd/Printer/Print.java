@@ -32,9 +32,11 @@ public class Print {
     public void PrintListStudent() throws JRException {
         JasperDesign Jds = JRXmlLoader.load(getClass().
                 getResourceAsStream("/schoolmanager/JasperFiles/list.jrxml"));
-        String query = "SELECT S.firstName , S.lastName , G.name FROM student "
-                + "S , belongs B , Groupe G  where "
-                + "S.id=B.idStudnet and G.id= B.idGroupe and  B.idGroupe =" + grp.getId() + " order by S.id desc ";
+
+        String query="SELECT S.firstName , S.lastName , G.name ,O.nameModule ,O.nameType " +
+                ",O.nameLevel FROM student S ,Offer O, belongs B , Groupe G   where " +
+                "S.id=B.idStudnet and G.id= B.idGroupe and G.idOffer = O.id and  B.idGroupe = "+grp.getId()+
+                "  order by S.id desc";
         JRDesignQuery qr = new JRDesignQuery();
         qr.setText(query);
         Jds.setQuery(qr);
