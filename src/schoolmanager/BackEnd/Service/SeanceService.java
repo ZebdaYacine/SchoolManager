@@ -120,9 +120,9 @@ public class SeanceService {
                 //
                 seance.setPresenceTeacher(rs.getInt("presenceTeacher"));
                 if (seance.getPresenceTeacher() == 1) {
-                    seance.setpTeacher("present");
+                    seance.setpTeacher("حاضر");
                 } else {
-                    seance.setpTeacher("apsent");
+                    seance.setpTeacher("غائب");
                 }
                 seance.setDate(rs.getString("day"));
                 seance.setIdGroupe(rs.getLong("idGroupe"));

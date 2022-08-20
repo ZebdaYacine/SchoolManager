@@ -58,13 +58,13 @@ public class MainController implements Initializable {
 //        stat.setStyle("-fx-background-color : #dfe3ee;"
 //                + "-fx-border-color:  #0099cc #0099cc #dfe3ee #0099cc;"
 //=======
-        stat.setStyle("-fx-background-color : white;"
-                + "-fx-border-color:  #0099cc #0099cc white #0099cc;"
+        offres.setStyle("-fx-background-color : #E9EBEE;"
+                + "-fx-border-color:  #0099cc #0099cc #E9EBEE #0099cc;"
 //>>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
                 + "-fx-padding: 0");
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("/schoolmanager/FrontEnd/layout/stat.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/schoolmanager/FrontEnd/layout/Offer.fxml"));
             main.setCenter(null);
             if (root != null) {
                 main.setCenter(root);
@@ -80,8 +80,8 @@ public class MainController implements Initializable {
 //        btn1.setStyle("-fx-background-color :  linear-gradient(#081018 0%, #283f54 70%);"
 //                + "-fx-border-color:  #0099cc #0099cc #dfe3ee #0099cc;"
 //=======
-        btn1.setStyle("-fx-background-color :  white;"
-                + "-fx-border-color:  #0099cc #0099cc white #0099cc;"
+        btn1.setStyle("-fx-background-color :  #E9EBEE;"
+                + "-fx-border-color:  #0099cc #0099cc #E9EBEE #0099cc;"
 //>>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
                 + "    -fx-padding: 0");
         btn2.setStyle("-fx-background-color : transparent;");
@@ -105,46 +105,46 @@ public class MainController implements Initializable {
     @FXML
     private void goToStudent(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Student.fxml").toURI().toURL();
-        swithchLayout(url, SecodStage, "gestion des etudiant");
+        swithchLayout(url, SecodStage, "إدارة التلاميذ");
     }
 
     @FXML
     private void goToTeacher(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Teacher.fxml").toURI().toURL();
-        swithchLayout(url, SecodStage, "gestion des professeurs");
+        swithchLayout(url, SecodStage, "إدارة الأساتذة");
     }
 
     @FXML
     private void goToLevel(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/level.fxml").toURI().toURL();
-        swithchLayout(url, SecodStage, "gestion des niveaux");
+        swithchLayout(url, SecodStage, "إدارة المستويات");
 
     }
 
     @FXML
     private void goToModule(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/module.fxml").toURI().toURL();
-        swithchLayout(url, SecodStage, "gestion des modules");
+        swithchLayout(url, SecodStage, "إدارة المواد");
     }
 
     @FXML
     private void goToType(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Type.fxml").toURI().toURL();
-        swithchLayout(url, SecodStage, "gestion des types");
+        swithchLayout(url, SecodStage, "إدارة الانواع");
 
     }
 
     @FXML
     private void goToSections(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Section.fxml").toURI().toURL();
-        swithchLayout(url, SecodStage, "gestion des types");
+        swithchLayout(url, SecodStage, "إدارة الأقسام");
 
     }
 
     @FXML
     private void goToRooms(ActionEvent event) throws IOException {
         URL url = new File("src/schoolmanager/FrontEnd/layout/Room.fxml").toURI().toURL();
-        swithchLayout(url, SecodStage, "gestion des salles");
+        swithchLayout(url, SecodStage, "إدارة القاعات");
 
     }
 

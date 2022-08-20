@@ -94,11 +94,11 @@ public class SeanceController implements Initializable {
     private Seance seanceSelect = new Seance();
     private final ContextMenu ApsentMenu = new ContextMenu();
     private final ContextMenu PresentMenu = new ContextMenu();
-    private final MenuItem delItem = new MenuItem("Apsent");
-    private final MenuItem addPayItem = new MenuItem("Present et pay");
-    private final MenuItem addNoPayItem = new MenuItem("Present et non pay");
-    private final MenuItem showProfile = new MenuItem("voir le dossier de l'etudiant");
-    private final MenuItem showProfile1 = new MenuItem("voir le dossier de l'etudiant");
+    private final MenuItem delItem = new MenuItem("غائب");
+    private final MenuItem addPayItem = new MenuItem("حاضر و دفع ثمن الحصة");
+    private final MenuItem addNoPayItem = new MenuItem("حاضر ولم يدفع ثمن الحصة");
+    private final MenuItem showProfile = new MenuItem("عرض ملف التلميذ");
+    private final MenuItem showProfile1 = new MenuItem("عرض ملف التلميذ");
 
     @FXML
     private TableColumn<?, ?> OfferC;
@@ -331,7 +331,7 @@ public class SeanceController implements Initializable {
                     FollowService.addFollow(f);
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
-                    studentPTable.setContextMenu(null);
+                    studentATable.setContextMenu(null);
                 });
                 addNoPayItem.setOnAction(event1 -> {
                     Follow f = new Follow();

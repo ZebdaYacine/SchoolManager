@@ -60,15 +60,15 @@ public class LoginController implements Initializable {
         User user = new User(username.getText(), password.getText());
 
         if (user.getUserName().isEmpty()) {
-            error.setText("Le nom d'utilisateur est vide");
+            error.setText("الرجاء ملأ اسم المستخدم");
             error.setVisible(true);
         } else if (user.getPassword().isEmpty()) {
-            error.setText("Le mot de passe est vide");
+            error.setText("الرجاء ملأ كلمة المرور");
             error.setVisible(true);
         } else {
             loginUser = UserService.isauthentificated(user);
             if (loginUser.getId() == 0) {
-                error.setText("échec de la connexion");
+                error.setText("اسم المستخدم أو كلمة المرور خاطئة");
                 error.setVisible(true);
             } else {
 
@@ -86,7 +86,7 @@ public class LoginController implements Initializable {
                     loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     loginStage.hide();
                     loginStage.setScene(home_scene);
-                    loginStage.setTitle("School Manager");
+                    loginStage.setTitle("برنامج إدارة المدرسة");
                     //loginstage.setResizable(false);
                     loginStage.show();
                 } catch (IOException ex) {

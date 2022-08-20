@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.BelongsController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.BelongsController">
    <children>
 <!--<<<<<<< HEAD-->
 <!--      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">-->
@@ -26,11 +26,11 @@
 <!--         </font></JFXTextField>-->
 <!--      <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="500.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 2 " styleClass="jfxtextfield" unFocusColor="#0099cc">-->
 <!--=======-->
-      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="14.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">
+      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="14.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="اسم التلميذ" styleClass="jfxtextfield" unFocusColor="#0099cc" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
-      <JFXTextField fx:id="phone" focusColor="#0077cc" labelFloat="true" layoutX="348.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 1 " styleClass="jfxtextfield" unFocusColor="#0099cc">
+      <JFXTextField fx:id="phone" focusColor="#0077cc" labelFloat="true" layoutX="350.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="رقم الهاتف" styleClass="jfxtextfield" unFocusColor="#0099cc" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
@@ -62,7 +62,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="studentTable" layoutX="12.0" layoutY="82.0" onMouseClicked="#selectStudent" prefHeight="548.0" prefWidth="621.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="707.0" AnchorPane.topAnchor="82.0">
+      <TableView fx:id="studentTable" layoutX="20.0" layoutY="110.0" onMouseClicked="#selectStudent" prefHeight="510.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
          <columns>
             <TableColumn fx:id="firstNameC" prefWidth="110.0" text="Nom" />
             <TableColumn fx:id="lastNameC" prefWidth="117.99996948242188" text="Prenom" />
@@ -71,7 +71,7 @@
             <TableColumn fx:id="sectionNameC" prefWidth="158.0" text="Section" />
          </columns>
       </TableView>
-      <TableView fx:id="belongsTable" layoutX="705.0" layoutY="168.0" prefHeight="462.0" prefWidth="621.0" stylesheets="@../style/Table_Gestion_Css.css">
+      <TableView fx:id="belongsTable" layoutX="705.0" layoutY="168.0" prefHeight="430.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0">
          <columns>
             <TableColumn fx:id="firstNameC1" prefWidth="110.0" text="Nom" />
             <TableColumn fx:id="lastNameC1" prefWidth="117.99996948242188" text="Prenom" />
@@ -80,33 +80,43 @@
             <TableColumn fx:id="sectionNameC1" prefWidth="158.0" text="Section" />
          </columns>
       </TableView>
-      <Label layoutX="1172.0" layoutY="12.0" prefHeight="30.0" prefWidth="158.0" text="Nobmre de place rest">
+      <Label layoutX="680.0" layoutY="20.0" prefHeight="30.0" text="عدد الأماكن المتبقية في المجموعة :">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="groupName" layoutX="705.0" layoutY="97.0" prefHeight="47.0" prefWidth="293.0">
+      <Label fx:id="groupName" layoutX="900.0" layoutY="80.0" prefHeight="40.0">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2c2c30" height="105.0" layoutX="1175.0" layoutY="45.0" opacity="0.74" stroke="#2c2c30" strokeType="INSIDE" width="117.0" />
-      <Label fx:id="nbrPlace" layoutX="1205.0" layoutY="34.0" prefHeight="84.0" prefWidth="91.0" text="50" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="105.0" layoutX="680.0" layoutY="60.0" opacity="0.74" stroke="#262632" strokeType="INSIDE" width="117.0" />
+      <Label fx:id="nbrPlace" alignment="CENTER" layoutX="680.0" layoutY="60.0" prefHeight="93.0" prefWidth="117.0" text="50" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS">
          <font>
-            <Font name="Myanmar Text" size="54.0" />
+            <Font name="Tempus Sans ITC" size="54.0" />
          </font>
       </Label>
-      <Label fx:id="offerName" layoutX="705.0" layoutY="27.0" prefHeight="47.0" prefWidth="322.0">
+      <Label fx:id="offerName" layoutX="900.0" layoutY="20.0" prefHeight="40.0">
          <font>
-            <Font size="30.0" />
+            <Font name="Times New Roman" size="30.0" />
          </font>
       </Label>
-      <JFXButton layoutX="1023.0" layoutY="105.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="imprimer la list">
+      <JFXButton layoutX="1194.0" layoutY="130.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </JFXButton>
       <Label fx:id="idG" layoutX="619.0" layoutY="12.0" visible="false" />
+      <Label alignment="CENTER" layoutX="20.0" layoutY="70.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="جميع التلاميذ" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="680.0" layoutY="170.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
 <!--<<<<<<< HEAD-->
 <!--      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="30.0" layoutY="198.0" prefHeight="25.0" prefWidth="200.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />-->
 <!--=======-->

@@ -13,111 +13,111 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.SeanceController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.SeanceController">
    <children>
-      <JFXComboBox fx:id="OfferCmb" focusColor="#0077cc" layoutX="39.0" layoutY="140.0" onAction="#onchangecontent" prefHeight="30.0" prefWidth="200.0" promptText="Offer" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+      <JFXComboBox fx:id="OfferCmb" focusColor="#0077cc" layoutX="39.0" layoutY="140.0" onAction="#onchangecontent" prefHeight="30.0" prefWidth="200.0" promptText="العرض" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
       <Label fx:id="OfferErr" layoutX="40.0" layoutY="97.0" styleClass="labels_err" stylesheets="@../style/style.css" textFill="#cc3300" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="65.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="teacherCmb" focusColor="#0077cc" layoutX="39.0" layoutY="240.0" prefHeight="30.0" prefWidth="200.0" promptText="Teacher" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0" />
+      <JFXComboBox fx:id="teacherCmb" focusColor="#0077cc" layoutX="39.0" layoutY="240.0" prefHeight="30.0" prefWidth="200.0" promptText="الأستاذ" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0" />
       <Label fx:id="teacherErr" layoutX="40.0" layoutY="181.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="135.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="RoomCmb" focusColor="#0077cc" layoutX="39.0" layoutY="305.0" prefHeight="30.0" prefWidth="200.0" promptText="Room" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0" />
+      <JFXComboBox fx:id="RoomCmb" focusColor="#0077cc" layoutX="39.0" layoutY="305.0" prefHeight="30.0" prefWidth="200.0" promptText="القاعة" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0" />
       <Label fx:id="roomErr" layoutX="37.0" layoutY="260.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="205.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" layoutX="30.0" layoutY="234.0" prefHeight="30.0" prefWidth="200.0" promptText="Group" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0" />
+      <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" layoutX="30.0" layoutY="234.0" prefHeight="30.0" prefWidth="200.0" promptText="المجموعة" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0" />
       <Label fx:id="groupErr" layoutX="30.0" layoutY="269.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="275.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXDatePicker fx:id="dateSeance" defaultColor="#0077cc" editable="false" layoutX="30.0" layoutY="298.0" prefHeight="30.0" prefWidth="200.0" promptText="date seance" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="310.0" />
+      <JFXDatePicker fx:id="dateSeance" defaultColor="#0077cc" editable="false" layoutX="30.0" layoutY="298.0" prefHeight="30.0" prefWidth="200.0" promptText="تاريخ الحصة" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="310.0" />
       <Label fx:id="dateErr" layoutX="30.0" layoutY="333.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="345.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTimePicker fx:id="time" defaultColor="#0077cc" layoutX="30.0" layoutY="368.0" prefHeight="30.0" prefWidth="200.0" promptText="time seance" AnchorPane.topAnchor="380.0" />
+      <JFXTimePicker fx:id="time" defaultColor="#0077cc" layoutX="30.0" layoutY="368.0" prefHeight="30.0" prefWidth="200.0" promptText="وقت الحصة" AnchorPane.topAnchor="380.0" />
       <Label fx:id="timeErr" layoutX="30.0" layoutY="403.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="415.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" layoutX="30.0" layoutY="523.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="Ajouter" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="523.0">
+      <JFXButton layoutX="30.0" layoutY="520.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#add" prefHeight="30.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="إضافة" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="520.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-            <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_PLUS" size="16" />
+            <MaterialDesignIconView glyphName="PLUS" size="18" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="update" buttonType="RAISED" layoutX="30.0" layoutY="563.0" onAction="#update" prefHeight="27.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="Modifier" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="563.0">
+      <JFXButton fx:id="update" layoutX="30.0" layoutY="560.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="30.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="560.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
+            <FontAwesomeIconView glyphName="EDIT" size="18" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="30.0" layoutY="603.0" onAction="#delete" prefHeight="27.0" prefWidth="120.0" styleClass="delbtn" stylesheets="@../style/buttons_style.css" text="Supprimer" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="603.0">
+      <JFXButton fx:id="delete" layoutX="30.0" layoutY="600.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#delete" prefHeight="30.0" prefWidth="120.0" styleClass="delbtn" stylesheets="@../style/buttons_style.css" text="حذف" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="600.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="16" />
+            <FontAwesomeIconView glyphName="REMOVE" size="18" />
          </graphic>
       </JFXButton>
       <TableView fx:id="SeanceTable" layoutX="565.0" layoutY="52.0" onMouseClicked="#selectSeance" prefHeight="578.0" prefWidth="510.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="50.0">
          <columns>
-            <TableColumn fx:id="OfferC" prefWidth="100.0" text="Offer" />
-            <TableColumn fx:id="TeacherC" prefWidth="100.0" text="Teacher" />
-            <TableColumn fx:id="pTeacherC" text="pTeacher" />
-            <TableColumn fx:id="RoomC" text="Room" />
-            <TableColumn fx:id="GroupC" prefWidth="70.0" text="Group" />
-            <TableColumn fx:id="dateC" prefWidth="120.0" text="Date" />
+            <TableColumn fx:id="OfferC" prefWidth="100.0" text="العرض" />
+            <TableColumn fx:id="TeacherC" prefWidth="100.0" text="الاستاذ" />
+            <TableColumn fx:id="pTeacherC" text="حضور الاستاذ" />
+            <TableColumn fx:id="RoomC" text="القاعة" />
+            <TableColumn fx:id="GroupC" prefWidth="70.0" text="المجموعة" />
+            <TableColumn fx:id="dateC" prefWidth="120.0" text="تاريخ الحصة" />
          </columns>
       </TableView>
       <TableView fx:id="studentPTable" layoutX="790.0" layoutY="50.0" onMouseClicked="#selectStudentPresent" prefHeight="320.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
          <columns>
-            <TableColumn fx:id="firstNamePC" prefWidth="100.0" text="Nom" />
-            <TableColumn fx:id="lastNamePC" prefWidth="100.0" text="Prenom" />
-            <TableColumn fx:id="phone1PC" prefWidth="120.0" text="N°  Téléphone 1" />
-            <TableColumn fx:id="phone2PC" prefWidth="120.0" text="N°  Téléphone 2" />
-            <TableColumn fx:id="sectionNamePC" prefWidth="120.0" text="Section" />
+            <TableColumn fx:id="firstNamePC" prefWidth="100.0" text="اللقب" />
+            <TableColumn fx:id="lastNamePC" prefWidth="100.0" text="الإسم" />
+            <TableColumn fx:id="phone1PC" prefWidth="120.0" text="رقم الهاتف 1" />
+            <TableColumn fx:id="phone2PC" prefWidth="120.0" text="رقم الهاتف 2" />
+            <TableColumn fx:id="sectionNamePC" prefWidth="120.0" text="القسم" />
          </columns>
       </TableView>
       <TableView fx:id="studentATable" layoutX="920.0" layoutY="400.0" onMouseClicked="#selectStudentApsent" prefHeight="220.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
          <columns>
-            <TableColumn fx:id="firstNameAC" prefWidth="100.0" text="Nom" />
-            <TableColumn fx:id="lastNameAC" prefWidth="100.0" text="Prenom" />
-            <TableColumn fx:id="phone1AC" prefWidth="120.0" text="N°  Téléphone 1" />
-            <TableColumn fx:id="phone2AC" prefWidth="120.0" text="N°  Téléphone 2" />
-            <TableColumn fx:id="sectionNameAC" prefWidth="120.0" text="Section" />
+            <TableColumn fx:id="firstNameAC" prefWidth="100.0" text="اللقب" />
+            <TableColumn fx:id="lastNameAC" prefWidth="100.0" text="الإسم" />
+            <TableColumn fx:id="phone1AC" prefWidth="120.0" text="رقم الهاتف 1" />
+            <TableColumn fx:id="phone2AC" prefWidth="120.0" text="رقم الهاتف 2" />
+            <TableColumn fx:id="sectionNameAC" prefWidth="120.0" text="القسم" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants présents" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #dfe3ee;" text="Les étudiants absents" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="التلاميذ الغائبين" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" style="-fx-background-color: #dfe3ee;" text="Les seances" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" style="-fx-background-color: #a3aece;" text="الحصص" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <JFXCheckBox fx:id="pTeacher" checkedColor="#0077cc" layoutX="30.0" layoutY="461.0" text="presenceTeacher" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="450.0" />
+      <JFXCheckBox fx:id="pTeacher" checkedColor="#0077cc" layoutX="30.0" layoutY="461.0" text="حضور الأستاذ" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="450.0" />
    </children>
 </AnchorPane>

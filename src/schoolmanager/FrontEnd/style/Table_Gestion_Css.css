@@ -14,8 +14,8 @@
 .table-view > .virtual-flow > .scroll-bar:horizontal,
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track,
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track-background{
-    -fx-background-color: #dfe3ee;
-    -fx-border-color: #dfe3ee;
+    -fx-background-color: white;
+    -fx-border-color: #a3aece;
     -fx-border-width: 2
 }
 
@@ -32,7 +32,7 @@
     -fx-font-size:14px;
 }
 .table-row-cell {
-    -fx-background-color: #dfe3ee;
+    -fx-background-color: white;
 }
 
 .table-view .table-cell{

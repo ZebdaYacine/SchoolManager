@@ -18,7 +18,7 @@
    <children>
       <Pane prefHeight="60.0" prefWidth="376.0">
          <children>
-            <Label layoutX="4.0" text="Hy School Manager">
+            <Label layoutX="4.0" text="برنامج إدارة المدرسة">
                <font>
                   <Font name="Times New Roman" size="36.0" />
                </font>
@@ -31,7 +31,7 @@
             </Label>
          </children>
       </Pane>
-      <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0099cc transparent transparent transparent;" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
+      <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0099cc transparent transparent transparent;" styleClass="back" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
       <HBox alignment="TOP_CENTER" layoutX="394.0" prefHeight="55.0" prefWidth="698.0" AnchorPane.leftAnchor="394.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="0.0">
          <children>
                <JFXButton fx:id="stat" alignment="CENTER" contentDisplay="TOP" onAction="#stat" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
@@ -62,7 +62,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="seance" alignment="CENTER" contentDisplay="TOP" onAction="#seance" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Séances">
+            <JFXButton fx:id="seance" alignment="CENTER" contentDisplay="TOP" onAction="#seance" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الحصص">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -76,7 +76,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="groupes" alignment="CENTER" contentDisplay="TOP" layoutX="355.0" layoutY="10.0" onAction="#groupes" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Groupes">
+            <JFXButton fx:id="groupes" alignment="CENTER" contentDisplay="TOP" layoutX="355.0" layoutY="10.0" onAction="#groupes" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="المجموعات">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -87,7 +87,7 @@
                   <Insets top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="offres" alignment="CENTER" contentDisplay="TOP" onAction="#offer" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="Offres">
+            <JFXButton fx:id="offres" alignment="CENTER" contentDisplay="TOP" onAction="#offer" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="العروض">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -105,20 +105,20 @@
       </HBox>
       <MenuBar layoutX="1177.0" styleClass="menu-item" stylesheets="@../style/style.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
-            <Menu mnemonicParsing="false" text="Gestion">
+            <Menu mnemonicParsing="false" text="إدارة">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#goToSections" text="les sections" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToLevel" text="les niveaux" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToType" text="les types" />
-                  <MenuItem fx:id="user" mnemonicParsing="false" onAction="#goToModule" text="les matières" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToRooms" text="les salles" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToTeacher" text="les professeurs" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToStudent" text="les étudiants" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToSections" text="الأقسام" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToLevel" text="المستويات" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToType" text="الأنواع" />
+                  <MenuItem fx:id="user" mnemonicParsing="false" onAction="#goToModule" text="المواد" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToRooms" text="القاعات" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToTeacher" text="الأساتذة" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToStudent" text="التلاميذ" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="à propos">
+            <Menu mnemonicParsing="false" text="مساعدة">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#About" text="à propos" />
+                  <MenuItem mnemonicParsing="false" onAction="#About" text="من طرف" />
                </items>
             </Menu>
          </menus>
