@@ -8,25 +8,27 @@ package schoolmanager.BackEnd.Service;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import static schoolmanager.BackEnd.DataBaseConnection.con;
-import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Offer;
-import schoolmanager.BackEnd.Model.Room;
-import schoolmanager.BackEnd.Model.Seance;
-import schoolmanager.BackEnd.Model.Teacher;
+
+import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
+
 import static schoolmanager.BackEnd.Service.GroupService.getGroupbyId;
 import static schoolmanager.BackEnd.Service.OfferService.getOfferNameFromIdOffer;
 import static schoolmanager.BackEnd.Service.RoomService.searchRoomById;
 import static schoolmanager.BackEnd.Service.TeacherService.searchTeacherById;
 
 /**
- *
  * @author kadri
  */
 public class SeanceService {
+
+    private static long id;
 
     public static Results.Rstls addSeance(Seance seance) {
         if (seance == null) {
@@ -35,7 +37,7 @@ public class SeanceService {
         try {
             PreparedStatement stm = con.prepareStatement(""
                     + "insert into seance (`idOffer`, `idTeacher`, `idRoom`, `presenceTeacher`, `day`, `idGroupe`)"
-                    + " values (?,?,?,?,?,?)");
+                    + " values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setLong(1, seance.getIdOffer());
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
@@ -43,12 +45,24 @@ public class SeanceService {
             stm.setString(5, seance.getDate());
             stm.setLong(6, seance.getIdGroupe());
             stm.executeUpdate();
+            ResultSet rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+            seance.setId(id);
+            ObservableList<Student> listStudentInGroup = StudentService.getAllStudentsFollow(seance, "empty");
+            for (Student std : listStudentInGroup) {
+                Follow flw = new Follow(std.getId(), seance.getId(), 0, 0);
+                FollowService.addFollow(flw);
+            }
             stm.close();
             return Results.Rstls.OBJECT_INSERTED;
-        } catch (Exception ex) {
+        } catch (
+                Exception ex) {
             ex.printStackTrace();
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
+
     }
 
     public static Results.Rstls updateSeance(Seance seance) {

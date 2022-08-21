@@ -45,6 +45,24 @@ public class FollowService {
         }
     }
 
+    public static Results.Rstls updateFollow(Follow follow) {
+        if (follow == null) {
+            return Results.Rstls.OBJECT_NOT_UPDATED;
+        }
+        try {
+            String query = "update follow  set presenceStudent = "+follow.getPresenceStudent()
+                    + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
+            System.out.println(query);
+            PreparedStatement stm = con.prepareStatement(query);
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_UPDATED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_UPDATED;
+        }
+    }
+
     public static Results.Rstls deleteFollow(Follow follow) {
         if (follow == null) {
             return Results.Rstls.OBJECT_NOT_DELETED;

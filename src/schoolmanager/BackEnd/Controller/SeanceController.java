@@ -239,8 +239,8 @@ public class SeanceController implements Initializable {
                 CommunController.alert(r.toString());
             } else {
                 uiseance.clearInputs();
-                refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
             }
+            refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
         }
     }
 
@@ -300,10 +300,16 @@ public class SeanceController implements Initializable {
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 studentPTable.setContextMenu(PresentMenu);
                 delItem.setOnAction(event1 -> {
+                   /* Follow f = new Follow();
+                    f.setIdSeance(seanceSelect.getId());
+                    f.setIdStudent(std.getId());
+                    FollowService.deleteFollow(f);*/
                     Follow f = new Follow();
                     f.setIdSeance(seanceSelect.getId());
                     f.setIdStudent(std.getId());
-                    FollowService.deleteFollow(f);
+                    f.setPresenceStudent(0);
+                    f.setStatus(0);
+                    FollowService.updateFollow(f);
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
                     studentPTable.setContextMenu(null);
@@ -330,7 +336,7 @@ public class SeanceController implements Initializable {
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(1);
                     f.setStatus(1);
-                    FollowService.addFollow(f);
+                    FollowService.updateFollow(f);
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
                     studentATable.setContextMenu(null);
