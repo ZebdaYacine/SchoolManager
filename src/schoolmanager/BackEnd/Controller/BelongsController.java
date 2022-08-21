@@ -273,8 +273,8 @@ public class BelongsController implements Initializable {
         group.PresentGroupe();
         group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
         nbrPlace.setText(Integer.toString(group.getNbrRest()));
-        groupName.setText("Group: " + group.getNameGroup());
-        offerName.setText("Offer: " + group.getNameOffer());
+        groupName.setText("الفوج : " + group.getNameGroup());
+        offerName.setText("العرض : " + group.getNameOffer());
         refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
                 phone2C1, sectionNameC1, new Student(), "belongs");
     }

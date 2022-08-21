@@ -64,55 +64,55 @@
       </Label>
       <TableView fx:id="studentTable" layoutX="20.0" layoutY="110.0" onMouseClicked="#selectStudent" prefHeight="510.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
          <columns>
-            <TableColumn fx:id="firstNameC" prefWidth="110.0" text="Nom" />
-            <TableColumn fx:id="lastNameC" prefWidth="117.99996948242188" text="Prenom" />
-            <TableColumn fx:id="phone1C" prefWidth="141.0" text="N°  Téléphone 1" />
-            <TableColumn fx:id="phone2C" prefWidth="133.0" text="N°  Téléphone 2" />
-            <TableColumn fx:id="sectionNameC" prefWidth="158.0" text="Section" />
+            <TableColumn fx:id="firstNameC" prefWidth="110.0" text="اللقب" />
+            <TableColumn fx:id="lastNameC" prefWidth="117.99996948242188" text="الإسم" />
+            <TableColumn fx:id="phone1C" prefWidth="141.0" text="رقم الهاتف 1" />
+            <TableColumn fx:id="phone2C" prefWidth="133.0" text="رقم الهاتف 2" />
+            <TableColumn fx:id="sectionNameC" prefWidth="158.0" text="الفرع" />
          </columns>
       </TableView>
       <TableView fx:id="belongsTable" layoutX="705.0" layoutY="168.0" prefHeight="430.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0">
          <columns>
-            <TableColumn fx:id="firstNameC1" prefWidth="110.0" text="Nom" />
-            <TableColumn fx:id="lastNameC1" prefWidth="117.99996948242188" text="Prenom" />
-            <TableColumn fx:id="phone1C1" prefWidth="141.0" text="N°  Téléphone 1" />
-            <TableColumn fx:id="phone2C1" prefWidth="133.0" text="N°  Téléphone 2" />
-            <TableColumn fx:id="sectionNameC1" prefWidth="158.0" text="Section" />
+            <TableColumn fx:id="firstNameC1" prefWidth="110.0" text="اللقب" />
+            <TableColumn fx:id="lastNameC1" prefWidth="117.99996948242188" text="الإسم" />
+            <TableColumn fx:id="phone1C1" prefWidth="141.0" text="رقم الهاتف 1" />
+            <TableColumn fx:id="phone2C1" prefWidth="133.0" text="رقم الهاتف 2" />
+            <TableColumn fx:id="sectionNameC1" prefWidth="158.0" text="الفرع" />
          </columns>
       </TableView>
-      <Label layoutX="680.0" layoutY="20.0" prefHeight="30.0" text="عدد الأماكن المتبقية في المجموعة :">
+      <Label layoutX="1118.0" layoutY="20.0" prefHeight="30.0" text="عدد الأماكن المتبقية في المجموعة ">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="groupName" layoutX="900.0" layoutY="80.0" prefHeight="40.0">
+      <Label fx:id="groupName" layoutX="688.0" layoutY="73.0" prefHeight="45.0" prefWidth="368.0">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="105.0" layoutX="680.0" layoutY="60.0" opacity="0.74" stroke="#262632" strokeType="INSIDE" width="117.0" />
-      <Label fx:id="nbrPlace" alignment="CENTER" layoutX="680.0" layoutY="60.0" prefHeight="93.0" prefWidth="117.0" text="50" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="105.0" layoutX="1202.0" layoutY="58.0" opacity="0.74" stroke="#262632" strokeType="INSIDE" width="117.0" />
+      <Label fx:id="nbrPlace" alignment="CENTER" layoutX="1202.0" layoutY="58.0" prefHeight="105.0" prefWidth="117.0" text="50" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="Tempus Sans ITC" size="54.0" />
          </font>
       </Label>
-      <Label fx:id="offerName" layoutX="900.0" layoutY="20.0" prefHeight="40.0">
+      <Label fx:id="offerName" layoutX="693.0" layoutY="15.0" prefHeight="40.0" prefWidth="377.0">
          <font>
             <Font name="Times New Roman" size="30.0" />
          </font>
       </Label>
-      <JFXButton layoutX="1194.0" layoutY="130.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة">
+      <JFXButton layoutX="691.0" layoutY="129.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </JFXButton>
       <Label fx:id="idG" layoutX="619.0" layoutY="12.0" visible="false" />
-      <Label alignment="CENTER" layoutX="20.0" layoutY="70.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="جميع التلاميذ" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+      <Label alignment="CENTER" layoutX="20.0" layoutY="70.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text=" التلاميذ المدرسة " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="680.0" layoutY="170.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0">
+      <Label alignment="CENTER" layoutX="680.0" layoutY="170.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="التلاميذ الفوج" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

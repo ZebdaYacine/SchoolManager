@@ -180,3 +180,59 @@ add foreign key (idSeance) references seance(id) on delete cascade on update cas
 
 alter table seance
 modify day datetime;
+
+ALTER TABLE `schoolmanager`.`follow` 
+DROP FOREIGN KEY `follow_ibfk_1`,
+DROP FOREIGN KEY `follow_ibfk_2`;
+ALTER TABLE `schoolmanager`.`follow` 
+ADD CONSTRAINT `follow_ibfk_1`
+  FOREIGN KEY (`idStudent`)
+  REFERENCES `schoolmanager`.`student` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `follow_ibfk_2`
+  FOREIGN KEY (`idSeance`)
+  REFERENCES `schoolmanager`.`seance` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+  
+  ALTER TABLE `schoolmanager`.`seance` 
+DROP FOREIGN KEY `seance_ibfk_1`,
+DROP FOREIGN KEY `seance_ibfk_3`,
+DROP FOREIGN KEY `seance_ibfk_4`;
+ALTER TABLE `schoolmanager`.`seance` 
+ADD CONSTRAINT `seance_ibfk_1`
+  FOREIGN KEY (`idOffer`)
+  REFERENCES `schoolmanager`.`offer` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `seance_ibfk_3`
+  FOREIGN KEY (`idTeacher`)
+  REFERENCES `schoolmanager`.`teacher` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `seance_ibfk_4`
+  FOREIGN KEY (`idRoom`)
+  REFERENCES `schoolmanager`.`room` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+ALTER TABLE `schoolmanager`.`offer` 
+DROP FOREIGN KEY `offer_ibfk_1`,
+DROP FOREIGN KEY `offer_ibfk_2`,
+DROP FOREIGN KEY `offer_ibfk_3`;
+ALTER TABLE `schoolmanager`.`offer` 
+ADD CONSTRAINT `offer_ibfk_1`
+  FOREIGN KEY (`idLevel`)
+  REFERENCES `schoolmanager`.`level` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `offer_ibfk_2`
+  FOREIGN KEY (`idType`)
+  REFERENCES `schoolmanager`.`type` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `offer_ibfk_3`
+  FOREIGN KEY (`idModule`)
+  REFERENCES `schoolmanager`.`module` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
