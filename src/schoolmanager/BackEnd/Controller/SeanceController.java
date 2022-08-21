@@ -155,29 +155,31 @@ public class SeanceController implements Initializable {
             TableColumn Column3, TableColumn Column4, TableColumn Column5, TableColumn Column6,
             Seance seance, String type) {
         ObservableList<Seance> pr = SeanceService.getAllSeances();
-        seanceSelect = pr.get(0);
-        System.err.println(pr.get(0).getpTeacher());
-        refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
-        refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, pr.get(0), "present");
-        Column1.setCellValueFactory(
-                new PropertyValueFactory<>("nameOffer")
-        );
-        Column2.setCellValueFactory(
-                new PropertyValueFactory<>("nameTeacher")
-        );
-        Column3.setCellValueFactory(
-                new PropertyValueFactory<>("nameRoom")
-        );
-        Column4.setCellValueFactory(
-                new PropertyValueFactory<>("nameGroup")
-        );
-        Column5.setCellValueFactory(
-                new PropertyValueFactory<>("date")
-        );
-        Column6.setCellValueFactory(
-                new PropertyValueFactory<>("pTeacher")
-        );
-        table.setItems(pr);
+        if(pr.size()>0){
+            seanceSelect = pr.get(0);
+            System.err.println(pr.get(0).getpTeacher());
+            refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
+            refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, pr.get(0), "present");
+            Column1.setCellValueFactory(
+                    new PropertyValueFactory<>("nameOffer")
+            );
+            Column2.setCellValueFactory(
+                    new PropertyValueFactory<>("nameTeacher")
+            );
+            Column3.setCellValueFactory(
+                    new PropertyValueFactory<>("nameRoom")
+            );
+            Column4.setCellValueFactory(
+                    new PropertyValueFactory<>("nameGroup")
+            );
+            Column5.setCellValueFactory(
+                    new PropertyValueFactory<>("date")
+            );
+            Column6.setCellValueFactory(
+                    new PropertyValueFactory<>("pTeacher")
+            );
+            table.setItems(pr);
+        }
     }
 
     public static void refrechStudents(TableView table, TableColumn Column1, TableColumn Column2,

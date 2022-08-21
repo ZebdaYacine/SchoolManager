@@ -120,7 +120,8 @@ public class StudentService {
     public static ObservableList<Student> getAllStudentsFollow(Seance s, String type) {
         String query = "";
         if (type.equals("apsent")) {
-            query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
+            query = "SELECT * FROM student where id  in(select idStudnet from belongs where idGroupe = " + s.getIdGroupe() + ") order by id desc";
+            //query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
         } else if (type.equals("present")) {
             query = "SELECT * FROM student where id in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
         }
