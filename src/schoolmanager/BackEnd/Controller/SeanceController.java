@@ -157,7 +157,6 @@ public class SeanceController implements Initializable {
         ObservableList<Seance> pr = SeanceService.getAllSeances();
         if(pr.size()>0){
             seanceSelect = pr.get(0);
-            System.err.println(pr.get(0).getpTeacher());
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
             refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, pr.get(0), "present");
             Column1.setCellValueFactory(
@@ -273,6 +272,7 @@ public class SeanceController implements Initializable {
             ObservableList<Room> listR = RoomService.searchRoomById(r);
             System.err.println(listR.get(0).getName());
             RoomCmb.getSelectionModel().select(listR.get(0));
+            RoomCmb.getSelectionModel().select(r);
             Group g = new Group(seanceSelect.getIdGroupe());
             ObservableList<Group> listg = GroupService.getGroupbyId(g);
             System.err.println(listg.get(0).getNameGroup());

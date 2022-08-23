@@ -60,7 +60,7 @@ public class GroupeController implements Initializable {
     @FXML
     private JFXTextField nbrPlace;
     @FXML
-    private JFXComboBox<?> OfferCmb;
+    private JFXComboBox<String> OfferCmb;
     @FXML
     private TableColumn<?, ?> groupeC;
     @FXML
@@ -134,7 +134,7 @@ public class GroupeController implements Initializable {
                 };
             }
         });
-        refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
+        refrechGroup(GroupeTable, groupeC, placeC,offerC, moduleC,levelC, new Group(), "");
     }
 
     private void fillInputs(){
@@ -143,6 +143,9 @@ public class GroupeController implements Initializable {
         if (grp != null) {
             name.setText(grp.getNameGroup());
             nbrPlace.setText(grp.getNbrPlace() + "");
+/*
+            OfferCmb.getSelectionModel().select(grp.getNameGroup()+"");
+*/
         }
     }
 
@@ -212,7 +215,7 @@ public class GroupeController implements Initializable {
         } else {
             uigrp.clearInputs();
         }
-        refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
+        refrechGroup(GroupeTable, groupeC,placeC, offerC, moduleC,levelC, new Group(), "");
     }
 
     @FXML
@@ -225,7 +228,7 @@ public class GroupeController implements Initializable {
                 CommunController.alert(r.toString());
             } else {
                 uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
+                refrechGroup(GroupeTable, groupeC, placeC, offerC,moduleC,levelC, new Group(), "");
             }
         }
     }
@@ -238,7 +241,7 @@ public class GroupeController implements Initializable {
                 CommunController.alert(r.toString());
             } else {
                 uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, offerC, placeC,moduleC,levelC, new Group(), "");
+                refrechGroup(GroupeTable, groupeC, placeC,offerC,moduleC,levelC, new Group(), "");
             }
         }
     }
