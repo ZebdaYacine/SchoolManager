@@ -198,7 +198,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void presence(ActionEvent event) throws IOException {
-        String rsc="follow";
+        String rsc="Paiement";
         changePane(presence,stat,seance,offres,groupes,rsc);
     }
 

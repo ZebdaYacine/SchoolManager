@@ -124,7 +124,7 @@ public class StudentService {
                     "in   (select idStudnet from belongs where idGroupe= "+s.getIdGroupe()+" ))";
             //query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
         } else if (type.equals("present")) {
-            query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2 FROM follow F , student S  where S.id = F.idStudent " +
+            query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance FROM follow F , student S  where S.id = F.idStudent " +
                     "and F.presenceStudent=1  and F.idSeance = " + s.getId() +" order by S.id desc";
             //query = "SELECT * FROM student where id in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
         }else if (type.equals("empty")){
