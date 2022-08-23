@@ -54,13 +54,7 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//<<<<<<< HEAD
-//        stat.setStyle("-fx-background-color : #dfe3ee;"
-//                + "-fx-border-color:  #0099cc #0099cc #dfe3ee #0099cc;"
-//=======
-        offres.setStyle("-fx-background-color : #E9EBEE;"
-                + "-fx-border-color:  #0099cc #0099cc #E9EBEE #0099cc;"
-//>>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+        offres.setStyle("-fx-background-color : linear-gradient( #E9EBEE 0%, #0077cc 100%);"
                 + "-fx-padding: 0");
         Parent root;
         try {
@@ -76,13 +70,8 @@ public class MainController implements Initializable {
 
     public void changePane(JFXButton btn1, JFXButton btn2, JFXButton btn3,
                            JFXButton btn4,JFXButton btn5, String rsc) throws IOException {
-//<<<<<<< HEAD
-//        btn1.setStyle("-fx-background-color :  linear-gradient(#081018 0%, #283f54 70%);"
-//                + "-fx-border-color:  #0099cc #0099cc #dfe3ee #0099cc;"
-//=======
-        btn1.setStyle("-fx-background-color :  #E9EBEE;"
-                + "-fx-border-color:  #0099cc #0099cc #E9EBEE #0099cc;"
-//>>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5
+        
+        btn1.setStyle("-fx-background-color :  linear-gradient( #E9EBEE 40%, #0077cc 100%);"
                 + "    -fx-padding: 0");
         btn2.setStyle("-fx-background-color : transparent;");
         btn3.setStyle("-fx-background-color : transparent;");
