@@ -40,14 +40,14 @@
       </JFXButton>
       <TableView fx:id="GroupeTable" layoutX="565.0" layoutY="70.0" onMouseClicked="#selectGroup" prefHeight="610.0" prefWidth="1061.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
          <columns>
-            <TableColumn fx:id="groupeC" prefWidth="140.99996948242188" text="إسم المجموعة" />
+            <TableColumn fx:id="groupeC" prefWidth="140.99996948242188" text="إسم الفوج" />
             <TableColumn fx:id="placeC" prefWidth="219.0" text="عدد الأماكن" />
             <TableColumn fx:id="offerC" prefWidth="238.0" text="العرض" />
             <TableColumn fx:id="moduleC" prefWidth="238.0" text="المادة" />
             <TableColumn fx:id="levelC" prefWidth="222.0" text="المستوى" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="name" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" promptText="إسم المجموعة" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <JFXTextField fx:id="name" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" promptText="إسم الفوج" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -60,7 +60,7 @@
       <Label fx:id="name_err" layoutX="30.0" layoutY="102.0" prefHeight="17.0" textFill="RED" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="55.0" />
       <Label fx:id="nbrPlace_err" layoutX="30.0" layoutY="188.0" prefHeight="17.0" textFill="RED" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="135.0" />
       <Label fx:id="OfferCmb_err" layoutX="30.0" layoutY="277.0" prefHeight="17.0" textFill="RED" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="215.0" />
-      <Label alignment="CENTER" layoutX="710.0" layoutY="30.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="المجموعات" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="710.0" layoutY="30.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="الأفواج" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
