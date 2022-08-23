@@ -16,9 +16,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Paiement;
+import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Printer.Print;
 import schoolmanager.BackEnd.Service.BelongsService;
+import schoolmanager.BackEnd.Service.SeanceService;
 import schoolmanager.BackEnd.Service.StudentService;
 
 import java.net.URL;
@@ -76,13 +79,15 @@ public class PaiementController implements Initializable {
     @FXML
     private TableColumn<?, ?> nbrPlaceC;
     @FXML
-    private TableColumn<?, ?> idSeanceC;
+    private TableColumn<?, ?> roomC;
     @FXML
-    private TableColumn<?, ?> dateC;
+    private TableColumn<?, ?> dateTimeC;
     @FXML
-    private TableColumn<?, ?> timeC;
+    private TableColumn<?, ?> teacherC;
     @FXML
     private TableColumn<?, ?> pTeacherC;
+    @FXML
+    private TableColumn<?, ?> pStudentC;
     @FXML
     private TableColumn<?, ?> paiementC;
     @FXML
@@ -94,6 +99,7 @@ public class PaiementController implements Initializable {
 
     private Student std = new Student();
     private static Group group = new Group();
+    private static Seance seance = new Seance();
 
     private final ContextMenu contextMenu1 = new ContextMenu();
     private final ContextMenu contextMenu2 = new ContextMenu();
@@ -112,7 +118,6 @@ public class PaiementController implements Initializable {
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
-                std.PresentObject();
                 if (event.getButton() == MouseButton.PRIMARY) {
                     showGroupsOfStudent(std);
                 } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -128,25 +133,62 @@ public class PaiementController implements Initializable {
                 }
             }
         });
+        groupTable.setOnMouseClicked(event -> {
+            group = (Group) groupTable.getSelectionModel().getSelectedItem();
+            showSeancsOfGroup(std,group);
+        });
+        seanceTable.setOnMouseClicked(event -> {
+            seance= (Seance) seanceTable.getSelectionModel().getSelectedItem();
+            seance.PresentSeance();
+        });
 
     }
 
     private void showGroupsOfStudent(Student std) {
         if (std != null) {
-            std.PresentObject();
-            refrechGroup(groupTable, grpC, nbrPlaceC, offerC,moduleC,levelC, std);
-        }else{
-            System.out.println(std +" is null");
+            refrechGroup(groupTable, grpC, nbrPlaceC, offerC, moduleC, levelC, std);
+        } else {
+            System.out.println(std + " is null");
         }
     }
 
-    public static void refrechGroup(TableView table, TableColumn Column1, TableColumn Column2,
-                                    TableColumn Column3,TableColumn Column4,TableColumn Column5,
-                                    Student std) {
-        ObservableList<Group> pr= BelongsService.getGroupOfStudent(std);
-        for(Group grp : pr){
-            grp.PresentGroupe();
+    private void showSeancsOfGroup(Student std, Group grp) {
+        if (std != null && grp != null) {
+            refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC,paiementC, std,grp);
+        } else {
+            System.out.println(std + " is null");
         }
+    }
+
+    public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
+                                     TableColumn Column3, TableColumn Column4, TableColumn Column5,
+                                     TableColumn Column6, Student std, Group grp) {
+        ObservableList<Seance> seance = SeanceService.getAllSeances(new Paiement(std,grp));
+        Column1.setCellValueFactory(
+                new PropertyValueFactory<>("nameRoom")
+        );
+        Column2.setCellValueFactory(
+                new PropertyValueFactory<>("date")
+        );
+        Column3.setCellValueFactory(
+                new PropertyValueFactory<>("nameTeacher")
+        );
+        Column4.setCellValueFactory(
+                new PropertyValueFactory<>("test")
+        );
+        Column5.setCellValueFactory(
+                new PropertyValueFactory<>("test")
+        );
+        Column6.setCellValueFactory(
+                new PropertyValueFactory<>("pstatus")
+        );
+        table.setItems(seance);
+    }
+
+    public static void refrechGroup(TableView table, TableColumn Column1, TableColumn Column2,
+                                    TableColumn Column3, TableColumn Column4, TableColumn Column5,
+                                    Student std) {
+        ObservableList<Group> pr = BelongsService.getGroupOfStudent(std);
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("nameGroup")
         );

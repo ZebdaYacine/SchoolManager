@@ -101,11 +101,12 @@
       </Label>
       <TableView fx:id="seanceTable" layoutX="681.0" layoutY="348.0" prefHeight="248.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css">
          <columns>
-            <TableColumn fx:id="idSeanceC" prefWidth="110.0" text="رقم الحصة" />
-            <TableColumn fx:id="dateC" prefWidth="117.99996948242188" text="التاريخ" />
-            <TableColumn fx:id="timeC" prefWidth="141.0" text="الوقت" />
-            <TableColumn fx:id="pTeacherC" prefWidth="133.0" text="حضور الأستاذ" />
-            <TableColumn fx:id="paiementC" prefWidth="135.0" text="الدفع" />
+            <TableColumn fx:id="roomC" prefWidth="73.0" text="القاعة" />
+            <TableColumn fx:id="dateTimeC" prefWidth="126.0" text="التوقيت" />
+            <TableColumn fx:id="teacherC" prefWidth="106.0" text="الأستاذ" />
+            <TableColumn fx:id="pTeacherC" prefWidth="123.0" text="حضور الأستاذ" />
+            <TableColumn fx:id="pStudentC" prefWidth="122.0" text="حضور التلميذ" />
+            <TableColumn fx:id="paiementC" prefWidth="122.0" text="الدفع" />
          </columns>
       </TableView>
 <!--<<<<<<< HEAD-->

@@ -132,7 +132,6 @@ public final class RoomService {
     public static ObservableList<Room> searchRoomById(Room room) {
         String query;
         query = "SELECT * FROM room where id = " + room.getId()+ "";
-        System.out.println(query);
         ObservableList<Room> listRooms = FXCollections.observableArrayList(new Room());
         listRooms.remove(0);
         try {

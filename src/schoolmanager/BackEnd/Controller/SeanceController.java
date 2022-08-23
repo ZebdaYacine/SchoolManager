@@ -143,7 +143,6 @@ public class SeanceController implements Initializable {
         uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         ObservableList<Offer> listOffers = OfferService.getAllOffers();
         OfferCmb.setItems(listOffers);
-
         ObservableList<Room> roomlist = RoomService.getAllRoom();
         RoomCmb.getItems().addAll(roomlist);
         ObservableList<Teacher> teacherlist = TeacherService.getAllTeachers();
@@ -154,7 +153,7 @@ public class SeanceController implements Initializable {
     public void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5, TableColumn Column6,
             Seance seance, String type) {
-        ObservableList<Seance> pr = SeanceService.getAllSeances();
+        ObservableList<Seance> pr = SeanceService.getAllSeances(null);
         if(pr.size()>0){
             seanceSelect = pr.get(0);
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
@@ -175,7 +174,7 @@ public class SeanceController implements Initializable {
                     new PropertyValueFactory<>("date")
             );
             Column6.setCellValueFactory(
-                    new PropertyValueFactory<>("pTeacher")
+                    new PropertyValueFactory<>("test")
             );
             table.setItems(pr);
         }
@@ -272,7 +271,9 @@ public class SeanceController implements Initializable {
             ObservableList<Room> listR = RoomService.searchRoomById(r);
             System.err.println(listR.get(0).getName());
             RoomCmb.getSelectionModel().select(listR.get(0));
+/*
             RoomCmb.getSelectionModel().select(r);
+*/
             Group g = new Group(seanceSelect.getIdGroupe());
             ObservableList<Group> listg = GroupService.getGroupbyId(g);
             System.err.println(listg.get(0).getNameGroup());

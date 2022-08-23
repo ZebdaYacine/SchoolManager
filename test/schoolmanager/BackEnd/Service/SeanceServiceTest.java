@@ -3,7 +3,10 @@ package schoolmanager.BackEnd.Service;
 import javafx.collections.ObservableList;
 import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
+import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Seance;
+import schoolmanager.BackEnd.Model.Student;
 
 import java.sql.Connection;
 
@@ -36,7 +39,8 @@ public class SeanceServiceTest {
 
     @Test
     public void getAllSeances() {
-        ObservableList<Seance> list= SeanceService.getAllSeances();
+        Paiement paiement = new Paiement(new Student(10L),new Group(5L));
+        ObservableList<Seance> list= SeanceService.getAllSeances(paiement);
         for (Seance snc:list) {
             snc.PresentSeance();
         }

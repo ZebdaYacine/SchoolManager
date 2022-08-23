@@ -7,6 +7,7 @@ package schoolmanager.BackEnd.Model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.control.CheckBox;
 
 import java.util.logging.Logger;
 
@@ -15,15 +16,32 @@ import java.util.logging.Logger;
  * @author kadri
  */
 public class Seance {
-    private long id,idOffer,idTeacher,idRoom,idGroupe;
-    private String date,nameOffer,nameGroup,nameTeacher,nameRoom,pTeacher;
-    private int presenceTeacher;
+    private long id,idOffer,idTeacher,idStudent,idRoom,idGroupe;
+    private String date,nameOffer,nameGroup,nameTeacher,nameRoom,pTeacher,pStudent, test,test1;
+    private int presenceTeacher,presenceStudent,status;
+    private CheckBox pstatus ;
+
 
     public Seance() {
     }
 
     public Seance(long id) {
         this.id = id;
+    }
+
+    public Seance(long idTeacher, long idRoom, String nameTeacher, String nameRoom, String pTeacher,
+                  int presenceTeacher, int presenceStudent, int status) {
+        this.idTeacher = idTeacher;
+        this.idRoom = idRoom;
+        this.nameTeacher = nameTeacher;
+        this.nameRoom = nameRoom;
+        this.pTeacher = pTeacher;
+        this.presenceTeacher = presenceTeacher;
+        this.presenceStudent = presenceStudent;
+        this.status = status;
+/*
+        this.pstatus=new CheckBox();
+*/
     }
 
     public Seance(long idOffer, long idTeacher, long idRoom, long idGroupe, String date, int presenceTeacher) {
@@ -135,8 +153,64 @@ public class Seance {
         return date;
     }
 
+    public String getTest1() {
+        return test1;
+    }
+
+    public void setTest1(String test1) {
+        this.test1 = test1;
+    }
+
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public long getIdStudent() {
+        return idStudent;
+    }
+
+    public void setIdStudent(long idStudent) {
+        this.idStudent = idStudent;
+    }
+
+    public int getPresenceStudent() {
+        return presenceStudent;
+    }
+
+    public void setPresenceStudent(int presenceStudent) {
+        this.presenceStudent = presenceStudent;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public CheckBox getPstatus() {
+        return pstatus;
+    }
+
+    public void setPstatus(CheckBox pstatus) {
+        this.pstatus = pstatus;
+    }
+
+    public String getpStudent() {
+        return pStudent;
+    }
+
+    public void setpStudent(String pStudent) {
+        this.pStudent = pStudent;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
     }
 
     public int getPresenceTeacher() {
