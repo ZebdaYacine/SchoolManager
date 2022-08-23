@@ -14,5 +14,8 @@ public class BelongsServiceTest {
         for(Group grp : BelongsService.getGroupOfStudent(new Student(5))){
             grp.PresentGroupe();
         }
+        for(Group grp : BelongsService.getGroupOfStudent(new Student(5))){
+            grp.PresentGroupe();
+        }   
     }
 }
