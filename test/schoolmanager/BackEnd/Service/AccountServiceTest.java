@@ -1,5 +1,6 @@
 package schoolmanager.BackEnd.Service;
 
+import javafx.collections.ObservableList;
 import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Account;
@@ -30,9 +31,15 @@ public class AccountServiceTest {
 
     @Test
     public void deleteAccount() {
+        account.setId(2);
+        AccountService.deleteAccount(account);
     }
 
     @Test
     public void getAccountOfStudent() {
+        ObservableList<Account> listAccountOfStudents=AccountService.getAccountOfStudent(account);
+        for (Account account : listAccountOfStudents){
+            account.PresentAccount();
+        }
     }
 }
