@@ -236,3 +236,14 @@ ADD CONSTRAINT `offer_ibfk_3`
   REFERENCES `schoolmanager`.`module` (`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+
+alter table student
+add  column currentAmount float;
+
+create table account (
+id BIGINT primary key auto_increment,
+idStudent BIGINT not null,
+day datetime,
+FOREIGN KEY (idStudent) REFERENCES Student(id) on delete cascade on update cascade ,
+amount float
+);

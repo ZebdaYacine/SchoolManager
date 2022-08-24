@@ -5,8 +5,6 @@
  */
 package schoolmanager.BackEnd.Model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 /**
  *
  * @author Zed Yacine
@@ -16,12 +14,18 @@ public class Student extends Person {
     private String phone1;
     private String phone2;
     private String sectionName;
+    private float currentAmount;
 
     public Student() {
     }
 
     public Student(long id) {
         super(id);
+    }
+
+    public Student(long id, float amount) {
+        super(id);
+        this.currentAmount = amount;
     }
 
     public Student(String firstName, String lastName) {
@@ -65,4 +69,8 @@ public class Student extends Person {
     public void setSectionName(String sectionName) {
         this.sectionName = sectionName;
     }
+
+    public float getCurrentAmount() {return currentAmount;}
+
+    public void setCurrentAmount(float currentAmount) {this.currentAmount = currentAmount;}
 }

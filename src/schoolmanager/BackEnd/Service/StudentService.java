@@ -188,4 +188,23 @@ public class StudentService {
         return listStudents;
     }
 
+    public static Results.Rstls updateAmountOfStudent(Student student) {
+        if (student == null) {
+            return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE "
+                    + " student SET currentAmount = ?"
+                    + " WHERE id = ? ");
+            stm.setFloat(1, student.getCurrentAmount());
+            stm.setLong(2, student.getId());
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_UPDATED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_UPDATED;
+        }
+    }
+
 }
