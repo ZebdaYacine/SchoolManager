@@ -125,4 +125,15 @@ public abstract class Mapping {
             return null;
         }
     }
+
+    public static Account getObjectAccountFromUiStudentPaiementHistory(UiStudentPaiementHistory uistd) {
+        boolean a = UiStudentPaiementHistory.UiStudentInputIsValid(uistd);
+        if (a) {
+            return new Account(Integer.parseInt(uistd.getIdStudent().getText())
+                    , uistd.getDateP().getValue().toString(),
+                    Float.parseFloat(uistd.getAmount().getText()));
+        } else {
+            return null;
+        }
+    }
 }

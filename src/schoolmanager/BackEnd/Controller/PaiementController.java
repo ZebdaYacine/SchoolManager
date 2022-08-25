@@ -8,7 +8,10 @@ package schoolmanager.BackEnd.Controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -24,10 +27,15 @@ import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.SeanceService;
 import schoolmanager.BackEnd.Service.StudentService;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static schoolmanager.SchoolManager.SecodStage;
 
 /*import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -125,8 +133,9 @@ public class PaiementController implements Initializable {
                         studentTable.setContextMenu(null);
                     });
                     showProfile.setOnAction(event1 -> {
-                        CommunController.alert("عرض الملف الشخصي للتلميذ");
-                        studentTable.setContextMenu(null);
+                        //CommunController.alert("عرض الملف الشخصي للتلميذ");
+                        showPaiementHistory(std);
+                        //studentTable.setContextMenu(null);
                     });
                 }
             }
@@ -156,6 +165,33 @@ public class PaiementController implements Initializable {
         } else {
             System.out.println(std + " is null");
         }
+    }
+
+    private void showPaiementHistory(Student std) {
+        URL url1 = null;
+        try {
+            url1 = new File("src/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml").toURI().toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(url1);
+            Parent uigrp = loader.load();
+            StudentPaiementHistoryController paiementHistoryController = loader.getController();
+            paiementHistoryController.setInputs(std);
+            Scene scene = new Scene(uigrp);
+            if (!SecodStage.isShowing()) {
+                SecodStage.setScene(scene);
+                SecodStage.setTitle("سجل الدفع ");
+                SecodStage.showAndWait();
+            } else {
+                SecodStage.setAlwaysOnTop(true);
+                SecodStage.setAlwaysOnTop(false);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
@@ -339,5 +375,7 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                 phone2C, sectionNameC, std, "");
     }
+
+
 
 }

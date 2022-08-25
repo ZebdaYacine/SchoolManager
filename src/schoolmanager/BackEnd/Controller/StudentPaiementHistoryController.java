@@ -1,0 +1,191 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package schoolmanager.BackEnd.Controller;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import schoolmanager.BackEnd.Mapper.Mapping;
+import schoolmanager.BackEnd.Model.Account;
+import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Results;
+import schoolmanager.BackEnd.Service.AccountService;
+import schoolmanager.BackEnd.Service.BelongsService;
+import schoolmanager.BackEnd.Service.StudentService;
+import schoolmanager.BackEnd.uiPresenter.UiStudentPaiementHistory;
+
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
+import static schoolmanager.SchoolManager.alertUpdate;
+
+/**
+ * FXML Controller class
+ *
+ * @author kadri
+ */
+public class StudentPaiementHistoryController implements Initializable {
+
+    @FXML
+    private TableView<?> studentTable;
+    @FXML
+    private TextField firstName;
+    @FXML
+    private TextField idStudent;
+    @FXML
+    private TextField lastName;
+    @FXML
+    private JFXDatePicker dateP;
+    @FXML
+    private TextField amountP;
+    @FXML
+    private TextField amountR;
+    @FXML
+    private TableColumn<?, ?> firstNameC;
+    @FXML
+    private TableColumn<?, ?> lastNameC;
+    @FXML
+    private TableColumn<?, ?> datePC;
+    @FXML
+    private TableColumn<?, ?> idC;
+    @FXML
+    private TableColumn<?, ?> amountC;
+    @FXML
+    private TableColumn<?, ?> amountRC;
+
+    private static Account account = new Account();
+
+    private UiStudentPaiementHistory uistd = new UiStudentPaiementHistory();
+
+    @FXML
+    private JFXButton delete;
+    @FXML
+    private JFXButton update;
+    @FXML
+    private JFXButton add;
+
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        uistd = new UiStudentPaiementHistory(amountP,dateP, idStudent);
+        if (loginUser.getRole().equals("simple")) {
+            update.setVisible(false);
+            delete.setVisible(false);
+        } else {
+            update.setVisible(true);
+            delete.setVisible(true);
+        }
+        refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
+    }
+
+    public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
+                                      TableColumn Column3, TableColumn Column4,
+                                      TableColumn Column5, TableColumn Column6
+            , Account acnt, String type) {
+        ObservableList<Account> pr= AccountService.getAccountOfStudent(acnt);
+        Column1.setCellValueFactory(
+                new PropertyValueFactory<>("idStudent")
+        );
+        Column2.setCellValueFactory(
+                new PropertyValueFactory<>("firstName")
+        );
+        Column3.setCellValueFactory(
+                new PropertyValueFactory<>("lastName")
+        );
+        Column4.setCellValueFactory(
+                new PropertyValueFactory<>("day")
+        );
+        Column5.setCellValueFactory(
+                new PropertyValueFactory<>("amount")
+        );
+        Column6.setCellValueFactory(
+                new PropertyValueFactory<>("amount")
+        );
+        table.setItems(pr);
+    }
+
+    public void setInputs(Student std) {
+        account.setIdStudent(std.getId());
+        account.setFirstName(std.getFirstName());
+        account.setLastName(std.getLastName());
+        fillInputes(account);
+        account.PresentAccount();
+        refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
+    }
+
+    public void fillInputes(Account account) {
+        firstName.setText(account.getFirstName());
+        lastName.setText(account.getLastName());
+        idStudent.setText(account.getIdStudent()+"");
+    }
+
+    @FXML
+    private void add(ActionEvent event) {
+        account = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
+        Results.Rstls r = AccountService.addAccount(account);
+        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+            CommunController.alert(r.toString());
+        } else {
+            uistd.clearInputs();
+        }
+        refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
+    }
+
+    @FXML
+    private void update(ActionEvent event) {
+        if (account.getId() != 0) {
+            Account newAccount = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
+            newAccount.setId(account.getId());
+            Optional<ButtonType> option = alertUpdate.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                Results.Rstls r = StudentService.updateStudent(newAccount);
+                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uistd.clearInputs();
+                    refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
+                }
+                account = new Account();
+                uistd.clearInputs();
+            }
+        }
+    }
+
+    @FXML
+    private void delete(ActionEvent event) {
+        if (account.getId() != 0) {
+            Optional<ButtonType> option = alertUpdate.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                Results.Rstls r = StudentService.deleteStudent(account);
+                if (r == Results.Rstls.OBJECT_NOT_DELETED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uistd.clearInputs();
+                    refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
+                }
+                account = new Account();
+                uistd.clearInputs();
+            }
+        }
+    }
+
+    @FXML
+    private void selectStudent(MouseEvent event) {
+
+    }
+
+}

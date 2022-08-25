@@ -86,7 +86,7 @@ public class AccountService {
 
     public static ObservableList<Account> getAccountOfStudent(Account account) {
         String query;
-        query = "SELECT A.id,A.day,S.firstName,S.lastName,S.phone1,S.phone2,A.amount " +
+        query = "SELECT A.id,idStudent,A.day,S.firstName,S.lastName,S.phone1,S.phone2,A.amount " +
                 "FROM account A , student S where S.id=A.idStudent" +
                 " and A.idStudent="+account.getIdStudent()+" order by id desc ";
         ObservableList<Account> listAccountOfStudents = FXCollections.observableArrayList(new Account());
@@ -97,6 +97,7 @@ public class AccountService {
             while (rs.next()) {
                 Account accountOfStudent = new Account();
                 accountOfStudent.setId(rs.getLong("id"));
+                accountOfStudent.setIdStudent(rs.getLong("idStudent"));
                 accountOfStudent.setFirstName(rs.getString("firstName"));
                 accountOfStudent.setLastName(rs.getString("lastName"));
                 accountOfStudent.setPhone1(rs.getString("phone1"));
