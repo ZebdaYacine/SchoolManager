@@ -101,27 +101,25 @@ public class PaiementController implements Initializable {
     private static Group group = new Group();
     private static Seance seance = new Seance();
 
-    private final ContextMenu contextMenu1 = new ContextMenu();
-    private final ContextMenu contextMenu2 = new ContextMenu();
+    private final ContextMenu contextMenu = new ContextMenu();
     private final MenuItem showGroups = new MenuItem("عرض المجموعات ");
-    private final MenuItem showProfile = new MenuItem("عرض الملف الشخصي");
-    private final MenuItem showProfile1 = new MenuItem("عرض الملف الشخصي");
+    private final MenuItem showProfile = new MenuItem("عرض سجل الدفع ");
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class.adminضa
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
-        contextMenu1.getItems().addAll(showGroups, showProfile1);
+        contextMenu.getItems().addAll(showGroups, showProfile);
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     showGroupsOfStudent(std);
                 } else if (event.getButton() == MouseButton.SECONDARY) {
-                    studentTable.setContextMenu(contextMenu1);
+                    studentTable.setContextMenu(contextMenu);
                     showGroups.setOnAction(event1 -> {
                         showGroupsOfStudent(std);
                         studentTable.setContextMenu(null);
