@@ -29,7 +29,7 @@
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
-      <JFXTextField fx:id="phone" focusColor="#0077cc" labelFloat="true" layoutX="350.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="رقم الهاتف" styleClass="jfxtextfield" unFocusColor="#0099cc" AnchorPane.topAnchor="20.0">
+      <JFXTextField fx:id="phone" focusColor="#0077cc" labelFloat="true" layoutX="350.0" layoutY="30.0" onKeyReleased="#searchByNameAndPhone" prefHeight="30.0" prefWidth="200.0" promptText="رقم الهاتف" styleClass="jfxtextfield" unFocusColor="#0099cc" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
@@ -70,7 +70,7 @@
             <TableColumn fx:id="sectionNameC" prefWidth="134.0" text="الفرع" />
          </columns>
       </TableView>
-      <TableView fx:id="groupTable" layoutX="678.0" layoutY="55.0" prefHeight="248.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="347.0" AnchorPane.leftAnchor="678.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="55.0">
+      <TableView fx:id="groupTable" layoutX="678.0" layoutY="55.0" prefHeight="250.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
          <columns>
             <TableColumn fx:id="grpC" prefWidth="110.0" text="اسم الفوج" />
             <TableColumn fx:id="moduleC" prefWidth="117.99996948242188" text="الـمادة" />
@@ -79,7 +79,7 @@
             <TableColumn fx:id="nbrPlaceC" prefWidth="135.0" text="عدد المقاعد" />
          </columns>
       </TableView>
-      <JFXButton layoutX="678.0" layoutY="604.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة">
+      <JFXButton layoutX="678.0" layoutY="604.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -89,17 +89,17 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="679.0" layoutY="20.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text=" قائمة الأفواج" AnchorPane.leftAnchor="679.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="679.0" layoutY="20.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text=" قائمة الأفواج" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="680.0" layoutY="312.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="قائمة الحصص ">
+      <Label alignment="CENTER" layoutX="680.0" layoutY="312.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="قائمة الحصص " AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="370.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="seanceTable" layoutX="681.0" layoutY="348.0" prefHeight="248.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css">
+      <TableView fx:id="seanceTable" layoutX="681.0" layoutY="348.0" prefHeight="250.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="400.0">
          <columns>
             <TableColumn fx:id="roomC" prefWidth="73.0" text="القاعة" />
             <TableColumn fx:id="dateTimeC" prefWidth="126.0" text="التوقيت" />
