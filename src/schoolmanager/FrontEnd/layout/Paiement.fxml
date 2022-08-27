@@ -79,7 +79,7 @@
             <TableColumn fx:id="nbrPlaceC" prefWidth="135.0" text="عدد المقاعد" />
          </columns>
       </TableView>
-      <JFXButton layoutX="678.0" layoutY="604.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة" AnchorPane.topAnchor="20.0">
+      <JFXButton layoutX="678.0" layoutY="604.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="طباعة" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -94,12 +94,12 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="680.0" layoutY="312.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="قائمة الحصص " AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="370.0">
+      <Label alignment="CENTER" layoutX="680.0" layoutY="312.0" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #a3aece;" text="قائمة الحصص " AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="370.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="seanceTable" layoutX="681.0" layoutY="348.0" prefHeight="250.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="400.0">
+      <TableView fx:id="seanceTable" layoutX="681.0" layoutY="348.0" prefHeight="250.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
          <columns>
             <TableColumn fx:id="roomC" prefWidth="73.0" text="القاعة" />
             <TableColumn fx:id="dateTimeC" prefWidth="126.0" text="التوقيت" />

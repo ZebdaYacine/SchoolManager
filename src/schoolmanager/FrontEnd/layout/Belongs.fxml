@@ -80,28 +80,28 @@
             <TableColumn fx:id="sectionNameC1" prefWidth="158.0" text="الفرع" />
          </columns>
       </TableView>
-      <Label layoutX="1118.0" layoutY="20.0" prefHeight="30.0" text="عدد الأماكن المتبقية في الفوج">
+      <Label layoutX="1118.0" layoutY="20.0" prefHeight="30.0" text="عدد الأماكن المتبقية في الفوج" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="groupName" layoutX="688.0" layoutY="73.0" prefHeight="45.0" prefWidth="368.0">
+      <Label fx:id="groupName" layoutX="688.0" layoutY="73.0" prefHeight="45.0" prefWidth="368.0" AnchorPane.leftAnchor="680.0">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="105.0" layoutX="1202.0" layoutY="58.0" opacity="0.74" stroke="#262632" strokeType="INSIDE" width="117.0" />
-      <Label fx:id="nbrPlace" alignment="CENTER" layoutX="1202.0" layoutY="58.0" prefHeight="105.0" prefWidth="117.0" text="50" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="105.0" layoutX="1202.0" layoutY="58.0" opacity="0.74" stroke="#262632" strokeType="INSIDE" width="117.0" AnchorPane.rightAnchor="20.0" />
+      <Label fx:id="nbrPlace" alignment="CENTER" layoutX="1202.0" layoutY="58.0" prefHeight="105.0" prefWidth="117.0" text="50" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="Tempus Sans ITC" size="54.0" />
          </font>
       </Label>
-      <Label fx:id="offerName" layoutX="693.0" layoutY="15.0" prefHeight="40.0" prefWidth="377.0">
+      <Label fx:id="offerName" layoutX="693.0" layoutY="15.0" prefHeight="40.0" prefWidth="377.0" AnchorPane.leftAnchor="680.0">
          <font>
             <Font name="Times New Roman" size="30.0" />
          </font>
       </Label>
-      <JFXButton layoutX="691.0" layoutY="129.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة">
+      <JFXButton layoutX="691.0" layoutY="129.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="طباعة" AnchorPane.leftAnchor="680.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

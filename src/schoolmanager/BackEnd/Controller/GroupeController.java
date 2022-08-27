@@ -114,15 +114,15 @@ public class GroupeController implements Initializable {
                         super.updateItem(grp, b);
                         if (grp != null) {
                             switch (grp.getLevel().toLowerCase()){
-                                case "lycee" :{
+                                case "الثانوي" :{
                                     setStyle("-fx-background-color: #00ff7f;");
                                     break;
                                 }
-                                case "ciam" :{
+                                case "المتوسط" :{
                                     setStyle("-fx-background-color: #ef910e;");
                                     break;
                                 }
-                                case "premier" :{
+                                case "الابتدائي" :{
                                     setStyle("-fx-background-color: #d48eaf;");
                                     break;
                                 }

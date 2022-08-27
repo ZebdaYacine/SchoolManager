@@ -48,12 +48,13 @@
 
 .printbtn
 {
-    -fx-background-color : #3d7ec4;
+    -fx-background-color :  linear-gradient( white 90%, #0099cc 100%);
+    -fx-text-fill: black;
 }
 
 .printbtn:hover
 {
-    -fx-background-color :  #30659e;
+    -fx-background-color :  #0099cc;
 }
 
 .mainbtn
