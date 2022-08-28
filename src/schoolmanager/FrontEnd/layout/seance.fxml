@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.SeanceController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.SeanceController">
    <children>
       <JFXComboBox fx:id="OfferCmb" focusColor="#0077cc" layoutX="39.0" layoutY="140.0" onAction="#onchangecontent" prefHeight="30.0" prefWidth="200.0" promptText="العرض" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
       <Label fx:id="OfferErr" layoutX="40.0" layoutY="97.0" styleClass="labels_err" stylesheets="@../style/style.css" textFill="#cc3300" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="65.0">
@@ -103,17 +103,17 @@
             <TableColumn fx:id="sectionNameAC" prefWidth="120.0" text="القسم" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="التلاميذ الغائبين" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الغائبين" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" style="-fx-background-color: #a3aece;" text="الحصص" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="الحصص" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

@@ -105,7 +105,7 @@ public class GroupeController implements Initializable {
                 }
             }
         });
-        GroupeTable.setRowFactory(new Callback<TableView<Group>, TableRow<Group>>() {
+        /*GroupeTable.setRowFactory(new Callback<TableView<Group>, TableRow<Group>>() {
             @Override
             public TableRow<Group> call(TableView param) {
                 return new TableRow<Group>() {
@@ -133,7 +133,7 @@ public class GroupeController implements Initializable {
                     }
                 };
             }
-        });
+        });*/
         refrechGroup(GroupeTable, groupeC, placeC,offerC, moduleC,levelC, new Group(), "");
     }
 

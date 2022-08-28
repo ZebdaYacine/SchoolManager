@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="550.0" prefWidth="750.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.TeacherController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="550.0" prefWidth="750.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.TeacherController">
    <children>
 <!--<<<<<<< HEAD-->
 <!--      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" promptText="Nom" styleClass="jfxtextfield" unFocusColor="#0099cc">-->
@@ -131,7 +131,7 @@
             <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="170.0" layoutY="215.0" prefHeight="30.0" prefWidth="510.0" style="-fx-background-color: #a3aece;" text="قائمة الأساتذة" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
+      <Label alignment="CENTER" layoutX="170.0" layoutY="215.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="قائمة الأساتذة" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

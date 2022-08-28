@@ -77,7 +77,7 @@ public class OfferController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        offerTable.setRowFactory(new Callback<TableView<Offer>, TableRow<Offer>>() {
+        /*offerTable.setRowFactory(new Callback<TableView<Offer>, TableRow<Offer>>() {
             @Override
             public TableRow<Offer> call(TableView param) {
                 return new TableRow<Offer>() {
@@ -99,12 +99,12 @@ public class OfferController implements Initializable {
                                 }
                             }
                         } else {
-                            setStyle("-fx-background-color: #ffffff;");
+                            //setStyle("-fx-background-color: #ffffff;");
                         }
                     }
                 };
             }
-        });
+        });*/
 
     }
 
