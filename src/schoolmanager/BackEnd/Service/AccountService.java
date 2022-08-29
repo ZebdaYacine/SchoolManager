@@ -86,9 +86,10 @@ public class AccountService {
 
     public static ObservableList<Account> getAccountOfStudent(Account account) {
         String query;
-        query = "SELECT A.id,idStudent,A.day,S.firstName,S.lastName,S.phone1,S.phone2,A.amount " +
-                "FROM account A , student S where S.id=A.idStudent" +
-                " and A.idStudent="+account.getIdStudent()+" order by id desc ";
+        query = " SELECT A.id,A.idStudent,A.day,A.amount,A.amountC,A.idGroupe ,G.name,O.offerName " +
+                " FROM account A , Offer O, Groupe G " +
+                " where A.idGroupe=G.id and O.id=G.idOffer and " +
+                " A.idStudent="+account.getIdStudent()+" order by A.idStudent desc ";
         ObservableList<Account> listAccountOfStudents = FXCollections.observableArrayList(new Account());
         listAccountOfStudents.remove(0);
         try {
@@ -98,12 +99,12 @@ public class AccountService {
                 Account accountOfStudent = new Account();
                 accountOfStudent.setId(rs.getLong("id"));
                 accountOfStudent.setIdStudent(rs.getLong("idStudent"));
-                accountOfStudent.setFirstName(rs.getString("firstName"));
-                accountOfStudent.setLastName(rs.getString("lastName"));
-                accountOfStudent.setPhone1(rs.getString("phone1"));
-                accountOfStudent.setPhone2(rs.getString("phone2"));
+                accountOfStudent.setOfferName(rs.getString("offerName"));
+                accountOfStudent.setGroupName(rs.getString("name"));
+                accountOfStudent.setIdGroupe(rs.getLong("idGroupe"));
                 accountOfStudent.setDay(rs.getString("day"));
                 accountOfStudent.setAmount(rs.getFloat("amount"));
+                accountOfStudent.setAmountC(rs.getFloat("amountC"));
                 listAccountOfStudents.add(accountOfStudent);
             }
             rs.close();

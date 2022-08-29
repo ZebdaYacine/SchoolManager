@@ -13,7 +13,9 @@ public class AccountServiceTest {
 
     public AccountServiceTest() {
         DataBaseConnection.Connect();
+/*
         account= new Account(4,"2022-08-23 19:12:00",5000);
+*/
     }
 
     @Test

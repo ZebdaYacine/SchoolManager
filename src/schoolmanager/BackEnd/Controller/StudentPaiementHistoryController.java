@@ -5,7 +5,6 @@
  */
 package schoolmanager.BackEnd.Controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import schoolmanager.BackEnd.Model.Account;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.AccountService;
-import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.uiPresenter.UiStudentPaiementHistory;
 
@@ -27,7 +25,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
@@ -40,40 +37,18 @@ public class StudentPaiementHistoryController implements Initializable {
     @FXML
     private TableView<?> studentTable;
     @FXML
-    private TextField firstName;
+    private Label stdLbl;
     @FXML
-    private TextField idStudent;
-    @FXML
-    private TextField lastName;
-    @FXML
-    private JFXDatePicker dateP;
-    @FXML
-    private TextField amountP;
-    @FXML
-    private TextField amountR;
-    @FXML
-    private TableColumn<?, ?> firstNameC;
-    @FXML
-    private TableColumn<?, ?> lastNameC;
+    private TableColumn<?, ?> offerC;
     @FXML
     private TableColumn<?, ?> datePC;
     @FXML
-    private TableColumn<?, ?> idC;
+    private TableColumn<?, ?> groupC;
     @FXML
     private TableColumn<?, ?> amountC;
     @FXML
     private TableColumn<?, ?> amountRC;
-
     private static Account account = new Account();
-
-    private UiStudentPaiementHistory uistd = new UiStudentPaiementHistory();
-
-    @FXML
-    private JFXButton delete;
-    @FXML
-    private JFXButton update;
-    @FXML
-    private JFXButton add;
 
 
     /**
@@ -81,40 +56,30 @@ public class StudentPaiementHistoryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uistd = new UiStudentPaiementHistory(amountP,dateP, idStudent);
-        if (loginUser.getRole().equals("simple")) {
-            update.setVisible(false);
-            delete.setVisible(false);
-        } else {
-            update.setVisible(true);
-            delete.setVisible(true);
-        }
-        refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
+        refrechStudent(studentTable, groupC, offerC, datePC, amountC, amountRC, account, "");
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
                                       TableColumn Column3, TableColumn Column4,
-                                      TableColumn Column5, TableColumn Column6
+                                      TableColumn Column5
             , Account acnt, String type) {
         ObservableList<Account> pr= AccountService.getAccountOfStudent(acnt);
         Column1.setCellValueFactory(
-                new PropertyValueFactory<>("idStudent")
+                new PropertyValueFactory<>("groupName")
         );
         Column2.setCellValueFactory(
-                new PropertyValueFactory<>("firstName")
+                new PropertyValueFactory<>("offerName")
         );
         Column3.setCellValueFactory(
-                new PropertyValueFactory<>("lastName")
-        );
-        Column4.setCellValueFactory(
                 new PropertyValueFactory<>("day")
         );
+        Column4.setCellValueFactory(
+                new PropertyValueFactory<>("amount")
+        );
         Column5.setCellValueFactory(
-                new PropertyValueFactory<>("amount")
+                new PropertyValueFactory<>("amountC")
         );
-        Column6.setCellValueFactory(
-                new PropertyValueFactory<>("amount")
-        );
+
         table.setItems(pr);
     }
 
@@ -122,70 +87,9 @@ public class StudentPaiementHistoryController implements Initializable {
         account.setIdStudent(std.getId());
         account.setFirstName(std.getFirstName());
         account.setLastName(std.getLastName());
-        fillInputes(account);
+        stdLbl.setText(" التلميذ : "+account.getFirstName()+" "+account.getLastName());
         account.PresentAccount();
-        refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
-    }
-
-    public void fillInputes(Account account) {
-        firstName.setText(account.getFirstName());
-        lastName.setText(account.getLastName());
-        idStudent.setText(account.getIdStudent()+"");
-    }
-
-    @FXML
-    private void add(ActionEvent event) {
-        account = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
-        Results.Rstls r = AccountService.addAccount(account);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
-        } else {
-            uistd.clearInputs();
-        }
-        refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
-    }
-
-    @FXML
-    private void update(ActionEvent event) {
-        if (account.getId() != 0) {
-            Account newAccount = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
-            newAccount.setId(account.getId());
-            Optional<ButtonType> option = alertUpdate.showAndWait();
-            if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.updateStudent(newAccount);
-                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
-                    CommunController.alert(r.toString());
-                } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
-                }
-                account = new Account();
-                uistd.clearInputs();
-            }
-        }
-    }
-
-    @FXML
-    private void delete(ActionEvent event) {
-        if (account.getId() != 0) {
-            Optional<ButtonType> option = alertUpdate.showAndWait();
-            if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.deleteStudent(account);
-                if (r == Results.Rstls.OBJECT_NOT_DELETED) {
-                    CommunController.alert(r.toString());
-                } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, idC,firstNameC, lastNameC, datePC, amountC, amountRC, account, "");
-                }
-                account = new Account();
-                uistd.clearInputs();
-            }
-        }
-    }
-
-    @FXML
-    private void selectStudent(MouseEvent event) {
-
+        refrechStudent(studentTable, groupC, offerC, datePC, amountC, amountRC, account, "");
     }
 
 }

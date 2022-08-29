@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Account extends  Student{
-    private long  id,idStudent;
-    private String day;
-    private float amount;
+    private long  id,idStudent,idGroupe;
+    private String day,groupName,offerName;
+    private float amount,amountC;
 
     public Account() {
     }
@@ -18,26 +18,30 @@ public class Account extends  Student{
         this.id = id;
     }
 
-    public Account( long idStudent, String day, float amount) {
+    public Account(long idStudent, long idGroupe, float amount, float amountC) {
         this.idStudent = idStudent;
-        this.day = day;
+        this.idGroupe = idGroupe;
         this.amount = amount;
+        this.amountC = amountC;
     }
 
-    public Account(long id, long idStudent, String day, float amount) {
+    public Account(long id,long idStudent, long idGroupe, float amount, float amountC) {
         this.id = id;
         this.idStudent = idStudent;
-        this.day = day;
+        this.idGroupe = idGroupe;
         this.amount = amount;
+        this.amountC = amountC;
     }
 
-
-    public Account(long id , String firstName, String lastName, String phone1, String phone2,
-                   String sectionName, String day, float amount) {
-        super(firstName, lastName, phone1, phone2, sectionName);
+    public Account(long id, long idStudent, long idGroupe, String day, String groupName, String offerName, float amount, float amountC) {
+        this.id = id;
+        this.idStudent = idStudent;
+        this.idGroupe = idGroupe;
         this.day = day;
+        this.groupName = groupName;
+        this.offerName = offerName;
         this.amount = amount;
-        this.id=id;
+        this.amountC = amountC;
     }
 
     @Override
@@ -72,6 +76,38 @@ public class Account extends  Student{
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public long getIdGroupe() {
+        return idGroupe;
+    }
+
+    public void setIdGroupe(long idGroupe) {
+        this.idGroupe = idGroupe;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getOfferName() {
+        return offerName;
+    }
+
+    public void setOfferName(String offerName) {
+        this.offerName = offerName;
+    }
+
+    public float getAmountC() {
+        return amountC;
+    }
+
+    public void setAmountC(float amountC) {
+        this.amountC = amountC;
     }
 
     public void PresentAccount() {

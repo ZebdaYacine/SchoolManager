@@ -129,9 +129,10 @@ public abstract class Mapping {
     public static Account getObjectAccountFromUiStudentPaiementHistory(UiStudentPaiementHistory uistd) {
         boolean a = UiStudentPaiementHistory.UiStudentInputIsValid(uistd);
         if (a) {
-            return new Account(Integer.parseInt(uistd.getIdStudent().getText())
+/*            return new Account(Integer.parseInt(uistd.getIdStudent().getText())
                     , uistd.getDateP().getValue().toString(),
-                    Float.parseFloat(uistd.getAmount().getText()));
+                    Float.parseFloat(uistd.getAmount().getText()));*/
+            return  new Account();
         } else {
             return null;
         }

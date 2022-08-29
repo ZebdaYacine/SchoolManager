@@ -113,6 +113,11 @@ public class PaiementController implements Initializable {
     private final MenuItem showGroups = new MenuItem("عرض المجموعات ");
     private final MenuItem showProfile = new MenuItem("عرض سجل الدفع ");
 
+    private final ContextMenu contextMenu1 = new ContextMenu();
+    private final MenuItem pay = new MenuItem("دفع المستحقات الـمالية   ");
+    private URL url1 = null;
+
+
     /**
      * Initializes the controller class.adminضa
      */
@@ -121,6 +126,7 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
         contextMenu.getItems().addAll(showGroups, showProfile);
+        contextMenu1.getItems().addAll(pay);
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
@@ -134,18 +140,38 @@ public class PaiementController implements Initializable {
                     });
                     showProfile.setOnAction(event1 -> {
                         //CommunController.alert("عرض الملف الشخصي للتلميذ");
-                        showPaiementHistory(std);
+                        try {
+                            url1 = new File("src/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml").toURI().toURL();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        showPaiementLayout(std,url1,"سجل الدفع","StudentPaiementHistoryController");
                         //studentTable.setContextMenu(null);
                     });
                 }
             }
         });
         groupTable.setOnMouseClicked(event -> {
-            group = (Group) groupTable.getSelectionModel().getSelectedItem();
-            showSeancsOfGroup(std,group);
+            if (event.getButton() == MouseButton.PRIMARY) {
+                group = (Group) groupTable.getSelectionModel().getSelectedItem();
+                showSeancsOfGroup(std, group);
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                groupTable.setContextMenu(contextMenu1);
+                contextMenu1.setOnAction(event1 -> {
+                    //CommunController.alert("عرض الملف الشخصي للتلميذ");
+                    try {
+                        url1 = new File("src/schoolmanager/FrontEnd/layout/PaiementCoures.fxml").toURI().toURL();
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    showPaiementLayout(std,url1,"الـمستحقات المالية","PaiementCouresController");
+                    //studentTable.setContextMenu(null);
+                });
+            }
+
         });
         seanceTable.setOnMouseClicked(event -> {
-            seance= (Seance) seanceTable.getSelectionModel().getSelectedItem();
+            seance = (Seance) seanceTable.getSelectionModel().getSelectedItem();
             seance.PresentSeance();
         });
 
@@ -161,28 +187,32 @@ public class PaiementController implements Initializable {
 
     private void showSeancsOfGroup(Student std, Group grp) {
         if (std != null && grp != null) {
-            refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC,paiementC, std,grp);
+            refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, std, grp);
         } else {
             System.out.println(std + " is null");
         }
     }
 
-    private void showPaiementHistory(Student std) {
-        URL url1 = null;
+    private void showPaiementLayout(Student std,URL url,String titleLayout,String object) {
         try {
-            url1 = new File("src/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml").toURI().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            FXMLLoader loader = new FXMLLoader(url1);
+            FXMLLoader loader = new FXMLLoader(url);
             Parent uigrp = loader.load();
-            StudentPaiementHistoryController paiementHistoryController = loader.getController();
-            paiementHistoryController.setInputs(std);
+            switch (object){
+                case  "PaiementCouresController" : {
+                    PaiementCouresController paiementCouresController = loader.getController();
+                    paiementCouresController.setInputs(std);
+                    break;
+                }
+                case  "StudentPaiementHistoryController" : {
+                    StudentPaiementHistoryController studentPaiementHistoryController = loader.getController();
+                    studentPaiementHistoryController.setInputs(std);
+                    break;
+                }
+            }
             Scene scene = new Scene(uigrp);
             if (!SecodStage.isShowing()) {
                 SecodStage.setScene(scene);
-                SecodStage.setTitle("سجل الدفع ");
+                SecodStage.setTitle(titleLayout);
                 SecodStage.showAndWait();
             } else {
                 SecodStage.setAlwaysOnTop(true);
@@ -197,7 +227,7 @@ public class PaiementController implements Initializable {
     public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
                                      TableColumn Column3, TableColumn Column4, TableColumn Column5,
                                      TableColumn Column6, Student std, Group grp) {
-        ObservableList<Seance> seance = SeanceService.getAllSeances(new Paiement(std,grp));
+        ObservableList<Seance> seance = SeanceService.getAllSeances(new Paiement(std, grp));
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("nameRoom")
         );
@@ -211,7 +241,7 @@ public class PaiementController implements Initializable {
                 new PropertyValueFactory<>("test")
         );
         Column5.setCellValueFactory(
-                new PropertyValueFactory<>("test")
+                new PropertyValueFactory<>("test1")
         );
         Column6.setCellValueFactory(
                 new PropertyValueFactory<>("pstatus")
@@ -375,7 +405,6 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                 phone2C, sectionNameC, std, "");
     }
-
 
 
 }

@@ -155,7 +155,7 @@ public class SeanceService {
                     if (seance.getPresenceStudent() == 1) {
                         seance.setTest1("حاضر");
                     } else {
-                        seance.setTest1("حاضر");
+                        seance.setTest1("غائب");
                     }
                     seance.setPresenceStudent(rs.getInt("status"));
                     CheckBox ch = new CheckBox();
