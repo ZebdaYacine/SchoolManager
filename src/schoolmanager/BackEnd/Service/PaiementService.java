@@ -12,6 +12,7 @@ import schoolmanager.BackEnd.Results;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 
@@ -22,25 +23,30 @@ public class PaiementService {
 
     private static final Section section = new Section();
 
-    public static Results.Rstls addPaiement(Paiement paiement) {
+    public static long addPaiement(Paiement paiement) {
+        long id=0;
         if (paiement == null) {
-            return Results.Rstls.OBJECT_NOT_INSERTED;
+            return id;
         }
         try {
             PreparedStatement stm = con.prepareStatement(""
                     + "insert into paiement (idStudent,idGroupe,day,amount,amountC)"
-                    + " values (?,?,?,?,?)");
+                    + " values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setLong(1, paiement.getStd().getId());
             stm.setLong(2, paiement.getGrp().getId());
             stm.setString(3, paiement.getDate());
             stm.setFloat(4, paiement.getAmount());
             stm.setFloat(5, paiement.getAmountC());
             stm.executeUpdate();
+            ResultSet rs=stm.getGeneratedKeys();
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
             stm.close();
-            return Results.Rstls.OBJECT_INSERTED;
+            return id;
         } catch (Exception ex) {
             ex.printStackTrace();
-            return Results.Rstls.OBJECT_NOT_INSERTED;
+            return id;
         }
     }
 
@@ -123,6 +129,5 @@ public class PaiementService {
         }
         return listPaiementsOfStudents;
     }
-
 
 }

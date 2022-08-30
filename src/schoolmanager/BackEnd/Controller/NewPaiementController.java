@@ -11,7 +11,10 @@ import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -26,10 +29,15 @@ import schoolmanager.BackEnd.Service.OfferService;
 import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.uiPresenter.UiStudentPaiement;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static schoolmanager.BackEnd.Controller.PaiementController.*;
+import static schoolmanager.SchoolManager.SecodStage;
 
 /**
  * FXML Controller class
@@ -123,17 +131,33 @@ public class NewPaiementController extends PaiementController implements Initial
     }
 
     @FXML
-    private void add(ActionEvent event) throws InterruptedException {
+    private void add(ActionEvent event) throws InterruptedException, IOException {
         paiement = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
         paiement.setStd(std1);
         paiement.PresentObject();
-        Results.Rstls r = PaiementService.addPaiement(paiement);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
+        long lastID = PaiementService.addPaiement(paiement);
+        paiement.setId(lastID);
+        if (lastID ==0 ) {
+            CommunController.alert(Results.Rstls.OBJECT_NOT_INSERTED.toString());
         } else {
             editProgressBar();
             CommunController.alert("تم اضافة عملية دفع جديدة");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
+
+            URL url = new File("src/schoolmanager/FrontEnd/layout/PaiementSeances.fxml").toURI().toURL();
+            FXMLLoader loader = new FXMLLoader(url);
+            Parent uigrp = loader.load();
+            PaiementSeancesController paiementSeancesController = loader.getController();
+            paiementSeancesController.setInput(paiement);
+            Scene scene = new Scene(uigrp);
+            if (!SecodStage.isShowing()) {
+                SecodStage.setScene(scene);
+                SecodStage.setTitle("قائمة الحصص ");
+                SecodStage.showAndWait();
+            } else {
+                SecodStage.setAlwaysOnTop(true);
+                SecodStage.setAlwaysOnTop(false);
+            }
         }
     }
 
