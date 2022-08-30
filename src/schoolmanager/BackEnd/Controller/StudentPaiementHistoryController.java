@@ -5,27 +5,17 @@
  */
 package schoolmanager.BackEnd.Controller;
 
-import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Account;
 import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.AccountService;
-import schoolmanager.BackEnd.Service.StudentService;
-import schoolmanager.BackEnd.uiPresenter.UiStudentPaiementHistory;
+import schoolmanager.BackEnd.Service.PaiementService;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
-
-import static schoolmanager.SchoolManager.alertUpdate;
 
 /**
  * FXML Controller class
@@ -63,7 +53,7 @@ public class StudentPaiementHistoryController implements Initializable {
                                       TableColumn Column3, TableColumn Column4,
                                       TableColumn Column5
             , Account acnt, String type) {
-        ObservableList<Account> pr= AccountService.getAccountOfStudent(acnt);
+     /*   ObservableList<Account> pr= PaiementService.getAccountOfStudent(acnt);
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("groupName")
         );
@@ -80,7 +70,7 @@ public class StudentPaiementHistoryController implements Initializable {
                 new PropertyValueFactory<>("amountC")
         );
 
-        table.setItems(pr);
+        table.setItems(pr);*/
     }
 
     public void setInputs(Student std) {

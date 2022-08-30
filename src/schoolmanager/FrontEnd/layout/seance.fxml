@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.SeanceController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.SeanceController">
    <children>
       <JFXComboBox fx:id="OfferCmb" focusColor="#0077cc" layoutX="39.0" layoutY="140.0" onAction="#onchangecontent" prefHeight="30.0" prefWidth="200.0" promptText="العرض" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
       <Label fx:id="OfferErr" layoutX="40.0" layoutY="97.0" styleClass="labels_err" stylesheets="@../style/style.css" textFill="#cc3300" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="65.0">
@@ -79,10 +79,10 @@
          <columns>
             <TableColumn fx:id="OfferC" prefWidth="100.0" text="العرض" />
             <TableColumn fx:id="TeacherC" prefWidth="100.0" text="الاستاذ" />
-            <TableColumn fx:id="pTeacherC" text="حضور الاستاذ" />
-            <TableColumn fx:id="RoomC" text="القاعة" />
-            <TableColumn fx:id="GroupC" prefWidth="70.0" text="الفوج" />
-            <TableColumn fx:id="dateC" prefWidth="120.0" text="تاريخ الحصة" />
+            <TableColumn fx:id="pTeacherC" prefWidth="86.0" text="حضور الاستاذ" />
+            <TableColumn fx:id="RoomC" prefWidth="81.0" text="القاعة" />
+            <TableColumn fx:id="GroupC" prefWidth="72.0" text="الفوج" />
+            <TableColumn fx:id="dateC" prefWidth="111.0" text="تاريخ الحصة" />
          </columns>
       </TableView>
       <TableView fx:id="studentPTable" layoutX="790.0" layoutY="50.0" onMouseClicked="#selectStudentPresent" prefHeight="320.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
@@ -103,17 +103,17 @@
             <TableColumn fx:id="sectionNameAC" prefWidth="120.0" text="القسم" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" style="-fx-background-color: #a3aece;" text="التلاميذ الغائبين" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
+      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الغائبين" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" style="-fx-background-color: #a3aece;" text="الحصص" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="الحصص" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

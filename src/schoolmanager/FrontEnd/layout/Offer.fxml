@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.OfferController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.OfferController">
     <children>
         <!--<<<<<<< HEAD-->
         <JFXTextField fx:id="name" focusColor="#0077cc" labelFloat="true" layoutX="31.0" layoutY="50.0" onKeyReleased="#search" prefHeight="30.0" prefWidth="200.0" promptText="إسم العرض" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -135,7 +135,7 @@
             <TableColumn fx:id="PriceC" prefWidth="100.0" text="سعر العرض" />
             </columns>
         </TableView>
-      <Label alignment="CENTER" layoutX="280.0" layoutY="30.0" prefHeight="30.0" prefWidth="510.0" style="-fx-background-color: #a3aece;" text="العروض" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="280.0" layoutY="30.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="العروض" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

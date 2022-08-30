@@ -129,7 +129,7 @@ public class StudentController implements Initializable {
         if (type.equals("searche")) {
             pr = StudentService.searchStudentByName(std);
         } else {
-            pr = StudentService.getAllStudents();
+            pr = StudentService.getAllStudents("",new Student());
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")

@@ -5,36 +5,34 @@
 
 .back
 {
-    -fx-background-color : #E9EBEE;
+    /*-fx-background-color : #E9EBEE;*/
+    -fx-background-color : #0d1a27;
 }
 
+.pantable
+{
+    -fx-background-color : #0d1a27;
+    -fx-text-fill: white;
+}
 
 .home
 { 
-    -fx-background-color : white;
+    /*-fx-background-color : white;*/
+    -fx-background-color : #203243;
 }
 
 
 .menu-item .label {
     -fx-background-color : transparent; 
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
 
 
 .context-menu .label{
-    -fx-text-fill: black;
+    /*-fx-text-fill: black;*/
+    -fx-text-fill: white;
 }
 
-.statheader
-{
-    -fx-background-color : #6699cc;
-    -fx-background-radius: 5 5 5 5;
-}
-.statbord
-{
-    -fx-background-color : #FFFAFA;
-    -fx-background-radius: 10 10 5 5;
-}
 
 .labels_err
 {
@@ -42,31 +40,8 @@
 }
 
 .jfxtextfield{
-    -fx-prompt-text-fill: #3d7ec4;
-    -fx-text-inner-color:#000;
-}
-#statbordPrd
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
-}
-
-#statbordSale
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
-}
-
-#statbordPurchase
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
-}
-
-#statbordDette
-{
-    -fx-background-color : #0a94b8;
-    -fx-background-radius: 10 10 5 5;
+    -fx-prompt-text-fill: white;
+    -fx-text-inner-color: white;
 }
 
 .img

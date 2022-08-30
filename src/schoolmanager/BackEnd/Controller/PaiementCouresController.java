@@ -7,7 +7,6 @@ package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,15 +14,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Account;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.AccountService;
 import schoolmanager.BackEnd.Service.StudentService;
-import schoolmanager.BackEnd.uiPresenter.UiStudentPaiementHistory;
+import schoolmanager.BackEnd.uiPresenter.UiStudentPaiement;
 
 import java.net.URL;
 import java.util.Optional;
@@ -68,7 +65,7 @@ public class PaiementCouresController implements Initializable {
 
     private Account account = new Account();
 
-    private UiStudentPaiementHistory uistd = new UiStudentPaiementHistory();
+    private UiStudentPaiement uistd = new UiStudentPaiement();
 
     @FXML
     private JFXButton delete;
@@ -81,7 +78,7 @@ public class PaiementCouresController implements Initializable {
                                       TableColumn Column3, TableColumn Column4,
                                       TableColumn Column5, TableColumn Column6
             , Account acnt, String type) {
-        ObservableList<Account> pr = AccountService.getAccountOfStudent(acnt);
+       /* ObservableList<Account> pr = PaiementService.getAccountOfStudent(acnt);
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("idStudent")
         );
@@ -100,7 +97,7 @@ public class PaiementCouresController implements Initializable {
         Column6.setCellValueFactory(
                 new PropertyValueFactory<>("amount")
         );
-        table.setItems(pr);
+        table.setItems(pr);*/
     }
 
     /**
@@ -108,7 +105,6 @@ public class PaiementCouresController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uistd = new UiStudentPaiementHistory(amountP, dateP, idStudent);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
             delete.setVisible(false);
@@ -137,19 +133,19 @@ public class PaiementCouresController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        account = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
-        Results.Rstls r = AccountService.addAccount(account);
+      /*  account = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
+        Results.Rstls r = PaiementService.addPaiement(account);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
             CommunController.alert(r.toString());
         } else {
             uistd.clearInputs();
-        }
+        }*/
         refrechStudent(studentTable, idC, firstNameC, lastNameC, idC, amountC, amountRC, new Account(), "");
     }
 
     @FXML
     private void update(ActionEvent event) {
-        if (account.getId() != 0) {
+        /*if (account.getId() != 0) {
             Account newAccount = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
             newAccount.setId(account.getId());
             Optional<ButtonType> option = alertUpdate.showAndWait();
@@ -164,7 +160,7 @@ public class PaiementCouresController implements Initializable {
                 account = new Account();
                 uistd.clearInputs();
             }
-        }
+        }*/
     }
 
     @FXML

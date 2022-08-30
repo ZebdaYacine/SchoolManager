@@ -59,6 +59,8 @@ public class BelongsService {
         }
     }
 
+
+
     public static ObservableList<Student> getStudentsOfGroup(long id) {
         String query;
         query = "SELECT * FROM student S , belongs B " +
@@ -88,7 +90,7 @@ public class BelongsService {
     }
 
     public static ObservableList<Group> getGroupOfStudent (Student std) {
-        String query="SELECT G.id ,G.name,G.nbrPlace , O.offerName ,O.nameModule,O.nameLevel" +
+        String query="SELECT G.id ,G.name,G.nbrPlace , O.offerName ,O.id as 'idO' ,O.nameModule,O.nameLevel" +
                 " FROM  belongs B , Groupe G , Offer O where" +
                 " G.id=B.idGroupe and O.id= G.idOffer" +
                 " and B.idStudnet="+std.getId()+" group by G.id  order by B.idStudnet";
@@ -100,6 +102,7 @@ public class BelongsService {
             while (rs.next()) {
                 Group grp = new Group();
                 grp.setId(rs.getLong("id"));
+                grp.setIdOffer(rs.getLong("idO"));
                 grp.setNameGroup(rs.getString("name"));
                 grp.setNbrPlace(rs.getInt("nbrPlace"));
                 grp.setNameOffer(rs.getString("offerName"));

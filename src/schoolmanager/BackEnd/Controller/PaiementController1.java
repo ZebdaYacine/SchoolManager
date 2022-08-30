@@ -8,24 +8,34 @@ package schoolmanager.BackEnd.Controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import schoolmanager.BackEnd.Model.Belongs;
+import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Paiement;
+import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Printer.Print;
 import schoolmanager.BackEnd.Service.BelongsService;
+import schoolmanager.BackEnd.Service.SeanceService;
 import schoolmanager.BackEnd.Service.StudentService;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JRException;
-import schoolmanager.BackEnd.Printer.Print;
+
+import static schoolmanager.SchoolManager.SecodStage;
 
 /*import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -35,17 +45,20 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
+
 /**
  * FXML Controller class
  *
  * @author kadri
  */
-public class BelongsController implements Initializable {
+public class PaiementController1 implements Initializable {
 
     @FXML
     private TableView<?> studentTable;
     @FXML
-    private TableView<?> belongsTable;
+    private TableView<?> groupTable;
+    @FXML
+    private TableView<?> seanceTable;
     @FXML
     private TextField firstName;
     @FXML
@@ -64,15 +77,27 @@ public class BelongsController implements Initializable {
     @FXML
     private TableColumn<?, ?> sectionNameC;
     @FXML
-    private TableColumn<?, ?> firstNameC1;
+    private TableColumn<?, ?> grpC;
     @FXML
-    private TableColumn<?, ?> lastNameC1;
+    private TableColumn<?, ?> moduleC;
     @FXML
-    private TableColumn<?, ?> phone1C1;
+    private TableColumn<?, ?> levelC;
     @FXML
-    private TableColumn<?, ?> phone2C1;
+    private TableColumn<?, ?> offerC;
     @FXML
-    private TableColumn<?, ?> sectionNameC1;
+    private TableColumn<?, ?> nbrPlaceC;
+    @FXML
+    private TableColumn<?, ?> roomC;
+    @FXML
+    private TableColumn<?, ?> dateTimeC;
+    @FXML
+    private TableColumn<?, ?> teacherC;
+    @FXML
+    private TableColumn<?, ?> pTeacherC;
+    @FXML
+    private TableColumn<?, ?> pStudentC;
+    @FXML
+    private TableColumn<?, ?> paiementC;
     @FXML
     private Label nbrPlace;
     @FXML
@@ -82,84 +107,149 @@ public class BelongsController implements Initializable {
 
     private Student std = new Student();
     private static Group group = new Group();
+    private static Seance seance = new Seance();
+
+    private final ContextMenu contextMenu = new ContextMenu();
+    private final MenuItem showGroups = new MenuItem("عرض المجموعات ");
+    private final MenuItem showProfile = new MenuItem("عرض سجل الدفع ");
 
     private final ContextMenu contextMenu1 = new ContextMenu();
-    private final ContextMenu contextMenu2 = new ContextMenu();
-    private final MenuItem delete = new MenuItem("supprimer");
-    private final MenuItem add = new MenuItem("ajouter");
-    private final MenuItem showProfile = new MenuItem("voir le dossier de l'etudiant");
-    private final MenuItem showProfile1 = new MenuItem("voir le dossier de l'etudiant");
+    private final MenuItem pay = new MenuItem("دفع المستحقات الـمالية   ");
+    private URL url1 = null;
+
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class.adminضa
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
-        contextMenu1.getItems().addAll(delete, showProfile1);
-        contextMenu2.getItems().addAll(add, showProfile);
+        contextMenu.getItems().addAll(showGroups, showProfile);
+        contextMenu1.getItems().addAll(pay);
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if (event.getClickCount() == 2) {
-                        addingToBelongs(std);
-                    }
+                    showGroupsOfStudent(std);
                 } else if (event.getButton() == MouseButton.SECONDARY) {
-                    studentTable.setContextMenu(contextMenu2);
-                    add.setOnAction(event1 -> {
-                        addingToBelongs(std);
+                    studentTable.setContextMenu(contextMenu);
+                    showGroups.setOnAction(event1 -> {
+                        showGroupsOfStudent(std);
+                        studentTable.setContextMenu(null);
                     });
                     showProfile.setOnAction(event1 -> {
-                        CommunController.alert("details profile");
-                    });
-                }
-            }
-        });
-        belongsTable.setOnMouseClicked(event -> {
-            std = (Student) belongsTable.getSelectionModel().getSelectedItem();
-            if (std != null) {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    //belongsTable.setContextMenu(contextMenu1);
-                } else if (event.getButton() == MouseButton.SECONDARY) {
-                    std.PresentObject();
-                    group.PresentGroupe();
-                    belongsTable.setContextMenu(contextMenu1);
-                    delete.setOnAction(event1 -> {
-                        boolean a = CommunController.confirm("sure de supprimer cet etudiant ?");
-                        if (a) {
-                            BelongsService.deleteBelongs(new Belongs(std.getId(), group.getId()));
-                            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
-                                    phone2C1, sectionNameC1, new Student(), "belongs");
-                            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
-                            nbrPlace.setText(Integer.toString(group.getNbrRest()));
+                        //CommunController.alert("عرض الملف الشخصي للتلميذ");
+                        try {
+                            url1 = new File("src/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml").toURI().toURL();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
                         }
-                    });
-                    showProfile1.setOnAction(event1 -> {
-                        CommunController.alert("details profile 1");
+                        showPaiementLayout(std,url1,"سجل الدفع","StudentPaiementHistoryController");
+                        //studentTable.setContextMenu(null);
                     });
                 }
             }
         });
+
     }
 
-    private void addingToBelongs(Student std) {
-        std.PresentObject();
-        group.PresentGroupe();
-        if (group.getNbrRest() > 0) {
-            BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
-            refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
-                    phone2C1, sectionNameC1, new Student(), "belongs");
-            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
-            nbrPlace.setText(Integer.toString(group.getNbrRest()));
+    private void showGroupsOfStudent(Student std) {
+        if (std != null) {
+            refrechGroup(groupTable, grpC, nbrPlaceC, offerC, moduleC, levelC, std);
         } else {
-            CommunController.alert("group est plain ");
+            System.out.println(std + " is null");
         }
     }
 
+    private void showSeancsOfGroup(Student std, Group grp) {
+        if (std != null && grp != null) {
+            refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, std, grp);
+        } else {
+            System.out.println(std + " is null");
+        }
+    }
+
+    private void showPaiementLayout(Student std,URL url,String titleLayout,String object) {
+        try {
+            FXMLLoader loader = new FXMLLoader(url);
+            Parent uigrp = loader.load();
+            switch (object){
+                case  "PaiementCouresController" : {
+                    PaiementCouresController paiementCouresController = loader.getController();
+                    paiementCouresController.setInputs(std);
+                    break;
+                }
+                case  "StudentPaiementHistoryController" : {
+                    StudentPaiementHistoryController studentPaiementHistoryController = loader.getController();
+                    studentPaiementHistoryController.setInputs(std);
+                    break;
+                }
+            }
+            Scene scene = new Scene(uigrp);
+            if (!SecodStage.isShowing()) {
+                SecodStage.setScene(scene);
+                SecodStage.setTitle(titleLayout);
+                SecodStage.showAndWait();
+            } else {
+                SecodStage.setAlwaysOnTop(true);
+                SecodStage.setAlwaysOnTop(false);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
+                                     TableColumn Column3, TableColumn Column4, TableColumn Column5,
+                                     TableColumn Column6, Student std, Group grp) {
+        ObservableList<Seance> seance = SeanceService.getAllSeances(new Paiement(std, grp));
+        Column1.setCellValueFactory(
+                new PropertyValueFactory<>("nameRoom")
+        );
+        Column2.setCellValueFactory(
+                new PropertyValueFactory<>("date")
+        );
+        Column3.setCellValueFactory(
+                new PropertyValueFactory<>("nameTeacher")
+        );
+        Column4.setCellValueFactory(
+                new PropertyValueFactory<>("test")
+        );
+        Column5.setCellValueFactory(
+                new PropertyValueFactory<>("test1")
+        );
+        Column6.setCellValueFactory(
+                new PropertyValueFactory<>("pstatus")
+        );
+        table.setItems(seance);
+    }
+
+    public static void refrechGroup(TableView table, TableColumn Column1, TableColumn Column2,
+                                    TableColumn Column3, TableColumn Column4, TableColumn Column5,
+                                    Student std) {
+        ObservableList<Group> pr = BelongsService.getGroupOfStudent(std);
+        Column1.setCellValueFactory(
+                new PropertyValueFactory<>("nameGroup")
+        );
+        Column2.setCellValueFactory(
+                new PropertyValueFactory<>("nbrPlace")
+        );
+        Column3.setCellValueFactory(
+                new PropertyValueFactory<>("nameOffer")
+        );
+        Column4.setCellValueFactory(
+                new PropertyValueFactory<>("module")
+        );
+        Column5.setCellValueFactory(
+                new PropertyValueFactory<>("level")
+        );
+        table.setItems(pr);
+    }
+
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
             pr = StudentService.getAllStudents("",new Student());
@@ -207,7 +297,7 @@ public class BelongsController implements Initializable {
             try {
                 prt.PrintListStudent();
             } catch (JRException ex) {
-                Logger.getLogger(BelongsController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PaiementController1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
     }
@@ -252,31 +342,22 @@ public class BelongsController implements Initializable {
 
     @FXML
     private void selectStudent(MouseEvent event) {
-        /*std = (Student) studentTable.getSelectionModel().getSelectedItem();
+       /* std = (Student) studentTable.getSelectionModel().getSelectedItem();
         if (std != null) {
             std.PresentObject();
-            group.PresentGroupe();
-            if (group.getNbrRest() > 0) {
-                BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
-                refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1, "belongs");
-                group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
-                nbrPlace.setText(Integer.toString(group.getNbrRest()));
-            } else {
-                CommunController.alert("group est plain ");
-            }
-
+            showGroupsOfStudent(std);
         }*/
     }
 
     public void setInputs(Group grp) {
-        group = grp;
+        /*group = grp;
         group.PresentGroupe();
         group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
         nbrPlace.setText(Integer.toString(group.getNbrRest()));
         groupName.setText("الفوج : " + group.getNameGroup());
         offerName.setText("العرض : " + group.getNameOffer());
         refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
-                phone2C1, sectionNameC1, new Student(), "belongs");
+                phone2C1, sectionNameC1, new Student(), "belongs");*/
     }
 
     @FXML
@@ -298,8 +379,9 @@ public class BelongsController implements Initializable {
             std.setPhone2(phn);
         }
         std.PresentObject();
-        refrechStudent(studentTable, firstNameC1, lastNameC1, phone1C1,
-                phone2C1, sectionNameC1, std, "");
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
+                phone2C, sectionNameC, std, "");
     }
+
 
 }

@@ -1,11 +1,11 @@
 package schoolmanager.BackEnd.Model;
 
-public class Paiement {
+public class Paiement  extends Person{
     private long id ;
     private Student std;
     private Group grp;
-    private String date;
-    private float amount;
+    private String date,groupName,OfferName,typeOfOffer;
+    private float amount,amountC;
 
     public Paiement() {}
 
@@ -18,11 +18,29 @@ public class Paiement {
         this.grp = grp;
     }
 
-    public Paiement(long id, Student std, String date, float amount) {
-        this.id = id;
+    public Paiement(Student std, Group grp, String date, float amount, float amountC) {
         this.std = std;
+        this.grp = grp;
         this.date = date;
         this.amount = amount;
+        this.amountC = amountC;
+    }
+
+    public Paiement( Group grp,String date, float amount, float amountC) {
+        this.grp = grp;
+        this.date = date;
+        this.amount = amount;
+        this.amountC = amountC;
+    }
+
+    public Paiement(long id, Student std, Group grp,String type, String date, float amount, float amountC) {
+        this.id = id;
+        this.std = std;
+        this.grp = grp;
+        this.date = date;
+        this.typeOfOffer =type;
+        this.amount = amount;
+        this.amountC = amountC;
     }
 
     public long getId() {
@@ -63,5 +81,37 @@ public class Paiement {
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public String getTypeOfOffer() {
+        return typeOfOffer;
+    }
+
+    public void setTypeOfOffer(String typeOfOffer) {
+        this.typeOfOffer = typeOfOffer;
+    }
+
+    public float getAmountC() {
+        return amountC;
+    }
+
+    public void setAmountC(float amountC) {
+        this.amountC = amountC;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getOfferName() {
+        return OfferName;
+    }
+
+    public void setOfferName(String offerName) {
+        OfferName = offerName;
     }
 }

@@ -19,12 +19,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Offer;
 import schoolmanager.BackEnd.Model.Paiement;
-import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Printer.Print;
 import schoolmanager.BackEnd.Service.BelongsService;
-import schoolmanager.BackEnd.Service.SeanceService;
+import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.Service.StudentService;
 
 import java.io.File;
@@ -54,67 +54,33 @@ import net.sf.jasperreports.view.JasperViewer;*/
 public class PaiementController implements Initializable {
 
     @FXML
-    private TableView<?> studentTable;
+    private TableView<?> studentTable,PaiementTable;
     @FXML
-    private TableView<?> groupTable;
+    public static TableView<?> PaiementTable1 ;
     @FXML
-    private TableView<?> seanceTable;
+    private TextField firstName,phone;
     @FXML
-    private TextField firstName;
+    private  TableColumn<?, ?> firstNameC,lastNameC,phone1C,phone2C,sectionNameC;
     @FXML
-    private TextField phone;
+    private Label stdLbl;
     @FXML
-    private Label idG;
+    private TableColumn<?, ?> offerC,datePC,groupC,amountC,amountRC,nbrseanceC;
+    @FXML
+    public static TableColumn<?, ?> offerC1,datePC1,groupC1,amountC1,amountRC1,nbrseanceC1 ;
 
-    @FXML
-    private TableColumn<?, ?> firstNameC;
-    @FXML
-    private TableColumn<?, ?> lastNameC;
-    @FXML
-    private TableColumn<?, ?> phone1C;
-    @FXML
-    private TableColumn<?, ?> phone2C;
-    @FXML
-    private TableColumn<?, ?> sectionNameC;
-    @FXML
-    private TableColumn<?, ?> grpC;
-    @FXML
-    private TableColumn<?, ?> moduleC;
-    @FXML
-    private TableColumn<?, ?> levelC;
-    @FXML
-    private TableColumn<?, ?> offerC;
-    @FXML
-    private TableColumn<?, ?> nbrPlaceC;
-    @FXML
-    private TableColumn<?, ?> roomC;
-    @FXML
-    private TableColumn<?, ?> dateTimeC;
-    @FXML
-    private TableColumn<?, ?> teacherC;
-    @FXML
-    private TableColumn<?, ?> pTeacherC;
-    @FXML
-    private TableColumn<?, ?> pStudentC;
-    @FXML
-    private TableColumn<?, ?> paiementC;
-    @FXML
-    private Label nbrPlace;
-    @FXML
-    private Label groupName;
-    @FXML
-    private Label offerName;
 
-    private Student std = new Student();
-    private static Group group = new Group();
-    private static Seance seance = new Seance();
+    public Student std = new Student();
+    private static final Group group = new Group();
+    private static Paiement paiement = new Paiement();
 
     private final ContextMenu contextMenu = new ContextMenu();
-    private final MenuItem showGroups = new MenuItem("عرض المجموعات ");
-    private final MenuItem showProfile = new MenuItem("عرض سجل الدفع ");
+    private final MenuItem showGroups = new MenuItem("عرض الأفواج ");
 
     private final ContextMenu contextMenu1 = new ContextMenu();
-    private final MenuItem pay = new MenuItem("دفع المستحقات الـمالية   ");
+    private final MenuItem deleteP = new MenuItem("حذف ");
+    private final MenuItem PrinteP = new MenuItem("طباعة ");
+    private final MenuItem showP = new MenuItem("عرض  ");
+
     private URL url1 = null;
 
 
@@ -123,89 +89,90 @@ public class PaiementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        PaiementTable1=PaiementTable;
+        offerC1= offerC;
+        datePC1=datePC;
+        groupC1=groupC;
+        amountC1=amountC;
+        amountRC1=amountRC;
+        nbrseanceC1=nbrseanceC;
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
-        contextMenu.getItems().addAll(showGroups, showProfile);
-        contextMenu1.getItems().addAll(pay);
+        contextMenu.getItems().addAll(showGroups);
+        contextMenu1.getItems().addAll(deleteP,PrinteP,showP);
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    showGroupsOfStudent(std);
+                    refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
+                    stdLbl.setText("التلميذ : " + std.getFirstName() + " " + std.getLastName());
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     studentTable.setContextMenu(contextMenu);
                     showGroups.setOnAction(event1 -> {
-                        showGroupsOfStudent(std);
-                        studentTable.setContextMenu(null);
-                    });
-                    showProfile.setOnAction(event1 -> {
-                        //CommunController.alert("عرض الملف الشخصي للتلميذ");
                         try {
                             url1 = new File("src/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml").toURI().toURL();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
-                        showPaiementLayout(std,url1,"سجل الدفع","StudentPaiementHistoryController");
-                        //studentTable.setContextMenu(null);
+                        showPaiementLayout( std, url1, "سجل الدفع", "StudentPaiementHistoryController");
                     });
                 }
             }
         });
-        groupTable.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                group = (Group) groupTable.getSelectionModel().getSelectedItem();
-                showSeancsOfGroup(std, group);
-            } else if (event.getButton() == MouseButton.SECONDARY) {
-                groupTable.setContextMenu(contextMenu1);
-                contextMenu1.setOnAction(event1 -> {
-                    //CommunController.alert("عرض الملف الشخصي للتلميذ");
-                    try {
-                        url1 = new File("src/schoolmanager/FrontEnd/layout/PaiementCoures.fxml").toURI().toURL();
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
+
+        PaiementTable.setOnMouseClicked(event -> {
+            paiement = (Paiement) PaiementTable.getSelectionModel().getSelectedItem();
+            if (paiement != null) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (event.getClickCount() == 2) {
+                        try {
+                            url1 = new File("src/schoolmanager/FrontEnd/layout/NewPaiement.fxml").toURI().toURL();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        showPaiementLayout(paiement, url1, " جدول الحصص ", "NewPaiementController");
                     }
-                    showPaiementLayout(std,url1,"الـمستحقات المالية","PaiementCouresController");
-                    //studentTable.setContextMenu(null);
-                });
+                } else if (event.getButton() == MouseButton.SECONDARY) {
+                    PaiementTable.setContextMenu(contextMenu1);
+                    deleteP.setOnAction(event1 -> {
+                    });
+                    PrinteP.setOnAction(event1 -> {
+                    });
+                    showP.setOnAction(event1 -> {
+                        try {
+                            url1 = new File("src/schoolmanager/FrontEnd/layout/PaiementCoures.fxml").toURI().toURL();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        showPaiementLayout(paiement, url1, " جدول الحصص ", "PaiementCoures");
+                    });
+                }
             }
-
         });
-        seanceTable.setOnMouseClicked(event -> {
-            seance = (Seance) seanceTable.getSelectionModel().getSelectedItem();
-            seance.PresentSeance();
-        });
-
     }
 
-    private void showGroupsOfStudent(Student std) {
-        if (std != null) {
-            refrechGroup(groupTable, grpC, nbrPlaceC, offerC, moduleC, levelC, std);
-        } else {
-            System.out.println(std + " is null");
-        }
-    }
 
-    private void showSeancsOfGroup(Student std, Group grp) {
-        if (std != null && grp != null) {
-            refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, std, grp);
-        } else {
-            System.out.println(std + " is null");
-        }
-    }
-
-    private void showPaiementLayout(Student std,URL url,String titleLayout,String object) {
+    private void showPaiementLayout(Object obj, URL url, String titleLayout, String object) {
         try {
             FXMLLoader loader = new FXMLLoader(url);
             Parent uigrp = loader.load();
-            switch (object){
-                case  "PaiementCouresController" : {
-                    PaiementCouresController paiementCouresController = loader.getController();
-                    paiementCouresController.setInputs(std);
+            switch (object) {
+                case "PaiementCouresController": {
+                   /* PaiementCouresController paiementCouresController = loader.getController();
+                    paiementCouresController.setInputs((Paiement) obj);*/
+                    //TODO this is for show all seance
                     break;
                 }
-                case  "StudentPaiementHistoryController" : {
+                case "StudentPaiementHistoryController": {
                     StudentPaiementHistoryController studentPaiementHistoryController = loader.getController();
-                    studentPaiementHistoryController.setInputs(std);
+                    studentPaiementHistoryController.setInputs((Student) obj);
+                    //TODO this is for show student presence
+                    break;
+                }
+                case "NewPaiementController": {
+                    //TODO this is for add or update a paiement
+                    NewPaiementController newPaiementController = loader.getController();
+                    newPaiementController.setInputsNewPaiement((Student) obj);
                     break;
                 }
             }
@@ -224,50 +191,31 @@ public class PaiementController implements Initializable {
 
     }
 
-    public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
-                                     TableColumn Column3, TableColumn Column4, TableColumn Column5,
-                                     TableColumn Column6, Student std, Group grp) {
-        ObservableList<Seance> seance = SeanceService.getAllSeances(new Paiement(std, grp));
+    public static void refrechPaiement(TableView table, TableColumn Column1, TableColumn Column2,
+                                       TableColumn Column3, TableColumn Column4,
+                                       TableColumn Column5, TableColumn Column6
+            , Student std) {
+        paiement.setStd(std);
+        ObservableList<Paiement> pr = PaiementService.getPaiementOfStudent(paiement);
         Column1.setCellValueFactory(
-                new PropertyValueFactory<>("nameRoom")
+                new PropertyValueFactory<>("groupName")
         );
         Column2.setCellValueFactory(
+                new PropertyValueFactory<>("OfferName")
+        );
+        Column3.setCellValueFactory(
                 new PropertyValueFactory<>("date")
         );
-        Column3.setCellValueFactory(
-                new PropertyValueFactory<>("nameTeacher")
-        );
         Column4.setCellValueFactory(
-                new PropertyValueFactory<>("test")
+                new PropertyValueFactory<>("amount")
         );
         Column5.setCellValueFactory(
-                new PropertyValueFactory<>("test1")
+                new PropertyValueFactory<>("amountC")
         );
         Column6.setCellValueFactory(
-                new PropertyValueFactory<>("pstatus")
+                new PropertyValueFactory<>("typeOfOffer")
         );
-        table.setItems(seance);
-    }
 
-    public static void refrechGroup(TableView table, TableColumn Column1, TableColumn Column2,
-                                    TableColumn Column3, TableColumn Column4, TableColumn Column5,
-                                    Student std) {
-        ObservableList<Group> pr = BelongsService.getGroupOfStudent(std);
-        Column1.setCellValueFactory(
-                new PropertyValueFactory<>("nameGroup")
-        );
-        Column2.setCellValueFactory(
-                new PropertyValueFactory<>("nbrPlace")
-        );
-        Column3.setCellValueFactory(
-                new PropertyValueFactory<>("nameOffer")
-        );
-        Column4.setCellValueFactory(
-                new PropertyValueFactory<>("module")
-        );
-        Column5.setCellValueFactory(
-                new PropertyValueFactory<>("level")
-        );
         table.setItems(pr);
     }
 
@@ -275,7 +223,7 @@ public class PaiementController implements Initializable {
                                       TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
-            pr = StudentService.getAllStudents();
+            pr = StudentService.getAllStudents("", new Student());
         } else if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
         } else {
@@ -302,27 +250,15 @@ public class PaiementController implements Initializable {
         table.setItems(pr);
     }
 
-    @FXML
-    private void add(ActionEvent event) {
-        /* std = Mapping.getObjectStudentFromUiStudent(uistd);
-        Results.Rstls r = StudentService.addStudent(std);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
-        } else {
-            uistd.clearInputs();
-        }*/
-    }
 
     @FXML
-    private void printList(ActionEvent event) throws JRException {
-        Print prt = new Print(group);
-        new Thread(() -> {
-            try {
-                prt.PrintListStudent();
-            } catch (JRException ex) {
-                Logger.getLogger(PaiementController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }).start();
+    private void addPaiement(ActionEvent event) throws JRException {
+        try {
+            url1 = new File("src/schoolmanager/FrontEnd/layout/NewPaiement.fxml").toURI().toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        showPaiementLayout(std, url1, " عملية دفع جديدة ", "NewPaiementController");
     }
 
     @FXML
@@ -365,22 +301,9 @@ public class PaiementController implements Initializable {
 
     @FXML
     private void selectStudent(MouseEvent event) {
-       /* std = (Student) studentTable.getSelectionModel().getSelectedItem();
-        if (std != null) {
-            std.PresentObject();
-            showGroupsOfStudent(std);
-        }*/
     }
 
     public void setInputs(Group grp) {
-        /*group = grp;
-        group.PresentGroupe();
-        group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
-        nbrPlace.setText(Integer.toString(group.getNbrRest()));
-        groupName.setText("الفوج : " + group.getNameGroup());
-        offerName.setText("العرض : " + group.getNameOffer());
-        refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
-                phone2C1, sectionNameC1, new Student(), "belongs");*/
     }
 
     @FXML

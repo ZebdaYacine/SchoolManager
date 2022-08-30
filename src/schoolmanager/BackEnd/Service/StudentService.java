@@ -90,9 +90,14 @@ public class StudentService {
         }
     }
 
-    public static ObservableList<Student> getAllStudents() {
+    public static ObservableList<Student> getAllStudents(String type,Student std) {
         String query;
-        query = "SELECT * FROM student order by id desc ";
+        if(type.equals("search")){
+            query = "SELECT * FROM student  where id = "+std.getId()+" order by id desc";
+
+        }else{
+            query = "SELECT * FROM student order by id desc ";
+        }
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {

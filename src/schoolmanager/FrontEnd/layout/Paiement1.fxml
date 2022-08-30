@@ -70,36 +70,45 @@
             <TableColumn fx:id="sectionNameC" prefWidth="134.0" text="الفرع" />
          </columns>
       </TableView>
+      <TableView fx:id="groupTable" layoutX="678.0" layoutY="55.0" prefHeight="250.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
+         <columns>
+            <TableColumn fx:id="grpC" prefWidth="110.0" text="اسم الفوج" />
+            <TableColumn fx:id="moduleC" prefWidth="117.99996948242188" text="الـمادة" />
+            <TableColumn fx:id="levelC" prefWidth="141.0" text="المستوى" />
+            <TableColumn fx:id="offerC" prefWidth="133.0" text="العرض" />
+            <TableColumn fx:id="nbrPlaceC" prefWidth="135.0" text="عدد المقاعد" />
+         </columns>
+      </TableView>
+      <JFXButton layoutX="678.0" layoutY="604.0" onAction="#printList" prefHeight="30.0" prefWidth="126.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="طباعة" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </JFXButton>
       <Label alignment="CENTER" layoutX="20.0" layoutY="70.0" prefHeight="30.0" prefWidth="640.0" styleClass="pantable" stylesheets="@../style/style.css" text=" التلاميذ المدرسة " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="PaiementTable" layoutX="668.0" layoutY="117.0" prefHeight="520.0" prefWidth="700.0" stylesheets="@../style/Table_Gestion_Css.css">
+      <Label alignment="CENTER" layoutX="679.0" layoutY="20.0" prefHeight="30.0" prefWidth="640.0" styleClass="pantable" stylesheets="@../style/style.css" text=" قائمة الأفواج" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="680.0" layoutY="312.0" prefHeight="30.0" prefWidth="640.0" styleClass="pantable" stylesheets="@../style/style.css" text="قائمة الحصص " AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="370.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="seanceTable" layoutX="681.0" layoutY="348.0" prefHeight="250.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
          <columns>
-            <TableColumn fx:id="offerC" prefWidth="89.0" text="اسم العرض" />
-            <TableColumn fx:id="groupC" minWidth="0.0" prefWidth="62.0" text="الفوج" />
-            <TableColumn fx:id="nbrseanceC" prefWidth="137.0" text="نوع العرض" />
-            <TableColumn fx:id="datePC" prefWidth="186.0" text="تاريخ الدفع" />
-            <TableColumn fx:id="amountC" prefWidth="103.0" text="المبلغ" />
-            <TableColumn fx:id="amountRC" prefWidth="118.0" text="المبلغ المدفوع" />
+            <TableColumn fx:id="roomC" prefWidth="73.0" text="القاعة" />
+            <TableColumn fx:id="dateTimeC" prefWidth="126.0" text="التوقيت" />
+            <TableColumn fx:id="teacherC" prefWidth="106.0" text="الأستاذ" />
+            <TableColumn fx:id="pTeacherC" prefWidth="123.0" text="حضور الأستاذ" />
+            <TableColumn fx:id="pStudentC" prefWidth="122.0" text="حضور التلميذ" />
+            <TableColumn fx:id="paiementC" prefWidth="122.0" text="الدفع" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="667.0" layoutY="79.0" prefHeight="34.0" prefWidth="700.0" style="-fx-background-color: #a3aece;" text="سجل الدفع">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="stdLbl" layoutX="673.0" layoutY="10.0" prefHeight="50.0" prefWidth="378.0" text="التلميذ:" textFill="RED">
-         <font>
-            <Font name="Candara" size="26.0" />
-         </font>
-      </Label>
-      <JFXButton layoutX="1126.0" layoutY="44.0" onAction="#addPaiement" prefHeight="32.0" prefWidth="145.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="إضافة عملية دفع">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </JFXButton>
 <!--<<<<<<< HEAD-->
 <!--      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="30.0" layoutY="198.0" prefHeight="25.0" prefWidth="200.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />-->
 <!--=======-->

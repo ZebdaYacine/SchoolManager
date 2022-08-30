@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="350.0" prefWidth="550.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.ModuleController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="350.0" prefWidth="550.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.ModuleController">
    <children>
 <!--<<<<<<< HEAD-->
 <!--      <JFXTextField fx:id="name" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="40.0" onAction="#add" onKeyReleased="#search" prefHeight="30.0" prefWidth="180.0" promptText="Module" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />-->
@@ -63,7 +63,7 @@
             <TableColumn fx:id="nameC" prefWidth="295.0" text="المادة" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="280.0" layoutY="30.0" prefHeight="30.0" prefWidth="510.0" style="-fx-background-color: #a3aece;" text="المواد" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="280.0" layoutY="30.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="المواد" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

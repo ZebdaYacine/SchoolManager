@@ -15,95 +15,72 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.MainController">
    <children>
-      <BorderPane fx:id="main" layoutY="60.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0077cc transparent transparent transparent;" styleClass="back" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0" />
-      <HBox alignment="TOP_CENTER" layoutX="394.0" prefHeight="50.0" prefWidth="698.0" AnchorPane.leftAnchor="321.0" AnchorPane.rightAnchor="321.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="main" layoutY="55.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0077cc transparent transparent transparent;" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+      <HBox alignment="TOP_CENTER" layoutX="394.0" prefHeight="60.0" prefWidth="698.0" AnchorPane.leftAnchor="321.0" AnchorPane.rightAnchor="321.0" AnchorPane.topAnchor="0.0">
          <children>
-               <JFXButton fx:id="stat" alignment="CENTER" contentDisplay="TOP" onAction="#stat" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
+               <JFXButton fx:id="stat" alignment="CENTER" contentDisplay="TOP" onAction="#stat" prefHeight="60.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" text="" />
+                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" text="" />
                </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets top="8.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton fx:id="presence" alignment="CENTER" contentDisplay="TOP" onAction="#presence" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الدفع">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <graphic>
-                  <MaterialDesignIconView fx:id="" glyphName="DATABASE_PLUS" size="24" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets top="8.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton fx:id="seance" alignment="CENTER" contentDisplay="TOP" onAction="#seance" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الحصص">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <graphic>
-                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets top="8.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton fx:id="groupes" alignment="CENTER" contentDisplay="TOP" layoutX="355.0" layoutY="10.0" onAction="#groupes" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الأفواج">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <graphic>
-                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" />
-               </graphic>
-               <padding>
-                  <Insets top="8.0" />
-               </padding>
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton fx:id="offres" alignment="CENTER" contentDisplay="TOP" onAction="#offer" prefHeight="55.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="العروض">
+            <JFXButton fx:id="presence" alignment="CENTER" contentDisplay="TOP" onAction="#presence" prefHeight="60.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الدفع">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="24" />
+                  <MaterialDesignIconView fx:id="" fill="WHITE" glyphName="DATABASE_PLUS" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
-               <padding>
-                  <Insets top="8.0" />
-               </padding>
+            </JFXButton>
+            <JFXButton fx:id="seance" alignment="CENTER" contentDisplay="TOP" onAction="#seance" prefHeight="60.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الحصص">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="groupes" alignment="CENTER" contentDisplay="TOP" layoutX="355.0" onAction="#groupes" prefHeight="60.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الأفواج">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="offres" alignment="CENTER" contentDisplay="TOP" onAction="#offer" prefHeight="60.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="العروض">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
             </JFXButton>
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="1317.0" layoutY="7.0" onMouseClicked="#close" textFill="WHITE" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Label>
-      <Label layoutX="1038.0" layoutY="3.0" nodeOrientation="RIGHT_TO_LEFT" text="برنامج إدارة المدرسة" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label layoutX="1038.0" layoutY="3.0" nodeOrientation="RIGHT_TO_LEFT" text="برنامج إدارة المدرسة" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
          <graphic>
-            <MaterialDesignIconView glyphName="VIEW_DASHBOARD" size="50" />
+            <MaterialDesignIconView fill="WHITE" glyphName="VIEW_DASHBOARD" size="50" />
          </graphic>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
