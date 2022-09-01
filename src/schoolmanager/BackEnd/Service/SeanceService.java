@@ -111,6 +111,23 @@ public class SeanceService {
         }
     }
 
+    public static long getIdSeanceByIdPaiement(long idPaiement) {
+        String query= "SELECT id FROM schoolmanager.seance where idPaiement="+idPaiement;
+        long id=0;
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                id=rs.getLong("id");
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return id;
+    }
+
     public static Results.Rstls deleteSeance(Seance seance) {
         if (seance == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;

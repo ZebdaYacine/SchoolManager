@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Service.FollowService;
+import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.Service.SeanceService;
 
 import java.net.URL;
@@ -161,6 +162,12 @@ public class PaiementSeancesController implements Initializable {
         idL.setText(idL.getText() + " " + p.getId());
         amountRound = paiement.getAmount();
         priceSeance = getAmountSeance(paiement);
+        long idSeance= SeanceService.getIdSeanceByIdPaiement(paiement.getId());
+        if(idSeance!=0){
+            int nbrSeancePaid=FollowService.getCountSeancePaid(std.getId(),idSeance);
+            float amountC=paiement.getAmountC()-priceSeance*nbrSeancePaid;
+            amuntCL.setText(amountC + " Da");
+        }
         showSeancsOfGroup(std, group);
     }
 
