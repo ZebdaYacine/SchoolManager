@@ -108,7 +108,6 @@ public final class RoomService {
     public static ObservableList<Room> searchRoomByName(Room room) {
         String query;
         query = "SELECT * FROM room where name LIKE'" + room.getName() + "%'";
-        System.out.println(query);
         ObservableList<Room> listRooms = FXCollections.observableArrayList(new Room());
         listRooms.remove(0);
         try {

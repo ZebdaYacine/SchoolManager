@@ -68,7 +68,6 @@ public class GroupService {
             String query = "UPDATE groupe SET name = '" + group.getNameGroup() + "', "
                     + "idOffer = '" + ObjectService.getIdObject(new Template(group.getNameOffer()), "offer") + "' , "
                     + "nbrPlace = '" + group.getNbrPlace() + "' WHERE id =  " + group.getId();
-            System.out.println(query);
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();
             stm.close();

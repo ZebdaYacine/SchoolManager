@@ -17,12 +17,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Offer;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Printer.Print;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.Service.StudentService;
@@ -36,6 +35,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static schoolmanager.SchoolManager.SecodStage;
+import static schoolmanager.SchoolManager.thirdStage;
 
 /*import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -126,11 +126,11 @@ public class PaiementController implements Initializable {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (event.getClickCount() == 2) {
                         try {
-                            url1 = new File("src/schoolmanager/FrontEnd/layout/NewPaiement.fxml").toURI().toURL();
+                            url1 = new File("src/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml").toURI().toURL();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
-                        showPaiementLayout(paiement, url1, " جدول الحصص ", "NewPaiementController");
+                        showPaiementLayout(paiement, url1, " عملية دفع جديدة ", "UpdatePaiementController");
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     PaiementTable.setContextMenu(contextMenu1);
@@ -140,11 +140,12 @@ public class PaiementController implements Initializable {
                     });
                     showP.setOnAction(event1 -> {
                         try {
-                            url1 = new File("src/schoolmanager/FrontEnd/layout/PaiementCoures.fxml").toURI().toURL();
+                            url1 = new File("src/schoolmanager/FrontEnd/layout/PaiementSeances.fxml").toURI().toURL();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
-                        showPaiementLayout(paiement, url1, " جدول الحصص ", "PaiementCoures");
+                        showPaiementLayout(paiement, url1, " جدول الحصص ",
+                                "PaiementSeancesController");
                     });
                 }
             }
@@ -156,6 +157,7 @@ public class PaiementController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(url);
             Parent uigrp = loader.load();
+            Stage stage= SecodStage;
             switch (object) {
                 case "PaiementCouresController": {
                    /* PaiementCouresController paiementCouresController = loader.getController();
@@ -163,9 +165,10 @@ public class PaiementController implements Initializable {
                     //TODO this is for show all seance
                     break;
                 }
-                case "StudentPaiementHistoryController": {
-                    StudentPaiementHistoryController studentPaiementHistoryController = loader.getController();
-                    studentPaiementHistoryController.setInputs((Student) obj);
+                case "PaiementSeancesController": {
+                    PaiementSeancesController paiementSeancesController = loader.getController();
+                    paiementSeancesController.setInput((Paiement) obj);
+                    stage=thirdStage;
                     //TODO this is for show student presence
                     break;
                 }
@@ -175,15 +178,21 @@ public class PaiementController implements Initializable {
                     newPaiementController.setInputsNewPaiement((Student) obj);
                     break;
                 }
+                case "UpdatePaiementController": {
+                    //TODO this is for add or update a paiement
+                    UpdatePaiementController updatePaiementController = loader.getController();
+                    updatePaiementController.setInputsUpdatePaiement((Paiement) obj);
+                    break;
+                }
             }
             Scene scene = new Scene(uigrp);
-            if (!SecodStage.isShowing()) {
-                SecodStage.setScene(scene);
-                SecodStage.setTitle(titleLayout);
-                SecodStage.showAndWait();
+            if (!stage.isShowing()) {
+                stage.setScene(scene);
+                stage.setTitle(titleLayout);
+                stage.showAndWait();
             } else {
-                SecodStage.setAlwaysOnTop(true);
-                SecodStage.setAlwaysOnTop(false);
+                stage.setAlwaysOnTop(true);
+                stage.setAlwaysOnTop(false);
             }
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);

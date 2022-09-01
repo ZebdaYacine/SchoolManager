@@ -4,7 +4,8 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="false" prefHeight="550.0" prefWidth="400.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.NewPaiementController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="false" prefHeight="550.0" prefWidth="400.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.UpdatePaiementController">
     <children>
       <GridPane alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="514.0" prefWidth="372.0">
         <columnConstraints>
@@ -51,23 +52,23 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                    <!--<<<<<<< HEAD-->
-                    <!--      <JFXButton buttonType="RAISED" layoutX="300.0" layoutY="200.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter">-->
-                    <!--=======-->
-                    <JFXButton fx:id="add" nodeOrientation="LEFT_TO_RIGHT" onAction="#add" prefHeight="44.0" prefWidth="175.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="إضافة" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                    <JFXButton fx:id="update" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="41.0" prefWidth="173.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
                         <font>
                             <Font name="Times New Roman" size="14.0" />
                         </font>
                         <graphic>
                             <!--<<<<<<< HEAD-->
-                            <!--            <MaterialDesignIconView glyphName="ACCOUNT_PLUS" size="16" />-->
+                            <!--            <FontAwesomeIconView glyphName="EDIT" size="16" />-->
                             <!--         </graphic>-->
                             <!--      </JFXButton>-->
-                            <!--      <JFXButton fx:id="update" buttonType="RAISED" layoutX="450.0" layoutY="200.0" onAction="#update" prefWidth="120.0" styleClass="upbtn" stylesheets="@../Style/buttons_style.css" text="Modifier">-->
+                            <!--      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="600.0" layoutY="200.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer">-->
                             <!--=======-->
-                            <MaterialDesignIconView glyphName="ACCOUNT_PLUS" size="18" />
+                            <FontAwesomeIconView glyphName="EDIT" size="18" text="" textAlignment="RIGHT" />
                         </graphic>
+                     <padding>
+                        <Insets right="50.0" />
+                     </padding>
                     </JFXButton>
                </children>
             </GridPane>

@@ -4,6 +4,7 @@ public class Paiement  extends Person{
     private long id ;
     private Student std;
     private Group grp;
+    private Seance seance;
     private String date,groupName,OfferName,typeOfOffer;
     private float amount,amountC;
 
@@ -114,4 +115,8 @@ public class Paiement  extends Person{
     public void setOfferName(String offerName) {
         OfferName = offerName;
     }
+
+    public Seance getSeance() {return seance;}
+
+    public void setSeance(Seance seance) {this.seance = seance;}
 }

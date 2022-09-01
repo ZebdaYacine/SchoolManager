@@ -129,7 +129,6 @@ public class StudentService {
                     "FROM follow F , student S , belongs B where S.id = F.idStudent " +
                     " and F.idStudent=B.idStudnet and F.presenceStudent=0  and B.idGroupe = "+ s.getIdGroupe()+
                     " and F.idSeance="+s.getId()+" group by S.id order by S.id desc";
-            System.out.println(query);
             /*query="select * from student where id in (select idStudent from follow where  presenceStudent=0 and  idStudent \n" +
                     "in   (select idStudnet from belongs where idGroupe= "+s.getIdGroupe()+" ))";*/
             //query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";

@@ -9,7 +9,7 @@ import schoolmanager.BackEnd.Model.Student;
 
 public class PaiementServiceTest {
 
-    private Paiement paiement;
+    private final Paiement paiement;
 
     public PaiementServiceTest() {
         DataBaseConnection.Connect();

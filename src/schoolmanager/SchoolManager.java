@@ -21,6 +21,7 @@ public class SchoolManager extends Application {
 
     public static Stage loginStage = new Stage();
     public static Stage SecodStage = new Stage();
+    public static Stage thirdStage = new Stage();
 
     public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION,
             "Modifier", "Modifier confirmation", "Vérifier avant de modifier");

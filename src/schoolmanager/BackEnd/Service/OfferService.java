@@ -192,22 +192,26 @@ public class OfferService {
         return listOffers;
     }
 
-    public static String getOfferNameFromIdOffer(Offer offer) {
+    public static String getOfferAttFromIdOffer(Offer offer, String att) {
         String query;
-        query = "SELECT offerName FROM Offer where id =" + offer.getId();
-        String name = "";
+        query = "SELECT "+att+" FROM Offer where id =" + offer.getId();
+        String value = "";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                name = rs.getString("offerName");
+                if(att.equals("nameType")){
+                    value = rs.getString("nameType");
+                }else if(att.equals("offerName")){
+                    value = rs.getString("offerName");
+                }
             }
             rs.close();
             ps.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return name;
+        return value;
     }
 
 }

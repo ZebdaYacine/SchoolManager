@@ -79,7 +79,7 @@ public class GroupeController implements Initializable {
     private UiGroupe uigrp = new UiGroupe();
 
 
-    private ArrayList offerlist = new ArrayList();
+    private final ArrayList offerlist = new ArrayList();
 
     /**
      * Initializes the controller class.
@@ -138,7 +138,7 @@ public class GroupeController implements Initializable {
     }
 
     private void fillInputs(){
-        grp = (Group) GroupeTable.getSelectionModel().getSelectedItem();
+        grp = GroupeTable.getSelectionModel().getSelectedItem();
         grp.PresentGroupe();
         if (grp != null) {
             name.setText(grp.getNameGroup());
@@ -150,7 +150,7 @@ public class GroupeController implements Initializable {
     }
 
     private void showBelongsScene() {
-        grp = (Group) GroupeTable.getSelectionModel().getSelectedItem();
+        grp = GroupeTable.getSelectionModel().getSelectedItem();
         URL url1 = null;
         try {
             url1 = new File("src/schoolmanager/FrontEnd/layout/Belongs.fxml").toURI().toURL();

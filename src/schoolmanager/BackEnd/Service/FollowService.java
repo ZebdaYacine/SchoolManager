@@ -45,14 +45,19 @@ public class FollowService {
         }
     }
 
-    public static Results.Rstls updateFollow(Follow follow) {
+    public static Results.Rstls updateFollow(Follow follow,String att) {
         if (follow == null) {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
         try {
-            String query = "update follow  set presenceStudent = "+follow.getPresenceStudent()
-                    + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
-            System.out.println(query);
+            String query="";
+            if(att.equals("presenceStudent")){
+                 query = "update follow  set presenceStudent = "+follow.getPresenceStudent()
+                        + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
+            }else if(att.equals("status")) {
+                query = "update follow  set status = "+follow.getStatus()
+                        + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
+            }
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();
             stm.close();
@@ -62,6 +67,7 @@ public class FollowService {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
     }
+
 
     public static Results.Rstls deleteFollow(Follow follow) {
         if (follow == null) {
@@ -84,7 +90,34 @@ public class FollowService {
         String query;
         query = "SELECT * FROM student S , follow F , seance SN "
                 + " where S.id=F.idStudent and SN.id=F.idSeance and SN.id =" + id + " order by S.id desc ";
-        System.out.println(query);
+        ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
+        listStudents.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setId(rs.getLong("id"));
+                student.setFirstName(rs.getString("firstName"));
+                student.setLastName(rs.getString("lastName"));
+                student.setPhone1(rs.getString("phone1"));
+                student.setPhone2(rs.getString("phone2"));
+                student.setSectionName(
+                        ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
+                listStudents.add(student);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listStudents;
+    }
+
+    public static ObservableList<Student> getCountSeance(long id) {
+        String query;
+        query = "SELECT * FROM student S , follow F , seance SN "
+                + " where S.id=F.idStudent and SN.id=F.idSeance and SN.id =" + id + " order by S.id desc ";
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {

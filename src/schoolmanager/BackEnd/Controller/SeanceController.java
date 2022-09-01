@@ -282,11 +282,7 @@ public class SeanceController implements Initializable {
             LocalDateTime dattime = LocalDateTime.parse(seanceSelect.getDate(), formatter);
             dateSeance.setValue(dattime.toLocalDate());
             time.setValue(dattime.toLocalTime());
-            if (seanceSelect.getPresenceTeacher() == 1) {
-                pTeacher.setSelected(true);
-            } else {
-                pTeacher.setSelected(false);
-            }
+            pTeacher.setSelected(seanceSelect.getPresenceTeacher() == 1);
 
             uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         }
@@ -310,7 +306,7 @@ public class SeanceController implements Initializable {
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(0);
                     f.setStatus(0);
-                    FollowService.updateFollow(f);
+                    FollowService.updateFollow(f,"presenceStudent");
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
                     studentPTable.setContextMenu(null);
@@ -337,7 +333,7 @@ public class SeanceController implements Initializable {
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(1);
                     f.setStatus(1);
-                    FollowService.updateFollow(f);
+                    FollowService.updateFollow(f,"presenceStudent");
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
                     studentATable.setContextMenu(null);

@@ -23,7 +23,7 @@ import schoolmanager.BackEnd.Model.Group;
  */
 public class Print {
 
-    private Group grp;
+    private final Group grp;
 
     public Print(Group grp) {
         this.grp = grp;

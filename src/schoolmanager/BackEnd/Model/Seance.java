@@ -16,13 +16,24 @@ import java.util.logging.Logger;
  * @author kadri
  */
 public class Seance {
-    private long id,idOffer,idTeacher,idStudent,idRoom,idGroupe;
+    private long id,idOffer,idTeacher,idStudent,idRoom,idGroupe,idPaiement;
     private String date,nameOffer,nameGroup,nameTeacher,nameRoom,pTeacher,pStudent, test,test1;
     private int presenceTeacher,presenceStudent,status;
     private CheckBox pstatus ;
 
 
     public Seance() {
+    }
+
+    public Seance(long id, long idPaiement) {
+        this.id = id;
+        this.idPaiement = idPaiement;
+    }
+
+    public Seance(long id, int pStudent, int pTeacher) {
+        this.id = id;
+        this.presenceStudent = pStudent;
+        this.presenceStudent=pTeacher;
     }
 
     public Seance(long id) {
@@ -219,6 +230,14 @@ public class Seance {
 
     public void setPresenceTeacher(int presenceTeacher) {
         this.presenceTeacher = presenceTeacher;
+    }
+
+    public long getIdPaiement() {
+        return idPaiement;
+    }
+
+    public void setIdPaiement(long idPaiement) {
+        this.idPaiement = idPaiement;
     }
 
     public void PresentSeance() {

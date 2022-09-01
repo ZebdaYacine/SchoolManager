@@ -193,7 +193,7 @@ public class OfferController implements Initializable {
     @FXML
     private void selectOffer(MouseEvent event) {
         uiOffre.clearInputs();
-        offer = (Offer) offerTable.getSelectionModel().getSelectedItem();
+        offer = offerTable.getSelectionModel().getSelectedItem();
         if (offer != null) {
             name.setText(offer.getName());
             price.setText(offer.getPrice()+"");

@@ -38,7 +38,7 @@ public class StudentPaiementHistoryController implements Initializable {
     private TableColumn<?, ?> amountC;
     @FXML
     private TableColumn<?, ?> amountRC;
-    private static Account account = new Account();
+    private static final Account account = new Account();
 
 
     /**

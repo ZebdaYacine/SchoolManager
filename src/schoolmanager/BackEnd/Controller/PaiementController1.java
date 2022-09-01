@@ -106,8 +106,8 @@ public class PaiementController1 implements Initializable {
     private Label offerName;
 
     private Student std = new Student();
-    private static Group group = new Group();
-    private static Seance seance = new Seance();
+    private static final Group group = new Group();
+    private static final Seance seance = new Seance();
 
     private final ContextMenu contextMenu = new ContextMenu();
     private final MenuItem showGroups = new MenuItem("عرض المجموعات ");

@@ -65,7 +65,7 @@ public class PaiementCouresController implements Initializable {
 
     private Account account = new Account();
 
-    private UiStudentPaiement uistd = new UiStudentPaiement();
+    private final UiStudentPaiement uistd = new UiStudentPaiement();
 
     @FXML
     private JFXButton delete;

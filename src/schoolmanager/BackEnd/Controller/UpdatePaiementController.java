@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Offer;
@@ -36,7 +35,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
-import static schoolmanager.SchoolManager.SecodStage;
 import static schoolmanager.SchoolManager.thirdStage;
 
 /**
@@ -44,12 +42,13 @@ import static schoolmanager.SchoolManager.thirdStage;
  *
  * @author kadri
  */
-public class NewPaiementController extends PaiementController implements Initializable {
+public class UpdatePaiementController extends PaiementController implements Initializable {
 
 
     public static int t = 0;
     private static Paiement paiement = new Paiement();
     private static Student std1 = new Student();
+    private static Group grp1 = new Group();
     @FXML
     private TextField fullName;
     @FXML
@@ -63,9 +62,9 @@ public class NewPaiementController extends PaiementController implements Initial
     @FXML
     private JFXComboBox<Group> GroupCmb;
     private UiStudentPaiement uistd = new UiStudentPaiement();
-
     @FXML
-    private JFXButton add;
+    private JFXButton update;
+
     @FXML
     private ProgressIndicator prg;
 
@@ -91,12 +90,19 @@ public class NewPaiementController extends PaiementController implements Initial
 
     }
 
-    public void setInputsNewPaiement(Student std) {
-        fullName.setText(std.getFirstName() + " " + std.getLastName());
+    public void setInputsUpdatePaiement(Paiement pa) {
+        std1 = pa.getStd();
+        grp1 = pa.getGrp();
+        grp1.PresentGroupe();
+        paiement=pa;
+        fullName.setText(std1.getFirstName() + " " + std1.getLastName());
         fullName.setEditable(false);
-        ObservableList<Group> grouplist = BelongsService.getGroupOfStudent(std);
+        ObservableList<Group> grouplist = BelongsService.getGroupOfStudent(std1);
         GroupCmb.getItems().addAll(grouplist);
-        std1 = std;
+        GroupCmb.getSelectionModel().select(grp1);
+        OfferN.setText(grp1.getNameOffer());
+        amount.setText(pa.getAmount()+ " ");
+        amountP.setText(pa.getAmountC()+"");
     }
 
 
@@ -125,24 +131,24 @@ public class NewPaiementController extends PaiementController implements Initial
     }
 
     @FXML
-    private void add(ActionEvent event) throws InterruptedException, IOException {
-        paiement = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
-        paiement.setStd(std1);
-        long lastID = PaiementService.addPaiement(paiement);
-        paiement.setId(lastID);
-        paiement.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()),"nameType"));
-        paiement.setOfferName(getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()),"offerName"));
-        if (lastID ==0 ) {
-            CommunController.alert(Results.Rstls.OBJECT_NOT_INSERTED.toString());
+    private void update(ActionEvent event) throws InterruptedException, IOException {
+        Paiement paiementUpdated = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
+        paiementUpdated.setStd(std1);
+        paiementUpdated.setId(paiement.getId());
+        Results.Rstls resulat = PaiementService.updatePaiement(paiementUpdated);
+        paiementUpdated.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()),"nameType"));
+        paiementUpdated.setOfferName(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()),"offerName"));
+        if (resulat.equals("OBJECT_NOT_UPDATED")) {
+            CommunController.alert("تعذر تعديل على عملية الدفع");
         } else {
             //editProgressBar();
-            CommunController.alert("تم اضافة عملية دفع جديدة");
+            CommunController.alert("تم تعديل  عملية دفع الحالية ");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
             URL url = new File("src/schoolmanager/FrontEnd/layout/PaiementSeances.fxml").toURI().toURL();
             FXMLLoader loader = new FXMLLoader(url);
             Parent ui = loader.load();
             PaiementSeancesController paiementSeancesController = loader.getController();
-            paiementSeancesController.setInput(paiement);
+            paiementSeancesController.setInput(paiementUpdated);
             Scene scene = new Scene(ui);
             if (!thirdStage.isShowing()) {
                 thirdStage.setScene(scene);
@@ -154,6 +160,7 @@ public class NewPaiementController extends PaiementController implements Initial
             }
         }
     }
+
 
 
 

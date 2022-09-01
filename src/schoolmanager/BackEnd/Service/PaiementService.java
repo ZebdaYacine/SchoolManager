@@ -52,7 +52,7 @@ public class PaiementService {
 
     public static Results.Rstls updatePaiement(Paiement  paiement) {
         if (paiement == null) {
-            return Results.Rstls.OBJECT_NOT_INSERTED;
+            return Results.Rstls.OBJECT_NOT_UPDATED;
         }
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE "
@@ -73,6 +73,8 @@ public class PaiementService {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
     }
+
+
 
     public static Results.Rstls deletePaiement(Paiement  paiement) {
         if (paiement == null) {
