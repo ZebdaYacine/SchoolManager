@@ -7,6 +7,15 @@ public class Paiement  extends Person{
     private Seance seance;
     private String date,groupName,OfferName,typeOfOffer;
     private float amount,amountC;
+    private int nbrSeance;
+
+    public int getNbrSeance() {
+        return nbrSeance;
+    }
+
+    public void setNbrSeance(int nbrSeance) {
+        this.nbrSeance = nbrSeance;
+    }
 
     public Paiement() {}
 

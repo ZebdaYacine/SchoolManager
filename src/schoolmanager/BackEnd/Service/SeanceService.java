@@ -111,6 +111,25 @@ public class SeanceService {
         }
     }
 
+    public static Results.Rstls updateNbrSeanceInPaiement(Paiement  p) {
+        if (p == null) {
+            return Results.Rstls.OBJECT_NOT_UPDATED;
+        }
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE "
+                    + " paiement SET nbrSeance = ? "
+                    + " WHERE id = ? ");
+            stm.setLong(1, p.getNbrSeance());
+            stm.setLong(2, p.getId());
+            stm.executeUpdate();
+            stm.close();
+            return Results.Rstls.OBJECT_UPDATED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Results.Rstls.OBJECT_NOT_UPDATED;
+        }
+    }
+
     public static long getIdSeanceByIdPaiement(long idPaiement) {
         String query= "SELECT id FROM schoolmanager.seance where idPaiement="+idPaiement;
         long id=0;
@@ -119,6 +138,23 @@ public class SeanceService {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 id=rs.getLong("id");
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return id;
+    }
+
+    public static int countSeanceOfPaiment(long idPaiement) {
+        String query= "SELECT count(*) as 'nbrSeance' FROM seance where idPaiement="+idPaiement;
+        int id=0;
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                id=rs.getInt("nbrSeance");
             }
             rs.close();
             ps.close();
@@ -209,7 +245,7 @@ public class SeanceService {
                             float amountC= Float.parseFloat(amuntCLStatic.getText().split(" ")[0]);
                             if(amountC>=0){
                                 if (newValue) {
-                                    if(amountC > priceSeance){
+                                    if(amountC >= priceSeance){
                                         amountC=amountC-priceSeance;
                                         amuntCLStatic.setText(amountC+" Da ");
                                         list.add(ob);

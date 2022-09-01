@@ -30,13 +30,15 @@ public class PaiementService {
         }
         try {
             PreparedStatement stm = con.prepareStatement(""
-                    + "insert into paiement (idStudent,idGroupe,day,amount,amountC)"
-                    + " values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    + "insert into paiement (idStudent,idGroupe,day,amount,amountC,type,nbrSeance)"
+                    + " values (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setLong(1, paiement.getStd().getId());
             stm.setLong(2, paiement.getGrp().getId());
             stm.setString(3, paiement.getDate());
             stm.setFloat(4, paiement.getAmount());
             stm.setFloat(5, paiement.getAmountC());
+            stm.setString(6, paiement.getTypeOfOffer());
+            stm.setInt(7, paiement.getNbrSeance());
             stm.executeUpdate();
             ResultSet rs=stm.getGeneratedKeys();
             if(rs.next()){

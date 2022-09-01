@@ -29,13 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
-import schoolmanager.BackEnd.Model.Follow;
-import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Offer;
-import schoolmanager.BackEnd.Model.Room;
-import schoolmanager.BackEnd.Model.Seance;
-import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Model.Teacher;
+import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.FollowService;
 import schoolmanager.BackEnd.Service.GroupService;
@@ -317,6 +311,17 @@ public class SeanceController implements Initializable {
                 });
             }
         }
+
+    }
+
+    private int getNbrSeancePaid(){
+        return 0;
+    }
+
+    private Paiement getPaiementForThisGroupIfExist(Group group){
+        return null;
+    }
+    private void CountDownPaiement(){
 
     }
 

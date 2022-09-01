@@ -8,6 +8,7 @@ package schoolmanager.BackEnd.Controller;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import schoolmanager.BackEnd.Model.Paiement;
 
 /**
  *
@@ -28,5 +29,24 @@ public class CommunController {
         a.setContentText(header);
         final Optional<ButtonType> result = a.showAndWait();
         return result.get() == ButtonType.OK;
+    }
+
+    public static float getAmountSeance(Paiement p) {
+        float amountSeance = 0f;
+        switch (p.getTypeOfOffer().toLowerCase()) {
+            case "simple": {
+                amountSeance = p.getAmount() / 4;
+                break;
+            }
+            case "double": {
+                amountSeance = p.getAmount() / 8;
+                break;
+            }
+            case "vip": {
+                amountSeance = p.getAmount() / 2;
+                break;
+            }
+        }
+        return amountSeance;
     }
 }

@@ -21,6 +21,7 @@ import schoolmanager.BackEnd.Service.SeanceService;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*import net.sf.jasperreports.engine.JRException;
@@ -113,6 +114,7 @@ public class PaiementSeancesController implements Initializable {
     private void pay(ActionEvent event) {
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
         p.PresentObject();
+        int nbr= SeanceService.countSeanceOfPaiment(p.getId());
         for (Seance seance : list) {
             seance.PresentSeance();
             seance.setIdPaiement(p.getId());
@@ -122,6 +124,28 @@ public class PaiementSeancesController implements Initializable {
             f.setIdStudent(p.getStd().getId());
             f.setIdSeance(seance.getId());
             FollowService.updateFollow(f,"status");
+        }
+        nbr=nbr+list.size();
+        p.setNbrSeance(nbr);
+        switch (p.getTypeOfOffer().toLowerCase()){
+            case "vip":{
+                if(nbr<=2){
+                    SeanceService.updateNbrSeanceInPaiement(p);
+                }
+                break;
+            }
+            case "simple":{
+                    if(nbr<=4){
+                        SeanceService.updateNbrSeanceInPaiement(p);
+                    }
+                break;
+            }
+            case "double":{
+                if(nbr<=8){
+                    SeanceService.updateNbrSeanceInPaiement(p);
+                }
+                break;
+            }
         }
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
         refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, p.getStd(),p.getGrp());
@@ -133,24 +157,7 @@ public class PaiementSeancesController implements Initializable {
 
     }
 
-    private float getAmountSeance(Paiement p) {
-        float amountSeance = 0f;
-        switch (p.getTypeOfOffer().toLowerCase()) {
-            case "simple": {
-                amountSeance = p.getAmount() / 8;
-                break;
-            }
-            case "double": {
-                amountSeance = p.getAmount() / 4;
-                break;
-            }
-            case "vip": {
-                amountSeance = p.getAmount() / 2;
-                break;
-            }
-        }
-        return amountSeance;
-    }
+
 
 
     public void setInput(Paiement paiement) {
@@ -161,7 +168,7 @@ public class PaiementSeancesController implements Initializable {
         amuntCL.setText(paiement.getAmountC() + " Da");
         idL.setText(idL.getText() + " " + p.getId());
         amountRound = paiement.getAmount();
-        priceSeance = getAmountSeance(paiement);
+        priceSeance = CommunController.getAmountSeance(paiement);
         long idSeance= SeanceService.getIdSeanceByIdPaiement(paiement.getId());
         if(idSeance!=0){
             int nbrSeancePaid=FollowService.getCountSeancePaid(std.getId(),idSeance);
@@ -170,6 +177,7 @@ public class PaiementSeancesController implements Initializable {
         }
         showSeancsOfGroup(std, group);
     }
+
 
 
 

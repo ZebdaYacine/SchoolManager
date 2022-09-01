@@ -17,6 +17,7 @@ import schoolmanager.BackEnd.Model.Group;
 public class UiStudentPaiement extends TestingMethods {
 
     private TextField amount;
+    private TextField type;
     private TextField amountP;
     private JFXDatePicker dateP;
     private JFXComboBox<Group> groupCB;
@@ -93,9 +94,6 @@ public class UiStudentPaiement extends TestingMethods {
            /* uistd.getFirstName_err().setVisible(false);
             groupeB = true;*/
         }
-
-        System.out.println(bamount +" "+ bamountP +" "+ bDateP +" "+ groupeB);
-
 
         return bamount && bamountP && bDateP && groupeB;
     }

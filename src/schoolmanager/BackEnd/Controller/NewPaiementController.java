@@ -127,6 +127,9 @@ public class NewPaiementController extends PaiementController implements Initial
     @FXML
     private void add(ActionEvent event) throws InterruptedException, IOException {
         paiement = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
+        paiement.setTypeOfOffer(OfferService.
+                getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()),"nameType"));
+        paiement.setNbrSeance(0);
         paiement.setStd(std1);
         long lastID = PaiementService.addPaiement(paiement);
         paiement.setId(lastID);
