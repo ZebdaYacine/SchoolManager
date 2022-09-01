@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Follow;
+import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
 
 import static org.junit.Assert.*;
@@ -32,5 +33,11 @@ public class FollowServiceTest {
         for (Student std : listStudents){
             std.PresentObject();
         }
+    }
+
+    @Test
+    public void getCountSeancePaid() {
+        int id=FollowService.getCountSeancePaid(9,38);
+        System.out.println(id);
     }
 }

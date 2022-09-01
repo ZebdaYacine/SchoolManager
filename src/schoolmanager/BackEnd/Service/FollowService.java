@@ -7,10 +7,7 @@ package schoolmanager.BackEnd.Service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import schoolmanager.BackEnd.Model.Belongs;
-import schoolmanager.BackEnd.Model.Follow;
-import schoolmanager.BackEnd.Model.Section;
-import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
 
 import java.sql.PreparedStatement;
@@ -114,32 +111,23 @@ public class FollowService {
         return listStudents;
     }
 
-    public static ObservableList<Student> getCountSeance(long id) {
-        String query;
-        query = "SELECT * FROM student S , follow F , seance SN "
-                + " where S.id=F.idStudent and SN.id=F.idSeance and SN.id =" + id + " order by S.id desc ";
-        ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
-        listStudents.remove(0);
+    public static int getCountSeancePaid(long idStudent ,long idSeance) {
+        String query= "select idStudent,count(idStudent) as 'nbrseance'  from " +
+                "follow where idStudent="+idStudent+" and idSeance="+idSeance+" " +
+                "and status=1 group by idStudent ";
+        int nbr=0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Student student = new Student();
-                student.setId(rs.getLong("id"));
-                student.setFirstName(rs.getString("firstName"));
-                student.setLastName(rs.getString("lastName"));
-                student.setPhone1(rs.getString("phone1"));
-                student.setPhone2(rs.getString("phone2"));
-                student.setSectionName(
-                        ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
-                listStudents.add(student);
+                nbr=rs.getInt("nbrseance");
             }
             rs.close();
             ps.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return listStudents;
+        return nbr;
     }
 
 }
