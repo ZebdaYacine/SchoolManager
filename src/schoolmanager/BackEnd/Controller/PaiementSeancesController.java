@@ -169,9 +169,8 @@ public class PaiementSeancesController implements Initializable {
         idL.setText(idL.getText() + " " + p.getId());
         amountRound = paiement.getAmount();
         priceSeance = CommunController.getAmountSeance(paiement);
-        long idSeance= SeanceService.getIdSeanceByIdPaiement(paiement.getId());
-        if(idSeance!=0){
-            int nbrSeancePaid=FollowService.getCountSeancePaid(std.getId(),idSeance);
+        long nbrSeancePaid= SeanceService.getIdSeanceByIdPaiement(paiement.getId());
+        if(nbrSeancePaid!=0){
             float amountC=paiement.getAmountC()-priceSeance*nbrSeancePaid;
             amuntCL.setText(amountC + " Da");
         }

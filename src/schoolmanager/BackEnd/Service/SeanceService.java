@@ -131,7 +131,7 @@ public class SeanceService {
     }
 
     public static long getIdSeanceByIdPaiement(long idPaiement) {
-        String query= "SELECT id FROM schoolmanager.seance where idPaiement="+idPaiement;
+        String query= "SELECT count(*) as id  FROM schoolmanager.seance where idPaiement="+idPaiement;
         long id=0;
         try {
             PreparedStatement ps = con.prepareStatement(query);

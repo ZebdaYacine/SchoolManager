@@ -24,6 +24,7 @@ import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.PaiementService;
+import schoolmanager.BackEnd.Service.SeanceService;
 import schoolmanager.BackEnd.Service.StudentService;
 
 import java.io.File;
@@ -54,19 +55,19 @@ import net.sf.jasperreports.view.JasperViewer;*/
 public class PaiementController implements Initializable {
 
     @FXML
-    private TableView<?> studentTable,PaiementTable;
+    private TableView<?> studentTable, PaiementTable;
     @FXML
-    public static TableView<?> PaiementTable1 ;
+    public static TableView<?> PaiementTable1;
     @FXML
-    private TextField firstName,phone;
+    private TextField firstName, phone;
     @FXML
-    private  TableColumn<?, ?> firstNameC,lastNameC,phone1C,phone2C,sectionNameC;
+    private TableColumn<?, ?> firstNameC, lastNameC, phone1C, phone2C, sectionNameC;
     @FXML
     private Label stdLbl;
     @FXML
-    private TableColumn<?, ?> offerC,datePC,groupC,amountC,amountRC,nbrseanceC;
+    private TableColumn<?, ?> offerC, datePC, groupC, amountC, amountRC, nbrseanceC;
     @FXML
-    public static TableColumn<?, ?> offerC1,datePC1,groupC1,amountC1,amountRC1,nbrseanceC1 ;
+    public static TableColumn<?, ?> offerC1, datePC1, groupC1, amountC1, amountRC1, nbrseanceC1;
 
 
     public Student std = new Student();
@@ -89,17 +90,17 @@ public class PaiementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        PaiementTable1=PaiementTable;
-        offerC1= offerC;
-        datePC1=datePC;
-        groupC1=groupC;
-        amountC1=amountC;
-        amountRC1=amountRC;
-        nbrseanceC1=nbrseanceC;
+        PaiementTable1 = PaiementTable;
+        offerC1 = offerC;
+        datePC1 = datePC;
+        groupC1 = groupC;
+        amountC1 = amountC;
+        amountRC1 = amountRC;
+        nbrseanceC1 = nbrseanceC;
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
         contextMenu.getItems().addAll(showGroups);
-        contextMenu1.getItems().addAll(deleteP,PrinteP,showP);
+        contextMenu1.getItems().addAll(PrinteP, showP);
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
@@ -114,7 +115,7 @@ public class PaiementController implements Initializable {
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
-                        showPaiementLayout( std, url1, "سجل الدفع", "StudentPaiementHistoryController");
+                        showPaiementLayout(std, url1, "سجل الدفع", "StudentPaiementHistoryController");
                     });
                 }
             }
@@ -125,17 +126,21 @@ public class PaiementController implements Initializable {
             if (paiement != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (event.getClickCount() == 2) {
-                        try {
-                            url1 = new File("src/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml").toURI().toURL();
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
+                        paiement.setNbrSeance(SeanceService.countSeanceOfPaiment(paiement.getId()));
+                        paiement.PresentObject();
+                       if (CommunController.getnbrSienceInOffer(paiement) == paiement.getNbrSeance()) {
+                            CommunController.alert("عملية الدفع مقفلة");
+                        } else {
+                            try {
+                                url1 = new File("src/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml").toURI().toURL();
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
+                            showPaiementLayout(paiement, url1, " عملية دفع جديدة ", "UpdatePaiementController");
                         }
-                        showPaiementLayout(paiement, url1, " عملية دفع جديدة ", "UpdatePaiementController");
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     PaiementTable.setContextMenu(contextMenu1);
-                    deleteP.setOnAction(event1 -> {
-                    });
                     PrinteP.setOnAction(event1 -> {
                     });
                     showP.setOnAction(event1 -> {
@@ -157,7 +162,7 @@ public class PaiementController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(url);
             Parent uigrp = loader.load();
-            Stage stage= SecodStage;
+            Stage stage = SecodStage;
             switch (object) {
                 case "PaiementCouresController": {
                    /* PaiementCouresController paiementCouresController = loader.getController();
@@ -168,7 +173,7 @@ public class PaiementController implements Initializable {
                 case "PaiementSeancesController": {
                     PaiementSeancesController paiementSeancesController = loader.getController();
                     paiementSeancesController.setInput((Paiement) obj);
-                    stage=thirdStage;
+                    stage = thirdStage;
                     //TODO this is for show student presence
                     break;
                 }

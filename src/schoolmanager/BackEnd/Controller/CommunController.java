@@ -49,4 +49,23 @@ public class CommunController {
         }
         return amountSeance;
     }
+
+    public static int getnbrSienceInOffer(Paiement p) {
+        int nbr = 0;
+        switch (p.getTypeOfOffer().toLowerCase()) {
+            case "simple": {
+                nbr = 4;
+                break;
+            }
+            case "double": {
+                nbr =  8;
+                break;
+            }
+            case "vip": {
+                nbr = 2;
+                break;
+            }
+        }
+        return nbr;
+    }
 }
