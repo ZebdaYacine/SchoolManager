@@ -1,3 +1,4 @@
+create database SchoolManager;
 use SchoolManager;
 
 create table user(
@@ -168,15 +169,6 @@ add foreign key (idGroupe) references groupe(id) on delete cascade on update cas
 alter table follow 
 add CONSTRAINT uni_idStudent_idSeance UNIQUE (idStudent,idSeance);
 
-alter table follow
-drop foreign key follow_ibfk_1;
-
-alter table follow
-drop foreign key follow_ibfk_2;
-
-alter table follow
-add foreign key (idStudent) references student(id) on delete cascade on update cascade,
-add foreign key (idSeance) references seance(id) on delete cascade on update cascade;
 
 alter table seance
 modify day datetime;
@@ -236,14 +228,25 @@ ADD CONSTRAINT `offer_ibfk_3`
   REFERENCES `schoolmanager`.`module` (`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-
-alter table student
+  
+alter table student 
 add  column currentAmount float;
 
-create table account (
+create table paiement (
 id BIGINT primary key auto_increment,
 idStudent BIGINT not null,
+idGroupe BIGINT not null,
 day datetime,
 FOREIGN KEY (idStudent) REFERENCES Student(id) on delete cascade on update cascade ,
-amount float
+FOREIGN KEY (idGroupe) REFERENCES groupe(id) on delete cascade on update cascade ,
+amount float ,
+amountC float 
 );
+
+alter table seance
+add idPaiement bigint  ,
+add foreign key (idPaiement) references paiement(id) ;
+
+alter table paiement
+add column type varchar(20),
+add column nbrSeance int
