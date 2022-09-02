@@ -131,55 +131,55 @@ public class UiStudent extends TestingMethods {
     public static boolean UiStudentInputIsValid(UiStudent uistd) {
         boolean bFirstName = false, blastName = false, bphone1 = false, bphone2 = false;
         if (uistd.getFirstName().getText().isEmpty()) {
-            uistd.getFirstName_err().setText("le nom est vide");
+            uistd.getFirstName_err().setText("اللقب فارغ");
             uistd.getFirstName_err().setVisible(true);
         } else {
             uistd.getFirstName_err().setVisible(false);
             bFirstName = true;
         }
         if (uistd.getLastName().getText().isEmpty()) {
-            uistd.getLastName_err().setText("le prenom est vide");
+            uistd.getLastName_err().setText("الإسم فارغ");
             uistd.getLastName_err().setVisible(true);
         } else {
             uistd.getLastName_err().setVisible(false);
             blastName = true;
         }
         if (uistd.getPhone1().getText().isEmpty()) {
-            uistd.getPhone1_err().setText("le premier numero de Telephone est vide");
+            uistd.getPhone1_err().setText("رقم الهاتف الاول فارغ");
             uistd.getPhone1_err().setVisible(true);
         } else {
             if (testInt(uistd.getPhone1())) {
                 if (uistd.getPhone1().getText().length()  != 10) {
-                    uistd.getPhone1_err().setText("le numero telephone doit compose 10 chiffres");
+                    uistd.getPhone1_err().setText("رقم الهاتف يتكون من 10ارقام");
                     uistd.getPhone1_err().setVisible(true);
                 } else {
                     uistd.getPhone1_err().setVisible(false);
                     bphone1 = true;
                 }
             } else {
-                uistd.getPhone1_err().setText("Entrer des nombres");
+                uistd.getPhone1_err().setText("أدخل ارقام");
                 uistd.getPhone1_err().setVisible(true);
             }
         }
         if (uistd.getPhone2().getText().isEmpty()) {
-            uistd.getPhone2_err().setText("le deuxième numero de Telephone est vide");
+            uistd.getPhone2_err().setText("رقم الهاتف الثاني فارغ");
             uistd.getPhone2_err().setVisible(true);
         } else {
             if (testInt(uistd.getPhone2())) {
                 if (uistd.getPhone2().getText().length()  != 10) {
-                    uistd.getPhone2_err().setText("le numero telephone doit compose 10 chiffres");
+                    uistd.getPhone2_err().setText("رقم الهاتف يتكون من 10ارقام");
                     uistd.getPhone2_err().setVisible(true);
                 } else {
                     uistd.getPhone2_err().setVisible(false);
                     bphone2 = true;
                 }
             } else {
-                uistd.getPhone2_err().setText("Entrer des nombres");
+                uistd.getPhone2_err().setText("أدخل ارقام");
                 uistd.getPhone2_err().setVisible(true);
             }
         }
 
-        return bFirstName && bphone1 && bphone2;
+        return bFirstName && bphone1 && bphone2 && blastName;
     }
 
     public void clearInputs() {

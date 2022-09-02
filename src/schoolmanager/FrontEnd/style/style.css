@@ -29,8 +29,18 @@
 
 
 .context-menu .label{
-    /*-fx-text-fill: black;*/
-    -fx-text-fill: white;
+    -fx-text-fill: black;
+}
+
+.combo-box .cell {
+     -fx-text-fill: white;
+}
+
+.combo-box {
+   -fx-focus-color: #0077cc;
+   -fx-faint-focus-color: #0d1a27;
+   -fx-control-inner-background: #0d1a27;
+   -fx-selection-bar: #0099cc;
 }
 
 

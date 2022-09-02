@@ -222,7 +222,7 @@ public class SeanceService {
                 if (seance.getPresenceTeacher() == 1) {
                     seance.setTest("حاضر");
                 } else {
-                    seance.setpTeacher("غائب");
+                    seance.setTest("غائب");
                 }
                 seance.setDate(rs.getString("day"));
                 seance.setIdGroupe(rs.getLong("idGroupe"));

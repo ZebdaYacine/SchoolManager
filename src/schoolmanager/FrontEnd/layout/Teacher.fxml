@@ -72,7 +72,7 @@
 <!--      </JFXButton>-->
 <!--      <JFXButton fx:id="update" buttonType="RAISED" layoutX="160.0" layoutY="197.0" onAction="#update" prefWidth="120.0" styleClass="upbtn" stylesheets="@../Style/buttons_style.css" text="Modifier">-->
 <!--=======-->
-            <MaterialDesignIconView glyphName="ACCOUNT_PLUS" size="18" />
+            <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_PLUS" size="18" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="update" layoutX="450.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="30.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل">
@@ -87,7 +87,7 @@
 <!--      </JFXButton>-->
 <!--      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="290.0" layoutY="197.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer">-->
 <!--=======-->
-            <FontAwesomeIconView glyphName="EDIT" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="delete" layoutX="600.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#delete" prefHeight="30.0" prefWidth="120.0" styleClass="delbtn" stylesheets="@../style/buttons_style.css" text="حذف">
@@ -99,7 +99,7 @@
 <!--<<<<<<< HEAD-->
 <!--            <FontAwesomeIconView glyphName="EDIT" size="16" />-->
 <!--=======-->
-            <FontAwesomeIconView glyphName="EDIT" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" />
 <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          </graphic>
       </JFXButton>
@@ -124,8 +124,8 @@
 <!--      <JFXToggleButton fx:id="enableSearch" layoutX="240.0" layoutY="32.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />-->
 <!--      <Label layoutX="250.0" layoutY="26.0" text="Recherche">-->
 <!--=======-->
-      <JFXToggleButton fx:id="enableSearch" layoutX="240.0" layoutY="20.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
-      <Label layoutX="252.0" layoutY="20.0" text="Recherche">
+      <JFXToggleButton fx:id="enableSearch" layoutX="240.0" layoutY="20.0" text="إضغط للبحث" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
+      <Label layoutX="252.0" layoutY="20.0" text="بحث" textFill="WHITE">
 <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
             <Font name="Times New Roman Bold" size="16.0" />

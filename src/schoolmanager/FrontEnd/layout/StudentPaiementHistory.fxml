@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="502.0" prefWidth="800.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.StudentPaiementHistoryController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="502.0" prefWidth="800.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.StudentPaiementHistoryController">
    <children>
-      <TableView fx:id="studentTable" layoutX="16.0" layoutY="108.0" prefHeight="383.0" prefWidth="760.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="108.0">
+      <TableView fx:id="studentTable" layoutX="16.0" layoutY="108.0" prefHeight="383.0" prefWidth="760.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
          <columns>
             <TableColumn fx:id="offerC" prefWidth="140.0" text="العرض" />
             <TableColumn fx:id="groupC" prefWidth="135.0" text="الفوج" />
@@ -17,12 +17,12 @@
             <TableColumn fx:id="amountRC" prefWidth="141.0" text=" المبلغ المتبقي" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="15.0" layoutY="68.0" prefHeight="34.0" prefWidth="760.0" style="-fx-background-color: #a3aece;" text="سجل الدفع" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="68.0">
+      <Label alignment="CENTER" layoutX="15.0" layoutY="68.0" prefHeight="34.0" prefWidth="760.0" styleClass="pantable" stylesheets="@../style/style.css" text="سجل الدفع" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="stdLbl" layoutX="19.0" layoutY="12.0" prefHeight="50.0" prefWidth="378.0" text="التلميذ:" textFill="RED">
+      <Label fx:id="stdLbl" layoutX="19.0" layoutY="12.0" prefHeight="50.0" prefWidth="378.0" text="التلميذ:" textFill="RED" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Candara" size="26.0" />
          </font>

@@ -75,7 +75,7 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="PaiementTable" layoutX="668.0" layoutY="117.0" prefHeight="520.0" prefWidth="700.0" stylesheets="@../style/Table_Gestion_Css.css">
+      <TableView fx:id="PaiementTable" layoutX="668.0" layoutY="117.0" prefHeight="520.0" prefWidth="700.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
          <columns>
             <TableColumn fx:id="offerC" prefWidth="89.0" text="اسم العرض" />
             <TableColumn fx:id="groupC" minWidth="0.0" prefWidth="62.0" text="الفوج" />
@@ -85,17 +85,17 @@
             <TableColumn fx:id="amountRC" prefWidth="118.0" text="المبلغ المدفوع" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="667.0" layoutY="79.0" prefHeight="34.0" prefWidth="700.0" style="-fx-background-color: #a3aece;" text="سجل الدفع">
+      <Label alignment="CENTER" layoutX="667.0" layoutY="79.0" prefHeight="34.0" prefWidth="653.0" styleClass="pantable" stylesheets="@../style/style.css" text="سجل الدفع" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="stdLbl" layoutX="673.0" layoutY="10.0" prefHeight="50.0" prefWidth="378.0" text="التلميذ:" textFill="RED">
+      <Label fx:id="stdLbl" layoutX="673.0" layoutY="10.0" prefHeight="50.0" prefWidth="378.0" text="التلميذ:" textFill="RED" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="Candara" size="26.0" />
          </font>
       </Label>
-      <JFXButton layoutX="1126.0" layoutY="44.0" onAction="#addPaiement" prefHeight="32.0" prefWidth="145.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="إضافة عملية دفع">
+      <JFXButton layoutX="1126.0" layoutY="44.0" onAction="#addPaiement" prefHeight="32.0" prefWidth="145.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="إضافة عملية دفع" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

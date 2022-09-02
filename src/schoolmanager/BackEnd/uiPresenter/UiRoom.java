@@ -19,7 +19,6 @@ public class UiRoom extends TestingMethods {
     private TextField name;
     private TextField nbrChair;
 
-
     private Label name_err;
     private Label nbrChair_err;
 
@@ -70,24 +69,27 @@ public class UiRoom extends TestingMethods {
         this.nbrChair_err = nbrChair_err;
     }
 
-
-    public static boolean UiRoomInputIsValid(UiRoom uistd) {
+    public static boolean UiRoomInputIsValid(UiRoom uiroom) {
         boolean bName = false, bNbrChair = false;
-        if (uistd.getName().getText().isEmpty()) {
-            uistd.getName_err().setText("le nom est vide");
-            uistd.getName_err().setVisible(true);
+        if (uiroom.getName().getText().isEmpty()) {
+            uiroom.getName_err().setText("الإسم فارغ");
+            uiroom.getName_err().setVisible(true);
         } else {
-            uistd.getName_err().setVisible(false);
+            uiroom.getName_err().setVisible(false);
             bName = true;
         }
-        if (uistd.getNbrChair().getText().isEmpty()) {
-            uistd.getNbrChair_err().setText("le nomber de chaises est vide");
-            uistd.getNbrChair_err().setVisible(true);
+
+        if (uiroom.getNbrChair().getText().isEmpty()) {
+            uiroom.getNbrChair_err().setText("عدد المقاعد فارغ");
+            uiroom.getNbrChair_err().setVisible(true);
+        } else if (testInt(uiroom.getNbrChair())) {
+            uiroom.getNbrChair_err().setText("ادخل ارقام");
+            uiroom.getNbrChair_err().setVisible(true);
         } else {
-            uistd.getNbrChair_err().setVisible(false);
+            uiroom.getNbrChair_err().setVisible(false);
             bNbrChair = true;
         }
-        return bName && bNbrChair ;
+        return bName && bNbrChair;
     }
 
     public void clearInputs() {

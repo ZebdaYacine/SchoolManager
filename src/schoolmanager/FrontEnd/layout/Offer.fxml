@@ -70,7 +70,7 @@
             <font>
                 <Font name="Times New Roman" size="14.0" />
             </font></JFXTextField>
-      <Label layoutX="172.0" layoutY="340.0" prefHeight="30.0" text="بالشهر">
+      <Label layoutX="172.0" layoutY="340.0" prefHeight="30.0" text="بالشهر" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -99,7 +99,7 @@
                 <Font name="Times New Roman" size="14.0" />
             </font>
          <graphic>
-            <FontAwesomeIconView glyphName="PLUS" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" />
          </graphic>
         </JFXButton>
         <!--<<<<<<< HEAD-->
@@ -111,7 +111,7 @@
                 <Font name="Times New Roman" size="14.0" />
             </font>
          <graphic>
-                <FontAwesomeIconView glyphName="EDIT" size="18" />
+                <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
          </graphic>
         </JFXButton>
         <!--<<<<<<< HEAD-->
@@ -123,16 +123,16 @@
                 <Font name="Times New Roman" size="14.0" />
             </font>
             <graphic>
-                <FontAwesomeIconView glyphName="REMOVE" size="18" />
+                <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" />
             </graphic>
         </JFXButton>
         <TableView fx:id="offerTable" layoutX="252.0" layoutY="108.0" onMouseClicked="#selectOffer" prefHeight="522.0" prefWidth="1050.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
             <columns>
-                <TableColumn fx:id="nameC" prefWidth="100.0" text="إسم العرض" />
-                <TableColumn fx:id="TypeC" prefWidth="100.0" text="النوع" />
-            <TableColumn fx:id="ModuleC" prefWidth="100.0" text="المادة" />
-            <TableColumn fx:id="LevelC" prefWidth="100.0" text="المستوى" />
-            <TableColumn fx:id="PriceC" prefWidth="100.0" text="سعر العرض" />
+                <TableColumn fx:id="nameC" prefWidth="180.0" text="إسم العرض" />
+                <TableColumn fx:id="TypeC" prefWidth="150.0" text="النوع" />
+            <TableColumn fx:id="ModuleC" prefWidth="150.0" text="المادة" />
+            <TableColumn fx:id="LevelC" prefWidth="150.0" text="المستوى" />
+            <TableColumn fx:id="PriceC" prefWidth="150.0" text="سعر العرض" />
             </columns>
         </TableView>
       <Label alignment="CENTER" layoutX="280.0" layoutY="30.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="العروض" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">

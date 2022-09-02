@@ -75,7 +75,7 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-            <MaterialDesignIconView glyphName="PLUS" size="18" />
+            <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="18" />
          </graphic>
       </JFXButton>
 <!--<<<<<<< HEAD-->
@@ -87,7 +87,7 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView glyphName="EDIT" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
          </graphic>
       </JFXButton>
 <!--<<<<<<< HEAD-->
@@ -99,7 +99,7 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView glyphName="REMOVE" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" />
          </graphic>
       </JFXButton>
       <TableView fx:id="RoomTable" layoutX="252.0" layoutY="17.0" onMouseClicked="#selectStudent" prefHeight="371.0" prefWidth="345.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">

@@ -15,9 +15,8 @@ import javafx.scene.control.TextField;
  */
 public class UiGroupe extends TestingMethods {
 
-
     private TextField name, nbrPlace;
-    private Label name_err, nbrPlace_err,OfferCmb_err;
+    private Label name_err, nbrPlace_err, OfferCmb_err;
     private ComboBox OfferCmb;
 
     public UiGroupe() {
@@ -29,11 +28,11 @@ public class UiGroupe extends TestingMethods {
         this.OfferCmb = OfferCmb;
     }
 
-    public UiGroupe(TextField name, TextField nbrPlace, Label name_err, Label price_err,Label OfferCmb_err,ComboBox OfferCmb ) {
+    public UiGroupe(TextField name, TextField nbrPlace, Label name_err, Label price_err, Label OfferCmb_err, ComboBox OfferCmb) {
         this.name = name;
         this.nbrPlace = nbrPlace;
         this.name_err = name_err;
-        this.OfferCmb_err=OfferCmb_err;
+        this.OfferCmb_err = OfferCmb_err;
         this.nbrPlace_err = price_err;
         this.OfferCmb = OfferCmb;
     }
@@ -91,22 +90,22 @@ public class UiGroupe extends TestingMethods {
             uiGroupe.getNbrPlace_err().setText("le nombre de place  est vide");
             uiGroupe.getNbrPlace_err().setVisible(true);
         } else {
-            if(!testInt(uiGroupe.getNbrPlace())){
+            if (!testInt(uiGroupe.getNbrPlace())) {
                 uiGroupe.getNbrPlace_err().setText("le nombre de place ne doit pas contenir un caractère");
                 uiGroupe.getNbrPlace_err().setVisible(true);
-            }else{
+            } else {
                 uiGroupe.getNbrPlace_err().setVisible(false);
                 bnbrPlace = true;
             }
         }
-       /* if (uiGroupe.getOfferCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
+        if (uiGroupe.getOfferCmb().getSelectionModel().getSelectedItem() == null) {
             uiGroupe.OfferCmb_err.setText("l'Offer est vide");
             uiGroupe.OfferCmb_err.setVisible(true);
         } else {
             uiGroupe.OfferCmb_err.setVisible(false);
-            bOffer=true;
-        }*/
-        return bName && bnbrPlace ;
+            bOffer = true;
+        }
+        return bName && bnbrPlace && bOffer;
     }
 
     public void clearInputs() {

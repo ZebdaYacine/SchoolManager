@@ -92,16 +92,16 @@ public class StudentController implements Initializable {
         enableSearch.setOnAction(((event) -> {
             if (enableSearch.isSelected()) {
                 if (!firstName.getText().equals("")) {
-                        std.setFirstName(firstName.getText());
-                        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
-                                std, "searche");
+                    std.setFirstName(firstName.getText());
+                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC,
+                            std, "searche");
                 } else {
                     enableSearch.setSelected(false);
                 }
             } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC,
-                            std, "");
+                uistd.clearInputs();
+                refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC,
+                        std, "");
             }
         }));
         firstName.setOnKeyTyped(((event) -> {
@@ -109,7 +109,7 @@ public class StudentController implements Initializable {
                 enableSearch.setSelected(false);
             }
         }));
-        uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
+        uistd = new UiStudent(firstName, lastName, phone2, phone1, sectionName,
                 firstName_err, lastName_err, phone1_err, phone2_err);
         if (loginUser.getRole().equals("simple")) {
             update.setVisible(false);
@@ -118,18 +118,17 @@ public class StudentController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, new Student(), "");
 
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type)
-              {
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr;
         if (type.equals("searche")) {
             pr = StudentService.searchStudentByName(std);
         } else {
-            pr = StudentService.getAllStudents("",new Student());
+            pr = StudentService.getAllStudents("", new Student());
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
@@ -152,13 +151,15 @@ public class StudentController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         std = Mapping.getObjectStudentFromUiStudent(uistd);
-        Results.Rstls r = StudentService.addStudent(std);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
-        } else {
-            uistd.clearInputs();
+        if (std != null) {
+            Results.Rstls r = StudentService.addStudent(std);
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            } else {
+                uistd.clearInputs();
+            }
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, new Student(), "");
         }
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
     }
 
     @FXML
@@ -173,7 +174,7 @@ public class StudentController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
+                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, new Student(), "");
                 }
                 std = new Student();
                 uistd.clearInputs();
@@ -191,7 +192,7 @@ public class StudentController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
+                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, new Student(), "");
                 }
                 std = new Student();
                 uistd.clearInputs();
@@ -210,7 +211,7 @@ public class StudentController implements Initializable {
             phone2.setText(std.getPhone2());
             sectionName.getSelectionModel().select(std.getSectionName());
             std.PresentObject();
-            uistd = new UiStudent(firstName, lastName, phone2, phone1,sectionName,
+            uistd = new UiStudent(firstName, lastName, phone2, phone1, sectionName,
                     firstName_err, lastName_err, phone1_err, phone2_err);
         }
     }
