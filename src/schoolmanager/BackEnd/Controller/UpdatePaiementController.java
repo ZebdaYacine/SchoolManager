@@ -20,10 +20,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
-import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Offer;
-import schoolmanager.BackEnd.Model.Paiement;
-import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.OfferService;
@@ -136,10 +133,20 @@ public class UpdatePaiementController extends PaiementController implements Init
         Paiement paiementUpdated = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
         paiementUpdated.setStd(std1);
         paiementUpdated.setId(paiement.getId());
-        Results.Rstls resulat = PaiementService.updatePaiement(paiementUpdated);
+        Seance s= PaiementService.PaiementHasAseans(paiementUpdated);
+        Results.Rstls resulat;
+        if(s.getId()==0){
+             resulat = PaiementService.updatePaiement(paiementUpdated);
+        }else {
+            if(s.getIdGroupe()==paiementUpdated.getGrp().getId()){
+                 resulat = PaiementService.updatePaiement(paiementUpdated);
+            }else{
+                resulat=Results.Rstls.OBJECT_NOT_UPDATED;
+            }
+        }
         paiementUpdated.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()),"nameType"));
         paiementUpdated.setOfferName(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()),"offerName"));
-        if (resulat.equals("OBJECT_NOT_UPDATED")) {
+        if (resulat.toString().equals("OBJECT_NOT_UPDATED")) {
             CommunController.alert("تعذر تعديل على عملية الدفع");
         } else {
             //editProgressBar();

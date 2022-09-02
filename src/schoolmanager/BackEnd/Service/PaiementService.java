@@ -155,4 +155,23 @@ public class PaiementService {
         return p;
     }
 
+    public static Seance PaiementHasAseans(Paiement paiement) {
+        String query = "SELECT * from seance where idPaiement="+paiement.getId();
+        Seance p = new Seance();
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                p.setId(rs.getLong("id"));
+                p.setIdGroupe(rs.getLong("idGroupe"));
+                p.setIdOffer(rs.getLong("idOffer"));
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return p;
+    }
+
 }

@@ -70,7 +70,7 @@ public class PaiementController implements Initializable {
     public static TableColumn<?, ?> offerC1, datePC1, groupC1, amountC1, amountRC1, nbrseanceC1;
 
 
-    public Student std = new Student();
+    private static  Student std = new Student();
     private static final Group group = new Group();
     private static Paiement paiement = new Paiement();
 
