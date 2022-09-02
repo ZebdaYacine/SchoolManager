@@ -40,9 +40,14 @@ public class SeanceServiceTest {
     @Test
     public void getAllSeances() {
         Paiement paiement = new Paiement(new Student(10L),new Group(5L));
-        ObservableList<Seance> list= SeanceService.getAllSeances(paiement);
+        ObservableList<Seance> list= SeanceService.getAllSeances(paiement,0);
         for (Seance snc:list) {
             snc.PresentSeance();
         }
+    }
+
+    @Test
+    public void updateIdPaiementInSeance() {
+        SeanceService.updateIdPaiementInSeance(8,73);
     }
 }

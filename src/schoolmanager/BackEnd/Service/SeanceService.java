@@ -92,7 +92,7 @@ public class SeanceService {
         }
     }
 
-    public static Results.Rstls updatePaiementSeance(Seance  seance) {
+    public static Results.Rstls updatePaiementSeance(Seance seance) {
         if (seance == null) {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
@@ -111,7 +111,7 @@ public class SeanceService {
         }
     }
 
-    public static Results.Rstls updateNbrSeanceInPaiement(Paiement  p) {
+    public static Results.Rstls updateNbrSeanceInPaiement(Paiement p) {
         if (p == null) {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
@@ -130,14 +130,28 @@ public class SeanceService {
         }
     }
 
+    public static void updateIdPaiementInSeance(long idSeance, long idPaiement) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE "
+                    + " seance SET idPaiement = ? "
+                    + " WHERE id = ? ");
+            stm.setLong(1, idPaiement);
+            stm.setLong(2, idSeance);
+            stm.executeUpdate();
+            stm.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static long getIdSeanceByIdPaiement(long idPaiement) {
-        String query= "SELECT count(*) as id  FROM schoolmanager.seance where idPaiement="+idPaiement;
-        long id=0;
+        String query = "SELECT count(*) as id  FROM seance where idPaiement=" + idPaiement;
+        long id = 0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                id=rs.getLong("id");
+                id = rs.getLong("id");
             }
             rs.close();
             ps.close();
@@ -148,13 +162,13 @@ public class SeanceService {
     }
 
     public static int countSeanceOfPaiment(long idPaiement) {
-        String query= "SELECT count(*) as 'nbrSeance' FROM seance where idPaiement="+idPaiement;
-        int id=0;
+        String query = "SELECT count(*) as 'nbrSeance' FROM seance where idPaiement=" + idPaiement;
+        int id = 0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                id=rs.getInt("nbrSeance");
+                id = rs.getInt("nbrSeance");
             }
             rs.close();
             ps.close();
@@ -181,17 +195,26 @@ public class SeanceService {
         }
     }
 
-    public static ObservableList<Seance> getAllSeances(Paiement paiement) {
+    public static ObservableList<Seance> getAllSeances(Paiement paiement, int status) {
         String query;
         if (paiement == null) {
             query = "SELECT * FROM seance order by id desc ";
         } else {
-            query = "select S.id,S.presenceTeacher,S.idTeacher,F.presenceStudent,S.idRoom," +
-                    "S.day,S.idGroupe,F.status " +
-                    " from seance S , groupe G , follow F  " +
-                    " where S.presenceTeacher=1 and F.idSeance= S.id and S.idGroupe=G.id " +
-                    " and G.id=" + paiement.getGrp().getId()
-                    + " and F.idStudent=" + paiement.getStd().getId() + " and F.status=0 group by S.id ";
+            if (status == 0) {
+                query = "select S.id,S.presenceTeacher,S.idTeacher,F.presenceStudent,S.idRoom," +
+                        "S.day,S.idGroupe,F.status " +
+                        " from seance S , groupe G , follow F  " +
+                        " where S.presenceTeacher=1 and F.idSeance= S.id and S.idGroupe=G.id " +
+                        " and G.id=" + paiement.getGrp().getId()
+                        + " and F.idStudent=" + paiement.getStd().getId() + " and F.status=0 group by S.id ";
+            } else {
+                query = "select S.id,S.presenceTeacher,S.idTeacher,F.presenceStudent,S.idRoom," +
+                        "S.day,S.idGroupe,F.status " +
+                        " from seance S , groupe G , follow F  " +
+                        " where S.presenceTeacher=1 and F.idSeance= S.id and S.idGroupe=G.id " +
+                        " and G.id=" + paiement.getGrp().getId() + " and S.idPaiement=" + paiement.getId()
+                        + " and F.idStudent=" + paiement.getStd().getId() + " and F.status=1 group by S.id ";
+            }
         }
         ObservableList<Seance> listOffers = FXCollections.observableArrayList(new Seance());
         listOffers.remove(0);
@@ -205,7 +228,7 @@ public class SeanceService {
                 if (paiement == null) {
                     seance.setIdOffer(rs.getLong("idOffer"));
                     Offer off = new Offer(seance.getIdOffer());
-                    seance.setNameOffer(getOfferAttFromIdOffer(off,"offerName"));
+                    seance.setNameOffer(getOfferAttFromIdOffer(off, "offerName"));
                 }
                 //
                 seance.setIdTeacher(rs.getLong("idTeacher"));
@@ -236,51 +259,46 @@ public class SeanceService {
                     } else {
                         seance.setTest1("غائب");
                     }
+                    //TODO CHECK THIS
                     seance.setPresenceStudent(rs.getInt("status"));
-                    CheckBox ch = new CheckBox();
-                    ch.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                        @Override
-                        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                            Seance ob = new Seance(seance.getId(), seance.getPresenceStudent(), seance.getPresenceTeacher());
-                            float amountC= Float.parseFloat(amuntCLStatic.getText().split(" ")[0]);
-                            if(amountC>=0){
-                                if (newValue) {
-                                    if(amountC >= priceSeance){
-                                        amountC=amountC-priceSeance;
-                                        amuntCLStatic.setText(amountC+" Da ");
-                                        list.add(ob);
-                                    }else{
-                                        ch.setSelected(false);
-                                        CommunController.alert("المبلغ غير كافي لتسديد هذه الحصة");
-                                    }
-                                } else {
-                                    int index=0;
-                                    boolean find=false;
-                                    while (!find && index<=list.size()-1){
-                                        if(list.get(index).getId()==ob.getId()){
-                                            find=true;
-                                        }else{
-                                            index++;
+                    if (status == 0) {
+                        CheckBox ch = new CheckBox();
+                        ch.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                            @Override
+                            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                                Seance ob = new Seance(seance.getId(), seance.getPresenceStudent(), seance.getPresenceTeacher());
+                                float amountC = Float.parseFloat(amuntCLStatic.getText().split(" ")[0]);
+                                if (amountC >= 0) {
+                                    if (newValue) {
+                                        if (amountC >= priceSeance) {
+                                            amountC = amountC - priceSeance;
+                                            amuntCLStatic.setText(amountC + " Da ");
+                                            list.add(ob);
+                                        } else {
+                                            ch.setSelected(false);
+                                            CommunController.alert("المبلغ غير كافي لتسديد هذه الحصة");
                                         }
-                                    }
-                                    if(find){
-                                        list.remove(index);
-                                        amuntCLStatic.setText(amountC+priceSeance+" Da ");
+                                    } else {
+                                        int index = 0;
+                                        boolean find = false;
+                                        while (!find && index <= list.size() - 1) {
+                                            if (list.get(index).getId() == ob.getId()) {
+                                                find = true;
+                                            } else {
+                                                index++;
+                                            }
+                                        }
+                                        if (find) {
+                                            list.remove(index);
+                                            amuntCLStatic.setText(amountC + priceSeance + " Da ");
+                                        }
                                     }
                                 }
                             }
-                        }
-                    });
-                    if (seance.getStatus() == 1) {
-                        ch.setSelected(true);
-                        ch.setDisable(true);
-                    } else {
-                        ch.setSelected(false);
-                        ch.setDisable(false);
+                        });
+                        seance.setPstatus(ch);
                     }
-                    seance.setPstatus(ch);
                 }
-
                 listOffers.add(seance);
             }
             rs.close();

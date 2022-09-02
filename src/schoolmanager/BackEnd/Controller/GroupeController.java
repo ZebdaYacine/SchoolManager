@@ -121,13 +121,23 @@ public class GroupeController implements Initializable {
                                     setStyle("-fx-background-color: #ef910e;");
                                     break;
                                 }
+<<<<<<< HEAD
                                 case "الابتدائي": {
+=======
+                                    case "الابتدائي" :{
+>>>>>>> d26c83db828b4a2023649d772d021663d19510c4
                                     setStyle("-fx-background-color: #d48eaf;");
                                     break;
                                 }
                             }
                         } else {
-                            setStyle("-fx-background-color: black;");
+/*<<<<<<< HEAD
+                            setStyle("-fx-background-color: #081018;");
+=======*/
+                            setStyle("-fx-background-color: #081018;");
+/*
+>>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566
+*/
                         }
                     }
                 };

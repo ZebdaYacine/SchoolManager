@@ -77,7 +77,7 @@ public class OfferController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        /*offerTable.setRowFactory(new Callback<TableView<Offer>, TableRow<Offer>>() {
+        offerTable.setRowFactory(new Callback<TableView<Offer>, TableRow<Offer>>() {
             @Override
             public TableRow<Offer> call(TableView param) {
                 return new TableRow<Offer>() {
@@ -85,26 +85,26 @@ public class OfferController implements Initializable {
                         super.updateItem(offer, b);
                         if (offer != null) {
                             switch (offer.getLevel().toLowerCase()){
-                                case "lycee" :{
+                                case "الثانوي" :{
                                     setStyle("-fx-background-color: #00ff7f;");
                                     break;
                                 }
-                                case "ciam" :{
+                                case "المتوسط" :{
                                     setStyle("-fx-background-color: #ef910e;");
                                     break;
                                 }
-                                case "premier" :{
+                                case "الابتدائي" :{
                                     setStyle("-fx-background-color: #d48eaf;");
                                     break;
                                 }
                             }
                         } else {
-                            //setStyle("-fx-background-color: #ffffff;");
+                            setStyle("-fx-background-color: #081018;");
                         }
                     }
                 };
             }
-        });*/
+        });
 
     }
 

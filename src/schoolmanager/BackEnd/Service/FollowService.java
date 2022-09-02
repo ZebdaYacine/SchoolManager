@@ -54,6 +54,9 @@ public class FollowService {
             }else if(att.equals("status")) {
                 query = "update follow  set status = "+follow.getStatus()
                         + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
+            }else if(att.equals("statusWithP")) {
+                query = "update follow  set status = "+follow.getStatus()+" , presenceStudent="+follow.getPresenceStudent()
+                        + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
             }
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();

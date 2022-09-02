@@ -204,7 +204,7 @@ public class PaiementController1 implements Initializable {
     public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
                                      TableColumn Column3, TableColumn Column4, TableColumn Column5,
                                      TableColumn Column6, Student std, Group grp) {
-        ObservableList<Seance> seance = SeanceService.getAllSeances(new Paiement(std, grp));
+       /* ObservableList<Seance> seance = SeanceService.getAllSeances(new Paiement(std, grp));
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("nameRoom")
         );
@@ -223,7 +223,7 @@ public class PaiementController1 implements Initializable {
         Column6.setCellValueFactory(
                 new PropertyValueFactory<>("pstatus")
         );
-        table.setItems(seance);
+        table.setItems(seance);*/
     }
 
     public static void refrechGroup(TableView table, TableColumn Column1, TableColumn Column2,

@@ -77,7 +77,6 @@ public class PaiementService {
     }
 
 
-
     public static Results.Rstls deletePaiement(Paiement  paiement) {
         if (paiement == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
@@ -132,6 +131,28 @@ public class PaiementService {
             ex.printStackTrace();
         }
         return listPaiementsOfStudents;
+    }
+
+    public static Paiement getPaiementForThisGroupIfExist(Paiement paiement) {
+        String query = "SELECT * from paiement where idGroupe="+paiement.getGrp().getId()
+                +" and idStudent="+paiement.getStd().getId();
+        Paiement p = new Paiement();
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                p.setId(rs.getLong("id"));
+                p.setAmountC(rs.getFloat("amountC"));
+                p.setAmount(rs.getFloat("amount"));
+                p.setNbrSeance(rs.getInt("nbrSeance"));
+                p.setTypeOfOffer(rs.getString("type"));
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return p;
     }
 
 }
