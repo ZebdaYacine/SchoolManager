@@ -144,7 +144,7 @@ public class SeanceController implements Initializable {
     public void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5, TableColumn Column6,
             Seance seance, String type) {
-        ObservableList<Seance> pr = SeanceService.getAllSeances(null,0);
+        ObservableList<Seance> pr = SeanceService.getAllSeances(null, 0);
         if (pr.size() > 0) {
             seanceSelect = pr.get(0);
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
@@ -285,29 +285,10 @@ public class SeanceController implements Initializable {
         if (seanceSelect != null) {
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
             refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
-/*<<<<<<< HEAD
-            Offer o = new Offer(seanceSelect.getIdOffer());
-            ObservableList<Offer> listO = OfferService.getOfferbyid(o);
-            OfferCmb.getSelectionModel().select(listO.get(0));
-            Teacher t = new Teacher(seanceSelect.getIdTeacher());
-            ObservableList<Teacher> listT = TeacherService.searchTeacherById(t);
-            teacherCmb.getSelectionModel().select(listT.get(0));
-            Room r = new Room(seanceSelect.getIdRoom());
-            ObservableList<Room> listR = RoomService.searchRoomById(r);
-            RoomCmb.getSelectionModel().select(listR.get(0));
-*//*
-            RoomCmb.getSelectionModel().select(r);
-*//*
-            Group g = new Group(seanceSelect.getIdGroupe());
-            ObservableList<Group> listg = GroupService.getGroupbyId(g);
-            GroupCmb.getSelectionModel().select(listg.get(0));
-=======*/
             OfferCmb.getSelectionModel().select(getIndexOffer((int) seanceSelect.getIdOffer()));
             teacherCmb.getSelectionModel().select(getIndexTeacher((int) seanceSelect.getIdTeacher()));
             RoomCmb.getSelectionModel().select(getIndexRoom((int) seanceSelect.getIdRoom()));
             GroupCmb.getSelectionModel().select(getIndexgroop((int) seanceSelect.getIdGroupe()));
-
-/*>>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime dattime = LocalDateTime.parse(seanceSelect.getDate(), formatter);
             dateSeance.setValue(dattime.toLocalDate());
@@ -349,19 +330,19 @@ public class SeanceController implements Initializable {
 
     }
 
-/*<<<<<<< HEAD*/
-
-    private boolean isPaiementFull(Paiement p ){
-        return p.getNbrSeance()==CommunController.getnbrSeanceInOffer(PaiementService
+    /*<<<<<<< HEAD*/
+    private boolean isPaiementFull(Paiement p) {
+        return p.getNbrSeance() == CommunController.getnbrSeanceInOffer(PaiementService
                 .getPaiementForThisGroupIfExist(p));
     }
 
-    private boolean isPaiementEnough(Paiement p ){
-        float seancePrice=CommunController.getAmountSeance(p);
-        float amountRest = p.getAmountC()-seancePrice*p.getNbrSeance();
-        return amountRest>=seancePrice;
+    private boolean isPaiementEnough(Paiement p) {
+        float seancePrice = CommunController.getAmountSeance(p);
+        float amountRest = p.getAmountC() - seancePrice * p.getNbrSeance();
+        return amountRest >= seancePrice;
     }
-/*=======
+
+    /*=======
     private int getNbrSeancePaid() {
         return 0;
     }
@@ -373,11 +354,11 @@ public class SeanceController implements Initializable {
     private void CountDownPaiement() {
 >>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
 
-    private boolean isPaiementAvailable(Paiement p ){
-        if(p.getId()!=0){
+    private boolean isPaiementAvailable(Paiement p) {
+        if (p.getId() != 0) {
             return isPaiementEnough(p) && !isPaiementFull(p);
-        }else{
-            return  false;
+        } else {
+            return false;
         }
     }
 
@@ -394,23 +375,23 @@ public class SeanceController implements Initializable {
                     f.setIdSeance(seanceSelect.getId());
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(1);
-                    Paiement p = new Paiement(std,new Group(seanceSelect.getIdGroupe()));
-                    p=PaiementService.getPaiementForThisGroupIfExist(p);
+                    Paiement p = new Paiement(std, new Group(seanceSelect.getIdGroupe()));
+                    p = PaiementService.getPaiementForThisGroupIfExist(p);
                     p.setStd(std);
                     p.setGrp(new Group(seanceSelect.getIdGroupe()));
                     p.PresentObject();
-                    if(isPaiementAvailable(p)){
-                        p.setNbrSeance(p.getNbrSeance()+1);
+                    if (isPaiementAvailable(p)) {
+                        p.setNbrSeance(p.getNbrSeance() + 1);
                         SeanceService.updateNbrSeanceInPaiement(p);
-                        SeanceService.updateIdPaiementInSeance(seanceSelect.getId(),p.getId());
+                        SeanceService.updateIdPaiementInSeance(seanceSelect.getId(), p.getId());
                         f.setStatus(1);
-                        FollowService.updateFollow(f,"statusWithP");
-                    }else{
+                        FollowService.updateFollow(f, "statusWithP");
+                    } else {
                         f.setStatus(0);
-                        FollowService.updateFollow(f,"presenceStudent");
+                        FollowService.updateFollow(f, "presenceStudent");
                     }
-/*<<<<<<< HEAD*/
-/*=======
+                    /*<<<<<<< HEAD*/
+ /*=======
                     FollowService.updateFollow(f, "presenceStudent");
 >>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
