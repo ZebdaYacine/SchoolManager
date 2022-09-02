@@ -78,7 +78,6 @@ public class GroupeController implements Initializable {
     private Group grp = new Group();
     private UiGroupe uigrp = new UiGroupe();
 
-
     private final ArrayList offerlist = new ArrayList();
 
     /**
@@ -113,45 +112,39 @@ public class GroupeController implements Initializable {
                     protected void updateItem(Group grp, boolean b) {
                         super.updateItem(grp, b);
                         if (grp != null) {
-                            switch (grp.getLevel().toLowerCase()){
-                                case "الثانوي" :{
+                            switch (grp.getLevel().toLowerCase()) {
+                                case "الثانوي": {
                                     setStyle("-fx-background-color: #00ff7f;");
                                     break;
                                 }
-                                case "المتوسط" :{
+                                case "المتوسط": {
                                     setStyle("-fx-background-color: #ef910e;");
                                     break;
                                 }
-                                    case "الابتدائي" :{
+                                case "الابتدائي": {
                                     setStyle("-fx-background-color: #d48eaf;");
                                     break;
                                 }
                             }
                         } else {
-/*<<<<<<< HEAD
                             setStyle("-fx-background-color: #081018;");
-=======*/
-                            setStyle("-fx-background-color: #081018;");
-/*
->>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566
-*/
                         }
                     }
                 };
             }
+
         });
-        refrechGroup(GroupeTable, groupeC, placeC,offerC, moduleC,levelC, new Group(), "");
+        refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC,
+                new Group(), "");
     }
 
-    private void fillInputs(){
+    private void fillInputs() {
         grp = GroupeTable.getSelectionModel().getSelectedItem();
         grp.PresentGroupe();
         if (grp != null) {
             name.setText(grp.getNameGroup());
             nbrPlace.setText(grp.getNbrPlace() + "");
-/*
-            OfferCmb.getSelectionModel().select(grp.getNameGroup()+"");
-*/
+            OfferCmb.getSelectionModel().select(grp.getNameOffer() + "");
         }
     }
 
@@ -184,8 +177,8 @@ public class GroupeController implements Initializable {
     }
 
     public static void refrechGroup(TableView table, TableColumn Column1, TableColumn Column2,
-                                    TableColumn Column3,TableColumn Column4,TableColumn Column5,
-                                    Group group, String type) {
+            TableColumn Column3, TableColumn Column4, TableColumn Column5,
+            Group group, String type) {
         ObservableList<Group> pr;
         if (type.equals("searche")) {
             //pr = StudentService.searchStudentByName(group);
@@ -221,12 +214,12 @@ public class GroupeController implements Initializable {
         } else {
             uigrp.clearInputs();
         }
-        refrechGroup(GroupeTable, groupeC,placeC, offerC, moduleC,levelC, new Group(), "");
+        refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
     }
 
     @FXML
     private void update(ActionEvent event) {
-        if(CommunController.confirm("sure de modifier  le group")){
+        if (CommunController.confirm("sure de modifier  le group")) {
             Group newGrp = Mapping.getObjectGroupeFromUiGroupe(uigrp);
             newGrp.setId((int) grp.getId());
             Results.Rstls r = GroupService.updateGroup(newGrp);
@@ -234,20 +227,20 @@ public class GroupeController implements Initializable {
                 CommunController.alert(r.toString());
             } else {
                 uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, placeC, offerC,moduleC,levelC, new Group(), "");
+                refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
             }
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if(CommunController.confirm("sure de supprimer  le group")){
+        if (CommunController.confirm("sure de supprimer  le group")) {
             Results.Rstls r = GroupService.deleteGroup(grp);
             if (r == Results.Rstls.OBJECT_NOT_DELETED) {
                 CommunController.alert(r.toString());
             } else {
                 uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, placeC,offerC,moduleC,levelC, new Group(), "");
+                refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
             }
         }
     }
