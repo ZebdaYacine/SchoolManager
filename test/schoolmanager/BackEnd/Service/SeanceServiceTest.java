@@ -45,4 +45,9 @@ public class SeanceServiceTest {
             snc.PresentSeance();
         }
     }
+
+    @Test
+    public void updateIdPaiementInSeance() {
+        SeanceService.updateIdPaiementInSeance(8,73);
+    }
 }

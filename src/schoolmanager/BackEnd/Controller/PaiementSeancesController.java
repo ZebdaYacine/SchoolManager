@@ -165,7 +165,6 @@ public class PaiementSeancesController implements Initializable {
         paiement.PresentObject();
         std = paiement.getStd();
         group = paiement.getGrp();
-        amuntCL.setText(paiement.getAmountC() + " Da");
         idL.setText(idL.getText() + " " + p.getId());
         amountRound = paiement.getAmount();
         priceSeance = CommunController.getAmountSeance(paiement);
@@ -173,6 +172,8 @@ public class PaiementSeancesController implements Initializable {
         if(nbrSeancePaid!=0){
             float amountC=paiement.getAmountC()-priceSeance*nbrSeancePaid;
             amuntCL.setText(amountC + " Da");
+        }else{
+            amuntCL.setText(paiement.getAmountC() + " Da");
         }
         showSeancsOfGroup(std, group);
     }

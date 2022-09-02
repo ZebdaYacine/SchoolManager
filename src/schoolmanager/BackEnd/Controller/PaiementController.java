@@ -128,7 +128,7 @@ public class PaiementController implements Initializable {
                     if (event.getClickCount() == 2) {
                         paiement.setNbrSeance(SeanceService.countSeanceOfPaiment(paiement.getId()));
                         paiement.PresentObject();
-                       if (CommunController.getnbrSienceInOffer(paiement) == paiement.getNbrSeance()) {
+                       if (CommunController.getnbrSeanceInOffer(paiement) == paiement.getNbrSeance()) {
                             CommunController.alert("عملية الدفع مقفلة");
                         } else {
                             try {

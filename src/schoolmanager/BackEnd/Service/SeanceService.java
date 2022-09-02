@@ -130,8 +130,22 @@ public class SeanceService {
         }
     }
 
+    public static void updateIdPaiementInSeance(long idSeance,long idPaiement) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE "
+                    + " seance SET idPaiement = ? "
+                    + " WHERE id = ? ");
+            stm.setLong(1, idPaiement);
+            stm.setLong(2, idSeance);
+            stm.executeUpdate();
+            stm.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static long getIdSeanceByIdPaiement(long idPaiement) {
-        String query= "SELECT count(*) as id  FROM schoolmanager.seance where idPaiement="+idPaiement;
+        String query= "SELECT count(*) as id  FROM seance where idPaiement="+idPaiement;
         long id=0;
         try {
             PreparedStatement ps = con.prepareStatement(query);

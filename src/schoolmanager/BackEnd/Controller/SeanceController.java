@@ -11,9 +11,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -31,13 +29,7 @@ import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
-import schoolmanager.BackEnd.Service.FollowService;
-import schoolmanager.BackEnd.Service.GroupService;
-import schoolmanager.BackEnd.Service.OfferService;
-import schoolmanager.BackEnd.Service.RoomService;
-import schoolmanager.BackEnd.Service.SeanceService;
-import schoolmanager.BackEnd.Service.StudentService;
-import schoolmanager.BackEnd.Service.TeacherService;
+import schoolmanager.BackEnd.Service.*;
 import schoolmanager.BackEnd.uiPresenter.UiSeance;
 
 /**
@@ -250,34 +242,30 @@ public class SeanceController implements Initializable {
     @FXML
     private void selectSeance(MouseEvent event) {
         seanceSelect = (Seance) SeanceTable.getSelectionModel().getSelectedItem();
+        seanceSelect.PresentSeance();
         if (seanceSelect != null) {
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
             refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
             Offer o = new Offer(seanceSelect.getIdOffer());
             ObservableList<Offer> listO = OfferService.getOfferbyid(o);
-            System.err.println(listO.get(0).getName());
             OfferCmb.getSelectionModel().select(listO.get(0));
             Teacher t = new Teacher(seanceSelect.getIdTeacher());
             ObservableList<Teacher> listT = TeacherService.searchTeacherById(t);
-            System.err.println(listT.get(0).getFirstName() + " " + listT.get(0).getLastName());
             teacherCmb.getSelectionModel().select(listT.get(0));
             Room r = new Room(seanceSelect.getIdRoom());
             ObservableList<Room> listR = RoomService.searchRoomById(r);
-            System.err.println(listR.get(0).getName());
             RoomCmb.getSelectionModel().select(listR.get(0));
 /*
             RoomCmb.getSelectionModel().select(r);
 */
             Group g = new Group(seanceSelect.getIdGroupe());
             ObservableList<Group> listg = GroupService.getGroupbyId(g);
-            System.err.println(listg.get(0).getNameGroup());
             GroupCmb.getSelectionModel().select(listg.get(0));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime dattime = LocalDateTime.parse(seanceSelect.getDate(), formatter);
             dateSeance.setValue(dattime.toLocalDate());
             time.setValue(dattime.toLocalTime());
             pTeacher.setSelected(seanceSelect.getPresenceTeacher() == 1);
-
             uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         }
     }
@@ -314,20 +302,32 @@ public class SeanceController implements Initializable {
 
     }
 
-    private int getNbrSeancePaid(){
-        return 0;
+
+    private boolean isPaiementFull(Paiement p ){
+        return p.getNbrSeance()==CommunController.getnbrSeanceInOffer(PaiementService
+                .getPaiementForThisGroupIfExist(p));
     }
 
-    private Paiement getPaiementForThisGroupIfExist(Group group){
-        return null;
+    private boolean isPaiementEnough(Paiement p ){
+        float seancePrice=CommunController.getAmountSeance(p);
+        float amountRest = p.getAmountC()-seancePrice*p.getNbrSeance();
+        return amountRest>=seancePrice;
     }
-    private void CountDownPaiement(){
 
+    private boolean isPaiementAvailable(Paiement p ){
+        if(p.getId()!=0){
+            boolean a=isPaiementEnough(p) && !isPaiementFull(p);
+            System.out.println(a);
+            return a;
+        }else{
+            return  false;
+        }
     }
 
     @FXML
     private void selectStudentApsent(MouseEvent event) {
         Student std = (Student) studentATable.getSelectionModel().getSelectedItem();
+        std.PresentObject();
         if (std != null) {
             if (event.getButton() == MouseButton.PRIMARY) {
             } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -337,8 +337,19 @@ public class SeanceController implements Initializable {
                     f.setIdSeance(seanceSelect.getId());
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(1);
+                    Paiement p = new Paiement(std,new Group(seanceSelect.getIdGroupe()));
+                    p=PaiementService.getPaiementForThisGroupIfExist(p);
+                    p.setStd(std);
+                    p.setGrp(new Group(seanceSelect.getIdGroupe()));
+                    p.PresentObject();
+                    if(isPaiementAvailable(p)){
+                        p.setNbrSeance(p.getNbrSeance()+1);
+                        SeanceService.updateNbrSeanceInPaiement(p);
+                        System.out.println(std.getId()+" "+p.getId());
+                        SeanceService.updateIdPaiementInSeance(seanceSelect.getId(),p.getId());
+                    }
                     f.setStatus(1);
-                    FollowService.updateFollow(f,"presenceStudent");
+                    FollowService.updateFollow(f,"statusWithP");
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
                     studentATable.setContextMenu(null);
