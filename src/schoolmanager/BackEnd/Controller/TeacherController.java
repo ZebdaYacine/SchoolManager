@@ -168,16 +168,18 @@ public class TeacherController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         tech = Mapping.getObjectTeacherFromUiTeacher(uitech);
-        Results.Rstls r = TeacherService.addTeacher(tech);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
-        } else {
-            uitech.clearInputs();
-            try {
-                refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC,
-                        workPlaceC, new Teacher(), "");
-            } catch (SQLException ex) {
-                Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+        if (tech != null) {
+            Results.Rstls r = TeacherService.addTeacher(tech);
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            } else {
+                uitech.clearInputs();
+                try {
+                    refrechTeacher(teacherTable, firstNameC, lastNameC, phoneC,
+                            workPlaceC, new Teacher(), "");
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

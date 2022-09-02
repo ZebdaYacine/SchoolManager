@@ -128,7 +128,7 @@ public class GroupeController implements Initializable {
                                 }
                             }
                         } else {
-                            setStyle("-fx-background-color: #ffffff;");
+                            setStyle("-fx-background-color: black;");
                         }
                     }
                 };

@@ -33,7 +33,7 @@
                       <Font name="Times New Roman" size="14.0" />
                   </font>
               </JFXTextField>
-              <JFXTextField fx:id="amount" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="مبلغ  الدورة" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+              <JFXTextField fx:id="amount" editable="false" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="مبلغ  الدورة" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                   <font>
                       <Font name="Times New Roman" size="14.0" />
                   </font>

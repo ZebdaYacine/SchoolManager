@@ -52,7 +52,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                    <JFXButton fx:id="update" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="41.0" prefWidth="173.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <JFXButton fx:id="update" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="40.0" prefWidth="180.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
                         <font>
                             <Font name="Times New Roman" size="14.0" />
@@ -64,7 +64,7 @@
                             <!--      </JFXButton>-->
                             <!--      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="600.0" layoutY="200.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer">-->
                             <!--=======-->
-                            <FontAwesomeIconView glyphName="EDIT" size="18" text="" textAlignment="RIGHT" />
+                            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" text="" textAlignment="RIGHT" />
                         </graphic>
                      <padding>
                         <Insets right="50.0" />

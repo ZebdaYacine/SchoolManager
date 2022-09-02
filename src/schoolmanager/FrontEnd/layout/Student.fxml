@@ -33,26 +33,35 @@
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
-      <JFXTextField fx:id="phone1" focusColor="#0077cc" labelFloat="true" layoutX="510.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" promptText="رقم الهاتف 1" styleClass="jfxtextfield" unFocusColor="#0099cc">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font></JFXTextField>
-      <JFXTextField fx:id="lastName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="100.0" prefHeight="30.0" prefWidth="200.0" promptText="الإسم" styleClass="jfxtextfield" unFocusColor="#0099cc">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font></JFXTextField>
-      <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="510.0" layoutY="100.0" prefHeight="30.0" prefWidth="200.0" promptText="رقم الهاتف 2" styleClass="jfxtextfield" unFocusColor="#0099cc">
-<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-      </JFXTextField>
-      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="190.0" prefHeight="30.0" prefWidth="200.0" promptText="القسم" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />
       <Label fx:id="firstName_err" layoutX="20.0" layoutY="55.0" styleClass="labels_err" stylesheets="@../style/style.css" text="1" textFill="#cc3300" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="252.0" layoutY="20.0" text="بحث" textFill="WHITE">
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
+         <font>
+            <Font name="Times New Roman Bold" size="16.0" />
+         </font>
+      </Label>
+<!--<<<<<<< HEAD-->
+<!--      <JFXToggleButton fx:id="enableSearch" layoutX="232.0" layoutY="31.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />-->
+<!--      <Label layoutX="242.0" layoutY="25.0" text="Recherche">-->
+<!--=======-->
+      <JFXToggleButton fx:id="enableSearch" layoutX="240.0" layoutY="20.0" prefWidth="143.0" text="اضغط للبحث" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
+      <JFXTextField fx:id="lastName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="100.0" prefHeight="30.0" prefWidth="200.0" promptText="الإسم" styleClass="jfxtextfield" unFocusColor="#0099cc">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font></JFXTextField>
+      <Label fx:id="lastName_err" layoutX="20.0" layoutY="135.0" styleClass="labels_err" stylesheets="@../style/style.css" text="3" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="phone1" focusColor="#0077cc" labelFloat="true" layoutX="510.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" promptText="رقم الهاتف 1" styleClass="jfxtextfield" unFocusColor="#0099cc">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font></JFXTextField>
 <!--<<<<<<< HEAD-->
 <!--      <Label fx:id="phone1_err" layoutX="500.0" layoutY="65.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="2" visible="false">-->
 <!--=======-->
@@ -62,11 +71,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lastName_err" layoutX="20.0" layoutY="135.0" styleClass="labels_err" stylesheets="@../style/style.css" text="3" visible="false">
+      <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="510.0" layoutY="100.0" prefHeight="30.0" prefWidth="200.0" promptText="رقم الهاتف 2" styleClass="jfxtextfield" unFocusColor="#0099cc">
+<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <font>
-            <Font size="14.0" />
+            <Font name="Times New Roman" size="14.0" />
          </font>
-      </Label>
+      </JFXTextField>
 <!--<<<<<<< HEAD-->
 <!--      <Label fx:id="phone2_err" layoutX="500.0" layoutY="145.0" styleClass="labels_err" stylesheets="@../Style/style.css" text="4" visible="false">-->
 <!--=======-->
@@ -76,6 +86,7 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="190.0" prefHeight="30.0" prefWidth="200.0" promptText="القسم" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />
 <!--<<<<<<< HEAD-->
 <!--      <JFXButton buttonType="RAISED" layoutX="300.0" layoutY="200.0" onAction="#add" prefHeight="27.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../Style/buttons_style.css" text="Ajouter">-->
 <!--=======-->
@@ -122,6 +133,11 @@
 <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          </graphic>
       </JFXButton>
+      <Label alignment="CENTER" layoutX="180.0" layoutY="225.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="قائمة التلاميذ" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
       <TableView fx:id="studentTable" layoutX="20.0" layoutY="263.0" onMouseClicked="#selectStudent" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="280.0">
          <columns>
             <TableColumn fx:id="firstNameC" prefWidth="120.0" text="اللقب" />
@@ -131,22 +147,6 @@
             <TableColumn fx:id="sectionNameC" prefWidth="180.0" text="القسم" />
          </columns>
       </TableView>
-<!--<<<<<<< HEAD-->
-<!--      <JFXToggleButton fx:id="enableSearch" layoutX="232.0" layoutY="31.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />-->
-<!--      <Label layoutX="242.0" layoutY="25.0" text="Recherche">-->
-<!--=======-->
-      <JFXToggleButton fx:id="enableSearch" layoutX="240.0" layoutY="20.0" prefWidth="143.0" text="اضغط للبحث" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
-      <Label layoutX="252.0" layoutY="20.0" text="بحث" textFill="WHITE">
-<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
-         <font>
-            <Font name="Times New Roman Bold" size="16.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="180.0" layoutY="225.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="قائمة التلاميذ" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </Label>
 <!--<<<<<<< HEAD-->
 <!--      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="30.0" layoutY="198.0" prefHeight="25.0" prefWidth="200.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />-->
 <!--=======-->

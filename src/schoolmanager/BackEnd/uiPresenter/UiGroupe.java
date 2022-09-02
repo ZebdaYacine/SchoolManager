@@ -80,18 +80,18 @@ public class UiGroupe extends TestingMethods {
     public static boolean UiGroupeInputIsValid(UiGroupe uiGroupe) {
         boolean bName = false, bnbrPlace = false, bOffer = false;
         if (uiGroupe.getName().getText().isEmpty()) {
-            uiGroupe.getName_err().setText("le nom est vide");
+            uiGroupe.getName_err().setText("إسم الفوج فارغ");
             uiGroupe.getName_err().setVisible(true);
         } else {
             uiGroupe.getName_err().setVisible(false);
             bName = true;
         }
         if (uiGroupe.getNbrPlace().getText().isEmpty()) {
-            uiGroupe.getNbrPlace_err().setText("le nombre de place  est vide");
+            uiGroupe.getNbrPlace_err().setText("عدد الأماكن فارغ");
             uiGroupe.getNbrPlace_err().setVisible(true);
         } else {
             if (!testInt(uiGroupe.getNbrPlace())) {
-                uiGroupe.getNbrPlace_err().setText("le nombre de place ne doit pas contenir un caractère");
+                uiGroupe.getNbrPlace_err().setText("أدخل ارقام فقط");
                 uiGroupe.getNbrPlace_err().setVisible(true);
             } else {
                 uiGroupe.getNbrPlace_err().setVisible(false);
@@ -99,7 +99,7 @@ public class UiGroupe extends TestingMethods {
             }
         }
         if (uiGroupe.getOfferCmb().getSelectionModel().getSelectedItem() == null) {
-            uiGroupe.OfferCmb_err.setText("l'Offer est vide");
+            uiGroupe.OfferCmb_err.setText("العرض فارغ");
             uiGroupe.OfferCmb_err.setVisible(true);
         } else {
             uiGroupe.OfferCmb_err.setVisible(false);

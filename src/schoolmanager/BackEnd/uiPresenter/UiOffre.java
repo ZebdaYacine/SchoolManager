@@ -126,18 +126,18 @@ public class UiOffre extends TestingMethods {
     public static boolean UiOffreInputIsValid(UiOffre uiOffre) {
         boolean bName = false, bPrice = false, bLevel = false, bType = false, bModule = false;
         if (uiOffre.getName().getText().isEmpty()) {
-            uiOffre.getName_err().setText("le nom est vide");
+            uiOffre.getName_err().setText("إسم العرض فارغ");
             uiOffre.getName_err().setVisible(true);
         } else {
             uiOffre.getName_err().setVisible(false);
             bName = true;
         }
         if (uiOffre.getPrice().getText().isEmpty()) {
-            uiOffre.getPrice_err().setText("le prix est vide");
+            uiOffre.getPrice_err().setText("السعر فارغ");
             uiOffre.getPrice_err().setVisible(true);
         } else {
             if (!testInt(uiOffre.getPrice())) {
-                uiOffre.getPrice_err().setText("le prix ne doit pas contenir un caractère");
+                uiOffre.getPrice_err().setText("أدخل ارقام");
                 uiOffre.getPrice_err().setVisible(true);
             } else {
                 uiOffre.getPrice_err().setVisible(false);
@@ -145,21 +145,21 @@ public class UiOffre extends TestingMethods {
             }
         }
         if (uiOffre.getLevelCmb().getSelectionModel().getSelectedItem() == null) {
-            uiOffre.getLevel_err().setText("le niveau est vide");
+            uiOffre.getLevel_err().setText("حدد المستوى");
             uiOffre.getLevel_err().setVisible(true);
         } else {
             uiOffre.getLevel_err().setVisible(false);
             bLevel = true;
         }
         if (uiOffre.getModuleCmb().getSelectionModel().getSelectedItem() == null) {
-            uiOffre.getModule_err().setText("le module est vide");
+            uiOffre.getModule_err().setText("حدد المادة");
             uiOffre.getModule_err().setVisible(true);
         } else {
             uiOffre.getModule_err().setVisible(false);
             bModule = true;
         }
         if (uiOffre.getTypeCmb().getSelectionModel().getSelectedItem() == null) {
-            uiOffre.getType_err().setText("le type est vide");
+            uiOffre.getType_err().setText("حدد النوع");
             uiOffre.getType_err().setVisible(true);
         } else {
             uiOffre.getType_err().setVisible(false);

@@ -45,11 +45,11 @@ public class UiTemplate  extends TestingMethods{
     public static boolean UiInputIsValid(UiTemplate uitemplate) {
         boolean bname = false;
         if (uitemplate.getName().getText().isEmpty()) {
-            uitemplate.getName_err().setText("le nom est vide");
+            uitemplate.getName_err().setText("الإسم فارغ");
             uitemplate.getName_err().setVisible(true);
         } else {
            if (uitemplate.getName().getText().length() > 20) {
-                uitemplate.getName_err().setText("le lieu de traviall doit compose < 20 caractere");
+                uitemplate.getName_err().setText("مكان العمل يتكون من 20 حرف او أقل");
                 uitemplate.getName_err().setVisible(true);
             } else {
                 uitemplate.getName_err().setVisible(false);

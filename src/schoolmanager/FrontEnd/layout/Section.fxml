@@ -61,15 +61,15 @@
 <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          </graphic>
       </JFXButton>
-      <TableView fx:id="SectionTable" layoutX="231.0" layoutY="30.0" onMouseClicked="#select" prefHeight="250.0" prefWidth="300.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
-         <columns>
-            <TableColumn fx:id="nameC" prefWidth="295.0" text="القسم" />
-         </columns>
-      </TableView>
       <Label alignment="CENTER" layoutX="180.0" layoutY="225.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="الأقسام" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
+      <TableView fx:id="SectionTable" layoutX="231.0" layoutY="30.0" onMouseClicked="#select" prefHeight="250.0" prefWidth="300.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+         <columns>
+            <TableColumn fx:id="nameC" prefWidth="295.0" text="القسم" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

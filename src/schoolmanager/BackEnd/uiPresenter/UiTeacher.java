@@ -114,25 +114,25 @@ public class UiTeacher extends TestingMethods {
     public static boolean UiTeacherInputIsValid(UiTeacher uistd) {
         boolean bFirstName = false, blastName = false, bphone = false, bWorkeSpace = false;
         if (uistd.getFirstName().getText().isEmpty()) {
-            uistd.getFirstName_err().setText("le nom est vide");
+            uistd.getFirstName_err().setText("اللقب فارغ");
             uistd.getFirstName_err().setVisible(true);
         } else {
             uistd.getFirstName_err().setVisible(false);
             bFirstName = true;
         }
         if (uistd.getLastName().getText().isEmpty()) {
-            uistd.getLastName_err().setText("le prenom est vide");
+            uistd.getLastName_err().setText("الإسم فارغ");
             uistd.getLastName_err().setVisible(true);
         } else {
             uistd.getLastName_err().setVisible(false);
             blastName = true;
         }
         if (uistd.getWorkeSpace().getText().isEmpty()) {
-            uistd.getWorkeSpace_err().setText("le lieu de traviall  est vide");
+            uistd.getWorkeSpace_err().setText("أدخل مكان العمل");
             uistd.getWorkeSpace_err().setVisible(true);
         } else {
             if (uistd.getWorkeSpace().getText().length() > 20) {
-                uistd.getWorkeSpace_err().setText("le lieu de traviall doit compose < 20 caractere");
+                uistd.getWorkeSpace_err().setText("مكان العمل متكون من 20 حرف أو أقل");
                 uistd.getWorkeSpace_err().setVisible(true);
             } else {
                 uistd.getWorkeSpace_err().setVisible(false);
@@ -140,19 +140,19 @@ public class UiTeacher extends TestingMethods {
             }
         }
         if (uistd.getPhone().getText().isEmpty()) {
-            uistd.getPhone_err().setText("le numero de Telephone est vide");
+            uistd.getPhone_err().setText("رقم الهاتف فارغ");
             uistd.getPhone_err().setVisible(true);
         } else {
             if (testInt(uistd.getPhone())) {
                 if (uistd.getPhone().getText().length() != 10) {
-                    uistd.getPhone_err().setText("le numero telephone doit compose 10 chiffres");
+                    uistd.getPhone_err().setText("رقم الهاتف متكون من 10 ارقام");
                     uistd.getPhone_err().setVisible(true);
                 } else {
                     uistd.getWorkeSpace_err().setVisible(false);
                     bWorkeSpace = true;
                 }
             } else {
-                uistd.getPhone_err().setText("Entrer des nombres");
+                uistd.getPhone_err().setText("أدخل ارقام");
                 uistd.getPhone_err().setVisible(true);
             }
         }

@@ -51,6 +51,7 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <JFXCheckBox fx:id="pTeacher" checkedColor="#0077cc" layoutX="30.0" layoutY="461.0" text="حضور الأستاذ" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="450.0" />
       <JFXButton layoutX="30.0" layoutY="520.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#add" prefHeight="30.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="إضافة" textFill="GHOSTWHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="520.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
@@ -75,6 +76,11 @@
             <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" />
          </graphic>
       </JFXButton>
+      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="الحصص" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
       <TableView fx:id="SeanceTable" layoutX="565.0" layoutY="52.0" onMouseClicked="#selectSeance" prefHeight="578.0" prefWidth="510.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="50.0">
          <columns>
             <TableColumn fx:id="OfferC" prefWidth="100.0" text="العرض" />
@@ -85,6 +91,11 @@
             <TableColumn fx:id="dateC" prefWidth="111.0" text="تاريخ الحصة" />
          </columns>
       </TableView>
+      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
       <TableView fx:id="studentPTable" layoutX="790.0" layoutY="50.0" onMouseClicked="#selectStudentPresent" prefHeight="320.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
          <columns>
             <TableColumn fx:id="firstNamePC" prefWidth="100.0" text="اللقب" />
@@ -94,6 +105,11 @@
             <TableColumn fx:id="sectionNamePC" prefWidth="120.0" text="القسم" />
          </columns>
       </TableView>
+      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الغائبين" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
       <TableView fx:id="studentATable" layoutX="920.0" layoutY="400.0" onMouseClicked="#selectStudentApsent" prefHeight="220.0" prefWidth="630.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
          <columns>
             <TableColumn fx:id="firstNameAC" prefWidth="100.0" text="اللقب" />
@@ -103,21 +119,5 @@
             <TableColumn fx:id="sectionNameAC" prefWidth="120.0" text="القسم" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="20.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الحاضرين" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="700.0" layoutY="380.0" prefHeight="30.0" prefWidth="630.0" styleClass="pantable" stylesheets="@../style/style.css" text="التلاميذ الغائبين" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="20.0">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="270.0" layoutY="20.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="الحصص" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </Label>
-      <JFXCheckBox fx:id="pTeacher" checkedColor="#0077cc" layoutX="30.0" layoutY="461.0" text="حضور الأستاذ" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="450.0" />
    </children>
 </AnchorPane>

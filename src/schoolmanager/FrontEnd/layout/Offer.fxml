@@ -126,6 +126,11 @@
                 <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" />
             </graphic>
         </JFXButton>
+      <Label alignment="CENTER" layoutX="280.0" layoutY="30.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="العروض" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
         <TableView fx:id="offerTable" layoutX="252.0" layoutY="108.0" onMouseClicked="#selectOffer" prefHeight="522.0" prefWidth="1050.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
             <columns>
                 <TableColumn fx:id="nameC" prefWidth="180.0" text="إسم العرض" />
@@ -135,10 +140,5 @@
             <TableColumn fx:id="PriceC" prefWidth="150.0" text="سعر العرض" />
             </columns>
         </TableView>
-      <Label alignment="CENTER" layoutX="280.0" layoutY="30.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="العروض" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>
