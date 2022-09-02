@@ -16,12 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Service.FollowService;
-import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.Service.SeanceService;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*import net.sf.jasperreports.engine.JRException;
@@ -38,7 +36,7 @@ import net.sf.jasperreports.view.JasperViewer;*/
  *
  * @author kadri
  */
-public class PaiementSeancesController implements Initializable {
+public class ShowPaiementController implements Initializable {
 
 
     @FXML
@@ -52,12 +50,12 @@ public class PaiementSeancesController implements Initializable {
     public static ObservableList<Seance> listSeance;
 
     @FXML
-    private TableColumn<?, ?> roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC;
+    private TableColumn<?, ?> roomC, dateTimeC, teacherC, pTeacherC, pStudentC;
 
 
     private Group group = new Group();
     private Student std = new Student();
-    private Paiement p = new Paiement();
+    private static Paiement p = new Paiement();
 
     public static ArrayList<Seance> list;
     public static float amountRound;
@@ -77,7 +75,7 @@ public class PaiementSeancesController implements Initializable {
 
     private void showSeancsOfGroup(Student std, Group grp) {
         if (std != null && grp != null) {
-            refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, std, grp);
+            refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, std, grp);
         } else {
             System.out.println(std + " is null");
         }
@@ -85,9 +83,11 @@ public class PaiementSeancesController implements Initializable {
 
 
     public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
-                                     TableColumn Column3, TableColumn Column4, TableColumn Column5,
-                                     TableColumn Column6, Student std, Group grp) {
-        listSeance = SeanceService.getAllSeances(new Paiement(std, grp),0);
+                                     TableColumn Column3, TableColumn Column4
+            , TableColumn Column5, Student std, Group grp) {
+        p.setStd(std);
+        p.setGrp(grp);
+        listSeance = SeanceService.getAllSeances(p,1);
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("nameRoom")
         );
@@ -102,9 +102,6 @@ public class PaiementSeancesController implements Initializable {
         );
         Column5.setCellValueFactory(
                 new PropertyValueFactory<>("test1")
-        );
-        Column6.setCellValueFactory(
-                new PropertyValueFactory<>("pstatus")
         );
         table.setItems(listSeance);
     }
@@ -145,7 +142,7 @@ public class PaiementSeancesController implements Initializable {
                 break;
             }
         }
-        refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, p.getStd(),p.getGrp());
+        refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, p.getStd(),p.getGrp());
 
     }
 

@@ -91,11 +91,13 @@ public class SectionController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         Section section1 = Mapping.getObjectSectionFromUiSection(uiSection);
-        Results.Rstls r = LevelService.addObject(section1, "section");
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
+        if (section1 != null) {
+            Results.Rstls r = LevelService.addObject(section1, "section");
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            }
+            refrech(SectionTable, nameC, "", new Template());
         }
-        refrech(SectionTable, nameC, "", new Template());
     }
 
     @FXML

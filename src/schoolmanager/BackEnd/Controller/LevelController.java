@@ -94,11 +94,13 @@ public class LevelController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         Level lvel = Mapping.getObjectLevelFromUiLevl(uilevl);
-        Results.Rstls r = LevelService.addObject(lvel, "level");
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
+        if (lvel != null) {
+            Results.Rstls r = LevelService.addObject(lvel, "level");
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            }
+            refrech(levelTable, nameC, "", new Template());
         }
-        refrech(levelTable, nameC, "", new Template());
     }
 
     @FXML

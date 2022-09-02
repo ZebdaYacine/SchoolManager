@@ -49,7 +49,6 @@ public class RoomController implements Initializable {
     @FXML
     private Label nbrChair_err;
 
-
     private Room rm = new Room();
 
     private UiRoom uirm = new UiRoom();
@@ -72,16 +71,16 @@ public class RoomController implements Initializable {
             update.setVisible(true);
             delete.setVisible(true);
         }
-        refrechRoom(RoomTable, nameC, nbrChairC,rm, "");
+        refrechRoom(RoomTable, nameC, nbrChairC, rm, "");
     }
 
     public static void refrechRoom(TableView table, TableColumn Column1, TableColumn Column2,
-                                   Room rm, String type) {
+            Room rm, String type) {
         ObservableList<Room> pr;
         if (type.equals("search")) {
             pr = RoomService.searchRoomByName(rm);
         } else {
-            pr =  RoomService.getAllRoom();
+            pr = RoomService.getAllRoom();
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("name")
@@ -95,13 +94,15 @@ public class RoomController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         rm = Mapping.getObjectRoomFromUiRoom(uirm);
-        Results.Rstls r = RoomService.addRoom(rm);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
-        } else {
-            uirm.clearInputs();
+        if (rm != null) {
+            Results.Rstls r = RoomService.addRoom(rm);
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            } else {
+                uirm.clearInputs();
+            }
+            refrechRoom(RoomTable, nameC, nbrChairC, new Room(), "");
         }
-        refrechRoom(RoomTable, nameC, nbrChairC, new Room(), "");
     }
 
     @FXML
@@ -116,7 +117,7 @@ public class RoomController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uirm.clearInputs();
-                    refrechRoom(RoomTable, nameC, nbrChairC,rm, "");
+                    refrechRoom(RoomTable, nameC, nbrChairC, rm, "");
                 }
                 rm = new Room();
                 uirm.clearInputs();
@@ -134,7 +135,7 @@ public class RoomController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uirm.clearInputs();
-                    refrechRoom(RoomTable, nameC, nbrChairC,rm, "");
+                    refrechRoom(RoomTable, nameC, nbrChairC, rm, "");
                 }
                 rm = new Room();
                 uirm.clearInputs();
@@ -148,9 +149,9 @@ public class RoomController implements Initializable {
         rm = (Room) RoomTable.getSelectionModel().getSelectedItem();
         if (rm != null) {
             name.setText(rm.getName());
-            nbrChair.setText(rm.getNbrchair()+"");
+            nbrChair.setText(rm.getNbrchair() + "");
             rm.PresentTemplate();
-            uirm = new UiRoom(name, nbrChair,name_err, nbrChair_err);
+            uirm = new UiRoom(name, nbrChair, name_err, nbrChair_err);
         }
     }
 
@@ -158,9 +159,9 @@ public class RoomController implements Initializable {
     private void search(KeyEvent event) {
         if (!name.getText().isEmpty()) {
             rm.setName(name.getText());
-            refrechRoom(RoomTable, nameC,nbrChairC,rm ,"search");
+            refrechRoom(RoomTable, nameC, nbrChairC, rm, "search");
         } else {
-            refrechRoom(RoomTable, nameC,nbrChairC,rm ,"");
+            refrechRoom(RoomTable, nameC, nbrChairC, rm, "");
         }
     }
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -8,23 +7,18 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="643.0" prefWidth="740.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.PaiementSeancesController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="643.0" prefWidth="740.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.ShowPaiementController">
     <children>
-      <Label fx:id="idL" alignment="CENTER" layoutX="11.0" prefHeight="80.0" prefWidth="250.0" text="رقم عملية الدفع" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="idL" alignment="CENTER" layoutX="11.0" prefHeight="92.0" prefWidth="330.0" text="رقم عملية الدفع" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="457.0" layoutY="23.0" prefHeight="34.0" prefWidth="280.0" text="الـمبلغ المدفوع" textFill="WHITE" AnchorPane.rightAnchor="20.0">
+      <Label layoutX="457.0" layoutY="23.0" prefHeight="34.0" prefWidth="280.0" text="المبلغ الـمتبقي" textFill="WHITE" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold Italic" size="23.0" />
          </font>
       </Label>
-      <JFXButton layoutX="68.0" layoutY="116.0" onAction="#pay" prefHeight="30.0" prefWidth="126.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="تأكيد" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
-         <font>
-            <Font name="Times New Roman Bold" size="18.0" />
-         </font>
-      </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="80.0" layoutX="391.0" layoutY="78.0" opacity="0.74" stroke="#262632" strokeType="INSIDE" width="280.0" AnchorPane.rightAnchor="20.0" />
       <Label fx:id="amuntCL" alignment="CENTER" layoutX="422.0" layoutY="78.0" prefHeight="80.0" prefWidth="280.0" text="50" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS" AnchorPane.rightAnchor="20.0">
          <font>
@@ -38,12 +32,11 @@
       </Label>
       <TableView fx:id="seanceTable" layoutX="6.0" layoutY="199.0" onMouseClicked="#selectItem" prefHeight="431.0" prefWidth="727.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="210.0">
          <columns>
-            <TableColumn fx:id="roomC" prefWidth="73.0" text="القاعة" />
-            <TableColumn fx:id="dateTimeC" prefWidth="126.0" text="التوقيت" />
-            <TableColumn fx:id="teacherC" prefWidth="106.0" text="الأستاذ" />
-            <TableColumn fx:id="pTeacherC" prefWidth="123.0" text="حضور الأستاذ" />
-            <TableColumn fx:id="pStudentC" prefWidth="122.0" text="حضور التلميذ" />
-            <TableColumn fx:id="paiementC" prefWidth="169.0" text="الدفع" />
+            <TableColumn fx:id="roomC" prefWidth="131.0" text="القاعة" />
+            <TableColumn fx:id="dateTimeC" prefWidth="177.0" text="التوقيت" />
+            <TableColumn fx:id="teacherC" prefWidth="130.0" text="الأستاذ" />
+            <TableColumn fx:id="pTeacherC" prefWidth="161.0" text="حضور الأستاذ" />
+            <TableColumn fx:id="pStudentC" prefWidth="94.0" text="حضور التلميذ" />
          </columns>
       </TableView>
         <!--<<<<<<< HEAD-->

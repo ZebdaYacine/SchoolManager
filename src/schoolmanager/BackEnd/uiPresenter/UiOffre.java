@@ -15,10 +15,9 @@ import javafx.scene.control.TextField;
  */
 public class UiOffre extends TestingMethods {
 
-
     private TextField name, price;
-    private Label name_err,price_err,type_err,module_err,level_err;
-    private ComboBox TypeCmb,ModuleCmb,LevelCmb;
+    private Label name_err, price_err, type_err, module_err, level_err;
+    private ComboBox TypeCmb, ModuleCmb, LevelCmb;
 
     public UiOffre() {
     }
@@ -125,46 +124,46 @@ public class UiOffre extends TestingMethods {
     }
 
     public static boolean UiOffreInputIsValid(UiOffre uiOffre) {
-        boolean bName = false, bPrice = false, bLevel = false, bType = false,bModule = false;
+        boolean bName = false, bPrice = false, bLevel = false, bType = false, bModule = false;
         if (uiOffre.getName().getText().isEmpty()) {
-            uiOffre.getName_err().setText("le nom est vide");
+            uiOffre.getName_err().setText("إسم العرض فارغ");
             uiOffre.getName_err().setVisible(true);
         } else {
             uiOffre.getName_err().setVisible(false);
             bName = true;
         }
         if (uiOffre.getPrice().getText().isEmpty()) {
-            uiOffre.getPrice_err().setText("le prix est vide");
+            uiOffre.getPrice_err().setText("السعر فارغ");
             uiOffre.getPrice_err().setVisible(true);
         } else {
-            if(!testInt(uiOffre.getPrice())){
-                uiOffre.getPrice_err().setText("le prix ne doit pas contenir un caractère");
+            if (!testInt(uiOffre.getPrice())) {
+                uiOffre.getPrice_err().setText("أدخل ارقام");
                 uiOffre.getPrice_err().setVisible(true);
-            }else{
+            } else {
                 uiOffre.getPrice_err().setVisible(false);
                 bPrice = true;
             }
         }
-        if (uiOffre.getLevelCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
-            uiOffre.getLevel_err().setText("le niveau est vide");
+        if (uiOffre.getLevelCmb().getSelectionModel().getSelectedItem() == null) {
+            uiOffre.getLevel_err().setText("حدد المستوى");
             uiOffre.getLevel_err().setVisible(true);
         } else {
             uiOffre.getLevel_err().setVisible(false);
-            bLevel=true;
+            bLevel = true;
         }
-        if (uiOffre.getModuleCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
-            uiOffre.getModule_err().setText("le module est vide");
+        if (uiOffre.getModuleCmb().getSelectionModel().getSelectedItem() == null) {
+            uiOffre.getModule_err().setText("حدد المادة");
             uiOffre.getModule_err().setVisible(true);
         } else {
             uiOffre.getModule_err().setVisible(false);
-            bModule=true;
+            bModule = true;
         }
-        if (uiOffre.getTypeCmb().getSelectionModel().getSelectedItem().toString().isEmpty()) {
-            uiOffre.getType_err().setText("le type est vide");
+        if (uiOffre.getTypeCmb().getSelectionModel().getSelectedItem() == null) {
+            uiOffre.getType_err().setText("حدد النوع");
             uiOffre.getType_err().setVisible(true);
         } else {
             uiOffre.getType_err().setVisible(false);
-            bType=true;
+            bType = true;
         }
         return bName && bPrice && bLevel && bLevel && bType && bModule;
     }

@@ -85,6 +85,7 @@ public class SeanceController implements Initializable {
     private final MenuItem addNoPayItem = new MenuItem("حاضر ولم يدفع ثمن الحصة");
     private final MenuItem showProfile = new MenuItem("عرض ملف التلميذ");
     private final MenuItem showProfile1 = new MenuItem("عرض ملف التلميذ");
+    private ObservableList<Offer> AllOffers;
 
     @FXML
     private TableColumn<?, ?> OfferC;
@@ -119,6 +120,10 @@ public class SeanceController implements Initializable {
     @FXML
     private TableColumn<?, ?> pTeacherC;
 
+    private ObservableList<Room> roomlist;
+    private ObservableList<Teacher> teacherlist;
+    ObservableList<Group> grouplist;
+
     /**
      * Initializes the controller class.
      */
@@ -127,11 +132,11 @@ public class SeanceController implements Initializable {
         ApsentMenu.getItems().addAll(addPayItem, addNoPayItem, showProfile1);
         PresentMenu.getItems().addAll(delItem, showProfile);
         uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
-        ObservableList<Offer> listOffers = OfferService.getAllOffers();
-        OfferCmb.setItems(listOffers);
-        ObservableList<Room> roomlist = RoomService.getAllRoom();
+        AllOffers = OfferService.getAllOffers();
+        OfferCmb.setItems(AllOffers);
+        roomlist = RoomService.getAllRoom();
         RoomCmb.getItems().addAll(roomlist);
-        ObservableList<Teacher> teacherlist = TeacherService.getAllTeachers();
+        teacherlist = TeacherService.getAllTeachers();
         teacherCmb.getItems().addAll(teacherlist);
         refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
     }
@@ -139,8 +144,8 @@ public class SeanceController implements Initializable {
     public void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5, TableColumn Column6,
             Seance seance, String type) {
-        ObservableList<Seance> pr = SeanceService.getAllSeances(null);
-        if(pr.size()>0){
+        ObservableList<Seance> pr = SeanceService.getAllSeances(null,0);
+        if (pr.size() > 0) {
             seanceSelect = pr.get(0);
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
             refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, pr.get(0), "present");
@@ -191,13 +196,15 @@ public class SeanceController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         seanceSelect = Mapping.getObjectSeanceFromUiSeance(uiseance);
-        Results.Rstls r = SeanceService.addSeance(seanceSelect);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
-        } else {
-            uiseance.clearInputs();
+        if (seanceSelect != null) {
+            Results.Rstls r = SeanceService.addSeance(seanceSelect);
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            } else {
+                uiseance.clearInputs();
+            }
+            refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
         }
-        refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
     }
 
     @FXML
@@ -233,10 +240,42 @@ public class SeanceController implements Initializable {
         Offer off = OfferCmb.getSelectionModel().getSelectedItem();
         if (off != null) {
             GroupCmb.getSelectionModel().select(null);
-            ObservableList<Group> grouplist = GroupService.getAllGroupsOnOffer(off);
+            grouplist = GroupService.getAllGroupsOnOffer(off);
             GroupCmb.setItems(grouplist);
         }
 
+    }
+
+    private int getIndexOffer(int id) {
+        int i = 0;
+        while (id != AllOffers.get(i).getId()) {
+            i++;
+        }
+        return i;
+    }
+
+    private int getIndexTeacher(int id) {
+        int i = 0;
+        while (id != teacherlist.get(i).getId()) {
+            i++;
+        }
+        return i;
+    }
+
+    private int getIndexRoom(int id) {
+        int i = 0;
+        while (id != roomlist.get(i).getId()) {
+            i++;
+        }
+        return i;
+    }
+
+    private int getIndexgroop(int id) {
+        int i = 0;
+        while (id != grouplist.get(i).getId()) {
+            i++;
+        }
+        return i;
     }
 
     @FXML
@@ -246,6 +285,7 @@ public class SeanceController implements Initializable {
         if (seanceSelect != null) {
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
             refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+/*<<<<<<< HEAD
             Offer o = new Offer(seanceSelect.getIdOffer());
             ObservableList<Offer> listO = OfferService.getOfferbyid(o);
             OfferCmb.getSelectionModel().select(listO.get(0));
@@ -255,12 +295,19 @@ public class SeanceController implements Initializable {
             Room r = new Room(seanceSelect.getIdRoom());
             ObservableList<Room> listR = RoomService.searchRoomById(r);
             RoomCmb.getSelectionModel().select(listR.get(0));
-/*
+*//*
             RoomCmb.getSelectionModel().select(r);
-*/
+*//*
             Group g = new Group(seanceSelect.getIdGroupe());
             ObservableList<Group> listg = GroupService.getGroupbyId(g);
             GroupCmb.getSelectionModel().select(listg.get(0));
+=======*/
+            OfferCmb.getSelectionModel().select(getIndexOffer((int) seanceSelect.getIdOffer()));
+            teacherCmb.getSelectionModel().select(getIndexTeacher((int) seanceSelect.getIdTeacher()));
+            RoomCmb.getSelectionModel().select(getIndexRoom((int) seanceSelect.getIdRoom()));
+            GroupCmb.getSelectionModel().select(getIndexgroop((int) seanceSelect.getIdGroupe()));
+
+/*>>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime dattime = LocalDateTime.parse(seanceSelect.getDate(), formatter);
             dateSeance.setValue(dattime.toLocalDate());
@@ -279,7 +326,7 @@ public class SeanceController implements Initializable {
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 studentPTable.setContextMenu(PresentMenu);
                 delItem.setOnAction(event1 -> {
-                   /* Follow f = new Follow();
+                    /* Follow f = new Follow();
                     f.setIdSeance(seanceSelect.getId());
                     f.setIdStudent(std.getId());
                     FollowService.deleteFollow(f);*/
@@ -288,7 +335,7 @@ public class SeanceController implements Initializable {
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(0);
                     f.setStatus(0);
-                    FollowService.updateFollow(f,"presenceStudent");
+                    FollowService.updateFollow(f, "presenceStudent");
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
                     studentPTable.setContextMenu(null);
@@ -302,6 +349,7 @@ public class SeanceController implements Initializable {
 
     }
 
+/*<<<<<<< HEAD*/
 
     private boolean isPaiementFull(Paiement p ){
         return p.getNbrSeance()==CommunController.getnbrSeanceInOffer(PaiementService
@@ -313,12 +361,21 @@ public class SeanceController implements Initializable {
         float amountRest = p.getAmountC()-seancePrice*p.getNbrSeance();
         return amountRest>=seancePrice;
     }
+/*=======
+    private int getNbrSeancePaid() {
+        return 0;
+    }
+
+    private Paiement getPaiementForThisGroupIfExist(Group group) {
+        return null;
+    }
+
+    private void CountDownPaiement() {
+>>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
 
     private boolean isPaiementAvailable(Paiement p ){
         if(p.getId()!=0){
-            boolean a=isPaiementEnough(p) && !isPaiementFull(p);
-            System.out.println(a);
-            return a;
+            return isPaiementEnough(p) && !isPaiementFull(p);
         }else{
             return  false;
         }
@@ -345,11 +402,17 @@ public class SeanceController implements Initializable {
                     if(isPaiementAvailable(p)){
                         p.setNbrSeance(p.getNbrSeance()+1);
                         SeanceService.updateNbrSeanceInPaiement(p);
-                        System.out.println(std.getId()+" "+p.getId());
                         SeanceService.updateIdPaiementInSeance(seanceSelect.getId(),p.getId());
+                        f.setStatus(1);
+                        FollowService.updateFollow(f,"statusWithP");
+                    }else{
+                        f.setStatus(0);
+                        FollowService.updateFollow(f,"presenceStudent");
                     }
-                    f.setStatus(1);
-                    FollowService.updateFollow(f,"statusWithP");
+/*<<<<<<< HEAD*/
+/*=======
+                    FollowService.updateFollow(f, "presenceStudent");
+>>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
                     studentATable.setContextMenu(null);

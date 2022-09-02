@@ -93,11 +93,13 @@ public class TypeController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         Type type = Mapping.getObjectTypeFromUiType(uiType);
-        Results.Rstls r = TypeService.addObject(type, "type");
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
+        if (type != null) {
+            Results.Rstls r = TypeService.addObject(type, "type");
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            }
+            refrech(typeTable, nameC, "", new Template());
         }
-        refrech(typeTable, nameC, "", new Template());
     }
 
     @FXML

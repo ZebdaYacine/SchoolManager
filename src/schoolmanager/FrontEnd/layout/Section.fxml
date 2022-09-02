@@ -25,7 +25,7 @@
       <JFXButton layoutX="20.0" layoutY="100.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#add" prefHeight="30.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="إضافة" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0">
 <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          <graphic>
-            <MaterialDesignIconView glyphName="PLUS" size="18" />
+            <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="18" />
          </graphic>
          <font>
             <Font name="Times New Roman" size="14.0" />
@@ -38,7 +38,7 @@
 <!--=======-->
       <JFXButton fx:id="update" layoutX="20.0" layoutY="150.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="30.0" prefWidth="120.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0">
          <graphic>
-            <FontAwesomeIconView glyphName="EDIT" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
 <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          </graphic>
          <font>
@@ -57,19 +57,19 @@
 <!--<<<<<<< HEAD-->
 <!--            <FontAwesomeIconView glyphName="EDIT" size="16" />-->
 <!--=======-->
-            <FontAwesomeIconView glyphName="REMOVE" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" />
 <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
          </graphic>
       </JFXButton>
-      <TableView fx:id="SectionTable" layoutX="231.0" layoutY="30.0" onMouseClicked="#select" prefHeight="250.0" prefWidth="300.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
-         <columns>
-            <TableColumn fx:id="nameC" prefWidth="295.0" text="القسم" />
-         </columns>
-      </TableView>
       <Label alignment="CENTER" layoutX="180.0" layoutY="225.0" prefHeight="30.0" prefWidth="510.0" styleClass="pantable" stylesheets="@../style/style.css" text="الأقسام" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
+      <TableView fx:id="SectionTable" layoutX="231.0" layoutY="30.0" onMouseClicked="#select" prefHeight="250.0" prefWidth="300.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+         <columns>
+            <TableColumn fx:id="nameC" prefWidth="295.0" text="القسم" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

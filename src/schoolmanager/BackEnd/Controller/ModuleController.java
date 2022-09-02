@@ -93,11 +93,13 @@ public class ModuleController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         Module mdl = Mapping.getObjectModuleFromUiModule(uiModule);
-        Results.Rstls r = ModuleService.addObject(mdl, "module");
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
+        if (mdl != null) {
+            Results.Rstls r = ModuleService.addObject(mdl, "module");
+            if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
+                CommunController.alert(r.toString());
+            }
+            refrech(moduleTable, nameC, "", new Template());
         }
-        refrech(moduleTable, nameC, "", new Template());
     }
 
     @FXML

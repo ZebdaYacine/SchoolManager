@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="false" prefHeight="550.0" prefWidth="400.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.UpdatePaiementController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="false" prefHeight="550.0" prefWidth="400.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.UpdatePaiementController">
     <children>
-      <GridPane alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="514.0" prefWidth="372.0">
+      <GridPane alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="514.0" prefWidth="372.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -52,7 +52,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                    <JFXButton fx:id="update" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="41.0" prefWidth="173.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <JFXButton fx:id="update" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="40.0" prefWidth="180.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
                         <font>
                             <Font name="Times New Roman" size="14.0" />
@@ -64,7 +64,7 @@
                             <!--      </JFXButton>-->
                             <!--      <JFXButton fx:id="delete" buttonType="RAISED" layoutX="600.0" layoutY="200.0" onAction="#delete" prefWidth="120.0" styleClass="delbtn" stylesheets="@../Style/buttons_style.css" text="Supprimer">-->
                             <!--=======-->
-                            <FontAwesomeIconView glyphName="EDIT" size="18" text="" textAlignment="RIGHT" />
+                            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" text="" textAlignment="RIGHT" />
                         </graphic>
                      <padding>
                         <Insets right="50.0" />
@@ -74,7 +74,7 @@
             </GridPane>
             <ProgressIndicator fx:id="prg" progress="0.0" visible="false" GridPane.rowIndex="4" />
             <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" onAction="#onchangecontent" prefHeight="30.0" prefWidth="360.0" promptText="الفوج" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-              <JFXDatePicker fx:id="dateP" defaultColor="#0077cc" prefHeight="30.0" prefWidth="360.0" promptText="تاريخ الدفع" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+              <JFXDatePicker fx:id="dateP" defaultColor="#0077cc" editable="false" prefHeight="30.0" prefWidth="360.0" promptText="تاريخ الدفع" styleClass="jfxtextfield" stylesheets="@../style/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <JFXTextField fx:id="OfferN" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="العرض" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Times New Roman" size="14.0" />

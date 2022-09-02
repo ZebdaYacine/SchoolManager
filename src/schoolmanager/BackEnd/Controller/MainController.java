@@ -34,8 +34,6 @@ public class MainController implements Initializable {
     @FXML
     private BorderPane main;
     @FXML
-    private JFXButton stat;
-    @FXML
     private JFXButton presence;
 
     private double offset_x1;
@@ -68,13 +66,12 @@ public class MainController implements Initializable {
     }
 
     public void changePane(JFXButton btn1, JFXButton btn2, JFXButton btn3,
-                           JFXButton btn4,JFXButton btn5, String rsc) throws IOException {
+                           JFXButton btn4, String rsc) throws IOException {
         
         btn1.setStyle("-fx-background-color :  linear-gradient( #182532 85%, #0077cc 100%);");
         btn2.setStyle("-fx-background-color : transparent;");
         btn3.setStyle("-fx-background-color : transparent;");
         btn4.setStyle("-fx-background-color : transparent;");
-        btn5.setStyle("-fx-background-color : transparent;");
         Parent root = FXMLLoader.load(getClass().getResource("/schoolmanager/FrontEnd/layout/" + rsc + ".fxml"));
         main.setCenter(null);
         if (root != null) {
@@ -143,10 +140,6 @@ public class MainController implements Initializable {
     }
 
 
-    @FXML
-    private void close(MouseEvent event) {
-
-    }
 
     @FXML
     private void drag(MouseEvent event) {
@@ -176,35 +169,34 @@ public class MainController implements Initializable {
 
     }
 
-    @FXML
-    private void stat(ActionEvent event) throws IOException {
+    /*private void stat(ActionEvent event) throws IOException {
         String rsc="stat";
         changePane(stat,offres,presence,seance,groupes,rsc);
-    }
+    }*/
 
 
     @FXML
     private void presence(ActionEvent event) throws IOException {
         String rsc="Paiement";
-        changePane(presence,stat,seance,offres,groupes,rsc);
+        changePane(presence,seance,offres,groupes,rsc);
     }
 
     @FXML
     private void seance(ActionEvent event) throws IOException {
         String rsc="seance";
-        changePane(seance,stat,presence,offres,groupes,rsc);
+        changePane(seance,presence,offres,groupes,rsc);
     }
 
     @FXML
     private void offer(ActionEvent event) throws IOException {
         String rsc="Offer";
-        changePane(offres,groupes,stat,presence,seance,rsc);
+        changePane(offres,groupes,presence,seance,rsc);
     }
 
     @FXML
     private void groupes(ActionEvent event) throws IOException {
         String rsc="Groupes";
-        changePane(groupes,offres,stat,presence,seance,rsc);
+        changePane(groupes,offres,presence,seance,rsc);
     }
 
 }

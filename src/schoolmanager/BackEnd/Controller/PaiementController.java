@@ -145,12 +145,12 @@ public class PaiementController implements Initializable {
                     });
                     showP.setOnAction(event1 -> {
                         try {
-                            url1 = new File("src/schoolmanager/FrontEnd/layout/PaiementSeances.fxml").toURI().toURL();
+                            url1 = new File("src/schoolmanager/FrontEnd/layout/ShowPaiement.fxml").toURI().toURL();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
                         showPaiementLayout(paiement, url1, " جدول الحصص ",
-                                "PaiementSeancesController");
+                                "ShowPaiementController");
                     });
                 }
             }
@@ -173,6 +173,13 @@ public class PaiementController implements Initializable {
                 case "PaiementSeancesController": {
                     PaiementSeancesController paiementSeancesController = loader.getController();
                     paiementSeancesController.setInput((Paiement) obj);
+                    stage = thirdStage;
+                    //TODO this is for show student presence
+                    break;
+                }
+                case "ShowPaiementController": {
+                    ShowPaiementController showPaiementController = loader.getController();
+                    showPaiementController.setInput((Paiement) obj);
                     stage = thirdStage;
                     //TODO this is for show student presence
                     break;

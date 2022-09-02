@@ -18,17 +18,6 @@
       <BorderPane fx:id="main" layoutY="55.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0077cc transparent transparent transparent;" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
       <HBox alignment="TOP_CENTER" layoutX="394.0" prefHeight="60.0" prefWidth="698.0" AnchorPane.leftAnchor="321.0" AnchorPane.rightAnchor="321.0" AnchorPane.topAnchor="0.0">
          <children>
-               <JFXButton fx:id="stat" alignment="CENTER" contentDisplay="TOP" onAction="#stat" prefHeight="60.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="statistiques">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" text="" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </JFXButton>
             <JFXButton fx:id="presence" alignment="CENTER" contentDisplay="TOP" onAction="#presence" prefHeight="60.0" prefWidth="105.0" styleClass="mainbtn" stylesheets="@../style/buttons_style.css" text="الدفع">
                <opaqueInsets>
                   <Insets />

@@ -158,42 +158,42 @@ public class UiSeance {
     public static boolean UiSeanceInputIsValid(UiSeance uiSeance) {
         boolean bTeacher = false, bRoom = false, bOffer = false, bGroup = false, bdate = false, btime = false;
         if (uiSeance.getOfferCmb().getSelectionModel().getSelectedItem() == null) {
-            uiSeance.getOfferErr().setText("le offer est vide");
+            uiSeance.getOfferErr().setText("حدد العرض");
             uiSeance.getOfferErr().setVisible(true);
         } else {
             uiSeance.getOfferErr().setVisible(false);
             bOffer = true;
         }
         if (uiSeance.getTeacherCmb().getSelectionModel().getSelectedItem() == null) {
-            uiSeance.getTeacherErr().setText("prof est vide");
+            uiSeance.getTeacherErr().setText("حدد الاستاذ");
             uiSeance.getTeacherErr().setVisible(true);
         } else {
             uiSeance.getTeacherErr().setVisible(false);
             bTeacher = true;
         }
         if (uiSeance.getRoomCmb().getSelectionModel().getSelectedItem() == null) {
-            uiSeance.getRoomErr().setText("room est vide");
+            uiSeance.getRoomErr().setText("حدد القاعة");
             uiSeance.getRoomErr().setVisible(true);
         } else {
             uiSeance.getRoomErr().setVisible(false);
             bRoom = true;
         }
         if (uiSeance.getGroupCmb().getSelectionModel().getSelectedItem() == null) {
-            uiSeance.getGroupErr().setText("group est vide");
+            uiSeance.getGroupErr().setText("حدد الفوج");
             uiSeance.getGroupErr().setVisible(true);
         } else {
             uiSeance.getGroupErr().setVisible(false);
             bGroup = true;
         }
         if (uiSeance.getDate()==null) {
-            uiSeance.getDateErr().setText("date est vide");
+            uiSeance.getDateErr().setText("أدخل التاريخ");
             uiSeance.getDateErr().setVisible(true);
         } else {
             uiSeance.getDateErr().setVisible(false);
             bdate = true;
         }
         if (uiSeance.getTime()==null) {
-            uiSeance.getTimeErr().setText("time est vide");
+            uiSeance.getTimeErr().setText("أدخل الوقت");
             uiSeance.getTimeErr().setVisible(true);
         } else {
             uiSeance.getTimeErr().setVisible(false);
