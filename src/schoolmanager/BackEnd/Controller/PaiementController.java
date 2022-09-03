@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.ReceiptPrinter.MainPrinter;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.Service.SeanceService;
@@ -78,7 +79,6 @@ public class PaiementController implements Initializable {
     private final MenuItem showGroups = new MenuItem("عرض الأفواج ");
 
     private final ContextMenu contextMenu1 = new ContextMenu();
-    private final MenuItem deleteP = new MenuItem("حذف ");
     private final MenuItem PrinteP = new MenuItem("طباعة ");
     private final MenuItem showP = new MenuItem("عرض  ");
 
@@ -142,6 +142,12 @@ public class PaiementController implements Initializable {
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     PaiementTable.setContextMenu(contextMenu1);
                     PrinteP.setOnAction(event1 -> {
+                        paiement.PresentObject();
+                        try {
+                            MainPrinter.Print(paiement);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     });
                     showP.setOnAction(event1 -> {
                         try {
