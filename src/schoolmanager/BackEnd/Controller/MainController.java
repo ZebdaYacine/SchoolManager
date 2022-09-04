@@ -52,7 +52,7 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        offres.setStyle("-fx-background-color : linear-gradient( #182532 85%, #0077cc 100%);");
+        offres.setStyle("-fx-background-color : linear-gradient( #182532 80%, #0077cc 100%);");
         Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("/schoolmanager/FrontEnd/layout/Offer.fxml"));
@@ -68,7 +68,7 @@ public class MainController implements Initializable {
     public void changePane(JFXButton btn1, JFXButton btn2, JFXButton btn3,
                            JFXButton btn4, String rsc) throws IOException {
         
-        btn1.setStyle("-fx-background-color :  linear-gradient( #182532 85%, #0077cc 100%);");
+        btn1.setStyle("-fx-background-color :  linear-gradient( #182532 80%, #0077cc 100%);");
         btn2.setStyle("-fx-background-color : transparent;");
         btn3.setStyle("-fx-background-color : transparent;");
         btn4.setStyle("-fx-background-color : transparent;");

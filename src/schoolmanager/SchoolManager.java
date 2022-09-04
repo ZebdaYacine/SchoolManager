@@ -24,9 +24,9 @@ public class SchoolManager extends Application {
     public static Stage thirdStage = new Stage();
 
     public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION,
-            "Modifier", "Modifier confirmation", "Vérifier avant de modifier");
+            "التعديل", "تأكيد التعديل", "تأكد من المعلومات قبل التعديل");
     public static final Alert alertDelete = Template(Alert.AlertType.CONFIRMATION,
-            "suprimer", "suprimer confirmation", "Vérifier avant de supprimer");
+            "الحذف", "تأكيد الحذف", "تأكد قبل الحذف");
 
     public static Alert Template(Alert.AlertType type, String titel, String header, String content) {
         Alert alert = new Alert(type);
@@ -38,10 +38,22 @@ public class SchoolManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        loginStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("FrontEnd/layout/Login.fxml"));
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        loginStage.setScene(scene);
+        loginStage.setOnCloseRequest(event -> {
+            event.consume();
+            if (SecodStage.isShowing()) {
+                SecodStage.close();
+            }
+            if (thirdStage.isShowing()) {
+                thirdStage.close();
+            }
+            loginStage.close();
+
+        });
+        loginStage.show();
     }
 
     /**

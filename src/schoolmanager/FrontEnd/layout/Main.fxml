@@ -23,7 +23,7 @@
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fx:id="" fill="WHITE" glyphName="DATABASE_PLUS" size="24" />
+                  <MaterialDesignIconView fx:id="" fill="WHITE" glyphName="CURRENCY_USD" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -34,7 +34,7 @@
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+                  <MaterialDesignIconView fill="WHITE" glyphName="TIMETABLE" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -45,7 +45,7 @@
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+                  <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_MULTIPLE_OUTLINE" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -56,7 +56,7 @@
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="FILE_DOCUMENT_BOX" size="24" />
+                  <MaterialDesignIconView fill="WHITE" glyphName="BANK" size="24" />
                </graphic>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -64,7 +64,7 @@
             </JFXButton>
          </children>
       </HBox>
-      <Label layoutX="1038.0" layoutY="3.0" nodeOrientation="RIGHT_TO_LEFT" text="برنامج إدارة المدرسة" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label layoutX="1038.0" nodeOrientation="RIGHT_TO_LEFT" text="برنامج إدارة المدرسة" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
@@ -86,16 +86,8 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#goToSections" text="الأقسام" />
                   <MenuItem mnemonicParsing="false" onAction="#goToRooms" text="القاعات" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="تسيير">
-               <items>
                   <MenuItem mnemonicParsing="false" onAction="#goToStudent" text="التلاميذ" />
                   <MenuItem mnemonicParsing="false" onAction="#goToTeacher" text="الأساتذة" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="إدارة">
-               <items>
                   <MenuItem mnemonicParsing="false" onAction="#goToLevel" text="المستويات" />
                   <MenuItem mnemonicParsing="false" onAction="#goToType" text="الأنواع" />
                   <MenuItem fx:id="user" mnemonicParsing="false" onAction="#goToModule" text="المواد" />
