@@ -160,6 +160,8 @@ public class MainController implements Initializable {
                 stage.setTitle(title);
                 stage.showAndWait();
             } else {
+                stage.setScene(scene);
+                stage.setTitle(title);
                 stage.setAlwaysOnTop(true);
                 stage.setAlwaysOnTop(false);
             }

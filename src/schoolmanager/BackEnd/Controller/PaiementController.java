@@ -47,7 +47,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
-
 /**
  * FXML Controller class
  *
@@ -70,8 +69,7 @@ public class PaiementController implements Initializable {
     @FXML
     public static TableColumn<?, ?> offerC1, datePC1, groupC1, amountC1, amountRC1, nbrseanceC1;
 
-
-    private static  Student std = new Student();
+    private static Student std = new Student();
     private static final Group group = new Group();
     private static Paiement paiement = new Paiement();
 
@@ -83,7 +81,6 @@ public class PaiementController implements Initializable {
     private final MenuItem showP = new MenuItem("عرض  ");
 
     private URL url1 = null;
-
 
     /**
      * Initializes the controller class.adminضa
@@ -128,7 +125,7 @@ public class PaiementController implements Initializable {
                     if (event.getClickCount() == 2) {
                         paiement.setNbrSeance(SeanceService.countSeanceOfPaiment(paiement.getId()));
                         paiement.PresentObject();
-                       if (CommunController.getnbrSeanceInOffer(paiement) == paiement.getNbrSeance()) {
+                        if (CommunController.getnbrSeanceInOffer(paiement) == paiement.getNbrSeance()) {
                             CommunController.alert("عملية الدفع مقفلة");
                         } else {
                             try {
@@ -163,7 +160,6 @@ public class PaiementController implements Initializable {
         });
     }
 
-
     private void showPaiementLayout(Object obj, URL url, String titleLayout, String object) {
         try {
             FXMLLoader loader = new FXMLLoader(url);
@@ -171,7 +167,7 @@ public class PaiementController implements Initializable {
             Stage stage = SecodStage;
             switch (object) {
                 case "PaiementCouresController": {
-                   /* PaiementCouresController paiementCouresController = loader.getController();
+                    /* PaiementCouresController paiementCouresController = loader.getController();
                     paiementCouresController.setInputs((Paiement) obj);*/
                     //TODO this is for show all seance
                     break;
@@ -219,9 +215,9 @@ public class PaiementController implements Initializable {
     }
 
     public static void refrechPaiement(TableView table, TableColumn Column1, TableColumn Column2,
-                                       TableColumn Column3, TableColumn Column4,
-                                       TableColumn Column5, TableColumn Column6
-            , Student std) {
+            TableColumn Column3, TableColumn Column4,
+            TableColumn Column5, TableColumn Column6,
+             Student std) {
         paiement.setStd(std);
         ObservableList<Paiement> pr = PaiementService.getPaiementOfStudent(paiement);
         Column1.setCellValueFactory(
@@ -247,7 +243,7 @@ public class PaiementController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
             pr = StudentService.getAllStudents("", new Student());
@@ -276,7 +272,6 @@ public class PaiementController implements Initializable {
         );
         table.setItems(pr);
     }
-
 
     @FXML
     private void addPaiement(ActionEvent event) throws JRException {
@@ -355,6 +350,5 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                 phone2C, sectionNameC, std, "");
     }
-
 
 }
