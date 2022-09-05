@@ -164,7 +164,7 @@ public class GroupeController implements Initializable {
             Scene scene = new Scene(uigrp);
             if (!SecodStage.isShowing()) {
                 SecodStage.setScene(scene);
-                SecodStage.setTitle("Inscription des étudiants");
+                SecodStage.setTitle("إضافة التلاميذ إلى الفوج");
                 SecodStage.showAndWait();
             } else {
                 SecodStage.setAlwaysOnTop(true);

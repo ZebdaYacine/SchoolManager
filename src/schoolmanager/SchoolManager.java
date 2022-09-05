@@ -39,7 +39,7 @@ public class SchoolManager extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         loginStage = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("FrontEnd/layout/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/schoolmanager/FrontEnd/layout/Login.fxml"));
         Scene scene = new Scene(root);
         loginStage.setScene(scene);
         loginStage.setOnCloseRequest(event -> {
@@ -53,6 +53,7 @@ public class SchoolManager extends Application {
             loginStage.close();
 
         });
+        loginStage.setTitle("إدارة المدرسة الخاصة");
         loginStage.show();
     }
 

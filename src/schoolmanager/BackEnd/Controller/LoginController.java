@@ -73,7 +73,7 @@ public class LoginController implements Initializable {
             } else {
 
                 try {
-                    URL url = new File("src/schoolmanager/FrontEnd/layout/Main.fxml").toURI().toURL();
+                    URL url = new File("/schoolmanager/FrontEnd/layout/Main.fxml").toURI().toURL();
                     Parent home = FXMLLoader.load(url);
                     if (screenSize.getWidth() <= 1366) {
                         screenSize.width = 1340;
@@ -86,8 +86,8 @@ public class LoginController implements Initializable {
                     loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     loginStage.hide();
                     loginStage.setScene(home_scene);
-                    loginStage.setTitle("برنامج إدارة المدرسة");
-                    //loginstage.setResizable(false);
+                    loginStage.setTitle("برنامج إدارة المدرسة الخاصة");
+                    loginStage.setResizable(false);
                     loginStage.show();
                 } catch (IOException ex) {
                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
