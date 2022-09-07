@@ -2,7 +2,9 @@ package schoolmanager.BackEnd.ReceiptPrinter;
 
 import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.image.*;
+import schoolmanager.BackEnd.Controller.CommunController;
 import schoolmanager.BackEnd.Model.Paiement;
+import schoolmanager.BackEnd.Service.PaiementService;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,13 +24,41 @@ public class ReceiptBitmap {
         String studentName = "الطالب :"+ paiement.getStd().getLastName()+" "+paiement.getStd().getFirstName();
         String offerName = "العرض  "+paiement.getGrp().getNameOffer();
         String groupName ="الفوج :"+paiement.getGrp().getNameGroup();
+        String date ="  تاريخ الدفع:"+paiement.getDate();
+        String secritID ="WXSDZEF";
+        int nbrSeanceOfOffer= CommunController.getnbrSeanceInOffer(paiement);
+        int nbrSeanceOfPaiement= PaiementService.getPaiementForThisGroupIfExist(paiement).getNbrSeance();
+        float priceSeance=CommunController.getAmountSeance(paiement);
+        int nbr=0;
+        if(nbrSeanceOfOffer==8){
+            if(paiement.getAmount()==paiement.getAmountC()){
+                nbr=8;
+            }else{
+                nbr=nbrSeanceOfPaiement;
+            }
+        }else if(nbrSeanceOfOffer==4) {
+            if(paiement.getAmount()==paiement.getAmountC()){
+                nbr=4;
+            }else{
+                nbr= nbrSeanceOfPaiement;
+            }
+        }
+        String nbrSeances ="الحصص المدفوعة :"+nbr;
+        String amountC ="المبلغ المدفوع :"+paiement.getAmountC()+" Da";
+
         BufferedImage image1 = new BufferedImage(576, 250, TYPE_INT_RGB);
         BufferedImage image2 = new BufferedImage(576, 100, TYPE_INT_RGB);
         BufferedImage image3 = new BufferedImage(576, 70, TYPE_INT_RGB);
+        BufferedImage image4 = new BufferedImage(576, 250, TYPE_INT_RGB);
+        BufferedImage image5 = new BufferedImage(576, 70, TYPE_INT_RGB);
+
 
         Graphics2D g1 = image1.createGraphics();
         Graphics2D g2 = image2.createGraphics();
         Graphics2D g3 = image3.createGraphics();
+        Graphics2D g4 = image4.createGraphics();
+        Graphics2D g5 = image5.createGraphics();
+
 
         // change background and foregroud colors
         g1.setColor(Color.white);
@@ -42,6 +72,14 @@ public class ReceiptBitmap {
         g3.setColor(Color.BLACK);
         g3.fillRect(0, 0, g3.getDeviceConfiguration().getBounds().width, g3.getDeviceConfiguration().getBounds().height);
         g3.setColor(Color.WHITE);
+
+        g4.setColor(Color.WHITE);
+        g4.fillRect(0, 0, g4.getDeviceConfiguration().getBounds().width, g4.getDeviceConfiguration().getBounds().height);
+        g4.setColor(Color.BLACK);
+
+        g5.setColor(Color.BLACK);
+        g5.fillRect(0, 0, g5.getDeviceConfiguration().getBounds().width, g5.getDeviceConfiguration().getBounds().height);
+        g5.setColor(Color.WHITE);
 
         Font fontMonoSpacePlan = new Font(Font.MONOSPACED, Font.PLAIN, FontSize);
         Font fontMonoSpaceBold1 = new Font(Font.MONOSPACED, Font.BOLD, FontSize);
@@ -65,6 +103,8 @@ public class ReceiptBitmap {
         g1.setFont(fontMonoSpaceBold1);
         g2.setFont(fontMonoSpaceBold2);
         g3.setFont(fontMonoSpaceBold3);
+        g4.setFont(fontMonoSpaceBold1);
+        g5.setFont(fontMonoSpaceBold1);
 
         g2.drawString(schoolName, -140, 60);
         helper.write(escpos, new CoffeeImageImpl(image2), imageWrapper, algorithm);
@@ -79,6 +119,16 @@ public class ReceiptBitmap {
         g3.drawString(offerName, 200, 40);
         g3.drawString(groupName, 20, 40);
         helper.write(escpos, new CoffeeImageImpl(image3), imageWrapper, algorithm);
+
+        g4.drawString(lines, 1, 60);
+        g4.drawString(nbrSeances, 260, 100);
+        g4.drawString(amountC, 120, 140);
+        g4.drawString(lines, 1, 180);
+        helper.write(escpos, new CoffeeImageImpl(image4), imageWrapper, algorithm);
+
+        g5.drawString(date, 10, 30);
+        g5.drawString(secritID, 200, 65);
+        helper.write(escpos, new CoffeeImageImpl(image5), imageWrapper, algorithm);
 
         escpos.feed(5).cut(EscPos.CutMode.FULL);
         escpos.close();

@@ -4,6 +4,7 @@ import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
+import schoolmanager.BackEnd.Service.ObjectService;
 
 import static org.junit.Assert.*;
 

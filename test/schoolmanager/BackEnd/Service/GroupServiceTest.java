@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Service.GroupService;
 
 public class GroupServiceTest {
 

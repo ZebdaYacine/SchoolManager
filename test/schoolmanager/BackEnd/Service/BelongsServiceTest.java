@@ -4,6 +4,7 @@ import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Service.BelongsService;
 
 public class BelongsServiceTest {
 

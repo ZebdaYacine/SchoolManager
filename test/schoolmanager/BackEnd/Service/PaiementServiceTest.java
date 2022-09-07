@@ -6,6 +6,7 @@ import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Service.PaiementService;
 
 public class PaiementServiceTest {
 

@@ -3,6 +3,7 @@ package schoolmanager.BackEnd.Service;
 import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Offer;
+import schoolmanager.BackEnd.Service.OfferService;
 
 public class OffreServiceTest {
 

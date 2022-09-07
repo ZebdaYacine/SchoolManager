@@ -7,6 +7,7 @@ import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Service.SeanceService;
 
 import java.sql.Connection;
 

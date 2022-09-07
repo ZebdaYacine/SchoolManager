@@ -13,7 +13,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="1340.0" styleClass="back" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.MainController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="715.0" prefWidth="1340.0" styleClass="back"
+            stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.MainController">
    <children>
       <BorderPane fx:id="main" layoutY="55.0" onMouseDragged="#drag" onMousePressed="#press" prefHeight="650.0" prefWidth="1340.0" style="-fx-border-color: #0077cc transparent transparent transparent;" styleClass="home" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
       <HBox alignment="TOP_CENTER" layoutX="394.0" prefHeight="60.0" prefWidth="698.0" AnchorPane.leftAnchor="321.0" AnchorPane.rightAnchor="321.0" AnchorPane.topAnchor="0.0">

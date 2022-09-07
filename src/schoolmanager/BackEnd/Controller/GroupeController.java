@@ -150,14 +150,10 @@ public class GroupeController implements Initializable {
 
     private void showBelongsScene() {
         grp = GroupeTable.getSelectionModel().getSelectedItem();
-        URL url1 = null;
+        String url1= "/schoolmanager/FrontEnd/layout/Belongs.fxml";
+
         try {
-            url1 = new File("src/schoolmanager/FrontEnd/layout/Belongs.fxml").toURI().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            FXMLLoader loader = new FXMLLoader(url1);
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url1));
             Parent uigrp = loader.load();
             BelongsController belongsController = loader.getController();
             belongsController.setInputs(grp);

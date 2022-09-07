@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Room;
+import schoolmanager.BackEnd.Service.RoomService;
 
 public class RoomServiceTest {
 

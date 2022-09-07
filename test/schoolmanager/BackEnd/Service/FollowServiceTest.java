@@ -6,6 +6,7 @@ import schoolmanager.BackEnd.DataBaseConnection;
 import schoolmanager.BackEnd.Model.Follow;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Service.FollowService;
 
 import static org.junit.Assert.*;
 
