@@ -73,8 +73,9 @@ public class LoginController implements Initializable {
             } else {
 
                 try {
-                    URL url = new File("src/schoolmanager/FrontEnd/layout/Main.fxml").toURI().toURL();
-                    Parent home = FXMLLoader.load(url);
+                    /*URL url = new File("src/schoolmanager/FrontEnd/layout/Main.fxml").toURI().toURL();
+                    System.out.println(url);*/
+                    Parent home = FXMLLoader.load(this.getClass().getResource("/schoolmanager/FrontEnd/layout/Main.fxml"));
                     if (screenSize.getWidth() <= 1366) {
                         screenSize.width = 1340;
                         screenSize.height = 700;

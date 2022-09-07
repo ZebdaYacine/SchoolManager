@@ -156,7 +156,6 @@ public class ShowPaiementController implements Initializable {
 
     public void setInput(Paiement paiement) {
         p = paiement;
-        paiement.PresentObject();
         std = paiement.getStd();
         group = paiement.getGrp();
         idL.setText(idL.getText() + " " + p.getId());

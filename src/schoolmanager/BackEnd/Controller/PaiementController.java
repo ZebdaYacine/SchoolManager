@@ -28,9 +28,7 @@ import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.Service.SeanceService;
 import schoolmanager.BackEnd.Service.StudentService;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -47,6 +45,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
+
 /**
  * FXML Controller class
  *
@@ -80,7 +79,7 @@ public class PaiementController implements Initializable {
     private final MenuItem PrinteP = new MenuItem("طباعة ");
     private final MenuItem showP = new MenuItem("عرض  ");
 
-    private URL url1 = null;
+    private String url1 = "";
 
     /**
      * Initializes the controller class.adminضa
@@ -107,12 +106,8 @@ public class PaiementController implements Initializable {
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     studentTable.setContextMenu(contextMenu);
                     showGroups.setOnAction(event1 -> {
-                        try {
-                            url1 = new File("src/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml").toURI().toURL();
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        }
-                        showPaiementLayout(std, url1, "سجل الدفع", "StudentPaiementHistoryController");
+                        showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml"
+                                , "سجل الدفع", "StudentPaiementHistoryController");
                     });
                 }
             }
@@ -124,22 +119,16 @@ public class PaiementController implements Initializable {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (event.getClickCount() == 2) {
                         paiement.setNbrSeance(SeanceService.countSeanceOfPaiment(paiement.getId()));
-                        paiement.PresentObject();
                         if (CommunController.getnbrSeanceInOffer(paiement) == paiement.getNbrSeance()) {
                             CommunController.alert("عملية الدفع مقفلة");
                         } else {
-                            try {
-                                url1 = new File("src/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml").toURI().toURL();
-                            } catch (MalformedURLException e) {
-                                e.printStackTrace();
-                            }
-                            showPaiementLayout(paiement, url1, " عملية دفع جديدة ", "UpdatePaiementController");
+                            showPaiementLayout(paiement, "/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml"
+                                    , " عملية دفع جديدة ", "UpdatePaiementController");
                         }
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     PaiementTable.setContextMenu(contextMenu1);
                     PrinteP.setOnAction(event1 -> {
-                        paiement.PresentObject();
                         try {
                             MainPrinter.Print(paiement);
                         } catch (IOException e) {
@@ -147,12 +136,7 @@ public class PaiementController implements Initializable {
                         }
                     });
                     showP.setOnAction(event1 -> {
-                        try {
-                            url1 = new File("src/schoolmanager/FrontEnd/layout/ShowPaiement.fxml").toURI().toURL();
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        }
-                        showPaiementLayout(paiement, url1, " جدول الحصص ",
+                        showPaiementLayout(paiement, "/schoolmanager/FrontEnd/layout/ShowPaiement.fxml", " جدول الحصص ",
                                 "ShowPaiementController");
                     });
                 }
@@ -160,9 +144,9 @@ public class PaiementController implements Initializable {
         });
     }
 
-    private void showPaiementLayout(Object obj, URL url, String titleLayout, String object) {
+    private void showPaiementLayout(Object obj, String url, String titleLayout, String object) {
         try {
-            FXMLLoader loader = new FXMLLoader(url);
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url));
             Parent uigrp = loader.load();
             Stage stage = SecodStage;
             switch (object) {
@@ -215,9 +199,9 @@ public class PaiementController implements Initializable {
     }
 
     public static void refrechPaiement(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4,
-            TableColumn Column5, TableColumn Column6,
-             Student std) {
+                                       TableColumn Column3, TableColumn Column4,
+                                       TableColumn Column5, TableColumn Column6,
+                                       Student std) {
         paiement.setStd(std);
         ObservableList<Paiement> pr = PaiementService.getPaiementOfStudent(paiement);
         Column1.setCellValueFactory(
@@ -243,7 +227,7 @@ public class PaiementController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
             pr = StudentService.getAllStudents("", new Student());
@@ -275,12 +259,8 @@ public class PaiementController implements Initializable {
 
     @FXML
     private void addPaiement(ActionEvent event) throws JRException {
-        try {
-            url1 = new File("src/schoolmanager/FrontEnd/layout/NewPaiement.fxml").toURI().toURL();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        showPaiementLayout(std, url1, " عملية دفع جديدة ", "NewPaiementController");
+        showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/NewPaiement.fxml",
+                " عملية دفع جديدة ", "NewPaiementController");
     }
 
     @FXML

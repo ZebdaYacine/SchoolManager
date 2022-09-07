@@ -4,6 +4,7 @@ import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.image.*;
 import schoolmanager.BackEnd.Controller.CommunController;
 import schoolmanager.BackEnd.Model.Paiement;
+import schoolmanager.BackEnd.Service.PaiementService;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,22 +24,23 @@ public class ReceiptBitmap {
         String studentName = "الطالب :"+ paiement.getStd().getLastName()+" "+paiement.getStd().getFirstName();
         String offerName = "العرض  "+paiement.getGrp().getNameOffer();
         String groupName ="الفوج :"+paiement.getGrp().getNameGroup();
-        String date ="  التاريخ:"+paiement.getDate();
+        String date ="  تاريخ الدفع:"+paiement.getDate();
         String secritID ="WXSDZEF";
-        int nbrSeance= CommunController.getnbrSeanceInOffer(paiement);
+        int nbrSeanceOfOffer= CommunController.getnbrSeanceInOffer(paiement);
+        int nbrSeanceOfPaiement= PaiementService.getPaiementForThisGroupIfExist(paiement).getNbrSeance();
         float priceSeance=CommunController.getAmountSeance(paiement);
         int nbr=0;
-        if(nbrSeance==8){
+        if(nbrSeanceOfOffer==8){
             if(paiement.getAmount()==paiement.getAmountC()){
                 nbr=8;
             }else{
-                nbr= (int) (paiement.getAmountC()/priceSeance);
+                nbr=nbrSeanceOfPaiement;
             }
-        }else if(nbrSeance==4) {
+        }else if(nbrSeanceOfOffer==4) {
             if(paiement.getAmount()==paiement.getAmountC()){
                 nbr=4;
             }else{
-                nbr= (int) (paiement.getAmountC()/priceSeance);
+                nbr= nbrSeanceOfPaiement;
             }
         }
         String nbrSeances ="الحصص المدفوعة :"+nbr;
@@ -124,8 +126,8 @@ public class ReceiptBitmap {
         g4.drawString(lines, 1, 180);
         helper.write(escpos, new CoffeeImageImpl(image4), imageWrapper, algorithm);
 
-        g5.drawString(date, 20, 30);
-        g5.drawString(secritID, 200, 60);
+        g5.drawString(date, 10, 30);
+        g5.drawString(secritID, 200, 65);
         helper.write(escpos, new CoffeeImageImpl(image5), imageWrapper, algorithm);
 
         escpos.feed(5).cut(EscPos.CutMode.FULL);

@@ -91,7 +91,6 @@ public class UpdatePaiementController extends PaiementController implements Init
     public void setInputsUpdatePaiement(Paiement pa) {
         std1 = pa.getStd();
         grp1 = pa.getGrp();
-        grp1.PresentGroupe();
         paiement=pa;
         fullName.setText(std1.getFirstName() + " " + std1.getLastName());
         fullName.setEditable(false);

@@ -88,46 +88,46 @@ public class MainController implements Initializable {
 
     @FXML
     private void goToStudent(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/Student.fxml").toURI().toURL();
+        String url = "/schoolmanager/FrontEnd/layout/Student.fxml";
         swithchLayout(url, SecodStage, "إدارة التلاميذ");
     }
 
     @FXML
     private void goToTeacher(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/Teacher.fxml").toURI().toURL();
+        String url = "/schoolmanager/FrontEnd/layout/Teacher.fxml";
         swithchLayout(url, SecodStage, "إدارة الأساتذة");
     }
 
     @FXML
     private void goToLevel(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/level.fxml").toURI().toURL();
+        String url = "/schoolmanager/FrontEnd/layout/level.fxml";
         swithchLayout(url, SecodStage, "إدارة المستويات");
 
     }
 
     @FXML
     private void goToModule(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/module.fxml").toURI().toURL();
+        String url = "/schoolmanager/FrontEnd/layout/module.fxml";
         swithchLayout(url, SecodStage, "إدارة المواد");
     }
 
     @FXML
     private void goToType(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/Type.fxml").toURI().toURL();
+        String url = "/schoolmanager/FrontEnd/layout/Type.fxml";
         swithchLayout(url, SecodStage, "إدارة الانواع");
 
     }
 
     @FXML
     private void goToSections(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/Section.fxml").toURI().toURL();
+        String url = "/schoolmanager/FrontEnd/layout/Section.fxml";
         swithchLayout(url, SecodStage, "إدارة الأقسام");
 
     }
 
     @FXML
     private void goToRooms(ActionEvent event) throws IOException {
-        URL url = new File("src/schoolmanager/FrontEnd/layout/Room.fxml").toURI().toURL();
+        String url = "/schoolmanager/FrontEnd/layout/Room.fxml";
         swithchLayout(url, SecodStage, "إدارة القاعات");
 
     }
@@ -151,9 +151,9 @@ public class MainController implements Initializable {
 
     }
 
-    private void swithchLayout(URL url, Stage stage, String title) {
+    private void swithchLayout(String  url, Stage stage, String title) {
         try {
-            Parent uistd = FXMLLoader.load(url);
+            Parent uistd = FXMLLoader.load(this.getClass().getResource(url));
             Scene scene = new Scene(uistd);
             if (!stage.isShowing()) {
                 stage.setScene(scene);
