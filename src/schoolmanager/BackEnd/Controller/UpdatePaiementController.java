@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -41,7 +40,6 @@ import static schoolmanager.SchoolManager.thirdStage;
  * @author kadri
  */
 public class UpdatePaiementController extends PaiementController implements Initializable {
-
 
     public static int t = 0;
     private static Paiement paiement = new Paiement();
@@ -91,17 +89,16 @@ public class UpdatePaiementController extends PaiementController implements Init
     public void setInputsUpdatePaiement(Paiement pa) {
         std1 = pa.getStd();
         grp1 = pa.getGrp();
-        paiement=pa;
+        paiement = pa;
         fullName.setText(std1.getFirstName() + " " + std1.getLastName());
         fullName.setEditable(false);
         ObservableList<Group> grouplist = BelongsService.getGroupOfStudent(std1);
         GroupCmb.getItems().addAll(grouplist);
         GroupCmb.getSelectionModel().select(grp1);
         OfferN.setText(grp1.getNameOffer());
-        amount.setText(pa.getAmount()+ " ");
-        amountP.setText(pa.getAmountC()+"");
+        amount.setText(pa.getAmount() + " ");
+        amountP.setText(pa.getAmountC() + "");
     }
-
 
     private void editProgressBar() {
         prg.setVisible(true);
@@ -132,27 +129,26 @@ public class UpdatePaiementController extends PaiementController implements Init
         Paiement paiementUpdated = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
         paiementUpdated.setStd(std1);
         paiementUpdated.setId(paiement.getId());
-        Seance s= PaiementService.PaiementHasAseans(paiementUpdated);
+        Seance s = PaiementService.PaiementHasAseans(paiementUpdated);
         Results.Rstls resulat;
-        if(s.getId()==0){
-             resulat = PaiementService.updatePaiement(paiementUpdated);
-        }else {
-            if(s.getIdGroupe()==paiementUpdated.getGrp().getId()){
-                 resulat = PaiementService.updatePaiement(paiementUpdated);
-            }else{
-                resulat=Results.Rstls.OBJECT_NOT_UPDATED;
+        if (s.getId() == 0) {
+            resulat = PaiementService.updatePaiement(paiementUpdated);
+        } else {
+            if (s.getIdGroupe() == paiementUpdated.getGrp().getId()) {
+                resulat = PaiementService.updatePaiement(paiementUpdated);
+            } else {
+                resulat = Results.Rstls.OBJECT_NOT_UPDATED;
             }
         }
-        paiementUpdated.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()),"nameType"));
-        paiementUpdated.setOfferName(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()),"offerName"));
+        paiementUpdated.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()), "nameType"));
+        paiementUpdated.setOfferName(getOfferAttFromIdOffer(new Offer(paiementUpdated.getGrp().getIdOffer()), "offerName"));
         if (resulat.toString().equals("OBJECT_NOT_UPDATED")) {
             CommunController.alert("تعذر تعديل على عملية الدفع");
         } else {
             //editProgressBar();
             CommunController.alert("تم تعديل  عملية دفع الحالية ");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
-            URL url = new File("src/schoolmanager/FrontEnd/layout/PaiementSeances.fxml").toURI().toURL();
-            FXMLLoader loader = new FXMLLoader(url);
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
             Parent ui = loader.load();
             PaiementSeancesController paiementSeancesController = loader.getController();
             paiementSeancesController.setInput(paiementUpdated);
@@ -167,9 +163,6 @@ public class UpdatePaiementController extends PaiementController implements Init
             }
         }
     }
-
-
-
 
     @FXML
     private void selectStudent(MouseEvent event) {
