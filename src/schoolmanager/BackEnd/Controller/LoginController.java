@@ -71,7 +71,6 @@ public class LoginController implements Initializable {
                 error.setText("اسم المستخدم أو كلمة المرور خاطئة");
                 error.setVisible(true);
             } else {
-
                 try {
                     Parent home = FXMLLoader.load(this.getClass().getResource("/schoolmanager/FrontEnd/layout/Main.fxml"));
                     if (screenSize.getWidth() <= 1366) {

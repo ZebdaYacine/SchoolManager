@@ -61,13 +61,11 @@ public class SchoolManager extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        DataBaseConnection.Connect();
-        new Thread(() -> {
-            while (DataBaseConnection.con == null) {
 
-            }
-            launch(args);
+        new Thread(() -> {
+            DataBaseConnection.Connect();
         }).start();
+        launch(args);
 
     }
 

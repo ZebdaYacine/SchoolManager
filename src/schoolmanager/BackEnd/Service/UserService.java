@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import schoolmanager.BackEnd.Controller.CommunController;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 import schoolmanager.BackEnd.Model.User;
 import schoolmanager.BackEnd.Results;
@@ -130,7 +131,9 @@ public class UserService {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
+             usr.setId(0);
             System.err.println(ex);
+            CommunController.alert("خادم قواعد البيانات غير متصل");
         }
         return usr;
     }

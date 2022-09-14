@@ -46,7 +46,6 @@ import static schoolmanager.SchoolManager.thirdStage;
  */
 public class NewPaiementController extends PaiementController implements Initializable {
 
-
     public static int t = 0;
     private static Paiement paiement = new Paiement();
     private static Student std1 = new Student();
@@ -99,7 +98,6 @@ public class NewPaiementController extends PaiementController implements Initial
         std1 = std;
     }
 
-
     private void editProgressBar() {
         prg.setVisible(true);
         new Thread(() -> {
@@ -128,21 +126,20 @@ public class NewPaiementController extends PaiementController implements Initial
     private void add(ActionEvent event) throws InterruptedException, IOException {
         paiement = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
         paiement.setTypeOfOffer(OfferService.
-                getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()),"nameType"));
+                getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "nameType"));
         paiement.setNbrSeance(0);
         paiement.setStd(std1);
         long lastID = PaiementService.addPaiement(paiement);
         paiement.setId(lastID);
-        paiement.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()),"nameType"));
-        paiement.setOfferName(getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()),"offerName"));
-        if (lastID ==0 ) {
+        paiement.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "nameType"));
+        paiement.setOfferName(getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "offerName"));
+        if (lastID == 0) {
             CommunController.alert(Results.Rstls.OBJECT_NOT_INSERTED.toString());
         } else {
             //editProgressBar();
             CommunController.alert("تم اضافة عملية دفع جديدة");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
-            URL url = new File("src/schoolmanager/FrontEnd/layout/PaiementSeances.fxml").toURI().toURL();
-            FXMLLoader loader = new FXMLLoader(url);
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
             Parent ui = loader.load();
             PaiementSeancesController paiementSeancesController = loader.getController();
             paiementSeancesController.setInput(paiement);
@@ -157,8 +154,6 @@ public class NewPaiementController extends PaiementController implements Initial
             }
         }
     }
-
-
 
     @FXML
     private void selectStudent(MouseEvent event) {
