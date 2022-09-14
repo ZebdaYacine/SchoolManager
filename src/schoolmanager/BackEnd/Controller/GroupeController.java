@@ -150,7 +150,7 @@ public class GroupeController implements Initializable {
 
     private void showBelongsScene() {
         grp = GroupeTable.getSelectionModel().getSelectedItem();
-        String url1= "/schoolmanager/FrontEnd/layout/Belongs.fxml";
+        String url1 = "/schoolmanager/FrontEnd/layout/Belongs.fxml";
 
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url1));
@@ -215,34 +215,39 @@ public class GroupeController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
-        if (CommunController.confirm("sure de modifier  le group")) {
-            Group newGrp = Mapping.getObjectGroupeFromUiGroupe(uigrp);
-            newGrp.setId((int) grp.getId());
-            Results.Rstls r = GroupService.updateGroup(newGrp);
-            if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
-                CommunController.alert(r.toString());
-            } else {
-                uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
+        if (grp.getId() != 0) {
+            if (CommunController.confirm("sure de modifier  le group")) {
+                Group newGrp = Mapping.getObjectGroupeFromUiGroupe(uigrp);
+                newGrp.setId((int) grp.getId());
+                Results.Rstls r = GroupService.updateGroup(newGrp);
+                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uigrp.clearInputs();
+                    refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
+                }
             }
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if (CommunController.confirm("sure de supprimer  le group")) {
-            Results.Rstls r = GroupService.deleteGroup(grp);
-            if (r == Results.Rstls.OBJECT_NOT_DELETED) {
-                CommunController.alert(r.toString());
-            } else {
-                uigrp.clearInputs();
-                refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
+        if (grp.getId() != 0) {
+            if (CommunController.confirm("sure de supprimer  le group")) {
+                Results.Rstls r = GroupService.deleteGroup(grp);
+                if (r == Results.Rstls.OBJECT_NOT_DELETED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uigrp.clearInputs();
+                    refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
+                }
             }
         }
     }
 
     @FXML
-    private void selectGroup(MouseEvent event) {
+    private void selectGroup(MouseEvent event
+    ) {
     }
 
 }

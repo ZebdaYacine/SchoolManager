@@ -72,7 +72,7 @@
                </children>
             </GridPane>
             <ProgressIndicator fx:id="prg" progress="0.0" visible="false" GridPane.rowIndex="4" />
-            <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" onAction="#onchangecontent" prefHeight="30.0" prefWidth="360.0" promptText="الفوج" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" labelFloat="true" onAction="#onchangecontent" prefHeight="30.0" prefWidth="360.0" promptText="الفوج" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
               <JFXDatePicker fx:id="dateP" defaultColor="#0077cc" prefHeight="30.0" prefWidth="360.0" promptText="تاريخ الدفع" styleClass="jfxtextfield" stylesheets="@../style/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <JFXTextField fx:id="OfferN" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="العرض" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>

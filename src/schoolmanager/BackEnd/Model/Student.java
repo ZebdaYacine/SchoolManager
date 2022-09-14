@@ -15,6 +15,7 @@ public class Student extends Person {
     private String phone2;
     private String sectionName;
     private float currentAmount;
+    private String status;
 
     public Student() {
     }
@@ -32,19 +33,38 @@ public class Student extends Person {
         super(firstName, lastName);
     }
 
-    public Student(String firstName, String lastName,String phone1, String phone2,String  sectionName) {
+    public Student(String phone1, String phone2, String sectionName, String firstName, String lastName) {
         super(firstName, lastName);
         this.phone1 = phone1;
         this.phone2 = phone2;
-        this.sectionName=sectionName;
+        this.sectionName = sectionName;
     }
 
-    public Student(long id, String firstName, String lastName,String phone1, String phone2) {
+    
+    
+    public Student(String phone1, String phone2, String sectionName, String status, String firstName, String lastName) {
+        super(firstName, lastName);
+        this.phone1 = phone1;
+        this.phone2 = phone2;
+        this.sectionName = sectionName;
+        this.status = status;
+    }
+
+    public Student(String phone1, String phone2, String sectionName, String status, long id, String firstName, String lastName) {
         super(id, firstName, lastName);
         this.phone1 = phone1;
         this.phone2 = phone2;
+        this.sectionName = sectionName;
+        this.status = status;
+    }
+    
+    public String getStatus() {
+        return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getPhone1() {
         return phone1;

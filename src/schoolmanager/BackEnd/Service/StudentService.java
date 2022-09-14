@@ -90,12 +90,12 @@ public class StudentService {
         }
     }
 
-    public static ObservableList<Student> getAllStudents(String type,Student std) {
+    public static ObservableList<Student> getAllStudents(String type, Student std) {
         String query;
-        if(type.equals("search")){
-            query = "SELECT * FROM student  where id = "+std.getId()+" order by id desc";
+        if (type.equals("search")) {
+            query = "SELECT * FROM student  where id = " + std.getId() + " order by id desc";
 
-        }else{
+        } else {
             query = "SELECT * FROM student order by id desc ";
         }
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
@@ -124,19 +124,22 @@ public class StudentService {
 
     public static ObservableList<Student> getAllStudentsFollow(Seance s, String type) {
         String query = "";
+        boolean st = false;
         if (type.equals("apsent")) {
-            query="SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance " +
-                    "FROM follow F , student S , belongs B where S.id = F.idStudent " +
-                    " and F.idStudent=B.idStudnet and F.presenceStudent=0  and B.idGroupe = "+ s.getIdGroupe()+
-                    " and F.idSeance="+s.getId()+" group by S.id order by S.id desc";
+            st = true;
+            query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status "
+                    + "FROM follow F , student S , belongs B where S.id = F.idStudent "
+                    + " and F.idStudent=B.idStudnet and F.presenceStudent=0  and B.idGroupe = " + s.getIdGroupe()
+                    + " and F.idSeance=" + s.getId() + " group by S.id order by S.id desc";
             /*query="select * from student where id in (select idStudent from follow where  presenceStudent=0 and  idStudent \n" +
                     "in   (select idStudnet from belongs where idGroupe= "+s.getIdGroupe()+" ))";*/
             //query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
         } else if (type.equals("present")) {
-            query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance FROM follow F , student S  where S.id = F.idStudent " +
-                    "and F.presenceStudent=1  and F.idSeance = " + s.getId() +" order by S.id desc";
+            st = true;
+            query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status FROM follow F , student S  where S.id = F.idStudent "
+                    + "and F.presenceStudent=1  and F.idSeance = " + s.getId() + " order by S.id desc";
             //query = "SELECT * FROM student where id in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
-        }else if (type.equals("empty")){
+        } else if (type.equals("empty")) {
             query = "SELECT * FROM student where id  in(select idStudnet from belongs where idGroupe = " + s.getIdGroupe() + ") order by id desc";
         }
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
@@ -151,6 +154,13 @@ public class StudentService {
                 student.setLastName(rs.getString("lastName"));
                 student.setPhone1(rs.getString("phone1"));
                 student.setPhone2(rs.getString("phone2"));
+                if (st) {
+                    if (rs.getInt("status") == 1) {
+                        student.setStatus("دفع");
+                    } else {
+                        student.setStatus("لم يدفع");
+                    }
+                }
                 student.setSectionName(
                         ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
                 listStudents.add(student);

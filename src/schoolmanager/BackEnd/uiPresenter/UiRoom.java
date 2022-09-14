@@ -82,7 +82,7 @@ public class UiRoom extends TestingMethods {
         if (uiroom.getNbrChair().getText().isEmpty()) {
             uiroom.getNbrChair_err().setText("عدد المقاعد فارغ");
             uiroom.getNbrChair_err().setVisible(true);
-        } else if (testInt(uiroom.getNbrChair())) {
+        } else if (!testInt(uiroom.getNbrChair())) {
             uiroom.getNbrChair_err().setText("ادخل ارقام");
             uiroom.getNbrChair_err().setVisible(true);
         } else {

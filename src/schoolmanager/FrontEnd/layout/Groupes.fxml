@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.GroupeController">
    <children>
-      <JFXComboBox fx:id="OfferCmb" focusColor="#0077cc" layoutX="30.0" layoutY="236.0" prefHeight="30.0" prefWidth="200.0" promptText="العرض" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
+      <JFXComboBox fx:id="OfferCmb" focusColor="#0077cc" labelFloat="true" layoutX="30.0" layoutY="236.0" prefHeight="30.0" prefWidth="200.0" promptText="العرض" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
       <JFXButton layoutX="31.0" layoutY="339.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#add" prefHeight="30.0" prefWidth="120.0" styleClass="addbtn" stylesheets="@../style/buttons_style.css" text="إضافة" textFill="GHOSTWHITE" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="270.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
@@ -40,8 +40,8 @@
       </JFXButton>
       <TableView fx:id="GroupeTable" layoutX="565.0" layoutY="70.0" onMouseClicked="#selectGroup" prefHeight="610.0" prefWidth="1061.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
          <columns>
-            <TableColumn fx:id="groupeC" prefWidth="140.99996948242188" text="إسم الفوج" />
-            <TableColumn fx:id="placeC" prefWidth="219.0" text="عدد الأماكن" />
+            <TableColumn fx:id="groupeC" prefWidth="200.0" text="إسم الفوج" />
+            <TableColumn fx:id="placeC" prefWidth="150.0" text="عدد الأماكن" />
             <TableColumn fx:id="offerC" prefWidth="238.0" text="العرض" />
             <TableColumn fx:id="moduleC" prefWidth="238.0" text="المادة" />
             <TableColumn fx:id="levelC" prefWidth="222.0" text="المستوى" />

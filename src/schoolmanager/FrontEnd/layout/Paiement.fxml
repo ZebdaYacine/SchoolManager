@@ -70,7 +70,7 @@
             <TableColumn fx:id="sectionNameC" prefWidth="134.0" text="الفرع" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="20.0" layoutY="70.0" prefHeight="30.0" prefWidth="640.0" styleClass="pantable" stylesheets="@../style/style.css" text=" التلاميذ المدرسة " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+      <Label alignment="CENTER" layoutX="20.0" layoutY="70.0" prefHeight="30.0" prefWidth="640.0" styleClass="pantable" stylesheets="@../style/style.css" text="تلاميذ المدرسة" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>

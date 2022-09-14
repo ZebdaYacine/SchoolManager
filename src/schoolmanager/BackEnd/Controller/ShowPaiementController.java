@@ -30,14 +30,12 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
-
 /**
  * FXML Controller class
  *
  * @author kadri
  */
 public class ShowPaiementController implements Initializable {
-
 
     @FXML
     private TableView<?> seanceTable;
@@ -52,7 +50,6 @@ public class ShowPaiementController implements Initializable {
     @FXML
     private TableColumn<?, ?> roomC, dateTimeC, teacherC, pTeacherC, pStudentC;
 
-
     private Group group = new Group();
     private Student std = new Student();
     private static Paiement p = new Paiement();
@@ -61,7 +58,6 @@ public class ShowPaiementController implements Initializable {
     public static float amountRound;
     public static float priceSeance;
     public static String source;
-
 
     /**
      * Initializes the controller class.adminضa
@@ -72,7 +68,6 @@ public class ShowPaiementController implements Initializable {
         list = new ArrayList<>();
     }
 
-
     private void showSeancsOfGroup(Student std, Group grp) {
         if (std != null && grp != null) {
             refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, std, grp);
@@ -81,13 +76,12 @@ public class ShowPaiementController implements Initializable {
         }
     }
 
-
     public static void refrechSeance(TableView table, TableColumn Column1, TableColumn Column2,
-                                     TableColumn Column3, TableColumn Column4
-            , TableColumn Column5, Student std, Group grp) {
+            TableColumn Column3, TableColumn Column4,
+             TableColumn Column5, Student std, Group grp) {
         p.setStd(std);
         p.setGrp(grp);
-        listSeance = SeanceService.getAllSeances(p,1);
+        listSeance = SeanceService.getAllSeances(p, 1);
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("nameRoom")
         );
@@ -106,10 +100,9 @@ public class ShowPaiementController implements Initializable {
         table.setItems(listSeance);
     }
 
-
     @FXML
     private void pay(ActionEvent event) {
-        int nbr= SeanceService.countSeanceOfPaiment(p.getId());
+        int nbr = SeanceService.countSeanceOfPaiment(p.getId());
         for (Seance seance : list) {
             seance.PresentSeance();
             seance.setIdPaiement(p.getId());
@@ -118,31 +111,31 @@ public class ShowPaiementController implements Initializable {
             f.setStatus(1);
             f.setIdStudent(p.getStd().getId());
             f.setIdSeance(seance.getId());
-            FollowService.updateFollow(f,"status");
+            FollowService.updateFollow(f, "status");
         }
-        nbr=nbr+list.size();
+        nbr = nbr + list.size();
         p.setNbrSeance(nbr);
-        switch (p.getTypeOfOffer().toLowerCase()){
-            case "vip":{
-                if(nbr<=2){
+        switch (p.getTypeOfOffer().toLowerCase()) {
+            case "vip": {
+                if (nbr <= 2) {
                     SeanceService.updateNbrSeanceInPaiement(p);
                 }
                 break;
             }
-            case "simple":{
-                    if(nbr<=4){
-                        SeanceService.updateNbrSeanceInPaiement(p);
-                    }
+            case "simple": {
+                if (nbr <= 4) {
+                    SeanceService.updateNbrSeanceInPaiement(p);
+                }
                 break;
             }
-            case "double":{
-                if(nbr<=8){
+            case "double": {
+                if (nbr <= 8) {
                     SeanceService.updateNbrSeanceInPaiement(p);
                 }
                 break;
             }
         }
-        refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, p.getStd(),p.getGrp());
+        refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, p.getStd(), p.getGrp());
 
     }
 
@@ -151,9 +144,6 @@ public class ShowPaiementController implements Initializable {
 
     }
 
-
-
-
     public void setInput(Paiement paiement) {
         p = paiement;
         std = paiement.getStd();
@@ -161,17 +151,14 @@ public class ShowPaiementController implements Initializable {
         idL.setText(idL.getText() + " " + p.getId());
         amountRound = paiement.getAmount();
         priceSeance = CommunController.getAmountSeance(paiement);
-        long nbrSeancePaid= SeanceService.getIdSeanceByIdPaiement(paiement.getId());
-        if(nbrSeancePaid!=0){
-            float amountC=paiement.getAmountC()-priceSeance*nbrSeancePaid;
+        long nbrSeancePaid = SeanceService.getIdSeanceByIdPaiement(paiement.getId());
+        if (nbrSeancePaid != 0) {
+            float amountC = paiement.getAmountC() - priceSeance * nbrSeancePaid;
             amuntCL.setText(amountC + " Da");
-        }else{
+        } else {
             amuntCL.setText(paiement.getAmountC() + " Da");
         }
         showSeancsOfGroup(std, group);
     }
-
-
-
 
 }

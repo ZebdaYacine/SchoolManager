@@ -81,8 +81,7 @@ public class SeanceController implements Initializable {
     private final ContextMenu ApsentMenu = new ContextMenu();
     private final ContextMenu PresentMenu = new ContextMenu();
     private final MenuItem delItem = new MenuItem("غائب");
-    private final MenuItem addPayItem = new MenuItem("حاضر و دفع ثمن الحصة");
-    private final MenuItem addNoPayItem = new MenuItem("حاضر ولم يدفع ثمن الحصة");
+    private final MenuItem addPayItem = new MenuItem("حاضر");
     private final MenuItem showProfile = new MenuItem("عرض ملف التلميذ");
     private final MenuItem showProfile1 = new MenuItem("عرض ملف التلميذ");
     private ObservableList<Offer> AllOffers;
@@ -123,13 +122,17 @@ public class SeanceController implements Initializable {
     private ObservableList<Room> roomlist;
     private ObservableList<Teacher> teacherlist;
     ObservableList<Group> grouplist;
+    @FXML
+    private TableColumn<?, ?> paymentPC;
+    @FXML
+    private TableColumn<?, ?> paymentAC;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ApsentMenu.getItems().addAll(addPayItem, addNoPayItem, showProfile1);
+        ApsentMenu.getItems().addAll(addPayItem, showProfile1);
         PresentMenu.getItems().addAll(delItem, showProfile);
         uiseance = new UiSeance(OfferErr, teacherErr, roomErr, dateErr, timeErr, groupErr, GroupCmb, OfferCmb, teacherCmb, RoomCmb, dateSeance, time, pTeacher);
         AllOffers = OfferService.getAllOffers();
@@ -147,8 +150,8 @@ public class SeanceController implements Initializable {
         ObservableList<Seance> pr = SeanceService.getAllSeances(null, 0);
         if (pr.size() > 0) {
             seanceSelect = pr.get(0);
-            refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, pr.get(0), "apsent");
-            refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, pr.get(0), "present");
+            refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, pr.get(0), "apsent");
+            refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, pr.get(0), "present");
             Column1.setCellValueFactory(
                     new PropertyValueFactory<>("nameOffer")
             );
@@ -172,7 +175,7 @@ public class SeanceController implements Initializable {
     }
 
     public static void refrechStudents(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5,
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, TableColumn Column6,
             Seance seance, String type) {
         ObservableList<Student> pr = StudentService.getAllStudentsFollow(seance, type);
         Column1.setCellValueFactory(
@@ -189,6 +192,9 @@ public class SeanceController implements Initializable {
         );
         Column5.setCellValueFactory(
                 new PropertyValueFactory<>("sectionName")
+        );
+        Column6.setCellValueFactory(
+                new PropertyValueFactory<>("status")
         );
         table.setItems(pr);
     }
@@ -209,29 +215,33 @@ public class SeanceController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
-        if (CommunController.confirm("sure de modifier  le seance")) {
-            Seance newSnc = Mapping.getObjectSeanceFromUiSeance(uiseance);
-            newSnc.setId(seanceSelect.getId());
-            Results.Rstls r = SeanceService.updateSeance(newSnc);
-            if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
-                CommunController.alert(r.toString());
-            } else {
-                uiseance.clearInputs();
+        if (seanceSelect.getId() != 0) {
+            if (CommunController.confirm("sure de modifier  le seance")) {
+                Seance newSnc = Mapping.getObjectSeanceFromUiSeance(uiseance);
+                newSnc.setId(seanceSelect.getId());
+                Results.Rstls r = SeanceService.updateSeance(newSnc);
+                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uiseance.clearInputs();
+                }
+                refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
             }
-            refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
         }
     }
 
     @FXML
     private void delete(ActionEvent event) {
-        if (CommunController.confirm("sure de supprimer  le seance")) {
-            Results.Rstls r = SeanceService.deleteSeance(seanceSelect);
-            if (r == Results.Rstls.OBJECT_NOT_DELETED) {
-                CommunController.alert(r.toString());
-            } else {
-                uiseance.clearInputs();
+        if (seanceSelect.getId() != 0) {
+            if (CommunController.confirm("sure de supprimer  le seance")) {
+                Results.Rstls r = SeanceService.deleteSeance(seanceSelect);
+                if (r == Results.Rstls.OBJECT_NOT_DELETED) {
+                    CommunController.alert(r.toString());
+                } else {
+                    uiseance.clearInputs();
+                }
+                refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
             }
-            refrechSeance(SeanceTable, OfferC, TeacherC, RoomC, GroupC, dateC, pTeacherC, new Seance(), "");
         }
     }
 
@@ -283,8 +293,8 @@ public class SeanceController implements Initializable {
         seanceSelect = (Seance) SeanceTable.getSelectionModel().getSelectedItem();
         seanceSelect.PresentSeance();
         if (seanceSelect != null) {
-            refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
-            refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+            refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, seanceSelect, "apsent");
+            refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");
             OfferCmb.getSelectionModel().select(getIndexOffer((int) seanceSelect.getIdOffer()));
             teacherCmb.getSelectionModel().select(getIndexTeacher((int) seanceSelect.getIdTeacher()));
             RoomCmb.getSelectionModel().select(getIndexRoom((int) seanceSelect.getIdRoom()));
@@ -317,8 +327,8 @@ public class SeanceController implements Initializable {
                     f.setPresenceStudent(0);
                     f.setStatus(0);
                     FollowService.updateFollow(f, "presenceStudent");
-                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
-                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, seanceSelect, "apsent");
+                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");
                     studentPTable.setContextMenu(null);
                 });
                 showProfile1.setOnAction(event1 -> {
@@ -353,7 +363,6 @@ public class SeanceController implements Initializable {
 
     private void CountDownPaiement() {
 >>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
-
     private boolean isPaiementAvailable(Paiement p) {
         if (p.getId() != 0) {
             return isPaiementEnough(p) && !isPaiementFull(p);
@@ -390,24 +399,9 @@ public class SeanceController implements Initializable {
                         f.setStatus(0);
                         FollowService.updateFollow(f, "presenceStudent");
                     }
-                    /*<<<<<<< HEAD*/
- /*=======
-                    FollowService.updateFollow(f, "presenceStudent");
->>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
-                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
-                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
+                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, seanceSelect, "apsent");
+                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");
                     studentATable.setContextMenu(null);
-                });
-                addNoPayItem.setOnAction(event1 -> {
-                    Follow f = new Follow();
-                    f.setIdSeance(seanceSelect.getId());
-                    f.setIdStudent(std.getId());
-                    f.setPresenceStudent(1);
-                    f.setStatus(0);
-                    FollowService.addFollow(f);
-                    refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, seanceSelect, "apsent");
-                    refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, seanceSelect, "present");
-                    studentPTable.setContextMenu(null);
                 });
                 showProfile.setOnAction(event1 -> {
                     CommunController.alert("details profile");

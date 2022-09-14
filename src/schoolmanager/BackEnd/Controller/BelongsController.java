@@ -95,8 +95,7 @@ public class BelongsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
-                sectionNameC, new Student(), "student");
+
         contextMenu1.getItems().addAll(delete, showProfile1);
         contextMenu2.getItems().addAll(add, showProfile);
         studentTable.setOnMouseClicked(event -> {
@@ -161,12 +160,13 @@ public class BelongsController implements Initializable {
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
-        if (type.equals("student")) {
-            pr = StudentService.getAllStudents("",new Student());
-        } else if (type.equals("belongs")) {
+
+        if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
         } else {
-            pr = BelongsService.searchStudentByName(std);
+            //pr = StudentService.getAllStudents("", new Student());
+            System.err.println(std.getFirstName());
+            pr = BelongsService.getStudentsNotInGroup(group.getId(), std);
         }
         for (Student s : pr) {
             System.out.println(s.getSectionName());
@@ -277,6 +277,12 @@ public class BelongsController implements Initializable {
         offerName.setText("العرض : " + group.getNameOffer());
         refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
                 phone2C1, sectionNameC1, new Student(), "belongs");
+        Student stdnt = new Student();
+        stdnt.setFirstName("");
+        stdnt.setPhone1("");
+        stdnt.setPhone2("");
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
+                sectionNameC, stdnt, "student");
     }
 
     @FXML

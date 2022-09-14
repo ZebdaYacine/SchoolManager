@@ -45,7 +45,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
-
 /**
  * FXML Controller class
  *
@@ -93,6 +92,7 @@ public class PaiementController implements Initializable {
         amountC1 = amountC;
         amountRC1 = amountRC;
         nbrseanceC1 = nbrseanceC;
+        std = new Student();
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
         contextMenu.getItems().addAll(showGroups);
@@ -106,8 +106,8 @@ public class PaiementController implements Initializable {
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     studentTable.setContextMenu(contextMenu);
                     showGroups.setOnAction(event1 -> {
-                        showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml"
-                                , "سجل الدفع", "StudentPaiementHistoryController");
+                        showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml",
+                                "سجل الدفع", "StudentPaiementHistoryController");
                     });
                 }
             }
@@ -122,8 +122,8 @@ public class PaiementController implements Initializable {
                         if (CommunController.getnbrSeanceInOffer(paiement) == paiement.getNbrSeance()) {
                             CommunController.alert("عملية الدفع مقفلة");
                         } else {
-                            showPaiementLayout(paiement, "/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml"
-                                    , " عملية دفع جديدة ", "UpdatePaiementController");
+                            showPaiementLayout(paiement, "/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml",
+                                    " عملية دفع جديدة ", "UpdatePaiementController");
                         }
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -199,9 +199,9 @@ public class PaiementController implements Initializable {
     }
 
     public static void refrechPaiement(TableView table, TableColumn Column1, TableColumn Column2,
-                                       TableColumn Column3, TableColumn Column4,
-                                       TableColumn Column5, TableColumn Column6,
-                                       Student std) {
+            TableColumn Column3, TableColumn Column4,
+            TableColumn Column5, TableColumn Column6,
+            Student std) {
         paiement.setStd(std);
         ObservableList<Paiement> pr = PaiementService.getPaiementOfStudent(paiement);
         Column1.setCellValueFactory(
@@ -227,7 +227,7 @@ public class PaiementController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
             pr = StudentService.getAllStudents("", new Student());
@@ -259,8 +259,10 @@ public class PaiementController implements Initializable {
 
     @FXML
     private void addPaiement(ActionEvent event) throws JRException {
-        showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/NewPaiement.fxml",
-                " عملية دفع جديدة ", "NewPaiementController");
+        if (std.getId() != 0) {
+            showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/NewPaiement.fxml",
+                    " عملية دفع جديدة ", "NewPaiementController");
+        }
     }
 
     @FXML

@@ -38,12 +38,12 @@
       </Label>
       <TableView fx:id="seanceTable" layoutX="6.0" layoutY="199.0" onMouseClicked="#selectItem" prefHeight="431.0" prefWidth="727.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="210.0">
          <columns>
-            <TableColumn fx:id="roomC" prefWidth="73.0" text="القاعة" />
-            <TableColumn fx:id="dateTimeC" prefWidth="126.0" text="التوقيت" />
-            <TableColumn fx:id="teacherC" prefWidth="106.0" text="الأستاذ" />
-            <TableColumn fx:id="pTeacherC" prefWidth="123.0" text="حضور الأستاذ" />
-            <TableColumn fx:id="pStudentC" prefWidth="122.0" text="حضور التلميذ" />
-            <TableColumn fx:id="paiementC" prefWidth="169.0" text="الدفع" />
+            <TableColumn fx:id="roomC" prefWidth="120.0" text="القاعة" />
+            <TableColumn fx:id="dateTimeC" prefWidth="100.0" text="التوقيت" />
+            <TableColumn fx:id="teacherC" prefWidth="140.0" text="الأستاذ" />
+            <TableColumn fx:id="pTeacherC" prefWidth="90.0" text="حضور الأستاذ" />
+            <TableColumn fx:id="pStudentC" prefWidth="90.0" text="حضور التلميذ" />
+            <TableColumn fx:id="paiementC" prefWidth="150.0" text="الدفع" />
          </columns>
       </TableView>
         <!--<<<<<<< HEAD-->

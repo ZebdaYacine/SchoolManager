@@ -19,9 +19,7 @@ import static schoolmanager.BackEnd.DataBaseConnection.con;
  *
  * @author Zed Yacine
  */
-
 public class BelongsService {
-
 
     public static Results.Rstls addBelongs(Belongs blgns) {
         if (blgns == null) {
@@ -47,8 +45,8 @@ public class BelongsService {
             return Results.Rstls.OBJECT_NOT_DELETED;
         }
         try {
-            String query="delete from  belongs  where idStudnet="+blgns.getIdStudent()
-                    +" and idGroupe ="+blgns.getIdGroup();
+            String query = "delete from  belongs  where idStudnet=" + blgns.getIdStudent()
+                    + " and idGroupe =" + blgns.getIdGroup();
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();
             stm.close();
@@ -59,12 +57,10 @@ public class BelongsService {
         }
     }
 
-
-
     public static ObservableList<Student> getStudentsOfGroup(long id) {
         String query;
-        query = "SELECT * FROM student S , belongs B " +
-                    " where S.id=B.idStudnet and  B.idGroupe ="+id+" order by S.id desc ";
+        query = "SELECT * FROM student S , belongs B "
+                + " where S.id=B.idStudnet and  B.idGroupe =" + id + " order by S.id desc ";
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {
@@ -89,11 +85,42 @@ public class BelongsService {
         return listStudents;
     }
 
-    public static ObservableList<Group> getGroupOfStudent (Student std) {
-        String query="SELECT G.id ,G.name,G.nbrPlace , O.offerName ,O.id as 'idO' ,O.nameModule,O.nameLevel" +
-                " FROM  belongs B , Groupe G , Offer O where" +
-                " G.id=B.idGroupe and O.id= G.idOffer" +
-                " and B.idStudnet="+std.getId()+" group by G.id  order by B.idStudnet";
+    public static ObservableList<Student> getStudentsNotInGroup(long id, Student std) {
+        String query;
+        query = "SELECT * FROM student "
+                + " where firstName LIKE '" + std.getFirstName() + "%' "
+                + " and ( phone1 LIKE '" + std.getPhone1() + "%' or "
+                + "phone2 LIKE '" + std.getPhone2() + "%') "
+                + " and id not in (select idStudnet from  belongs where idGroupe =" + id + " ) order by id desc ";
+        ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
+        listStudents.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setId(rs.getLong("id"));
+                student.setFirstName(rs.getString("firstName"));
+                student.setLastName(rs.getString("lastName"));
+                student.setPhone1(rs.getString("phone1"));
+                student.setPhone2(rs.getString("phone2"));
+                student.setSectionName(
+                        ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
+                listStudents.add(student);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listStudents;
+    }
+
+    public static ObservableList<Group> getGroupOfStudent(Student std) {
+        String query = "SELECT G.id ,G.name,G.nbrPlace , O.offerName ,O.id as 'idO' ,O.nameModule,O.nameLevel"
+                + " FROM  belongs B , Groupe G , Offer O where"
+                + " G.id=B.idGroupe and O.id= G.idOffer"
+                + " and B.idStudnet=" + std.getId() + " group by G.id  order by B.idStudnet";
         ObservableList<Group> listGroups = FXCollections.observableArrayList(new Group());
         listGroups.remove(0);
         try {
@@ -120,9 +147,9 @@ public class BelongsService {
 
     public static ObservableList<Student> searchStudentByName(Student student) {
         String query;
-        query = "SELECT * FROM student where firstName LIKE'" + student.getFirstName() + "%'" +
-                    " and  ( phone1 LIKE'"+student.getPhone1()+"%' or " +
-                    "phone2 LIKE'"+student.getPhone2()+"%')";
+        query = "SELECT * FROM student where firstName LIKE '" + student.getFirstName() + "%'"
+                + " and  ( phone1 LIKE'" + student.getPhone1() + "%' or "
+                + "phone2 LIKE'" + student.getPhone2() + "%')";
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {
