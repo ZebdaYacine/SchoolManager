@@ -16,7 +16,6 @@ import java.sql.ResultSet;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 
 /**
- *
  * @author Zed Yacine
  */
 public class BelongsService {
@@ -59,10 +58,13 @@ public class BelongsService {
 
     public static ObservableList<Student> getStudentsOfGroup(long id) {
         String query;
-        query = "SELECT * FROM student S , belongs B "
-                + " where S.id=B.idStudnet and  B.idGroupe =" + id + " order by S.id desc ";
+        query = "SELECT S.id,S.firstName,S.lastName,S.phone1,S.phone2,S.idSection" +
+                " FROM   student S , belongs B" +
+                " where  B.idStudnet=S.id and B.idGroupe=" + id ;
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
+        ObservableList<Seance> SeancesOfGroup = SeanceService.getSeancesOfGroup(id);
+        int nbr=SeancesOfGroup.size();
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -75,6 +77,12 @@ public class BelongsService {
                 student.setPhone2(rs.getString("phone2"));
                 student.setSectionName(
                         ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
+                for(Seance snc :SeancesOfGroup){
+                    if(SeanceService.isPaid(student.getId(),snc.getId())){
+                        student.setNbr(student.getNbr()+1);
+                    }
+                }
+                student.setPaid(student.getNbr()==nbr);
                 listStudents.add(student);
             }
             rs.close();
@@ -148,7 +156,7 @@ public class BelongsService {
     public static ObservableList<Student> searchStudentByName(Student student) {
         String query;
         query = "SELECT * FROM student where (firstName LIKE '" + student.getFirstName() + "%' " +
-                "or lastName LIKE '"+student.getFirstName()+"%')"
+                "or lastName LIKE '" + student.getFirstName() + "%')"
                 + " and ( phone1 LIKE'" + student.getPhone1() + "%' or "
                 + "phone2 LIKE'" + student.getPhone2() + "%')";
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
@@ -174,4 +182,6 @@ public class BelongsService {
         }
         return listStudents;
     }
+
+
 }

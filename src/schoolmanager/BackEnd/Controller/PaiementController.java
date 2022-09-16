@@ -19,9 +19,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Offer;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.ReceiptPrinter.MainPrinter;
@@ -44,6 +44,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
+
 /**
  * FXML Controller class
  *
@@ -52,7 +53,9 @@ import net.sf.jasperreports.view.JasperViewer;*/
 public class PaiementController implements Initializable {
 
     @FXML
-    private TableView<?> studentTable, PaiementTable;
+    private TableView<Student> studentTable;
+    @FXML
+    private TableView<?> PaiementTable;
     @FXML
     public static TableView<?> PaiementTable1;
     @FXML
@@ -79,7 +82,7 @@ public class PaiementController implements Initializable {
     private final MenuItem PrinteP = new MenuItem("طباعة ");
     private final MenuItem showP = new MenuItem("عرض  ");
 
-    private final String url1 = "";
+    private static boolean b1 = false;
 
     /**
      * Initializes the controller class.adminضa
@@ -95,12 +98,13 @@ public class PaiementController implements Initializable {
         nbrseanceC1 = nbrseanceC;
         std = new Student();
         GroupCmb.getSelectionModel().select(null);
-        ObservableList<Group> grouplist = GroupService.getAllGroups(null,"all");
+        ObservableList<Group> grouplist = GroupService.getAllGroups(null, "all");
         GroupCmb.setItems(grouplist);
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
         contextMenu.getItems().addAll(showGroups);
         contextMenu1.getItems().addAll(PrinteP, showP);
+        b1 = false;
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
@@ -116,7 +120,31 @@ public class PaiementController implements Initializable {
                 }
             }
         });
+        studentTable.setRowFactory(new Callback<TableView<Student>, TableRow<Student>>() {
+            @Override
+            public TableRow<Student> call(TableView param) {
+                return new TableRow<Student>() {
+                    protected void updateItem(Student s, boolean b) {
+                        super.updateItem(s, b);
+                        if (s != null) {
+                            if(b1){
+                                if (s.isPaid()) {
+                                    setStyle("-fx-background-color: #081018;");
+                                } else {
+                                    setStyle("-fx-background-color: #FF0000;");
+                                }
+                            }else{
+                                setStyle("-fx-background-color: #081018;");
+                            }
+                        } else {
+                            setStyle("-fx-background-color: #081018;");
+                        }
 
+                    }
+                };
+            }
+
+        });
         PaiementTable.setOnMouseClicked(event -> {
             paiement = (Paiement) PaiementTable.getSelectionModel().getSelectedItem();
             if (paiement != null) {
@@ -150,12 +178,14 @@ public class PaiementController implements Initializable {
 
     @FXML
     private void onchangecontent(ActionEvent event) {
-        if (GroupCmb.getSelectionModel().getSelectedItem().getId()!=0) {
-            Group group=GroupCmb.getSelectionModel().getSelectedItem();
+        if (GroupCmb.getSelectionModel().getSelectedItem().getId() != 0) {
+            Group group = GroupCmb.getSelectionModel().getSelectedItem();
             std.setGroup(group.getId());
+            b1 = true;
             refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                     phone2C, sectionNameC, std, "group");
-        }else{
+        } else {
+            b1 = false;
             refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                     sectionNameC, new Student(), "student");
         }
@@ -216,9 +246,9 @@ public class PaiementController implements Initializable {
     }
 
     public static void refrechPaiement(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4,
-            TableColumn Column5, TableColumn Column6,
-            Student std) {
+                                       TableColumn Column3, TableColumn Column4,
+                                       TableColumn Column5, TableColumn Column6,
+                                       Student std) {
         paiement.setStd(std);
         ObservableList<Paiement> pr = PaiementService.getPaiementOfStudent(paiement);
         Column1.setCellValueFactory(
@@ -239,20 +269,20 @@ public class PaiementController implements Initializable {
         Column6.setCellValueFactory(
                 new PropertyValueFactory<>("typeOfOffer")
         );
-
         table.setItems(pr);
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
         if (type.equals("student")) {
+            b1 = false;
             pr = StudentService.getAllStudents("", new Student());
         } else if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
-        }else if (type.equals("group")) {
+        } else if (type.equals("group")) {
             pr = BelongsService.getStudentsOfGroup(std.getGroup());
-        }else {
+        } else {
             pr = BelongsService.searchStudentByName(std);
         }
         Column1.setCellValueFactory(
@@ -278,7 +308,7 @@ public class PaiementController implements Initializable {
         if (std.getId() != 0) {
             showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/NewPaiement.fxml",
                     " عملية دفع جديدة ", "NewPaiementController");
-        }else{
+        } else {
             CommunController.alert("عذرا. اختر تلميذ");
         }
     }
@@ -346,6 +376,8 @@ public class PaiementController implements Initializable {
             std.setPhone1(phn);
             std.setPhone2(phn);
         }
+        b1 = false;
+        GroupCmb.getSelectionModel().select(0);
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                 phone2C, sectionNameC, std, "");
     }

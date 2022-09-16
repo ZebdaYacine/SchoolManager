@@ -17,6 +17,24 @@ public class Student extends Person {
     private float currentAmount;
     private String status;
     private long group;
+    private int  nbr;
+    private boolean  paid;
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public int getNbr() {
+        return nbr;
+    }
+
+    public void setNbr(int nbr) {
+        this.nbr = nbr;
+    }
 
     public long getGroup() {
         return group;

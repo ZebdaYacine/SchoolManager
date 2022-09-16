@@ -317,4 +317,45 @@ public class SeanceService {
     }
 
 
+
+    public static ObservableList<Seance> getSeancesOfGroup(long id) {
+        String query="SELECT id FROM seance  where idGroupe="+id+" order by id desc";
+        ObservableList<Seance> listOffers = FXCollections.observableArrayList(new Seance());
+        listOffers.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Seance seance = new Seance();
+                seance.setId(rs.getLong("id"));
+                listOffers.add(seance);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listOffers;
+    }
+
+    public static boolean isPaid( long idStd,long idSnc) {
+        String query = "SELECT count(*) as nbr FROM schoolmanager.follow " +
+                "where idStudent="+idStd+" and idSeance="+idSnc+" and  idPaiement is not null";
+        System.out.println(query);
+        int nbr=0;
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                nbr=rs.getInt("nbr");
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return nbr!=0;
+    }
+
+
 }
