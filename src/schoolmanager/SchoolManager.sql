@@ -249,8 +249,8 @@ add foreign key (idPaiement) references paiement(id) ;
 
 alter table paiement
 add column type varchar(20),
-add column nbrSeance int
-;
+add column nbrSeance int;
+
 alter table module
 modify name varchar(20);
 
@@ -259,7 +259,13 @@ modify nameModule varchar(20);
 
 DROP INDEX name ON groupe;
 
-alter table groupe 
-add CONSTRAINT uni_name_idOffre UNIQUE (name,idOffer);
+ALTER TABLE seance DROP FOREIGN KEY seance_ibfk_6;
+alter table seance
+drop column  idPaiement ;
 
+alter table follow
+add idPaiement bigint  ,
+add foreign key (idPaiement) references paiement(id) ;
 
+alter table paiement
+add column around varchar(50)

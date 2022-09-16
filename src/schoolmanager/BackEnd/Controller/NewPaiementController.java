@@ -8,6 +8,7 @@ package schoolmanager.BackEnd.Controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.OfferService;
 import schoolmanager.BackEnd.Service.PaiementService;
+import schoolmanager.BackEnd.Service.TypeService;
 import schoolmanager.BackEnd.uiPresenter.UiStudentPaiement;
 
 import java.io.File;
@@ -61,12 +63,18 @@ public class NewPaiementController extends PaiementController implements Initial
     private TextField OfferN;
     @FXML
     private JFXComboBox<Group> GroupCmb;
+    private JFXComboBox<String> aroundCmb;
     private UiStudentPaiement uistd = new UiStudentPaiement();
 
     @FXML
     private JFXButton add;
     @FXML
     private ProgressIndicator prg;
+
+    ObservableList<String> around =
+            FXCollections.observableArrayList(
+                    "1","2","3","4","5","6","7","8","9","10","11","12"
+            );
 
     /**
      * Initializes the controller class.
@@ -75,6 +83,7 @@ public class NewPaiementController extends PaiementController implements Initial
     public void initialize(URL url, ResourceBundle rb) {
         uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb);
         prg.setProgress(0);
+        aroundCmb.setItems(around);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
@@ -139,7 +148,7 @@ public class NewPaiementController extends PaiementController implements Initial
             //editProgressBar();
             CommunController.alert("تم اضافة عملية دفع جديدة");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
             Parent ui = loader.load();
             PaiementSeancesController paiementSeancesController = loader.getController();
             paiementSeancesController.setInput(paiement);

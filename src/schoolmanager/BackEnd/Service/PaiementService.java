@@ -24,7 +24,7 @@ public class PaiementService {
     private static final Section section = new Section();
 
     public static long addPaiement(Paiement paiement) {
-        long id=0;
+        long id = 0;
         if (paiement == null) {
             return id;
         }
@@ -40,9 +40,9 @@ public class PaiementService {
             stm.setString(6, paiement.getTypeOfOffer());
             stm.setInt(7, paiement.getNbrSeance());
             stm.executeUpdate();
-            ResultSet rs=stm.getGeneratedKeys();
-            if(rs.next()){
-                id=rs.getInt(1);
+            ResultSet rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
             }
             stm.close();
             return id;
@@ -52,7 +52,7 @@ public class PaiementService {
         }
     }
 
-    public static Results.Rstls updatePaiement(Paiement  paiement) {
+    public static Results.Rstls updatePaiement(Paiement paiement) {
         if (paiement == null) {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
@@ -77,7 +77,7 @@ public class PaiementService {
     }
 
 
-    public static Results.Rstls deletePaiement(Paiement  paiement) {
+    public static Results.Rstls deletePaiement(Paiement paiement) {
         if (paiement == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
@@ -96,10 +96,10 @@ public class PaiementService {
 
     public static ObservableList<Paiement> getPaiementOfStudent(Paiement paiement) {
         String query;
-        query = " SELECT A.id,A.idStudent,A.day,A.amount,A.amountC,A.idGroupe ,  G.idOffer " +
+        query = " SELECT A.id,A.idStudent,A.day,A.amount,A.amountC,A.idGroupe ,  G.idOffer  , A.around" +
                 " FROM paiement A ,  Groupe G " +
                 " where A.idGroupe=G.id  and " +
-                " A.idStudent="+paiement.getStd().getId()+" order by A.idStudent desc ";
+                " A.idStudent=" + paiement.getStd().getId() + " order by A.idStudent desc ";
         System.out.println(query);
         ObservableList<Paiement> listPaiementsOfStudents = FXCollections.observableArrayList(new Paiement());
         listPaiementsOfStudents.remove(0);
@@ -113,7 +113,7 @@ public class PaiementService {
                                 new Student(rs.getLong("idStudent")))
                         .get(0));
                 Group grp1 = new Group();
-                grp1=GroupService.getGroupbyId
+                grp1 = GroupService.getGroupbyId
                         (new Group(rs.getLong("idGroupe"))).get(0);
                 paiementOfStd.setGrp(grp1);
                 paiementOfStd.setGroupName(grp1.getNameGroup());
@@ -123,6 +123,7 @@ public class PaiementService {
                 paiementOfStd.setAmount(rs.getFloat("amount"));
                 paiementOfStd.setAmountC(rs.getFloat("amountC"));
                 paiementOfStd.setDate(rs.getString("day"));
+                paiementOfStd.setAround(rs.getString("around"));
                 listPaiementsOfStudents.add(paiementOfStd);
             }
             rs.close();
@@ -134,8 +135,8 @@ public class PaiementService {
     }
 
     public static Paiement getPaiementForThisGroupIfExist(Paiement paiement) {
-        String query = "SELECT * from paiement where idGroupe="+paiement.getGrp().getId()
-                +" and idStudent="+paiement.getStd().getId();
+        String query = "SELECT * from paiement where idGroupe=" + paiement.getGrp().getId()
+                + " and idStudent=" + paiement.getStd().getId();
         Paiement p = new Paiement();
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -156,7 +157,9 @@ public class PaiementService {
     }
 
     public static Seance PaiementHasAseans(Paiement paiement) {
-        String query = "SELECT * from seance where idPaiement="+paiement.getId();
+        String query = "SELECT S.id,S.idGroupe,S.idOffer,F.id from seance S , " +
+                "follow F where S.id=F.idSeance and F.idStudent="+paiement.getStd().getId() +
+                " and F.idPaiement=" + paiement.getId();
         Seance p = new Seance();
         try {
             PreparedStatement ps = con.prepareStatement(query);

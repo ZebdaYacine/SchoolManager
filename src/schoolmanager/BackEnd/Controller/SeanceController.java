@@ -352,17 +352,6 @@ public class SeanceController implements Initializable {
         return amountRest >= seancePrice;
     }
 
-    /*=======
-    private int getNbrSeancePaid() {
-        return 0;
-    }
-
-    private Paiement getPaiementForThisGroupIfExist(Group group) {
-        return null;
-    }
-
-    private void CountDownPaiement() {
->>>>>>> 83316a21b0d7e568086d4f779149afd2b75f0566*/
     private boolean isPaiementAvailable(Paiement p) {
         if (p.getId() != 0) {
             return isPaiementEnough(p) && !isPaiementFull(p);
@@ -392,8 +381,12 @@ public class SeanceController implements Initializable {
                     if (isPaiementAvailable(p)) {
                         p.setNbrSeance(p.getNbrSeance() + 1);
                         SeanceService.updateNbrSeanceInPaiement(p);
-                        SeanceService.updateIdPaiementInSeance(seanceSelect.getId(), p.getId());
+                        f.setIdStudent(p.getStd().getId());
+                        f.setIdSeance(seanceSelect.getId());
+                        f.setIdPaiement(p.getId());
                         f.setStatus(1);
+                        f.PresentFollow();
+                        SeanceService.updatePaiementInFollow(f);
                         FollowService.updateFollow(f, "statusWithP");
                     } else {
                         f.setStatus(0);

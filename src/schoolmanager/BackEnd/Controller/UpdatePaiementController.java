@@ -8,6 +8,7 @@ package schoolmanager.BackEnd.Controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,9 +58,16 @@ public class UpdatePaiementController extends PaiementController implements Init
     private TextField OfferN;
     @FXML
     private JFXComboBox<Group> GroupCmb;
+    private JFXComboBox<String> aroundCmb;
+
     private UiStudentPaiement uistd = new UiStudentPaiement();
     @FXML
     private JFXButton update;
+
+    ObservableList<String> around =
+            FXCollections.observableArrayList(
+                    "1","2","3","4","5","6","7","8","9","10","11","12"
+            );
 
     @FXML
     private ProgressIndicator prg;
@@ -69,6 +77,7 @@ public class UpdatePaiementController extends PaiementController implements Init
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       // aroundCmb.setItems(around);
         uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb);
         prg.setProgress(0);
         GroupCmb.setOnAction(event -> {
@@ -148,7 +157,7 @@ public class UpdatePaiementController extends PaiementController implements Init
             //editProgressBar();
             CommunController.alert("تم تعديل  عملية دفع الحالية ");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
             Parent ui = loader.load();
             PaiementSeancesController paiementSeancesController = loader.getController();
             paiementSeancesController.setInput(paiementUpdated);

@@ -77,12 +77,12 @@
       </Label>
       <TableView fx:id="PaiementTable" layoutX="668.0" layoutY="117.0" prefHeight="520.0" prefWidth="700.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
          <columns>
-            <TableColumn fx:id="offerC" prefWidth="89.0" text="اسم العرض" />
+            <TableColumn fx:id="offerC" prefWidth="89.0" text="الدورة" />
             <TableColumn fx:id="groupC" minWidth="0.0" prefWidth="62.0" text="الفوج" />
-            <TableColumn fx:id="nbrseanceC" prefWidth="137.0" text="نوع العرض" />
-            <TableColumn fx:id="datePC" prefWidth="186.0" text="تاريخ الدفع" />
-            <TableColumn fx:id="amountC" prefWidth="103.0" text="المبلغ" />
-            <TableColumn fx:id="amountRC" prefWidth="118.0" text="المبلغ المدفوع" />
+            <TableColumn fx:id="nbrseanceC" prefWidth="109.0" text="نوع العرض" />
+            <TableColumn fx:id="datePC" prefWidth="161.0" text="تاريخ الدفع" />
+            <TableColumn fx:id="amountC" prefWidth="111.0" text="المبلغ" />
+            <TableColumn fx:id="amountRC" prefWidth="163.0" text="المبلغ المدفوع" />
          </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="667.0" layoutY="79.0" prefHeight="34.0" prefWidth="653.0" styleClass="pantable" stylesheets="@../style/style.css" text="سجل الدفع" AnchorPane.leftAnchor="680.0" AnchorPane.rightAnchor="20.0">

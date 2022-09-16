@@ -16,12 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Service.FollowService;
-import schoolmanager.BackEnd.Service.PaiementService;
 import schoolmanager.BackEnd.Service.SeanceService;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*import net.sf.jasperreports.engine.JRException;
@@ -44,7 +42,7 @@ public class PaiementSeancesController implements Initializable {
     @FXML
     private TableView<?> seanceTable;
     @FXML
-    private Label amuntCL, idL;
+    private Label amuntCL, idL,idL1;
 
     @FXML
     public static Label amuntCLStatic;
@@ -109,44 +107,54 @@ public class PaiementSeancesController implements Initializable {
         table.setItems(listSeance);
     }
 
+    private void updateIdPaiementofFollow(){
+        for (Seance seance : list) {
+            Follow f = new Follow();
+            f.setIdStudent(p.getStd().getId());
+            f.setIdSeance(seance.getId());
+            f.setIdPaiement(p.getId());
+            f.setStatus(1);
+            f.PresentFollow();
+            SeanceService.updatePaiementInFollow(f);
+            FollowService.updateFollow(f,"status");
+        }
+    }
 
     @FXML
     private void pay(ActionEvent event) {
-        int nbr= SeanceService.countSeanceOfPaiment(p.getId());
-        for (Seance seance : list) {
-            seance.PresentSeance();
-            seance.setIdPaiement(p.getId());
-            SeanceService.updatePaiementSeance(seance);
-            Follow f = new Follow();
-            f.setStatus(1);
-            f.setIdStudent(p.getStd().getId());
-            f.setIdSeance(seance.getId());
-            FollowService.updateFollow(f,"status");
-        }
+        int nbr= SeanceService.countPaidSeances(p.getId());
         nbr=nbr+list.size();
         p.setNbrSeance(nbr);
         switch (p.getTypeOfOffer().toLowerCase()){
             case "vip":{
                 if(nbr<=2){
+                    updateIdPaiementofFollow();
                     SeanceService.updateNbrSeanceInPaiement(p);
+                }else{
+                    CommunController.alert("عملية الدفع مقفلة ");
                 }
                 break;
             }
             case "simple":{
                     if(nbr<=4){
+                        updateIdPaiementofFollow();
                         SeanceService.updateNbrSeanceInPaiement(p);
+                    }else{
+                        CommunController.alert("عملية الدفع مقفلة ");
                     }
                 break;
             }
             case "double":{
                 if(nbr<=8){
+                    updateIdPaiementofFollow();
                     SeanceService.updateNbrSeanceInPaiement(p);
+                }else{
+                    CommunController.alert("عملية الدفع مقفلة ");
                 }
                 break;
             }
         }
         refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, p.getStd(),p.getGrp());
-
     }
 
     @FXML
@@ -163,9 +171,10 @@ public class PaiementSeancesController implements Initializable {
         std = paiement.getStd();
         group = paiement.getGrp();
         idL.setText(idL.getText() + " " + p.getId());
+        idL1.setText(idL.getText() + " " + p.getAround());
         amountRound = paiement.getAmount();
         priceSeance = CommunController.getAmountSeance(paiement);
-        long nbrSeancePaid= SeanceService.getIdSeanceByIdPaiement(paiement.getId());
+        long nbrSeancePaid= SeanceService.countPaidSeances(paiement.getId());
         if(nbrSeancePaid!=0){
             float amountC=paiement.getAmountC()-priceSeance*nbrSeancePaid;
             amuntCL.setText(amountC + " Da");

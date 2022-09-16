@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class Follow  {
 
-    private long id,idStudent,idSeance;
+    private long id,idStudent,idSeance,idPaiement;
     private int presenceStudent,status;
 
     public Follow() {
@@ -85,6 +85,10 @@ public class Follow  {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public long getIdPaiement() {return idPaiement;}
+
+    public void setIdPaiement(long idPaiement) {this.idPaiement = idPaiement;}
 
     public void PresentFollow() {
         try {

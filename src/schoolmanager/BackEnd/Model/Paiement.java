@@ -8,6 +8,7 @@ public class Paiement  extends Person{
     private String date,groupName,OfferName,typeOfOffer;
     private float amount,amountC;
     private int nbrSeance;
+    private String  around;
 
     public int getNbrSeance() {
         return nbrSeance;
@@ -15,6 +16,14 @@ public class Paiement  extends Person{
 
     public void setNbrSeance(int nbrSeance) {
         this.nbrSeance = nbrSeance;
+    }
+
+    public String getAround() {
+        return around;
+    }
+
+    public void setAround(String around) {
+        this.around = around;
     }
 
     public Paiement() {}

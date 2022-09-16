@@ -92,16 +92,17 @@ public class SeanceService {
         }
     }
 
-    public static Results.Rstls updatePaiementSeance(Seance seance) {
-        if (seance == null) {
+    public static Results.Rstls updatePaiementInFollow(Follow f) {
+        if (f == null) {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE "
-                    + " seance SET idPaiement = ? "
-                    + " WHERE id = ? ");
-            stm.setLong(1, seance.getIdPaiement());
-            stm.setLong(2, seance.getId());
+                    + " follow SET idPaiement = ? "
+                    + " WHERE idStudent = ? and idSeance=? ");
+            stm.setLong(1, f.getIdPaiement());
+            stm.setLong(2, f.getIdStudent());
+            stm.setLong(3, f.getIdSeance());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_UPDATED;
@@ -161,8 +162,9 @@ public class SeanceService {
         return id;
     }
 
-    public static int countSeanceOfPaiment(long idPaiement) {
-        String query = "SELECT count(*) as 'nbrSeance' FROM seance where idPaiement=" + idPaiement;
+    //for get the nbr of seance  paid
+    public static int countPaidSeances(long idPaiement) {
+        String query = "SELECT count(*) as 'nbrSeance' FROM follow where idPaiement=" + idPaiement;
         int id = 0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -206,14 +208,14 @@ public class SeanceService {
                         " from seance S , groupe G , follow F  " +
                         " where S.presenceTeacher=1 and F.idSeance= S.id and S.idGroupe=G.id " +
                         " and G.id=" + paiement.getGrp().getId()
-                        + " and F.idStudent=" + paiement.getStd().getId() + " and F.status=0 group by S.id ";
+                        + " and F.idStudent=" + paiement.getStd().getId() + "  group by S.id order by S.id DESC ";
             } else {
                 query = "select S.id,S.presenceTeacher,S.idTeacher,F.presenceStudent,S.idRoom," +
                         "S.day,S.idGroupe,F.status " +
                         " from seance S , groupe G , follow F  " +
                         " where S.presenceTeacher=1 and F.idSeance= S.id and S.idGroupe=G.id " +
-                        " and G.id=" + paiement.getGrp().getId() + " and S.idPaiement=" + paiement.getId()
-                        + " and F.idStudent=" + paiement.getStd().getId() + " and F.status=1 group by S.id ";
+                        " and G.id=" + paiement.getGrp().getId() + " and F.idPaiement=" + paiement.getId()
+                        + " and F.idStudent=" + paiement.getStd().getId() + " and F.status=1 group by S.id order by S.id DESC ";
             }
         }
         ObservableList<Seance> listOffers = FXCollections.observableArrayList(new Seance());
@@ -260,9 +262,11 @@ public class SeanceService {
                         seance.setTest1("غائب");
                     }
                     //TODO CHECK THIS
+/*
                     seance.setPresenceStudent(rs.getInt("status"));
-                    if (status == 0) {
-                        CheckBox ch = new CheckBox();
+*/
+                    CheckBox ch = new CheckBox();
+                    if (rs.getInt("status") == 0) {
                         ch.selectedProperty().addListener(new ChangeListener<Boolean>() {
                             @Override
                             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -296,8 +300,11 @@ public class SeanceService {
                                 }
                             }
                         });
-                        seance.setPstatus(ch);
+                    } else {
+                        ch.setSelected(true);
+                        ch.setDisable(true);
                     }
+                    seance.setPstatus(ch);
                 }
                 listOffers.add(seance);
             }

@@ -21,7 +21,7 @@ public class MainPrinter {
 
     final  static String printerName="XP-80";
 
-    public static void Print(Paiement paiement) throws CharConversionException, IOException {
+    public static void Print(Paiement paiement) throws IOException {
         PrintService printService = PrinterOutputStream.getPrintServiceByName(printerName);
         PrinterOutputStream printerOutputStream = new PrinterOutputStream(printService);
         try (EscPos escpos = new EscPos(printerOutputStream)) {

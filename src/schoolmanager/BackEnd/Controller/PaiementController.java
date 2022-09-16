@@ -78,7 +78,7 @@ public class PaiementController implements Initializable {
     private final MenuItem PrinteP = new MenuItem("طباعة ");
     private final MenuItem showP = new MenuItem("عرض  ");
 
-    private String url1 = "";
+    private final String url1 = "";
 
     /**
      * Initializes the controller class.adminضa
@@ -118,7 +118,7 @@ public class PaiementController implements Initializable {
             if (paiement != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (event.getClickCount() == 2) {
-                        paiement.setNbrSeance(SeanceService.countSeanceOfPaiment(paiement.getId()));
+                        paiement.setNbrSeance(SeanceService.countPaidSeances(paiement.getId()));
                         if (CommunController.getnbrSeanceInOffer(paiement) == paiement.getNbrSeance()) {
                             CommunController.alert("عملية الدفع مقفلة");
                         } else {
@@ -208,7 +208,7 @@ public class PaiementController implements Initializable {
                 new PropertyValueFactory<>("groupName")
         );
         Column2.setCellValueFactory(
-                new PropertyValueFactory<>("OfferName")
+                new PropertyValueFactory<>("around")
         );
         Column3.setCellValueFactory(
                 new PropertyValueFactory<>("date")
@@ -262,6 +262,8 @@ public class PaiementController implements Initializable {
         if (std.getId() != 0) {
             showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/NewPaiement.fxml",
                     " عملية دفع جديدة ", "NewPaiementController");
+        }else{
+            CommunController.alert("عذرا. اختر تلميذ");
         }
     }
 
