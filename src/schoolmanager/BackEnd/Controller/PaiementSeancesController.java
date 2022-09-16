@@ -171,7 +171,7 @@ public class PaiementSeancesController implements Initializable {
         std = paiement.getStd();
         group = paiement.getGrp();
         idL.setText(idL.getText() + " " + p.getId());
-        idL1.setText(idL.getText() + " " + p.getAround());
+        idL1.setText(idL1.getText() + " " + p.getAround());
         amountRound = paiement.getAmount();
         priceSeance = CommunController.getAmountSeance(paiement);
         long nbrSeancePaid= SeanceService.countPaidSeances(paiement.getId());

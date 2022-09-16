@@ -58,6 +58,7 @@ public class UpdatePaiementController extends PaiementController implements Init
     private TextField OfferN;
     @FXML
     private JFXComboBox<Group> GroupCmb;
+    @FXML
     private JFXComboBox<String> aroundCmb;
 
     private UiStudentPaiement uistd = new UiStudentPaiement();
@@ -77,9 +78,10 @@ public class UpdatePaiementController extends PaiementController implements Init
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // aroundCmb.setItems(around);
-        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb);
+        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb);
         prg.setProgress(0);
+        aroundCmb.getItems().clear();
+        aroundCmb.setItems(around);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
@@ -101,6 +103,7 @@ public class UpdatePaiementController extends PaiementController implements Init
         paiement = pa;
         fullName.setText(std1.getFirstName() + " " + std1.getLastName());
         fullName.setEditable(false);
+        aroundCmb.getSelectionModel().select(pa.getAround());
         ObservableList<Group> grouplist = BelongsService.getGroupOfStudent(std1);
         GroupCmb.getItems().addAll(grouplist);
         GroupCmb.getSelectionModel().select(grp1);
@@ -136,6 +139,7 @@ public class UpdatePaiementController extends PaiementController implements Init
     @FXML
     private void update(ActionEvent event) throws InterruptedException, IOException {
         Paiement paiementUpdated = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
+        paiementUpdated.setAround(aroundCmb.getSelectionModel().getSelectedItem().toString());
         paiementUpdated.setStd(std1);
         paiementUpdated.setId(paiement.getId());
         Seance s = PaiementService.PaiementHasAseans(paiementUpdated);
@@ -155,7 +159,7 @@ public class UpdatePaiementController extends PaiementController implements Init
             CommunController.alert("تعذر تعديل على عملية الدفع");
         } else {
             //editProgressBar();
-            CommunController.alert("تم تعديل  عملية دفع الحالية ");
+            //CommunController.alert("تم تعديل  عملية دفع الحالية ");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
             Parent ui = loader.load();
@@ -169,6 +173,7 @@ public class UpdatePaiementController extends PaiementController implements Init
             } else {
                 thirdStage.setAlwaysOnTop(true);
                 thirdStage.setAlwaysOnTop(false);
+                thirdStage.hide();
             }
         }
     }

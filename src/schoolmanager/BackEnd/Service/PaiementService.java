@@ -30,7 +30,7 @@ public class PaiementService {
         }
         try {
             PreparedStatement stm = con.prepareStatement(""
-                    + "insert into paiement (idStudent,idGroupe,day,amount,amountC,type,nbrSeance)"
+                    + "insert into paiement (idStudent,idGroupe,day,amount,amountC,type,nbrSeance,around)"
                     + " values (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setLong(1, paiement.getStd().getId());
             stm.setLong(2, paiement.getGrp().getId());
@@ -38,7 +38,8 @@ public class PaiementService {
             stm.setFloat(4, paiement.getAmount());
             stm.setFloat(5, paiement.getAmountC());
             stm.setString(6, paiement.getTypeOfOffer());
-            stm.setInt(7, paiement.getNbrSeance());
+            stm.setString(7, paiement.getAround());
+            stm.setInt(6, paiement.getNbrSeance());
             stm.executeUpdate();
             ResultSet rs = stm.getGeneratedKeys();
             if (rs.next()) {
@@ -59,14 +60,15 @@ public class PaiementService {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " paiement SET idStudent = ? , idGroupe = ?"
-                    + ", day = ? ,amount = ? , amountC=?  "
+                    + ", day = ? ,amount = ? , amountC=? , around = ? "
                     + " WHERE id = ? ");
             stm.setLong(1, paiement.getStd().getId());
             stm.setLong(2, paiement.getGrp().getId());
             stm.setString(3, paiement.getDate());
             stm.setFloat(4, paiement.getAmount());
             stm.setFloat(5, paiement.getAmountC());
-            stm.setLong(6, paiement.getId());
+            stm.setString(6, paiement.getAround());
+            stm.setLong(7, paiement.getId());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_UPDATED;

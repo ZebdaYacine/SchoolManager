@@ -80,7 +80,7 @@
                   <Font name="Times New Roman" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXComboBox id="aroundCmb" focusColor="#0077cc" labelFloat="true" layoutX="16.0" layoutY="102.0" prefHeight="30.0" prefWidth="360.0" promptText="الدورة" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <JFXComboBox fx:id="aroundCmb1" focusColor="#0077cc" labelFloat="true" layoutX="16.0" layoutY="102.0" prefHeight="30.0" prefWidth="360.0" promptText="الدورة" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>
         <!--<<<<<<< HEAD-->

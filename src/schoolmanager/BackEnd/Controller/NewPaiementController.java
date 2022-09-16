@@ -63,7 +63,8 @@ public class NewPaiementController extends PaiementController implements Initial
     private TextField OfferN;
     @FXML
     private JFXComboBox<Group> GroupCmb;
-    private JFXComboBox<String> aroundCmb;
+    @FXML
+    private JFXComboBox<String> aroundCmb1;
     private UiStudentPaiement uistd = new UiStudentPaiement();
 
     @FXML
@@ -81,9 +82,10 @@ public class NewPaiementController extends PaiementController implements Initial
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb);
+        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb1);
         prg.setProgress(0);
-        aroundCmb.setItems(around);
+        aroundCmb1.getItems().clear();
+        aroundCmb1.setItems(around);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
@@ -138,6 +140,7 @@ public class NewPaiementController extends PaiementController implements Initial
                 getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "nameType"));
         paiement.setNbrSeance(0);
         paiement.setStd(std1);
+        paiement.setAround(aroundCmb1.getSelectionModel().getSelectedItem());
         long lastID = PaiementService.addPaiement(paiement);
         paiement.setId(lastID);
         paiement.setTypeOfOffer(getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "nameType"));

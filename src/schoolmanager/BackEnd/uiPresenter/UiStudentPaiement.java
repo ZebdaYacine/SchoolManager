@@ -21,16 +21,19 @@ public class UiStudentPaiement extends TestingMethods {
     private TextField amountP;
     private JFXDatePicker dateP;
     private JFXComboBox<Group> groupCB;
+    private JFXComboBox<String> aroundCB;
 
     public UiStudentPaiement() {
     }
 
-    public UiStudentPaiement(TextField amount, TextField amountP, JFXDatePicker dateP, JFXComboBox<Group> groupCB) {
+    public UiStudentPaiement(TextField amount, TextField amountP, JFXDatePicker dateP, JFXComboBox<Group> groupCB,JFXComboBox<String> aroundCB) {
         this.amount = amount;
         this.amountP = amountP;
         this.dateP = dateP;
         this.groupCB = groupCB;
+        this.aroundCB=aroundCB;
     }
+
 
     public TextField getAmount() {
         return amount;
