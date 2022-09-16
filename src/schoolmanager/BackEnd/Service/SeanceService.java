@@ -208,7 +208,7 @@ public class SeanceService {
                         " from seance S , groupe G , follow F  " +
                         " where S.presenceTeacher=1 and F.idSeance= S.id and S.idGroupe=G.id " +
                         " and G.id=" + paiement.getGrp().getId()
-                        + " and F.idStudent=" + paiement.getStd().getId() + "  group by S.id order by S.id DESC ";
+                        + " and F.idStudent=" + paiement.getStd().getId() + "  group by S.id order by F.id DESC ";
             } else {
                 query = "select S.id,S.presenceTeacher,S.idTeacher,F.presenceStudent,S.idRoom," +
                         "S.day,S.idGroupe,F.status " +

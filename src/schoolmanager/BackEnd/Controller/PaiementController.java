@@ -5,6 +5,7 @@
  */
 package schoolmanager.BackEnd.Controller;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,13 +21,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Offer;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.ReceiptPrinter.MainPrinter;
-import schoolmanager.BackEnd.Service.BelongsService;
-import schoolmanager.BackEnd.Service.PaiementService;
-import schoolmanager.BackEnd.Service.SeanceService;
-import schoolmanager.BackEnd.Service.StudentService;
+import schoolmanager.BackEnd.Service.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +57,8 @@ public class PaiementController implements Initializable {
     public static TableView<?> PaiementTable1;
     @FXML
     private TextField firstName, phone;
+    @FXML
+    private JFXComboBox<Group> GroupCmb;
     @FXML
     private TableColumn<?, ?> firstNameC, lastNameC, phone1C, phone2C, sectionNameC;
     @FXML
@@ -93,6 +94,9 @@ public class PaiementController implements Initializable {
         amountRC1 = amountRC;
         nbrseanceC1 = nbrseanceC;
         std = new Student();
+        GroupCmb.getSelectionModel().select(null);
+        ObservableList<Group> grouplist = GroupService.getAllGroups(null,"all");
+        GroupCmb.setItems(grouplist);
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
         contextMenu.getItems().addAll(showGroups);
@@ -142,6 +146,19 @@ public class PaiementController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    private void onchangecontent(ActionEvent event) {
+        if (GroupCmb.getSelectionModel().getSelectedItem().getId()!=0) {
+            Group group=GroupCmb.getSelectionModel().getSelectedItem();
+            std.setGroup(group.getId());
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
+                    phone2C, sectionNameC, std, "group");
+        }else{
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
+                    sectionNameC, new Student(), "student");
+        }
     }
 
     private void showPaiementLayout(Object obj, String url, String titleLayout, String object) {
@@ -233,11 +250,10 @@ public class PaiementController implements Initializable {
             pr = StudentService.getAllStudents("", new Student());
         } else if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
-        } else {
+        }else if (type.equals("group")) {
+            pr = BelongsService.getStudentsOfGroup(std.getGroup());
+        }else {
             pr = BelongsService.searchStudentByName(std);
-        }
-        for (Student s : pr) {
-            System.out.println(s.getSectionName());
         }
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
@@ -330,7 +346,6 @@ public class PaiementController implements Initializable {
             std.setPhone1(phn);
             std.setPhone2(phn);
         }
-        std.PresentObject();
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                 phone2C, sectionNameC, std, "");
     }

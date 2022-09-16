@@ -52,6 +52,14 @@ public class Paiement  extends Person{
         this.amountC = amountC;
     }
 
+    public Paiement( Group grp,String date, float amount, float amountC,String around) {
+        this.grp = grp;
+        this.date = date;
+        this.amount = amount;
+        this.amountC = amountC;
+        this.around=around;
+    }
+
     public Paiement(long id, Student std, Group grp,String type, String date, float amount, float amountC) {
         this.id = id;
         this.std = std;

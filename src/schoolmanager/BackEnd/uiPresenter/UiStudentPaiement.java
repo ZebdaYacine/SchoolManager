@@ -21,7 +21,23 @@ public class UiStudentPaiement extends TestingMethods {
     private TextField amountP;
     private JFXDatePicker dateP;
     private JFXComboBox<Group> groupCB;
-    private JFXComboBox<String> aroundCB;
+    private static JFXComboBox<String> aroundCB;
+
+    public TextField getType() {
+        return type;
+    }
+
+    public void setType(TextField type) {
+        this.type = type;
+    }
+
+    public JFXComboBox<String> getAroundCB() {
+        return aroundCB;
+    }
+
+    public void setAroundCB(JFXComboBox<String> aroundCB) {
+        this.aroundCB = aroundCB;
+    }
 
     public UiStudentPaiement() {
     }
@@ -68,7 +84,7 @@ public class UiStudentPaiement extends TestingMethods {
     }
 
     public static boolean UiStudentInputIsValid(UiStudentPaiement uistd) {
-        boolean bamount = false,bamountP = false,bDateP=false,groupeB=false;
+        boolean bamount = false,bamountP = false,bDateP=false,groupeB=false,aroundB = false;
         String amountP=uistd.getAmountP().getText();
         String amount=uistd.getAmount().getText();
         String date=uistd.dateP.toString();
@@ -98,7 +114,13 @@ public class UiStudentPaiement extends TestingMethods {
             groupeB = true;*/
         }
 
-        return bamount && bamountP && bDateP && groupeB;
+        if(aroundCB.getSelectionModel().getSelectedItem().isEmpty()){
+            aroundB=false;
+        }else{
+            aroundB=true;
+        }
+
+        return bamount && bamountP && bDateP && groupeB  && aroundB;
     }
 
     public void clearInputs() {

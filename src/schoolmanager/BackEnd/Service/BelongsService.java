@@ -147,8 +147,9 @@ public class BelongsService {
 
     public static ObservableList<Student> searchStudentByName(Student student) {
         String query;
-        query = "SELECT * FROM student where firstName LIKE '" + student.getFirstName() + "%'"
-                + " and  ( phone1 LIKE'" + student.getPhone1() + "%' or "
+        query = "SELECT * FROM student where (firstName LIKE '" + student.getFirstName() + "%' " +
+                "or lastName LIKE '"+student.getFirstName()+"%')"
+                + " and ( phone1 LIKE'" + student.getPhone1() + "%' or "
                 + "phone2 LIKE'" + student.getPhone2() + "%')";
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
@@ -162,7 +163,7 @@ public class BelongsService {
                 std.setLastName(rs.getString("lastName"));
                 std.setPhone1(rs.getString("phone1"));
                 std.setPhone2(rs.getString("phone2"));
-                student.setSectionName(
+                std.setSectionName(
                         ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
                 listStudents.add(std);
             }

@@ -107,16 +107,25 @@ public class GroupService {
         return listGroups;
     }
 
-    public static ObservableList<Group> getAllGroupsOnOffer(Offer o) {
-        String query;
-        query = "SELECT * FROM groupe where idOffer = " + o.getId();
+    public static ObservableList<Group> getAllGroups(Offer o, String att) {
+        String query = null;
+        if(att.equals("offer")){
+            query = "SELECT * FROM groupe where idOffer = " + o.getId();
+        }else if(att.equals("all")){
+            query = "SELECT * FROM groupe ";
+        }
         ObservableList<Group> listGroups = FXCollections.observableArrayList(new Group());
         listGroups.remove(0);
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
+            Group group = new Group();
+            if(att.equals("all")){
+                group.setNameGroup("عرض الكل");
+                listGroups.add(group);
+            }
             while (rs.next()) {
-                Group group = new Group();
+                 group = new Group();
                 group.setId(rs.getInt("id"));
                 group.setNameGroup(rs.getString("name"));
                 group.setIdOffer(rs.getInt("idOffer"));

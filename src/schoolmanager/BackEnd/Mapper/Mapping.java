@@ -132,7 +132,7 @@ public abstract class Mapping {
             Group grp =  uistd.getGroupCB().getSelectionModel().getSelectedItem();
           return new Paiement(grp,uistd.getDateP().getValue().toString(),
                     Float.parseFloat(uistd.getAmount().getText())
-          ,Float.parseFloat(uistd.getAmountP().getText()));
+          ,Float.parseFloat(uistd.getAmountP().getText()),uistd.getAroundCB().getSelectionModel().getSelectedItem());
         } else {
             return null;
         }

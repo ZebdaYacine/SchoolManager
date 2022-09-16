@@ -16,6 +16,15 @@ public class Student extends Person {
     private String sectionName;
     private float currentAmount;
     private String status;
+    private long group;
+
+    public long getGroup() {
+        return group;
+    }
+
+    public void setGroup(long group) {
+        this.group = group;
+    }
 
     public Student() {
     }

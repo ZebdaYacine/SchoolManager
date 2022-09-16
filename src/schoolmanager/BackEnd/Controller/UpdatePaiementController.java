@@ -139,7 +139,6 @@ public class UpdatePaiementController extends PaiementController implements Init
     @FXML
     private void update(ActionEvent event) throws InterruptedException, IOException {
         Paiement paiementUpdated = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
-        paiementUpdated.setAround(aroundCmb.getSelectionModel().getSelectedItem().toString());
         paiementUpdated.setStd(std1);
         paiementUpdated.setId(paiement.getId());
         Seance s = PaiementService.PaiementHasAseans(paiementUpdated);

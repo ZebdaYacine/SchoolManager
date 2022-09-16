@@ -250,7 +250,7 @@ public class SeanceController implements Initializable {
         Offer off = OfferCmb.getSelectionModel().getSelectedItem();
         if (off != null) {
             GroupCmb.getSelectionModel().select(null);
-            grouplist = GroupService.getAllGroupsOnOffer(off);
+            grouplist = GroupService.getAllGroups(off,"offer");
             GroupCmb.setItems(grouplist);
         }
 
