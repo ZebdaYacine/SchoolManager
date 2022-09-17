@@ -23,6 +23,7 @@ import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Paiement;
+import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.ReceiptPrinter.MainPrinter;
 import schoolmanager.BackEnd.Service.*;
@@ -81,7 +82,7 @@ public class PaiementController implements Initializable {
     private final ContextMenu contextMenu1 = new ContextMenu();
     private final MenuItem PrinteP = new MenuItem("طباعة ");
     private final MenuItem showP = new MenuItem("عرض  ");
-
+    private final MenuItem deleteP = new MenuItem("حذف  ");
     private static boolean b1 = false;
 
     /**
@@ -103,7 +104,7 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
         contextMenu.getItems().addAll(showGroups);
-        contextMenu1.getItems().addAll(PrinteP, showP);
+        contextMenu1.getItems().addAll(PrinteP, showP,deleteP);
         b1 = false;
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
@@ -176,6 +177,17 @@ public class PaiementController implements Initializable {
                         showPaiementLayout(paiement, "/schoolmanager/FrontEnd/layout/ShowPaiement.fxml", " جدول الحصص ",
                                 "ShowPaiementController");
                     });
+                    deleteP.setOnAction(event1 -> {
+                        boolean b =CommunController.confirm("هل أنت متاكد من حف عملية الدفع");
+                        if(b){
+                            Seance s = PaiementService.PaiementHasAseans(paiement);
+                            if(s.getId()==0){
+
+                            }else{
+                                CommunController.alert("لايمكن حذف هذه العميلة");
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -206,31 +218,26 @@ public class PaiementController implements Initializable {
                 case "SeanceNotPaidController": {
                     SeanceNotPaidController seanceNotPaidController = loader.getController();
                     seanceNotPaidController.setInputs((Student) obj);
-                    //TODO this is for show all seance
                     break;
                 }
                 case "PaiementSeancesController": {
                     PaiementSeancesController paiementSeancesController = loader.getController();
                     paiementSeancesController.setInput((Paiement) obj);
                     stage = thirdStage;
-                    //TODO this is for show student presence
                     break;
                 }
                 case "ShowPaiementController": {
                     ShowPaiementController showPaiementController = loader.getController();
                     showPaiementController.setInput((Paiement) obj);
                     stage = thirdStage;
-                    //TODO this is for show student presence
                     break;
                 }
                 case "NewPaiementController": {
-                    //TODO this is for add or update a paiement
                     NewPaiementController newPaiementController = loader.getController();
                     newPaiementController.setInputsNewPaiement((Student) obj);
                     break;
                 }
                 case "UpdatePaiementController": {
-                    //TODO this is for add or update a paiement
                     UpdatePaiementController updatePaiementController = loader.getController();
                     updatePaiementController.setInputsUpdatePaiement((Paiement) obj);
                     break;
@@ -319,25 +326,7 @@ public class PaiementController implements Initializable {
         }
     }
 
-    @FXML
-    private void update(ActionEvent event) {
-        /* if (std.getId() != 0) {
-            Student newStd = Mapping.getObjectStudentFromUiStudent(uistd);
-            newStd.setId(std.getId());
-            Optional<ButtonType> option = alertUpdate.showAndWait();
-            if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.updateStudent(newStd);
-                if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
-                    CommunController.alert(r.toString());
-                } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-                }
-                std = new Student();
-                uistd.clearInputs();
-            }
-        }*/
-    }
+
 
     @FXML
     private void delete(ActionEvent event) {
@@ -357,12 +346,7 @@ public class PaiementController implements Initializable {
         }*/
     }
 
-    @FXML
-    private void selectStudent(MouseEvent event) {
-    }
 
-    public void setInputs(Group grp) {
-    }
 
     @FXML
     private void searchByNameAndPhone(KeyEvent event) {

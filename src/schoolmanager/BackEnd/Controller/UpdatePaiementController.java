@@ -70,18 +70,16 @@ public class UpdatePaiementController extends PaiementController implements Init
                     "1","2","3","4","5","6","7","8","9","10","11","12"
             );
 
-    @FXML
-    private ProgressIndicator prg;
+
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb);
-        prg.setProgress(0);
         aroundCmb.getItems().clear();
         aroundCmb.setItems(around);
+        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
@@ -112,30 +110,6 @@ public class UpdatePaiementController extends PaiementController implements Init
         amountP.setText(pa.getAmountC() + "");
     }
 
-    private void editProgressBar() {
-        prg.setVisible(true);
-        new Thread(() -> {
-            double value = prg.getProgress();
-            while (value <= 1) {
-                value += 0.1;
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                prg.setProgress(value);
-            }
-            prg.setProgress(value);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            prg.setVisible(false);
-            prg.setProgress(0);
-        }).start();
-    }
-
     @FXML
     private void update(ActionEvent event) throws InterruptedException, IOException {
         Paiement paiementUpdated = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
@@ -157,8 +131,6 @@ public class UpdatePaiementController extends PaiementController implements Init
         if (resulat.toString().equals("OBJECT_NOT_UPDATED")) {
             CommunController.alert("تعذر تعديل على عملية الدفع");
         } else {
-            //editProgressBar();
-            //CommunController.alert("تم تعديل  عملية دفع الحالية ");
             refrechPaiement(PaiementTable1, groupC1, offerC1, datePC1, amountC1, amountRC1, nbrseanceC1, std1);
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/schoolmanager/FrontEnd/layout/PaiementSeances.fxml"));
             Parent ui = loader.load();

@@ -62,7 +62,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="studentTable" layoutX="20.0" layoutY="110.0" onMouseClicked="#selectStudent" prefHeight="510.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
+      <TableView fx:id="studentTable" layoutX="20.0" layoutY="110.0" prefHeight="510.0" prefWidth="640.0" stylesheets="@../style/Table_Gestion_Css.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
          <columns>
             <TableColumn fx:id="firstNameC" prefWidth="110.0" text="اللقب" />
             <TableColumn fx:id="lastNameC" prefWidth="117.99996948242188" text="الإسم" />

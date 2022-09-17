@@ -368,9 +368,6 @@ public class SeanceService {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Seance seance = new Seance();
-/*
-                seance.setId(rs.getLong("id"));
-*/
                 seance.setIdTeacher(rs.getLong("idTeacher"));
                 Teacher t = new Teacher(seance.getIdTeacher());
                 t = searchTeacherById(t).get(0);

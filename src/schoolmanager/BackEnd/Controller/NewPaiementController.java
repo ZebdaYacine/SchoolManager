@@ -82,10 +82,10 @@ public class NewPaiementController extends PaiementController implements Initial
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb1);
         prg.setProgress(0);
         aroundCmb1.getItems().clear();
         aroundCmb1.setItems(around);
+        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb1);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
