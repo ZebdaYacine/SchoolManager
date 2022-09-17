@@ -341,7 +341,6 @@ public class SeanceService {
     public static boolean isPaid( long idStd,long idSnc) {
         String query = "SELECT count(*) as nbr FROM schoolmanager.follow " +
                 "where idStudent="+idStd+" and idSeance="+idSnc+" and  idPaiement is not null";
-        System.out.println(query);
         int nbr=0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -355,6 +354,54 @@ public class SeanceService {
             ex.printStackTrace();
         }
         return nbr!=0;
+    }
+
+    public static ObservableList<Seance> getAllSeancesNoPaid(Paiement paiement) {
+        String query="select S.idRoom,S.idTeacher,S.day,S.presenceTeacher,F.presenceStudent " +
+                "from follow  F  , seance S where F.idSeance= S.id and F.idPaiement is NULL and " +
+                "S.idGroupe="+paiement.getGrp().getId()+" and F.idStudent="+paiement.getStd().getId();
+        System.out.println(query);
+        ObservableList<Seance> listOffers = FXCollections.observableArrayList(new Seance());
+        listOffers.remove(0);
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Seance seance = new Seance();
+/*
+                seance.setId(rs.getLong("id"));
+*/
+                seance.setIdTeacher(rs.getLong("idTeacher"));
+                Teacher t = new Teacher(seance.getIdTeacher());
+                t = searchTeacherById(t).get(0);
+                seance.setNameTeacher(t.getFirstName() + " " + t.getLastName());
+                seance.setIdRoom(rs.getLong("idRoom"));
+                Room r = new Room(seance.getIdRoom());
+                r = searchRoomById(r).get(0);
+                seance.setNameRoom(r.getName());
+                seance.setPresenceTeacher(rs.getInt("presenceTeacher"));
+                if (seance.getPresenceTeacher() == 1) {
+                    seance.setTest("حاضر");
+                } else {
+                    seance.setTest("غائب");
+                }
+                seance.setDate(rs.getString("day"));
+                if (paiement != null) {
+                    seance.setPresenceStudent(rs.getInt("presenceStudent"));
+                    if (seance.getPresenceStudent() == 1) {
+                        seance.setTest1("حاضر");
+                    } else {
+                        seance.setTest1("غائب");
+                    }
+                }
+                listOffers.add(seance);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listOffers;
     }
 
 

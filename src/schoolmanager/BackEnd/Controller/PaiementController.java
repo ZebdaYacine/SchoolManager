@@ -71,7 +71,7 @@ public class PaiementController implements Initializable {
     @FXML
     public static TableColumn<?, ?> offerC1, datePC1, groupC1, amountC1, amountRC1, nbrseanceC1;
 
-    private static Student std = new Student();
+    public static Student std = new Student();
     private static final Group group = new Group();
     private static Paiement paiement = new Paiement();
 
@@ -114,8 +114,13 @@ public class PaiementController implements Initializable {
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     studentTable.setContextMenu(contextMenu);
                     showGroups.setOnAction(event1 -> {
-                        showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/StudentPaiementHistory.fxml",
-                                "سجل الدفع", "StudentPaiementHistoryController");
+                        if(GroupCmb.getSelectionModel().getSelectedItem().getId()!=0){
+                            std.setGroup(GroupCmb.getSelectionModel().getSelectedItem());
+                            showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/SeanceNotPaid.fxml",
+                                    "سجل الدفع", "SeanceNotPaidController");
+                        }else{
+                            CommunController.alert("اختر فوج");
+                        }
                     });
                 }
             }
@@ -180,7 +185,8 @@ public class PaiementController implements Initializable {
     private void onchangecontent(ActionEvent event) {
         if (GroupCmb.getSelectionModel().getSelectedItem().getId() != 0) {
             Group group = GroupCmb.getSelectionModel().getSelectedItem();
-            std.setGroup(group.getId());
+            std.setGroup(group);
+            std.PresentObject();
             b1 = true;
             refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                     phone2C, sectionNameC, std, "group");
@@ -197,9 +203,9 @@ public class PaiementController implements Initializable {
             Parent uigrp = loader.load();
             Stage stage = SecodStage;
             switch (object) {
-                case "PaiementCouresController": {
-                    /* PaiementCouresController paiementCouresController = loader.getController();
-                    paiementCouresController.setInputs((Paiement) obj);*/
+                case "SeanceNotPaidController": {
+                    SeanceNotPaidController seanceNotPaidController = loader.getController();
+                    seanceNotPaidController.setInputs((Student) obj);
                     //TODO this is for show all seance
                     break;
                 }
@@ -281,7 +287,7 @@ public class PaiementController implements Initializable {
         } else if (type.equals("belongs")) {
             pr = BelongsService.getStudentsOfGroup(group.getId());
         } else if (type.equals("group")) {
-            pr = BelongsService.getStudentsOfGroup(std.getGroup());
+            pr = BelongsService.getStudentsOfGroup(std.getGroup().getId());
         } else {
             pr = BelongsService.searchStudentByName(std);
         }
@@ -381,5 +387,7 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                 phone2C, sectionNameC, std, "");
     }
+
+
 
 }

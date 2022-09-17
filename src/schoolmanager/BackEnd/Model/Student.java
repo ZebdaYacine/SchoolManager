@@ -16,7 +16,7 @@ public class Student extends Person {
     private String sectionName;
     private float currentAmount;
     private String status;
-    private long group;
+    private Group group;
     private int  nbr;
     private boolean  paid;
 
@@ -36,11 +36,11 @@ public class Student extends Person {
         this.nbr = nbr;
     }
 
-    public long getGroup() {
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroup(long group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 
