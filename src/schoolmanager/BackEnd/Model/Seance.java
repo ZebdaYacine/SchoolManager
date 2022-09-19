@@ -36,10 +36,11 @@ public class Seance {
         this.presenceStudent=pTeacher;
     }
 
-    public Seance(long idTeacher, long idRoom, long idGroupe) {
+    public Seance(long idTeacher, long idRoom, long idGroupe,String date) {
         this.idTeacher = idTeacher;
         this.idRoom = idRoom;
         this.idGroupe = idGroupe;
+        this.date=date;
     }
 
     public Seance(long id) {
@@ -84,6 +85,8 @@ public class Seance {
         this.pTeacher = pTeacher;
         this.presenceTeacher = presenceTeacher;
     }
+
+
 
     public String getpTeacher() {
         return pTeacher;

@@ -47,7 +47,7 @@ public class SeanceService {
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
             stm.setInt(4, 1);
-            stm.setString(5, getCurrentDateTime());
+            stm.setString(5, seance.getDate());
             stm.setLong(6, seance.getIdGroupe());
             stm.executeUpdate();
             ResultSet rs = stm.getGeneratedKeys();
@@ -77,14 +77,15 @@ public class SeanceService {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " seance SET idOffer = ?"
-                    + ", idTeacher = ? , idRoom = ? ,presenceTeacher=? , idGroupe = ? "
+                    + ", idTeacher = ? , idRoom = ? ,presenceTeacher=? , idGroupe = ? , day=? "
                     + " WHERE id = ? ");
             stm.setLong(1, GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer());
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
             stm.setInt(4, 1);
-            stm.setLong(5, seance.getIdGroupe());
-            stm.setLong(6, seance.getId());
+            stm.setString(5, seance.getDate());
+            stm.setLong(6, seance.getIdGroupe());
+            stm.setLong(7, seance.getId());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_UPDATED;

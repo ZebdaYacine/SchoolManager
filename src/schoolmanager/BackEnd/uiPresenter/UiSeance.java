@@ -35,12 +35,18 @@ public class UiSeance {
     public UiSeance() {
     }
 
-    public UiSeance( Label teacherErr, Label roomErr,  Label groupErr,JFXComboBox<Group> GroupCmb,JFXComboBox<Teacher> teacherCmb,   JFXComboBox<Room> RoomCmb) {
+    public UiSeance( Label teacherErr, Label roomErr,  Label groupErr,
+                     JFXComboBox<Group> GroupCmb,JFXComboBox<Teacher> teacherCmb,
+                     JFXComboBox<Room> RoomCmb,JFXDatePicker date,Label dateErr,JFXTimePicker time ,Label timeErr) {
         this.teacherErr = teacherErr;
         this.roomErr = roomErr;
         this.groupErr = groupErr;
         this.GroupCmb = GroupCmb;
         this.teacherCmb = teacherCmb;
+        this.date=date;
+        this.timeErr=timeErr;
+        this.time=time;
+        this.dateErr=dateErr;
         this.RoomCmb = RoomCmb;
     }
 
@@ -149,7 +155,7 @@ public class UiSeance {
     }
 
     public static boolean UiSeanceInputIsValid(UiSeance uiSeance) {
-        boolean bTeacher = false, bRoom = false, bGroup = false;
+        boolean bTeacher = false, bRoom = false,  bGroup = false;
 
         if (uiSeance.getTeacherCmb().getSelectionModel().getSelectedItem() == null) {
             uiSeance.getTeacherErr().setText("حدد الاستاذ");
@@ -172,7 +178,9 @@ public class UiSeance {
             uiSeance.getGroupErr().setVisible(false);
             bGroup = true;
         }
-        return bTeacher && bRoom  && bGroup ;
+
+
+        return bTeacher && bRoom && bGroup ;
     }
 
     public void clearInputs() {

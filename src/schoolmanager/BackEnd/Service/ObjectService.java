@@ -177,7 +177,7 @@ public class ObjectService  {
     public static String getCurrentDateTime(){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date();
-        return  new String(formatter.format(date));
+        return  formatter.format(date);
     }
 
 }

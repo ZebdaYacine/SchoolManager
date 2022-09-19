@@ -32,10 +32,12 @@ public abstract class Mapping {
         int pT = 0;
         if (a) {
 
+            String dt = uiseance.getDate().getValue().toString() + " " + uiseance.getTime().getValue().toString();
             return new Seance(
                     uiseance.getTeacherCmb().getSelectionModel().getSelectedItem().getId(),
                     uiseance.getRoomCmb().getSelectionModel().getSelectedItem().getId(),
-                    uiseance.getGroupCmb().getSelectionModel().getSelectedItem().getId()
+                    uiseance.getGroupCmb().getSelectionModel().getSelectedItem().getId(),
+                    dt
             );
         } else {
             return null;

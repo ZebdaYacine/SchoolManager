@@ -50,9 +50,17 @@ public class SeanceController implements Initializable {
     @FXML
     private JFXComboBox<Room> RoomCmb;
     @FXML
+    private JFXDatePicker dateSeance;
+    @FXML
+    private Label OfferErr;
+    @FXML
     private Label teacherErr;
     @FXML
     private Label roomErr;
+    @FXML
+    private Label dateErr;
+    @FXML
+    private Label timeErr;
     @FXML
     private TableView<?> studentPTable;
     @FXML
@@ -63,7 +71,8 @@ public class SeanceController implements Initializable {
     private Label groupErr;
     @FXML
     private TableColumn<?, ?> GroupC;
-
+    @FXML
+    private JFXTimePicker time;
 
     private UiSeance uiseance = new UiSeance();
     private Seance seanceSelect = new Seance();
@@ -119,15 +128,19 @@ public class SeanceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         PresentMenu.getItems().addAll(addPayItem, showProfile1);
         ApsentMenu.getItems().addAll(delItem, showProfile);
-        uiseance = new UiSeance( teacherErr, roomErr, groupErr,GroupCmb,  teacherCmb, RoomCmb);
+        uiseance = new UiSeance( teacherErr, roomErr, groupErr,GroupCmb,  teacherCmb, RoomCmb,dateSeance,dateErr,time,timeErr);
         roomlist = RoomService.getAllRoom();
         RoomCmb.getItems().addAll(roomlist);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime datTime = LocalDateTime.parse(ObjectService.getCurrentDateTime(),formatter);
+        dateSeance.setValue(datTime.toLocalDate());
+        time.setValue(datTime.toLocalTime());
         teacherlist = TeacherService.getAllTeachers();
         teacherCmb.getItems().addAll(teacherlist);
-        refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC, new Seance(), "");
+        refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
     }
 
-    public void refrechSeance(TableView table,  TableColumn Column2,
+    public void refrechSeance(TableView table, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5,
             Seance seance, String type) {
         ObservableList<Seance> pr = SeanceService.getAllSeances(null, 0);
@@ -135,6 +148,7 @@ public class SeanceController implements Initializable {
             seanceSelect = pr.get(0);
             refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, pr.get(0), "apsent");
             refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, pr.get(0), "present");
+
             Column2.setCellValueFactory(
                     new PropertyValueFactory<>("nameTeacher")
             );
@@ -187,7 +201,7 @@ public class SeanceController implements Initializable {
             } else {
                 uiseance.clearInputs();
             }
-            refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
+            refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
         }
     }
 
@@ -203,7 +217,7 @@ public class SeanceController implements Initializable {
                 } else {
                     uiseance.clearInputs();
                 }
-                refrechSeance(SeanceTable,TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
+                refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,new Seance(), "");
             }
         }
     }
@@ -218,6 +232,7 @@ public class SeanceController implements Initializable {
                 } else {
                     uiseance.clearInputs();
                 }
+                refrechSeance(SeanceTable,TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
             }
         }
         refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC, new Seance(), "");
@@ -268,7 +283,11 @@ public class SeanceController implements Initializable {
             teacherCmb.getSelectionModel().select(getIndexTeacher((int) seanceSelect.getIdTeacher()));
             RoomCmb.getSelectionModel().select(getIndexRoom((int) seanceSelect.getIdRoom()));
             GroupCmb.getSelectionModel().select(getIndexgroop((int) seanceSelect.getIdGroupe()));
-            uiseance = new UiSeance( teacherErr, roomErr,  groupErr, GroupCmb,  teacherCmb, RoomCmb);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime dattime = LocalDateTime.parse(seanceSelect.getDate(), formatter);
+            dateSeance.setValue(dattime.toLocalDate());
+            time.setValue(dattime.toLocalTime());
+            uiseance = new UiSeance( teacherErr, roomErr, groupErr,GroupCmb,  teacherCmb, RoomCmb,dateSeance,dateErr,time,timeErr);
         }
     }
 
