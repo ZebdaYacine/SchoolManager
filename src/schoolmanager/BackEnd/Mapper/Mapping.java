@@ -128,8 +128,7 @@ public abstract class Mapping {
         boolean a = UiStudentPaiement.UiStudentInputIsValid(uistd);
         if (a) {
             Group grp =  uistd.getGroupCB().getSelectionModel().getSelectedItem();
-          return new Paiement(grp,uistd.getDateP().getValue().toString(),
-                    Float.parseFloat(uistd.getAmount().getText())
+          return new Paiement(grp, Float.parseFloat(uistd.getAmount().getText())
           ,Float.parseFloat(uistd.getAmountP().getText()),uistd.getAroundCB().getSelectionModel().getSelectedItem());
         } else {
             return null;

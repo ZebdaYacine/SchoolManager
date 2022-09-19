@@ -20,19 +20,19 @@
          </font>
       </Label>
       <JFXComboBox fx:id="teacherCmb" focusColor="#0077cc" labelFloat="true" layoutX="32.0" layoutY="50.0" onAction="#onchangecontent" prefHeight="30.0" prefWidth="200.0" promptText="الأستاذ" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="50.0" />
-      <Label fx:id="teacherErr" layoutX="40.0" layoutY="181.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="135.0">
+      <Label fx:id="teacherErr" layoutX="31.0" layoutY="96.0" prefHeight="20.0" prefWidth="65.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="96.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <JFXComboBox fx:id="RoomCmb" focusColor="#0077cc" labelFloat="true" layoutX="32.0" layoutY="237.0" prefHeight="30.0" prefWidth="200.0" promptText="القاعة" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="237.0" />
-      <Label fx:id="roomErr" layoutX="37.0" layoutY="260.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="205.0">
+      <Label fx:id="roomErr" layoutX="29.0" layoutY="285.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="285.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" labelFloat="true" layoutX="28.0" layoutY="146.0" prefHeight="30.0" prefWidth="200.0" promptText="الفوج" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="146.0" />
-      <Label fx:id="groupErr" layoutX="30.0" layoutY="269.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="275.0">
+      <Label fx:id="groupErr" layoutX="28.0" layoutY="185.0" styleClass="labels_err" stylesheets="@../style/style.css" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="185.0">
          <font>
             <Font size="14.0" />
          </font>

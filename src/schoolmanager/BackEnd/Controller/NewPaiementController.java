@@ -51,8 +51,6 @@ public class NewPaiementController extends PaiementController implements Initial
     @FXML
     private TextField fullName;
     @FXML
-    private JFXDatePicker dateP;
-    @FXML
     private TextField amount;
     @FXML
     private TextField amountP;
@@ -82,7 +80,7 @@ public class NewPaiementController extends PaiementController implements Initial
         prg.setProgress(0);
         aroundCmb1.getItems().clear();
         aroundCmb1.setItems(around);
-        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb1);
+        uistd = new UiStudentPaiement(amount, amountP,  GroupCmb,aroundCmb1);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
@@ -106,29 +104,7 @@ public class NewPaiementController extends PaiementController implements Initial
         std1 = std;
     }
 
-    private void editProgressBar() {
-        prg.setVisible(true);
-        new Thread(() -> {
-            double value = prg.getProgress();
-            while (value <= 1) {
-                value += 0.1;
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                prg.setProgress(value);
-            }
-            prg.setProgress(value);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            prg.setVisible(false);
-            prg.setProgress(0);
-        }).start();
-    }
+
 
     @FXML
     private void add(ActionEvent event) throws InterruptedException, IOException {

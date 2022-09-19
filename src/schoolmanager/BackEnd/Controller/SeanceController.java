@@ -327,7 +327,7 @@ public class SeanceController implements Initializable {
     /*<<<<<<< HEAD*/
     private boolean isPaiementFull(Paiement p) {
         return p.getNbrSeance() == CommunController.getnbrSeanceInOffer(PaiementService
-                .getPaiementForThisGroupIfExist(p));
+                .getPaiementForThisGroupIfExist(p).getTypeOfOffer());
     }
 
     private boolean isPaiementEnough(Paiement p) {

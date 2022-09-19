@@ -252,7 +252,7 @@ public class PaiementController1 implements Initializable {
         if (type.equals("student")) {
             pr = StudentService.getAllStudents("",new Student());
         } else if (type.equals("belongs")) {
-            pr = BelongsService.getStudentsOfGroup(group.getId());
+            pr = BelongsService.getStudentsOfGroup(group);
         } else {
             pr = BelongsService.searchStudentByName(std);
         }

@@ -36,14 +36,6 @@ import java.util.logging.Logger;
 import static schoolmanager.SchoolManager.SecondStage;
 import static schoolmanager.SchoolManager.thirdStage;
 
-/*import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;*/
 
 /**
  * FXML Controller class
@@ -83,7 +75,7 @@ public class PaiementController implements Initializable {
     private static Paiement paiement = new Paiement();
 
     private final ContextMenu contextMenu = new ContextMenu();
-    private final MenuItem showGroups = new MenuItem("عرض الأفواج ");
+    private final MenuItem showGroups = new MenuItem("الحصص الغير مدفوعة ");
 
     private final ContextMenu contextMenu1 = new ContextMenu();
     private final MenuItem PrinteP = new MenuItem("طباعة ");
@@ -97,7 +89,7 @@ public class PaiementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         PaiementTable1 = PaiementTable;
-        studentTable1=studentTable;
+        studentTable1 = studentTable;
         offerC1 = offerC;
         datePC1 = datePC;
         groupC1 = groupC;
@@ -108,7 +100,7 @@ public class PaiementController implements Initializable {
         lastNameC1 = lastNameC;
         phone1C1 = phone1C;
         phone2C1 = phone2C;
-        GroupCmb1=GroupCmb;
+        GroupCmb1 = GroupCmb;
         sectionNameC1 = sectionNameC;
         std = new Student();
         GroupCmb.getSelectionModel().select(null);
@@ -117,7 +109,7 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,
                 sectionNameC, new Student(), "student");
         contextMenu.getItems().addAll(showGroups);
-        contextMenu1.getItems().addAll(PrinteP, showP,deleteP);
+        contextMenu1.getItems().addAll(PrinteP, showP, deleteP);
         b1 = false;
         studentTable.setOnMouseClicked(event -> {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
@@ -128,11 +120,11 @@ public class PaiementController implements Initializable {
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     studentTable.setContextMenu(contextMenu);
                     showGroups.setOnAction(event1 -> {
-                        if(GroupCmb.getSelectionModel().getSelectedItem().getId()!=0){
+                        if (GroupCmb.getSelectionModel().getSelectedItem().getId() != 0) {
                             std.setGroup(GroupCmb.getSelectionModel().getSelectedItem());
                             showPaiementLayout(std, "/schoolmanager/FrontEnd/layout/SeanceNotPaid.fxml",
                                     "سجل الدفع", "SeanceNotPaidController");
-                        }else{
+                        } else {
                             CommunController.alert("اختر فوج");
                         }
                     });
@@ -146,13 +138,13 @@ public class PaiementController implements Initializable {
                     protected void updateItem(Student s, boolean b) {
                         super.updateItem(s, b);
                         if (s != null) {
-                            if(b1){
+                            if (b1) {
                                 if (s.isPaid()) {
                                     setStyle("-fx-background-color: #081018;");
                                 } else {
                                     setStyle("-fx-background-color: #FF0000;");
                                 }
-                            }else{
+                            } else {
                                 setStyle("-fx-background-color: #081018;");
                             }
                         } else {
@@ -170,7 +162,7 @@ public class PaiementController implements Initializable {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (event.getClickCount() == 2) {
                         paiement.setNbrSeance(SeanceService.countPaidSeances(paiement.getId()));
-                        if (CommunController.getnbrSeanceInOffer(paiement) == paiement.getNbrSeance()) {
+                        if (CommunController.getnbrSeanceInOffer(paiement.getTypeOfOffer()) == paiement.getNbrSeance()) {
                             CommunController.alert("عملية الدفع مقفلة");
                         } else {
                             showPaiementLayout(paiement, "/schoolmanager/FrontEnd/layout/UpdatePaiement.fxml",
@@ -191,12 +183,13 @@ public class PaiementController implements Initializable {
                                 "ShowPaiementController");
                     });
                     deleteP.setOnAction(event1 -> {
-                        boolean b =CommunController.confirm("هل أنت متاكد من حف عملية الدفع");
-                        if(b){
+                        boolean b = CommunController.confirm("هل أنت متاكد من حف عملية الدفع");
+                        if (b) {
                             Seance s = PaiementService.PaiementHasAseans(paiement);
-                            if(s.getId()==0){
-
-                            }else{
+                            if (s.getId() == 0) {
+                                PaiementService.deletePaiement(paiement);
+                                refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
+                            } else {
                                 CommunController.alert("لايمكن حذف هذه العميلة");
                             }
                         }
@@ -305,9 +298,9 @@ public class PaiementController implements Initializable {
             b1 = false;
             pr = StudentService.getAllStudents("", new Student());
         } else if (type.equals("belongs")) {
-            pr = BelongsService.getStudentsOfGroup(group.getId());
+            pr = BelongsService.getStudentsOfGroup(group);
         } else if (type.equals("group")) {
-            pr = BelongsService.getStudentsOfGroup(std.getGroup().getId());
+            pr = BelongsService.getStudentsOfGroup(std.getGroup());
         } else {
             pr = BelongsService.searchStudentByName(std);
         }
@@ -340,27 +333,6 @@ public class PaiementController implements Initializable {
     }
 
 
-
-    @FXML
-    private void delete(ActionEvent event) {
-        /*if (std.getId() != 0) {
-            Optional<ButtonType> option = alertUpdate.showAndWait();
-            if (option.get() == ButtonType.OK) {
-                Results.Rstls r = StudentService.deleteStudent(std);
-                if (r == Results.Rstls.OBJECT_NOT_DELETED) {
-                    CommunController.alert(r.toString());
-                } else {
-                    uistd.clearInputs();
-                    refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C,sectionNameC, new Student(), "");
-                }
-                std = new Student();
-                uistd.clearInputs();
-            }
-        }*/
-    }
-
-
-
     @FXML
     private void searchByNameAndPhone(KeyEvent event) {
         Student std = new Student();
@@ -384,7 +356,6 @@ public class PaiementController implements Initializable {
         refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                 phone2C, sectionNameC, std, "");
     }
-
 
 
 }

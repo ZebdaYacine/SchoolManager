@@ -28,7 +28,7 @@ public class ReceiptBitmap {
         String groupName ="الفوج :"+paiement.getGrp().getNameGroup();
 */
         String date ="  تاريخ الدفع:"+paiement.getDate();
-        int nbrSeanceOfOffer= CommunController.getnbrSeanceInOffer(paiement);
+        int nbrSeanceOfOffer= CommunController.getnbrSeanceInOffer(paiement.getTypeOfOffer());
         int nbrSeanceOfPaiement= PaiementService.getPaiementForThisGroupIfExist(paiement).getNbrSeance();
 /*
         float priceSeance=CommunController.getAmountSeance(paiement);

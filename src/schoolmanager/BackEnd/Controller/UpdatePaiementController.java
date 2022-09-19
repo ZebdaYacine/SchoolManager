@@ -48,8 +48,7 @@ public class UpdatePaiementController extends PaiementController implements Init
     private static Group grp1 = new Group();
     @FXML
     private TextField fullName;
-    @FXML
-    private JFXDatePicker dateP;
+
     @FXML
     private TextField amount;
     @FXML
@@ -62,6 +61,8 @@ public class UpdatePaiementController extends PaiementController implements Init
     private JFXComboBox<String> aroundCmb;
 
     private UiStudentPaiement uistd = new UiStudentPaiement();
+    ObservableList<Group> grouplist;
+
     @FXML
     private JFXButton update;
 
@@ -79,7 +80,7 @@ public class UpdatePaiementController extends PaiementController implements Init
     public void initialize(URL url, ResourceBundle rb) {
         aroundCmb.getItems().clear();
         aroundCmb.setItems(around);
-        uistd = new UiStudentPaiement(amount, amountP, dateP, GroupCmb,aroundCmb);
+        uistd = new UiStudentPaiement(amount, amountP, GroupCmb,aroundCmb);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
@@ -88,6 +89,14 @@ public class UpdatePaiementController extends PaiementController implements Init
                 amount.setText(offer.get(0).getPrice() + "");
             }
         });
+    }
+
+    private int getIndexgroop(int id) {
+        int i = 0;
+        while (id != grouplist.get(i).getId()) {
+            i++;
+        }
+        return i;
     }
 
     @FXML
@@ -102,9 +111,9 @@ public class UpdatePaiementController extends PaiementController implements Init
         fullName.setText(std1.getFirstName() + " " + std1.getLastName());
         fullName.setEditable(false);
         aroundCmb.getSelectionModel().select(pa.getAround());
-        ObservableList<Group> grouplist = BelongsService.getGroupOfStudent(std1);
-        GroupCmb.getItems().addAll(grouplist);
-        GroupCmb.getSelectionModel().select(grp1);
+        grouplist = BelongsService.getGroupOfStudent(std1);
+        GroupCmb.setItems(grouplist);
+        GroupCmb.getSelectionModel().select(getIndexgroop((int) grp1.getId()));
         OfferN.setText(grp1.getNameOffer());
         amount.setText(pa.getAmount() + " ");
         amountP.setText(pa.getAmountC() + "");

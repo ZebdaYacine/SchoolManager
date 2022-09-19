@@ -7,6 +7,7 @@ package schoolmanager.BackEnd.Service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import schoolmanager.BackEnd.Controller.CommunController;
 import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
 
@@ -56,15 +57,16 @@ public class BelongsService {
         }
     }
 
-    public static ObservableList<Student> getStudentsOfGroup(long id) {
+    public static ObservableList<Student> getStudentsOfGroup(Group grp) {
         String query;
         query = "SELECT S.id,S.firstName,S.lastName,S.phone1,S.phone2,S.idSection" +
                 " FROM   student S , belongs B" +
-                " where  B.idStudnet=S.id and B.idGroupe=" + id ;
+                " where  B.idStudnet=S.id and B.idGroupe=" + grp.getId();
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
-        ObservableList<Seance> SeancesOfGroup = SeanceService.getSeancesOfGroup(id);
-        int nbr=SeancesOfGroup.size();
+        ObservableList<Seance> SeancesOfGroup = SeanceService.getSeancesOfGroup(grp.getId());
+        String type = ObjectService.getTypeFromOffer(grp.getIdOffer());
+        int nbrSeanceInOffer = CommunController.getnbrSeanceInOffer(type);
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -77,12 +79,12 @@ public class BelongsService {
                 student.setPhone2(rs.getString("phone2"));
                 student.setSectionName(
                         ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
-                for(Seance snc :SeancesOfGroup){
-                    if(SeanceService.isPaid(student.getId(),snc.getId())){
-                        student.setNbr(student.getNbr()+1);
+                for (Seance snc : SeancesOfGroup) {
+                    if (!SeanceService.isPaid(student.getId(), snc.getId())) {
+                        student.setNbr(student.getNbr() + 1);
                     }
                 }
-                student.setPaid(student.getNbr()==nbr);
+                student.setPaid(student.getNbr() < nbrSeanceInOffer);
                 listStudents.add(student);
             }
             rs.close();

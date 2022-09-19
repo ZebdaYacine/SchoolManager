@@ -50,9 +50,9 @@ public class CommunController {
         return amountSeance;
     }
 
-    public static int getnbrSeanceInOffer(Paiement p) {
+    public static int getnbrSeanceInOffer(String type) {
         int nbr = 0;
-        switch (p.getTypeOfOffer().toLowerCase()) {
+        switch (type.toLowerCase()) {
             case "simple": {
                 nbr = 4;
                 break;

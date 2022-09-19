@@ -10,6 +10,8 @@ public class Paiement  extends Person{
     private int nbrSeance;
     private String  around;
 
+
+
     public int getNbrSeance() {
         return nbrSeance;
     }
@@ -52,9 +54,8 @@ public class Paiement  extends Person{
         this.amountC = amountC;
     }
 
-    public Paiement( Group grp,String date, float amount, float amountC,String around) {
+    public Paiement( Group grp, float amount, float amountC,String around) {
         this.grp = grp;
-        this.date = date;
         this.amount = amount;
         this.amountC = amountC;
         this.around=around;

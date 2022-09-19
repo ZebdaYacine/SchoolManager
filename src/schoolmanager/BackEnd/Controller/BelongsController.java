@@ -131,7 +131,7 @@ public class BelongsController implements Initializable {
                             BelongsService.deleteBelongs(new Belongs(std.getId(), group.getId()));
                             refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
                                     phone2C1, sectionNameC1, new Student(), "belongs");
-                            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
+                            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group).size()));
                             nbrPlace.setText(Integer.toString(group.getNbrRest()));
                         }
                     });
@@ -150,7 +150,7 @@ public class BelongsController implements Initializable {
             BelongsService.addBelongs(new Belongs(std.getId(), group.getId()));
             refrechStudent(belongsTable, firstNameC1, lastNameC1, phone1C1,
                     phone2C1, sectionNameC1, new Student(), "belongs");
-            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
+            group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group).size()));
             nbrPlace.setText(Integer.toString(group.getNbrRest()));
         } else {
             CommunController.alert("group est plain ");
@@ -162,7 +162,7 @@ public class BelongsController implements Initializable {
         ObservableList<Student> pr = null;
 
         if (type.equals("belongs")) {
-            pr = BelongsService.getStudentsOfGroup(group.getId());
+            pr = BelongsService.getStudentsOfGroup(group);
         } else {
             //pr = StudentService.getAllStudents("", new Student());
             System.err.println(std.getFirstName());
@@ -271,7 +271,7 @@ public class BelongsController implements Initializable {
     public void setInputs(Group grp) {
         group = grp;
         group.PresentGroupe();
-        group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group.getId()).size()));
+        group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group).size()));
         nbrPlace.setText(Integer.toString(group.getNbrRest()));
         groupName.setText("الفوج : " + group.getNameGroup());
         offerName.setText("العرض : " + group.getNameOffer());

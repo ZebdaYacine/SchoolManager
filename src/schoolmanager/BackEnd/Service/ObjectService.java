@@ -155,6 +155,23 @@ public class ObjectService  {
         return name;
     }
 
+    public static String getTypeFromOffer(long id) {
+        String query = "SELECT nameType FROM offer where id ="+id;
+        String nameAtt="";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                nameAtt=rs.getString("nameType");
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return nameAtt;
+    }
+
     public static ObservableList<String> getAllObjectName(String tab) {
         String query;
         query = "SELECT name FROM "+tab;

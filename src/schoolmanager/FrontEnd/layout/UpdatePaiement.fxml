@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,7 +22,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -38,19 +36,18 @@
                       <Font name="Times New Roman" size="14.0" />
                   </font>
               </JFXTextField>
-              <JFXTextField fx:id="amountP" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="المبلغ المدفوع" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+              <JFXTextField fx:id="amountP" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="المبلغ المدفوع" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                   <font>
                       <Font name="Times New Roman" size="14.0" />
                   </font>
               </JFXTextField>
             <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" labelFloat="true" onAction="#onchangecontent" prefHeight="30.0" prefWidth="360.0" promptText="الفوج" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-              <JFXDatePicker fx:id="dateP" defaultColor="#0077cc" editable="false" prefHeight="30.0" prefWidth="360.0" promptText="تاريخ الدفع" styleClass="jfxtextfield" stylesheets="@../style/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <JFXTextField fx:id="OfferN" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="العرض" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Times New Roman" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXButton fx:id="update1" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="40.0" prefWidth="160.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <JFXButton fx:id="update1" nodeOrientation="LEFT_TO_RIGHT" onAction="#update" prefHeight="40.0" prefWidth="160.0" styleClass="upbtn" stylesheets="@../style/buttons_style.css" text="تعديل" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
                </graphic>

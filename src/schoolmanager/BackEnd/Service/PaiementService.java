@@ -7,6 +7,7 @@ package schoolmanager.BackEnd.Service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import schoolmanager.BackEnd.Controller.CommunController;
 import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.Results;
 
@@ -34,7 +35,7 @@ public class PaiementService {
                     + " values (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setLong(1, paiement.getStd().getId());
             stm.setLong(2, paiement.getGrp().getId());
-            stm.setString(3, paiement.getDate());
+            stm.setString(3, ObjectService.getCurrentDateTime());
             stm.setFloat(4, paiement.getAmount());
             stm.setFloat(5, paiement.getAmountC());
             stm.setString(6, paiement.getTypeOfOffer());
@@ -64,7 +65,7 @@ public class PaiementService {
                     + " WHERE id = ? ");
             stm.setLong(1, paiement.getStd().getId());
             stm.setLong(2, paiement.getGrp().getId());
-            stm.setString(3, paiement.getDate());
+            stm.setString(3, ObjectService.getCurrentDateTime());
             stm.setFloat(4, paiement.getAmount());
             stm.setFloat(5, paiement.getAmountC());
             stm.setString(6, paiement.getAround());
@@ -85,7 +86,7 @@ public class PaiementService {
         }
         try {
             PreparedStatement stm = con.prepareStatement("DELETE FROM "
-                    + " account WHERE id = ?");
+                    + " paiement WHERE id = ?");
             stm.setLong(1, paiement.getId());
             stm.executeUpdate();
             stm.close();
