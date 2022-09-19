@@ -24,6 +24,24 @@ public class Group  {
     private long idOffer;
     private int nbrPlace;
     private int nbrRest;
+    private Teacher tech;
+    private String  name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String fullName) {
+        this.name = fullName;
+    }
+
+    public Teacher getTech() {
+        return tech;
+    }
+
+    public void setTech(Teacher tech) {
+        this.tech = tech;
+    }
 
     public Group() {
     }
@@ -37,11 +55,13 @@ public class Group  {
         this.id = id;
     }
 
-    public Group(String nameOffer, String nameGroupe, int nbrPlace) {
+    public Group(String nameOffer, String nameGroupe, int nbrPlace,Teacher tech) {
         this.nameOffer = nameOffer;
         this.nameGroup = nameGroupe;
         this.nbrPlace = nbrPlace;
+        this.tech=tech;
     }
+
 
     public Group( String name, int idOffer, int nbrPlace) {
         this.nameOffer = name;

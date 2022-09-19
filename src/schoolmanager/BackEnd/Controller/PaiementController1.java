@@ -19,12 +19,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Printer.Print;
 import schoolmanager.BackEnd.Service.BelongsService;
-import schoolmanager.BackEnd.Service.SeanceService;
 import schoolmanager.BackEnd.Service.StudentService;
 
 import java.io.File;
@@ -35,7 +33,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static schoolmanager.SchoolManager.SecodStage;
+import static schoolmanager.SchoolManager.SecondStage;
 
 /*import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -187,13 +185,13 @@ public class PaiementController1 implements Initializable {
                 }
             }
             Scene scene = new Scene(uigrp);
-            if (!SecodStage.isShowing()) {
-                SecodStage.setScene(scene);
-                SecodStage.setTitle(titleLayout);
-                SecodStage.showAndWait();
+            if (!SecondStage.isShowing()) {
+                SecondStage.setScene(scene);
+                SecondStage.setTitle(titleLayout);
+                SecondStage.showAndWait();
             } else {
-                SecodStage.setAlwaysOnTop(true);
-                SecodStage.setAlwaysOnTop(false);
+                SecondStage.setAlwaysOnTop(true);
+                SecondStage.setAlwaysOnTop(false);
             }
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);

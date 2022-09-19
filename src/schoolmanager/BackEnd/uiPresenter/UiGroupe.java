@@ -5,9 +5,12 @@
  */
 package schoolmanager.BackEnd.uiPresenter;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Teacher;
 
 /**
  *
@@ -16,8 +19,33 @@ import javafx.scene.control.TextField;
 public class UiGroupe extends TestingMethods {
 
     private TextField name, nbrPlace;
-    private Label name_err, nbrPlace_err, OfferCmb_err;
+    private Label name_err, nbrPlace_err, OfferCmb_err,tech_err;
     private ComboBox OfferCmb;
+    private JFXComboBox<Teacher> teacherCmb;
+
+    public Label getOfferCmb_err() {
+        return OfferCmb_err;
+    }
+
+    public void setOfferCmb_err(Label offerCmb_err) {
+        OfferCmb_err = offerCmb_err;
+    }
+
+    public Label getTech_err() {
+        return tech_err;
+    }
+
+    public void setTech_err(Label tech_err) {
+        this.tech_err = tech_err;
+    }
+
+    public JFXComboBox<Teacher> getTeacherCmb() {
+        return teacherCmb;
+    }
+
+    public void setTeacherCmb(JFXComboBox<Teacher> teacherCmb) {
+        this.teacherCmb = teacherCmb;
+    }
 
     public UiGroupe() {
     }
@@ -28,13 +56,16 @@ public class UiGroupe extends TestingMethods {
         this.OfferCmb = OfferCmb;
     }
 
-    public UiGroupe(TextField name, TextField nbrPlace, Label name_err, Label price_err, Label OfferCmb_err, ComboBox OfferCmb) {
+    public UiGroupe(TextField name, TextField nbrPlace, Label name_err, Label price_err, Label OfferCmb_err
+            , ComboBox OfferCmb, ComboBox<Teacher> teacherCmb,Label tech_err) {
         this.name = name;
         this.nbrPlace = nbrPlace;
         this.name_err = name_err;
         this.OfferCmb_err = OfferCmb_err;
         this.nbrPlace_err = price_err;
         this.OfferCmb = OfferCmb;
+        this.tech_err=tech_err;
+        this.teacherCmb = (JFXComboBox<Teacher>) teacherCmb;
     }
 
     public TextField getName() {
@@ -103,6 +134,13 @@ public class UiGroupe extends TestingMethods {
             uiGroupe.OfferCmb_err.setVisible(true);
         } else {
             uiGroupe.OfferCmb_err.setVisible(false);
+            bOffer = true;
+        }
+        if (uiGroupe.getTeacherCmb().getSelectionModel().getSelectedItem() == null) {
+            uiGroupe.tech_err.setText("اسم الأستاذ فارغ");
+            uiGroupe.tech_err.setVisible(true);
+        } else {
+            uiGroupe.tech_err.setVisible(false);
             bOffer = true;
         }
         return bName && bnbrPlace && bOffer;

@@ -21,6 +21,7 @@ import java.sql.Statement;
 import static schoolmanager.BackEnd.Controller.PaiementSeancesController.*;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 import static schoolmanager.BackEnd.Service.GroupService.getGroupbyId;
+import static schoolmanager.BackEnd.Service.ObjectService.getCurrentDateTime;
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
 import static schoolmanager.BackEnd.Service.RoomService.searchRoomById;
 import static schoolmanager.BackEnd.Service.TeacherService.searchTeacherById;
@@ -32,6 +33,8 @@ public class SeanceService {
 
     private static long id;
 
+
+
     public static Results.Rstls addSeance(Seance seance) {
         if (seance == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
@@ -40,11 +43,11 @@ public class SeanceService {
             PreparedStatement stm = con.prepareStatement(""
                     + "insert into seance (`idOffer`, `idTeacher`, `idRoom`, `presenceTeacher`, `day`, `idGroupe`)"
                     + " values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            stm.setLong(1, seance.getIdOffer());
+            stm.setLong(1, GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer());
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
-            stm.setInt(4, seance.getPresenceTeacher());
-            stm.setString(5, seance.getDate());
+            stm.setInt(4, 1);
+            stm.setString(5, getCurrentDateTime());
             stm.setLong(6, seance.getIdGroupe());
             stm.executeUpdate();
             ResultSet rs = stm.getGeneratedKeys();
@@ -54,7 +57,7 @@ public class SeanceService {
             seance.setId(id);
             ObservableList<Student> listStudentInGroup = StudentService.getAllStudentsFollow(seance, "empty");
             for (Student std : listStudentInGroup) {
-                Follow flw = new Follow(std.getId(), seance.getId(), 0, 0);
+                Follow flw = new Follow(std.getId(), seance.getId(), 1, 0);
                 FollowService.addFollow(flw);
             }
             stm.close();
@@ -74,15 +77,14 @@ public class SeanceService {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " seance SET idOffer = ?"
-                    + ", idTeacher = ? , idRoom = ? ,presenceTeacher=? , day = ? ,idGroupe = ? "
+                    + ", idTeacher = ? , idRoom = ? ,presenceTeacher=? , idGroupe = ? "
                     + " WHERE id = ? ");
-            stm.setLong(1, seance.getIdOffer());
+            stm.setLong(1, GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer());
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
-            stm.setInt(4, seance.getPresenceTeacher());
-            stm.setString(5, seance.getDate());
-            stm.setLong(6, seance.getIdGroupe());
-            stm.setLong(7, seance.getId());
+            stm.setInt(4, 1);
+            stm.setLong(5, seance.getIdGroupe());
+            stm.setLong(6, seance.getId());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_UPDATED;

@@ -114,7 +114,7 @@ public class UiStudentPaiement extends TestingMethods {
            /* uistd.getFirstName_err().setVisible(false);
             groupeB = true;*/
         }
-        if(around.isEmpty()){
+        if(around==null){
             aroundB=false;
         }else{
             aroundB=true;

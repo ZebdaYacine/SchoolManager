@@ -35,20 +35,13 @@ public class UiSeance {
     public UiSeance() {
     }
 
-    public UiSeance(Label OfferErr, Label teacherErr, Label roomErr, Label dateErr, Label timeErr, Label groupErr, JFXComboBox<Group> GroupCmb, JFXComboBox<Offer> OfferCmb, JFXComboBox<Teacher> teacherCmb, JFXComboBox<Room> RoomCmb, JFXDatePicker date, JFXTimePicker time, JFXCheckBox presenceTeacher) {
-        this.OfferErr = OfferErr;
+    public UiSeance( Label teacherErr, Label roomErr,  Label groupErr,JFXComboBox<Group> GroupCmb,JFXComboBox<Teacher> teacherCmb,   JFXComboBox<Room> RoomCmb) {
         this.teacherErr = teacherErr;
         this.roomErr = roomErr;
-        this.dateErr = dateErr;
-        this.timeErr = timeErr;
         this.groupErr = groupErr;
         this.GroupCmb = GroupCmb;
-        this.OfferCmb = OfferCmb;
         this.teacherCmb = teacherCmb;
         this.RoomCmb = RoomCmb;
-        this.date = date;
-        this.time = time;
-        this.presenceTeacher = presenceTeacher;
     }
 
     public Label getOfferErr() {
@@ -156,14 +149,8 @@ public class UiSeance {
     }
 
     public static boolean UiSeanceInputIsValid(UiSeance uiSeance) {
-        boolean bTeacher = false, bRoom = false, bOffer = false, bGroup = false, bdate = false, btime = false;
-        if (uiSeance.getOfferCmb().getSelectionModel().getSelectedItem() == null) {
-            uiSeance.getOfferErr().setText("حدد العرض");
-            uiSeance.getOfferErr().setVisible(true);
-        } else {
-            uiSeance.getOfferErr().setVisible(false);
-            bOffer = true;
-        }
+        boolean bTeacher = false, bRoom = false, bGroup = false;
+
         if (uiSeance.getTeacherCmb().getSelectionModel().getSelectedItem() == null) {
             uiSeance.getTeacherErr().setText("حدد الاستاذ");
             uiSeance.getTeacherErr().setVisible(true);
@@ -185,25 +172,10 @@ public class UiSeance {
             uiSeance.getGroupErr().setVisible(false);
             bGroup = true;
         }
-        if (uiSeance.getDate()==null) {
-            uiSeance.getDateErr().setText("أدخل التاريخ");
-            uiSeance.getDateErr().setVisible(true);
-        } else {
-            uiSeance.getDateErr().setVisible(false);
-            bdate = true;
-        }
-        if (uiSeance.getTime()==null) {
-            uiSeance.getTimeErr().setText("أدخل الوقت");
-            uiSeance.getTimeErr().setVisible(true);
-        } else {
-            uiSeance.getTimeErr().setVisible(false);
-            btime = true;
-        }
-        return bTeacher && bRoom && bOffer && bGroup && bdate && btime;
+        return bTeacher && bRoom  && bGroup ;
     }
 
     public void clearInputs() {
-        this.OfferCmb.getSelectionModel().clearSelection();
         this.teacherCmb.getSelectionModel().clearSelection();
         this.RoomCmb.getSelectionModel().clearSelection();
         this.GroupCmb.getSelectionModel().clearSelection();

@@ -22,14 +22,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-/*import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;*/
+import static schoolmanager.BackEnd.Controller.PaiementController.*;
+
+
 
 /**
  * FXML Controller class
@@ -153,6 +148,12 @@ public class PaiementSeancesController implements Initializable {
                 }
                 break;
             }
+        }
+        Group grp = GroupCmb1.getSelectionModel().getSelectedItem();
+        if(grp.getId()==group.getId()){
+            std.setGroup(grp);
+            refrechStudent(studentTable1, firstNameC1, lastNameC1, phone1C1,
+                    phone2C1, sectionNameC1, std, "group");
         }
         refrechSeance(seanceTable, roomC, dateTimeC, teacherC, pTeacherC, pStudentC, paiementC, p.getStd(),p.getGrp());
     }

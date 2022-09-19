@@ -23,12 +23,16 @@ public class ReceiptBitmap {
         String lines = "--------------------------------------------";
         String studentName = "الطالب :"+ paiement.getStd().getLastName()+" "+paiement.getStd().getFirstName();
         String offerName = "العرض  "+paiement.getGrp().getNameOffer();
+        System.out.println(offerName);
+/*
         String groupName ="الفوج :"+paiement.getGrp().getNameGroup();
+*/
         String date ="  تاريخ الدفع:"+paiement.getDate();
-        String secritID ="WXSDZEF";
         int nbrSeanceOfOffer= CommunController.getnbrSeanceInOffer(paiement);
         int nbrSeanceOfPaiement= PaiementService.getPaiementForThisGroupIfExist(paiement).getNbrSeance();
+/*
         float priceSeance=CommunController.getAmountSeance(paiement);
+*/
         int nbr=0;
         if(nbrSeanceOfOffer==8){
             if(paiement.getAmount()==paiement.getAmountC()){
@@ -117,7 +121,9 @@ public class ReceiptBitmap {
         helper.write(escpos, new CoffeeImageImpl(image1), imageWrapper, algorithm);
 
         g3.drawString(offerName, 200, 40);
+/*
         g3.drawString(groupName, 20, 40);
+*/
         helper.write(escpos, new CoffeeImageImpl(image3), imageWrapper, algorithm);
 
         g4.drawString(lines, 1, 60);
@@ -127,7 +133,9 @@ public class ReceiptBitmap {
         helper.write(escpos, new CoffeeImageImpl(image4), imageWrapper, algorithm);
 
         g5.drawString(date, 10, 30);
+/*
         g5.drawString(secritID, 200, 65);
+*/
         helper.write(escpos, new CoffeeImageImpl(image5), imageWrapper, algorithm);
 
         escpos.feed(5).cut(EscPos.CutMode.FULL);

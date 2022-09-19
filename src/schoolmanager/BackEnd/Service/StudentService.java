@@ -38,6 +38,7 @@ public class StudentService {
             stm.setString(3, student.getPhone1());
             stm.setString(4, student.getPhone2());
             section.setName(student.getSectionName());
+            section.PresentTemplate();
             stm.setLong(5, ObjectService.getIdObject(section, "section"));
             stm.executeUpdate();
             stm.close();

@@ -20,7 +20,7 @@ import schoolmanager.BackEnd.DataBaseConnection;
 public class SchoolManager extends Application {
 
     public static Stage loginStage = new Stage();
-    public static Stage SecodStage = new Stage();
+    public static Stage SecondStage = new Stage();
     public static Stage thirdStage = new Stage();
 
     public static final Alert alertUpdate = Template(Alert.AlertType.CONFIRMATION,
@@ -44,8 +44,8 @@ public class SchoolManager extends Application {
         loginStage.setScene(scene);
         loginStage.setOnCloseRequest(event -> {
             event.consume();
-            if (SecodStage.isShowing()) {
-                SecodStage.close();
+            if (SecondStage.isShowing()) {
+                SecondStage.close();
             }
             if (thirdStage.isShowing()) {
                 thirdStage.close();

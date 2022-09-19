@@ -36,6 +36,12 @@ public class Seance {
         this.presenceStudent=pTeacher;
     }
 
+    public Seance(long idTeacher, long idRoom, long idGroupe) {
+        this.idTeacher = idTeacher;
+        this.idRoom = idRoom;
+        this.idGroupe = idGroupe;
+    }
+
     public Seance(long id) {
         this.id = id;
     }

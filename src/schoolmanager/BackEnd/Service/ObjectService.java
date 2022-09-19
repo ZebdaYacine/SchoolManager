@@ -7,6 +7,9 @@ package schoolmanager.BackEnd.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
@@ -114,6 +117,7 @@ public class ObjectService  {
             nameAtt="OfferName";
         }
         query = "SELECT id FROM " + tab + " where "+nameAtt+" = '" + objTemplate.getName() + "'";
+        System.out.println(query);
         long id=0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -168,6 +172,12 @@ public class ObjectService  {
             ex.printStackTrace();
         }
         return list;
+    }
+
+    public static String getCurrentDateTime(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date();
+        return  new String(formatter.format(date));
     }
 
 }

@@ -15,8 +15,8 @@ public class GroupServiceTest {
 
     @Test
     public void addGroup() {
-        Group group= new Group("math Physique","Group" ,20);
-        GroupService.addGroup(group);
+       /* Group group= new Group("math Physique","Group" ,20);
+        GroupService.addGroup(group);*/
     }
 
     @Test

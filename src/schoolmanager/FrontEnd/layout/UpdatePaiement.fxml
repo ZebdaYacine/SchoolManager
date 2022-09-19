@@ -5,7 +5,6 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -44,7 +43,6 @@
                       <Font name="Times New Roman" size="14.0" />
                   </font>
               </JFXTextField>
-            <ProgressIndicator fx:id="prg" progress="0.0" visible="false" GridPane.rowIndex="5" />
             <JFXComboBox fx:id="GroupCmb" focusColor="#0077cc" labelFloat="true" onAction="#onchangecontent" prefHeight="30.0" prefWidth="360.0" promptText="الفوج" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
               <JFXDatePicker fx:id="dateP" defaultColor="#0077cc" editable="false" prefHeight="30.0" prefWidth="360.0" promptText="تاريخ الدفع" styleClass="jfxtextfield" stylesheets="@../style/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <JFXTextField fx:id="OfferN" focusColor="#0077cc" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0" promptText="العرض" styleClass="jfxtextfield" unFocusColor="#0099cc" GridPane.halignment="CENTER" GridPane.rowIndex="2">

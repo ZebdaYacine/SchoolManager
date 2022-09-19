@@ -17,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
@@ -34,7 +33,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static schoolmanager.SchoolManager.SecodStage;
+import static schoolmanager.SchoolManager.SecondStage;
 import static schoolmanager.SchoolManager.thirdStage;
 
 /*import net.sf.jasperreports.engine.JRException;
@@ -56,6 +55,8 @@ public class PaiementController implements Initializable {
     @FXML
     private TableView<Student> studentTable;
     @FXML
+    static TableView<Student> studentTable1;
+    @FXML
     private TableView<?> PaiementTable;
     @FXML
     public static TableView<?> PaiementTable1;
@@ -64,7 +65,12 @@ public class PaiementController implements Initializable {
     @FXML
     private JFXComboBox<Group> GroupCmb;
     @FXML
+    static JFXComboBox<Group> GroupCmb1;
+
+    @FXML
     private TableColumn<?, ?> firstNameC, lastNameC, phone1C, phone2C, sectionNameC;
+    @FXML
+    static TableColumn<?, ?> firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1;
     @FXML
     private Label stdLbl;
     @FXML
@@ -91,12 +97,19 @@ public class PaiementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         PaiementTable1 = PaiementTable;
+        studentTable1=studentTable;
         offerC1 = offerC;
         datePC1 = datePC;
         groupC1 = groupC;
         amountC1 = amountC;
         amountRC1 = amountRC;
         nbrseanceC1 = nbrseanceC;
+        firstNameC1 = firstNameC;
+        lastNameC1 = lastNameC;
+        phone1C1 = phone1C;
+        phone2C1 = phone2C;
+        GroupCmb1=GroupCmb;
+        sectionNameC1 = sectionNameC;
         std = new Student();
         GroupCmb.getSelectionModel().select(null);
         ObservableList<Group> grouplist = GroupService.getAllGroups(null, "all");
@@ -213,7 +226,7 @@ public class PaiementController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url));
             Parent uigrp = loader.load();
-            Stage stage = SecodStage;
+            Stage stage = SecondStage;
             switch (object) {
                 case "SeanceNotPaidController": {
                     SeanceNotPaidController seanceNotPaidController = loader.getController();

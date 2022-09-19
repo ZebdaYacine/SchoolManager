@@ -6,7 +6,7 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import static schoolmanager.SchoolManager.SecodStage;
+import static schoolmanager.SchoolManager.SecondStage;
 
 /**
  * FXML Controller class
@@ -89,46 +89,46 @@ public class MainController implements Initializable {
     @FXML
     private void goToStudent(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/Student.fxml";
-        swithchLayout(url, SecodStage, "إدارة التلاميذ");
+        swithchLayout(url, SecondStage, "إدارة التلاميذ");
     }
 
     @FXML
     private void goToTeacher(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/Teacher.fxml";
-        swithchLayout(url, SecodStage, "إدارة الأساتذة");
+        swithchLayout(url, SecondStage, "إدارة الأساتذة");
     }
 
     @FXML
     private void goToLevel(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/level.fxml";
-        swithchLayout(url, SecodStage, "إدارة المستويات");
+        swithchLayout(url, SecondStage, "إدارة المستويات");
 
     }
 
     @FXML
     private void goToModule(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/module.fxml";
-        swithchLayout(url, SecodStage, "إدارة المواد");
+        swithchLayout(url, SecondStage, "إدارة المواد");
     }
 
     @FXML
     private void goToType(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/Type.fxml";
-        swithchLayout(url, SecodStage, "إدارة الانواع");
+        swithchLayout(url, SecondStage, "إدارة الانواع");
 
     }
 
     @FXML
     private void goToSections(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/Section.fxml";
-        swithchLayout(url, SecodStage, "إدارة الأقسام");
+        swithchLayout(url, SecondStage, "إدارة الأقسام");
 
     }
 
     @FXML
     private void goToRooms(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/Room.fxml";
-        swithchLayout(url, SecodStage, "إدارة القاعات");
+        swithchLayout(url, SecondStage, "إدارة القاعات");
 
     }
 

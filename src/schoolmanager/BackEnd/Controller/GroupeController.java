@@ -23,24 +23,21 @@ import javafx.util.Callback;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Offer;
-import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.GroupService;
 import schoolmanager.BackEnd.Service.OfferService;
-import schoolmanager.BackEnd.Service.StudentService;
+import schoolmanager.BackEnd.Service.TeacherService;
 import schoolmanager.BackEnd.uiPresenter.UiGroupe;
-import schoolmanager.BackEnd.uiPresenter.UiStudent;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static schoolmanager.SchoolManager.SecodStage;
+import static schoolmanager.SchoolManager.SecondStage;
 
 /**
  * FXML Controller class
@@ -66,7 +63,7 @@ public class GroupeController implements Initializable {
     @FXML
     private TableColumn<?, ?> placeC;
     @FXML
-    private TableColumn<?, ?> offerC;
+    private TableColumn<?, ?> nameC;
     @FXML
     private TableColumn<?, ?> moduleC;
     @FXML
@@ -74,18 +71,26 @@ public class GroupeController implements Initializable {
     @FXML
     private TableView<Group> GroupeTable;
     @FXML
-    private Label name_err, OfferCmb_err, nbrPlace_err;
+    private Label name_err, OfferCmb_err, nbrPlace_err,tech_err;
     private Group grp = new Group();
     private UiGroupe uigrp = new UiGroupe();
 
+    @FXML
+    private JFXComboBox<Teacher> teacherCmb;
+
     private final ArrayList offerlist = new ArrayList();
+
+    private ObservableList<Teacher> teacherlist;
+
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        uigrp = new UiGroupe(name, nbrPlace, name_err, nbrPlace_err, OfferCmb_err, OfferCmb);
+        teacherlist = TeacherService.getAllTeachers();
+        teacherCmb.getItems().addAll(teacherlist);
+        uigrp = new UiGroupe(name, nbrPlace, name_err, nbrPlace_err, OfferCmb_err, OfferCmb,teacherCmb,tech_err);
         for (Offer offer : OfferService.getAllOffers()) {
             offerlist.add(offer.getName());
         }
@@ -134,8 +139,17 @@ public class GroupeController implements Initializable {
             }
 
         });
-        refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC,
+        refrechGroup(GroupeTable, groupeC, placeC, nameC, moduleC, levelC,
                 new Group(), "");
+    }
+
+
+    private int getIndexTeacher(int id) {
+        int i = 0;
+        while (id != teacherlist.get(i).getId()) {
+            i++;
+        }
+        return i;
     }
 
     private void fillInputs() {
@@ -145,6 +159,7 @@ public class GroupeController implements Initializable {
             name.setText(grp.getNameGroup());
             nbrPlace.setText(grp.getNbrPlace() + "");
             OfferCmb.getSelectionModel().select(grp.getNameOffer() + "");
+            teacherCmb.getSelectionModel().select(getIndexTeacher((int) grp.getTech().getId()));
         }
     }
 
@@ -158,13 +173,13 @@ public class GroupeController implements Initializable {
             BelongsController belongsController = loader.getController();
             belongsController.setInputs(grp);
             Scene scene = new Scene(uigrp);
-            if (!SecodStage.isShowing()) {
-                SecodStage.setScene(scene);
-                SecodStage.setTitle("إضافة التلاميذ إلى الفوج");
-                SecodStage.showAndWait();
+            if (!SecondStage.isShowing()) {
+                SecondStage.setScene(scene);
+                SecondStage.setTitle("إضافة التلاميذ إلى الفوج");
+                SecondStage.showAndWait();
             } else {
-                SecodStage.setAlwaysOnTop(true);
-                SecodStage.setAlwaysOnTop(false);
+                SecondStage.setAlwaysOnTop(true);
+                SecondStage.setAlwaysOnTop(false);
             }
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,7 +205,7 @@ public class GroupeController implements Initializable {
                 new PropertyValueFactory<>("nbrPlace")
         );
         Column3.setCellValueFactory(
-                new PropertyValueFactory<>("nameOffer")
+                new PropertyValueFactory<>("name")
         );
         Column4.setCellValueFactory(
                 new PropertyValueFactory<>("module")
@@ -210,7 +225,7 @@ public class GroupeController implements Initializable {
         } else {
             uigrp.clearInputs();
         }
-        refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
+        refrechGroup(GroupeTable, groupeC, placeC, nameC, moduleC, levelC, new Group(), "");
     }
 
     @FXML
@@ -224,7 +239,7 @@ public class GroupeController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uigrp.clearInputs();
-                    refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
+                    refrechGroup(GroupeTable, groupeC, placeC, nameC, moduleC, levelC, new Group(), "");
                 }
             }
         }
@@ -239,15 +254,14 @@ public class GroupeController implements Initializable {
                     CommunController.alert(r.toString());
                 } else {
                     uigrp.clearInputs();
-                    refrechGroup(GroupeTable, groupeC, placeC, offerC, moduleC, levelC, new Group(), "");
+                    refrechGroup(GroupeTable, groupeC, placeC, nameC, moduleC, levelC, new Group(), "");
                 }
             }
         }
     }
 
     @FXML
-    private void selectGroup(MouseEvent event
-    ) {
+    private void selectGroup(MouseEvent event) {
     }
 
 }

@@ -15,6 +15,15 @@ public class Teacher extends Person {
 
     private String phone;
     private String workePlace;
+    private  String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public Teacher() {
     }
@@ -31,6 +40,7 @@ public class Teacher extends Person {
     public Teacher(String firstName, String lastName) {
         super(firstName, lastName);
     }
+
 
     public Teacher(String firstName, String lastName, String phoneTeacher, String workePlace) {
         super(firstName, lastName);

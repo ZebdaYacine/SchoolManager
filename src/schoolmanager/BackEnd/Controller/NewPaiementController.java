@@ -19,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import schoolmanager.BackEnd.Mapper.Mapping;
 import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Offer;
@@ -29,16 +28,14 @@ import schoolmanager.BackEnd.Results;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.OfferService;
 import schoolmanager.BackEnd.Service.PaiementService;
-import schoolmanager.BackEnd.Service.TypeService;
 import schoolmanager.BackEnd.uiPresenter.UiStudentPaiement;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
-import static schoolmanager.SchoolManager.SecodStage;
+import static schoolmanager.SchoolManager.SecondStage;
 import static schoolmanager.SchoolManager.thirdStage;
 
 /**
@@ -136,8 +133,7 @@ public class NewPaiementController extends PaiementController implements Initial
     @FXML
     private void add(ActionEvent event) throws InterruptedException, IOException {
         paiement = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
-        paiement.setTypeOfOffer(OfferService.
-                getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "nameType"));
+        paiement.setTypeOfOffer(OfferService.getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "nameType"));
         paiement.setNbrSeance(0);
         paiement.setStd(std1);
         paiement.setAround(aroundCmb1.getSelectionModel().getSelectedItem());

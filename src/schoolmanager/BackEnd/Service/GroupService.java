@@ -8,6 +8,7 @@ package schoolmanager.BackEnd.Service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Teacher;
 import schoolmanager.BackEnd.Model.Template;
 import schoolmanager.BackEnd.Results;
 
@@ -29,11 +30,12 @@ public class GroupService {
         }
         try {
             PreparedStatement stm = con.prepareStatement(""
-                    + "insert into groupe (name,idOffer,nbrPlace)"
-                    + " values (?,?,?)");
+                    + "insert into groupe (name,idOffer,nbrPlace,idTeacher)"
+                    + " values (?,?,?,?)");
             stm.setString(1, group.getNameGroup());
             stm.setLong(2, ObjectService.getIdObject(new Template(group.getNameOffer()), "offer"));
             stm.setInt(3, group.getNbrPlace());
+            stm.setLong(4, group.getTech().getId());
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_INSERTED;
@@ -65,7 +67,7 @@ public class GroupService {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            String query = "UPDATE groupe SET name = '" + group.getNameGroup() + "', "
+            String query = "UPDATE groupe SET idTeacher= '"+group.getTech().getId()+"' , name = '" + group.getNameGroup() + "', "
                     + "idOffer = '" + ObjectService.getIdObject(new Template(group.getNameOffer()), "offer") + "' , "
                     + "nbrPlace = '" + group.getNbrPlace() + "' WHERE id =  " + group.getId();
             PreparedStatement stm = con.prepareStatement(query);
@@ -95,8 +97,10 @@ public class GroupService {
                         new Template(rs.getInt("idOffer")),
                         "Offer"));
                 group.setLevel(rs.getString("nameLevel"));
-                group.setModule(rs.getString("nameModule"));
                 group.setNbrPlace(rs.getInt("nbrPlace"));
+                group.setTech(TeacherService.searchTeacherById(new Teacher(rs.getLong("idTeacher"))).get(0));
+                group.setName(group.getTech().getFirstName()+" "+group.getTech().getLastName());
+                group.setModule(rs.getString("nameModule"));
                 listGroups.add(group);
             }
             rs.close();
@@ -107,13 +111,14 @@ public class GroupService {
         return listGroups;
     }
 
-    public static ObservableList<Group> getAllGroups(Offer o, String att) {
+    public static ObservableList<Group> getAllGroups(Teacher tech, String att) {
         String query = null;
-        if(att.equals("offer")){
-            query = "SELECT * FROM groupe where idOffer = " + o.getId();
+        if(att.equals("tech")){
+            query = "SELECT * FROM groupe where idTeacher = " + tech.getId();
         }else if(att.equals("all")){
             query = "SELECT * FROM groupe ";
         }
+        System.out.println(query);
         ObservableList<Group> listGroups = FXCollections.observableArrayList(new Group());
         listGroups.remove(0);
         try {
