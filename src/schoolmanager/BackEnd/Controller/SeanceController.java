@@ -301,20 +301,10 @@ public class SeanceController implements Initializable {
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 studentPTable.setContextMenu(ApsentMenu);
                 delItem.setOnAction(event1 -> {
-                    /* Follow f = new Follow();
-                    f.setIdSeance(seanceSelect.getId());
-                    f.setIdStudent(std.getId());
-                    FollowService.deleteFollow(f);*/
                     Follow f = new Follow();
                     f.setIdSeance(seanceSelect.getId());
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(0);
-/*
-                    f.setStatus(0);
-*/
-/*
-                    FollowService.updateFollow(f, "statusWithP");
-*/
                     FollowService.updateFollow(f, "presenceStudent");
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");
@@ -366,7 +356,6 @@ public class SeanceController implements Initializable {
                     p = PaiementService.getPaiementForThisGroupIfExist(p);
                     p.setStd(std);
                     p.setGrp(new Group(seanceSelect.getIdGroupe()));
-                    p.PresentObject();
                     if (isPaiementAvailable(p)) {
                         p.setNbrSeance(p.getNbrSeance() + 1);
                         SeanceService.updateNbrSeanceInPaiement(p);

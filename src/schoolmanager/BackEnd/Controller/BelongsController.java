@@ -85,10 +85,10 @@ public class BelongsController implements Initializable {
 
     private final ContextMenu contextMenu1 = new ContextMenu();
     private final ContextMenu contextMenu2 = new ContextMenu();
-    private final MenuItem delete = new MenuItem("supprimer");
-    private final MenuItem add = new MenuItem("ajouter");
-    private final MenuItem showProfile = new MenuItem("voir le dossier de l'etudiant");
-    private final MenuItem showProfile1 = new MenuItem("voir le dossier de l'etudiant");
+    private final MenuItem delete = new MenuItem("حذف من الفوج");
+    private final MenuItem add = new MenuItem("اضافة للفوج");
+    private final MenuItem showProfile = new MenuItem("عرض الملف الشخصي");
+    private final MenuItem showProfile1 = new MenuItem("عرض الملف الشخصي");
 
     /**
      * Initializes the controller class.
