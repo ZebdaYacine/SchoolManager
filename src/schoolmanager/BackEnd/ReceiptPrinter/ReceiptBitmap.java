@@ -21,33 +21,18 @@ public class ReceiptBitmap {
         String schoolName = "مدرسة المتمكن        ";
         String sectionName = " فرع :  "+paiement.getStd().getSectionName();
         String lines = "--------------------------------------------";
-        String studentName = "الطالب :"+ paiement.getStd().getLastName()+" "+paiement.getStd().getFirstName();
-        String offerName = "العرض  "+paiement.getGrp().getNameOffer();
-        System.out.println(offerName);
-/*
+        String studentName = "التلميذ(ة) :"+ paiement.getStd().getLastName()+" "+paiement.getStd().getFirstName();
+//        String offerName = "العرض  "+paiement.getGrp().getNameOffer();
         String groupName ="الفوج :"+paiement.getGrp().getNameGroup();
-*/
-        String date ="  تاريخ الدفع:"+paiement.getDate();
+
+        String date ="   التاريخ :"+paiement.getDate();
         int nbrSeanceOfOffer= CommunController.getnbrSeanceInOffer(paiement.getTypeOfOffer());
         int nbrSeanceOfPaiement= PaiementService.getPaiementForThisGroupIfExist(paiement).getNbrSeance();
 /*
         float priceSeance=CommunController.getAmountSeance(paiement);
 */
-        int nbr=0;
-        if(nbrSeanceOfOffer==8){
-            if(paiement.getAmount()==paiement.getAmountC()){
-                nbr=8;
-            }else{
-                nbr=nbrSeanceOfPaiement;
-            }
-        }else if(nbrSeanceOfOffer==4) {
-            if(paiement.getAmount()==paiement.getAmountC()){
-                nbr=4;
-            }else{
-                nbr= nbrSeanceOfPaiement;
-            }
-        }
-        String nbrSeances ="الحصص المدفوعة :"+nbr;
+       
+        String around ="الدورة :"+paiement.getAround();
         String amountC ="المبلغ المدفوع :"+paiement.getAmountC()+" Da";
 
         BufferedImage image1 = new BufferedImage(576, 250, TYPE_INT_RGB);
@@ -88,7 +73,7 @@ public class ReceiptBitmap {
         Font fontMonoSpacePlan = new Font(Font.MONOSPACED, Font.PLAIN, FontSize);
         Font fontMonoSpaceBold1 = new Font(Font.MONOSPACED, Font.BOLD, FontSize);
         Font fontMonoSpaceBold2 = new Font(Font.MONOSPACED, Font.BOLD, 50);
-        Font fontMonoSpaceBold3 = new Font(Font.MONOSPACED, Font.BOLD, 25);
+        Font fontMonoSpaceBold3 = new Font(Font.MONOSPACED, Font.BOLD, 40);
         Font fontMonoSpaceBoldItalic = new Font(Font.MONOSPACED, Font.ITALIC | Font.BOLD, FontSize);
         Font fontSerifPlan = new Font(Font.SERIF, Font.PLAIN, FontSize);
         Font fontSerifBold = new Font(Font.SERIF, Font.BOLD, FontSize);
@@ -114,25 +99,24 @@ public class ReceiptBitmap {
         helper.write(escpos, new CoffeeImageImpl(image2), imageWrapper, algorithm);
 
         g1.drawString(lines, 1, 60);
-        g1.drawString(sectionName, 180, 120);
+        g1.drawString(sectionName, 50, 120);
         g1.drawString(lines, 1, 160);
         g1.drawString(studentName, 110, 220);
 
         helper.write(escpos, new CoffeeImageImpl(image1), imageWrapper, algorithm);
 
-        g3.drawString(offerName, 200, 40);
-/*
-        g3.drawString(groupName, 20, 40);
-*/
+//        g3.drawString(offerName, 200, 40);
+        g3.drawString(groupName, 40, 40);
+
         helper.write(escpos, new CoffeeImageImpl(image3), imageWrapper, algorithm);
 
         g4.drawString(lines, 1, 60);
-        g4.drawString(nbrSeances, 260, 100);
+        g4.drawString(around, 260, 100);
         g4.drawString(amountC, 120, 140);
         g4.drawString(lines, 1, 180);
         helper.write(escpos, new CoffeeImageImpl(image4), imageWrapper, algorithm);
 
-        g5.drawString(date, 10, 30);
+        g5.drawString(date, 50, 40);
 /*
         g5.drawString(secritID, 200, 65);
 */

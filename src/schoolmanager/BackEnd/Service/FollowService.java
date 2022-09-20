@@ -7,7 +7,9 @@ package schoolmanager.BackEnd.Service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import schoolmanager.BackEnd.Model.*;
+import schoolmanager.BackEnd.Model.Follow;
+import schoolmanager.BackEnd.Model.Section;
+import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Results;
 
 import java.sql.PreparedStatement;
@@ -16,23 +18,32 @@ import java.sql.ResultSet;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 
 /**
- *
  * @author Zed Yacine
  */
 public class FollowService {
 
-    public static Results.Rstls addFollow(Follow follow) {
+    public static Results.Rstls addFollow(Follow follow, String type) {
         if (follow == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
         try {
-            PreparedStatement stm = con.prepareStatement(""
-                    + "insert into follow (idStudent,idSeance,presenceStudent,status)"
-                    + " values (?,?,?,?)");
+            PreparedStatement stm;
+            if (type.equals("withP")) {
+                stm = con.prepareStatement(""
+                        + "insert into follow (idStudent,idSeance,presenceStudent,status,idPaiement)"
+                        + " values (?,?,?,?,?)");
+            } else {
+                stm = con.prepareStatement(""
+                        + "insert into follow (idStudent,idSeance,presenceStudent,status)"
+                        + " values (?,?,?,?)");
+            }
             stm.setLong(1, follow.getIdStudent());
             stm.setLong(2, follow.getIdSeance());
             stm.setLong(3, follow.getPresenceStudent());
             stm.setLong(4, follow.getStatus());
+            if (type.equals("withP")) {
+                stm.setLong(5, follow.getIdPaiement());
+            }
             stm.executeUpdate();
             stm.close();
             return Results.Rstls.OBJECT_INSERTED;
@@ -42,21 +53,21 @@ public class FollowService {
         }
     }
 
-    public static Results.Rstls updateFollow(Follow follow,String att) {
+    public static Results.Rstls updateFollow(Follow follow, String att) {
         if (follow == null) {
             return Results.Rstls.OBJECT_NOT_UPDATED;
         }
         try {
-            String query="";
-            if(att.equals("presenceStudent")){
-                 query = "update follow  set presenceStudent = "+follow.getPresenceStudent()
-                        + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
-            }else if(att.equals("status")) {
-                query = "update follow  set status = "+follow.getStatus()
-                        + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
-            }else if(att.equals("statusWithP")) {
-                query = "update follow  set status = "+follow.getStatus()+" , presenceStudent="+follow.getPresenceStudent()
-                        + " where idSeance =" + follow.getIdSeance() +" and idStudent = "+follow.getIdStudent();
+            String query = "";
+            if (att.equals("presenceStudent")) {
+                query = "update follow  set presenceStudent = " + follow.getPresenceStudent()
+                        + " where idSeance =" + follow.getIdSeance() + " and idStudent = " + follow.getIdStudent();
+            } else if (att.equals("status")) {
+                query = "update follow  set status = " + follow.getStatus()
+                        + " where idSeance =" + follow.getIdSeance() + " and idStudent = " + follow.getIdStudent();
+            } else if (att.equals("statusWithP")) {
+                query = "update follow  set status = " + follow.getStatus() + " , presenceStudent=" + follow.getPresenceStudent()
+                        + " where idSeance =" + follow.getIdSeance() + " and idStudent = " + follow.getIdStudent();
             }
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();
@@ -114,16 +125,16 @@ public class FollowService {
         return listStudents;
     }
 
-    public static int getCountSeancePaid(long idStudent ,long idSeance) {
-        String query= "select idStudent,count(idStudent) as 'nbrseance'  from " +
-                "follow where idStudent="+idStudent+" and idSeance="+idSeance+" " +
+    public static int getCountSeancePaid(long idStudent, long idSeance) {
+        String query = "select idStudent,count(idStudent) as 'nbrseance'  from " +
+                "follow where idStudent=" + idStudent + " and idSeance=" + idSeance + " " +
                 "and status=1 group by idStudent ";
-        int nbr=0;
+        int nbr = 0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                nbr=rs.getInt("nbrseance");
+                nbr = rs.getInt("nbrseance");
             }
             rs.close();
             ps.close();

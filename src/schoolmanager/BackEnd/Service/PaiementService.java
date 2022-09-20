@@ -150,6 +150,7 @@ public class PaiementService {
                 p.setAmount(rs.getFloat("amount"));
                 p.setNbrSeance(rs.getInt("nbrSeance"));
                 p.setTypeOfOffer(rs.getString("type"));
+                p.setAround(rs.getString("around"));
             }
             rs.close();
             ps.close();

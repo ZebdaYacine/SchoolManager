@@ -23,6 +23,7 @@ import static schoolmanager.BackEnd.DataBaseConnection.con;
 import static schoolmanager.BackEnd.Service.GroupService.getGroupbyId;
 import static schoolmanager.BackEnd.Service.ObjectService.getCurrentDateTime;
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
+import static schoolmanager.BackEnd.Service.PaiementService.getPaiementForThisGroupIfExist;
 import static schoolmanager.BackEnd.Service.RoomService.searchRoomById;
 import static schoolmanager.BackEnd.Service.TeacherService.searchTeacherById;
 
@@ -43,7 +44,8 @@ public class SeanceService {
             PreparedStatement stm = con.prepareStatement(""
                     + "insert into seance (`idOffer`, `idTeacher`, `idRoom`, `presenceTeacher`, `day`, `idGroupe`)"
                     + " values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            stm.setLong(1, GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer());
+            long idOffer=GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer();
+            stm.setLong(1, idOffer);
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
             stm.setInt(4, 1);
@@ -55,10 +57,54 @@ public class SeanceService {
                 id = rs.getLong(1);
             }
             seance.setId(id);
+            Paiement p = new Paiement();
+            p.setGrp(new Group(seance.getIdGroupe()));
             ObservableList<Student> listStudentInGroup = StudentService.getAllStudentsFollow(seance, "empty");
+            int nbr=0;
             for (Student std : listStudentInGroup) {
-                Follow flw = new Follow(std.getId(), seance.getId(), 1, 0);
-                FollowService.addFollow(flw);
+                p.setStd(new Student(std.getId()));
+                Paiement pmnt =getPaiementForThisGroupIfExist(p);
+                p.setId(pmnt.getId());
+                p.setNbrSeance(pmnt.getNbrSeance());
+                Follow flw ;
+                if(pmnt.getId()==0){
+                    flw = new Follow(std.getId(), seance.getId(), 1, 0);
+                    FollowService.addFollow(flw,"");
+                }else{
+                    flw = new Follow(std.getId(), seance.getId(), 1, 1);
+                    flw.setIdPaiement(pmnt.getId());
+                    flw.setIdSeance(id);
+                    flw.setIdStudent(std.getId());
+                    String type=OfferService.getOfferAttFromIdOffer(new Offer(idOffer),"nameType");
+                    nbr= SeanceService.countPaidSeances(p.getId());
+                    switch (type.toLowerCase()){
+                        case "vip":{
+                            if(nbr<2){
+                                configFollowWithPayment(flw,p);
+                            }else{
+                                configFollow(flw);
+                            }
+                            break;
+                        }
+                        case "simple":{
+                            if(nbr<4){
+                                configFollowWithPayment(flw,p);
+                            }else{
+                                configFollow(flw);
+                            }
+                            break;
+                        }
+                        case "double":{
+                            if(nbr<8){
+                                configFollowWithPayment(flw,p);
+                            }else{
+                                configFollow(flw);
+                            }
+                            break;
+                        }
+                    }
+                    //FollowService.updateFollow(flw,)
+                }
             }
             stm.close();
             return Results.Rstls.OBJECT_INSERTED;
@@ -67,7 +113,17 @@ public class SeanceService {
             ex.printStackTrace();
             return Results.Rstls.OBJECT_NOT_INSERTED;
         }
+    }
 
+    private static void configFollowWithPayment(Follow flw ,Paiement p){
+        FollowService.addFollow(flw,"withP");
+        p.setNbrSeance(p.getNbrSeance()+1);
+        SeanceService.updateNbrSeanceInPaiement(p);
+    }
+
+    private static void configFollow(Follow flw){
+        flw.setStatus(0);
+        FollowService.addFollow(flw,"");
     }
 
     public static Results.Rstls updateSeance(Seance seance) {
@@ -168,6 +224,7 @@ public class SeanceService {
     //for get the nbr of seance  paid
     public static int countPaidSeances(long idPaiement) {
         String query = "SELECT count(*) as 'nbrSeance' FROM follow where idPaiement=" + idPaiement;
+        System.out.println(query);
         int id = 0;
         try {
             PreparedStatement ps = con.prepareStatement(query);

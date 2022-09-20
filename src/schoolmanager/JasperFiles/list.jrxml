@@ -61,7 +61,7 @@ S.id=B.idStudnet and G.id= B.idGroupe and G.idOffer = O.id and  B.idGroupe =$P{i
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="639" y="25" width="101" height="35" forecolor="#FFFFFF" uuid="9824be67-6760-4d82-8d4d-2c77e9267752"/>
+					<reportElement style="Detail" positionType="Float" x="632" y="25" width="101" height="35" forecolor="#FFFFFF" uuid="9824be67-6760-4d82-8d4d-2c77e9267752"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="19"/>
 					</textElement>

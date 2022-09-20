@@ -137,18 +137,19 @@ public class SeanceController implements Initializable {
         time.setValue(datTime.toLocalTime());
         teacherlist = TeacherService.getAllTeachers();
         teacherCmb.getItems().addAll(teacherlist);
-        refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
+        refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,  new Seance(), "",0);
     }
 
     public void refrechSeance(TableView table, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5,
-            Seance seance, String type) {
+            Seance seance, String type,int a) {
         ObservableList<Seance> pr = SeanceService.getAllSeances(null, 0);
         if (pr.size() > 0) {
             seanceSelect = pr.get(0);
-            refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, pr.get(0), "apsent");
-            refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, pr.get(0), "present");
-
+            if(a==1){
+                refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, pr.get(0), "apsent");
+                refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, pr.get(0), "present");
+            }
             Column2.setCellValueFactory(
                     new PropertyValueFactory<>("nameTeacher")
             );
@@ -201,7 +202,7 @@ public class SeanceController implements Initializable {
             } else {
                 uiseance.clearInputs();
             }
-            refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
+            refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC,  new Seance(), "",1);
         }
     }
 
@@ -217,7 +218,7 @@ public class SeanceController implements Initializable {
                 } else {
                     uiseance.clearInputs();
                 }
-                refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,new Seance(), "");
+                refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,new Seance(), "",1);
             }
         }
     }
@@ -232,10 +233,10 @@ public class SeanceController implements Initializable {
                 } else {
                     uiseance.clearInputs();
                 }
-                refrechSeance(SeanceTable,TeacherC, RoomC, GroupC, dateC,  new Seance(), "");
+                refrechSeance(SeanceTable,TeacherC, RoomC, GroupC, dateC,  new Seance(), "",1);
             }
         }
-        refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC, new Seance(), "");
+        refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC, new Seance(), "",1);
     }
 
     @FXML
@@ -308,9 +309,13 @@ public class SeanceController implements Initializable {
                     f.setIdSeance(seanceSelect.getId());
                     f.setIdStudent(std.getId());
                     f.setPresenceStudent(0);
+/*
                     f.setStatus(0);
+*/
+/*
                     FollowService.updateFollow(f, "statusWithP");
-                    /*FollowService.updateFollow(f, "presenceStudent");*/
+*/
+                    FollowService.updateFollow(f, "presenceStudent");
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");
                     studentPTable.setContextMenu(null);
@@ -369,12 +374,10 @@ public class SeanceController implements Initializable {
                         f.setIdSeance(seanceSelect.getId());
                         f.setIdPaiement(p.getId());
                         f.setStatus(1);
-                        f.PresentFollow();
                         SeanceService.updatePaiementInFollow(f);
                         FollowService.updateFollow(f, "statusWithP");
-                    } else {
-                        f.setStatus(0);
-                        FollowService.updateFollow(f, "statusWithP");
+                    }else{
+                        FollowService.updateFollow(f, "presenceStudent");
                     }
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");

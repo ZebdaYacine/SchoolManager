@@ -51,4 +51,9 @@ public class SeanceServiceTest {
     public void updateIdPaiementInSeance() {
         SeanceService.updateIdPaiementInSeance(8,73);
     }
+
+    @Test
+    public void countPaidSeances() {
+        System.out.println(SeanceService.countPaidSeances(134));
+    }
 }

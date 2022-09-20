@@ -19,7 +19,7 @@ public class FollowServiceTest {
     @Test
     public void addFollow() {
         Follow flw= new Follow(10,1,1,1);
-        FollowService.addFollow(flw);
+        FollowService.addFollow(flw,"");
     }
 
     @Test
