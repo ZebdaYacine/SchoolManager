@@ -33,6 +33,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
+import static schoolmanager.SchoolManager.SecondStage;
 import static schoolmanager.SchoolManager.thirdStage;
 
 /**
@@ -146,14 +147,15 @@ public class UpdatePaiementController extends PaiementController implements Init
             PaiementSeancesController paiementSeancesController = loader.getController();
             paiementSeancesController.setInput(paiementUpdated);
             Scene scene = new Scene(ui);
-            if (!thirdStage.isShowing()) {
-                thirdStage.setScene(scene);
-                thirdStage.setTitle("جدول الحصص ");
-                thirdStage.showAndWait();
+            if (!SecondStage.isShowing()) {
+                SecondStage.setScene(scene);
+                SecondStage.setTitle("جدول الحصص ");
+                SecondStage.showAndWait();
             } else {
-                thirdStage.setAlwaysOnTop(true);
-                thirdStage.setAlwaysOnTop(false);
-                thirdStage.hide();
+                SecondStage.setScene(scene);
+                SecondStage.setTitle("جدول الحصص ");
+                SecondStage.setAlwaysOnTop(true);
+                SecondStage.setAlwaysOnTop(false);
             }
         }
     }
