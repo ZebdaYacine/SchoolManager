@@ -106,7 +106,7 @@ public class ReceiptBitmap {
         helper.write(escpos, new CoffeeImageImpl(image1), imageWrapper, algorithm);
 
 //        g3.drawString(offerName, 200, 40);
-        g3.drawString(groupName, 40, 40);
+        g3.drawString(groupName, 30, 40);
 
         helper.write(escpos, new CoffeeImageImpl(image3), imageWrapper, algorithm);
 
