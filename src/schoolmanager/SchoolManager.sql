@@ -268,4 +268,8 @@ add idPaiement bigint  ,
 add foreign key (idPaiement) references paiement(id) ;
 
 alter table paiement
-add column around varchar(50)
+add column around varchar(50);
+
+alter table groupe
+add idTeacher bigint  ,
+add foreign key (idTeacher) references Teacher(id) ;

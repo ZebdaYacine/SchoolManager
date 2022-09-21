@@ -21,7 +21,7 @@ public class UiStudentPaiement extends TestingMethods {
     private TextField amountP;
     private JFXDatePicker dateP;
     private JFXComboBox<Group> groupCB;
-    private  JFXComboBox<String> aroundCB;
+    private JFXComboBox<String> aroundCB;
 
     public TextField getType() {
         return type;
@@ -42,13 +42,12 @@ public class UiStudentPaiement extends TestingMethods {
     public UiStudentPaiement() {
     }
 
-    public UiStudentPaiement(TextField amount, TextField amountP,  JFXComboBox<Group> groupCB,JFXComboBox<String> aroundCB) {
+    public UiStudentPaiement(TextField amount, TextField amountP, JFXComboBox<Group> groupCB, JFXComboBox<String> aroundCB) {
         this.amount = amount;
         this.amountP = amountP;
         this.groupCB = groupCB;
-        this.aroundCB=aroundCB;
+        this.aroundCB = aroundCB;
     }
-
 
     public TextField getAmount() {
         return amount;
@@ -83,37 +82,33 @@ public class UiStudentPaiement extends TestingMethods {
     }
 
     public static boolean UiStudentInputIsValid(UiStudentPaiement uistd) {
-        boolean bamount = false,bamountP = false,groupeB=false,aroundB = false;
-        String amountP=uistd.getAmountP().getText();
-        String amount=uistd.getAmount().getText();
+        boolean bamountP = false, groupeB = false, aroundB = false;
+        String amountP = uistd.getAmountP().getText();
+        String amount = uistd.getAmount().getText();
         Group group = uistd.groupCB.getSelectionModel().getSelectedItem();
-        String around=uistd.aroundCB.getSelectionModel().getSelectedItem();
-        if (!amountP.isEmpty() || Integer.parseInt(amountP)>0) {
+        String around = uistd.aroundCB.getSelectionModel().getSelectedItem();
+        if (!amountP.isEmpty()) {
+            uistd.amountP.setStyle("-fx-background-color : transparent");
             bamountP = true;
         } else {
-           /* uistd.getFirstName_err().setVisible(false);
-            bamountP = true;*/
-        }
-        if (!amount.isEmpty() || Integer.parseInt(amount)>0) {
-            bamount = true;
-        } else {
-           /* uistd.getFirstName_err().setVisible(false);
-            bamount = true;*/
+            uistd.amountP.setStyle("-fx-background-color : #f70d1b");
         }
 
-        if (group!=null) {
+        if (group != null) {
+            uistd.groupCB.setStyle("-fx-background-color : transparent");
             groupeB = true;
         } else {
-           /* uistd.getFirstName_err().setVisible(false);
-            groupeB = true;*/
+            uistd.groupCB.setStyle("-fx-background-color : #f70d1b");
         }
-        if(around==null){
-            aroundB=false;
-        }else{
-            aroundB=true;
+        if (around != null) {
+            aroundB = true;
+            uistd.aroundCB.setStyle("-fx-background-color : transparent");
+        } else {
+            uistd.aroundCB.setStyle("-fx-background-color : #f70d1b");
+            aroundB = false;
         }
 
-        return bamount && bamountP  && groupeB  && aroundB;
+        return bamountP && groupeB && aroundB;
     }
 
     public void clearInputs() {
