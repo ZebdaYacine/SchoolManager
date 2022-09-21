@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static schoolmanager.BackEnd.Controller.PaiementController.*;
+import schoolmanager.SchoolManager;
+import static schoolmanager.SchoolManager.SecondStage;
 
 
 
@@ -39,7 +41,6 @@ public class PaiementSeancesController implements Initializable {
     @FXML
     private Label amuntCL, idL,idL1;
 
-    @FXML
     public static Label amuntCLStatic;
 
     public static ObservableList<Seance> listSeance;
@@ -149,6 +150,7 @@ public class PaiementSeancesController implements Initializable {
                 break;
             }
         }
+        SecondStage.close();
         Group grp = GroupCmb1.getSelectionModel().getSelectedItem();
         if(grp.getId()==group.getId()){
             std.setGroup(grp);

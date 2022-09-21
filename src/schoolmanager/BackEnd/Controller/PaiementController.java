@@ -229,13 +229,13 @@ public class PaiementController implements Initializable {
                 case "PaiementSeancesController": {
                     PaiementSeancesController paiementSeancesController = loader.getController();
                     paiementSeancesController.setInput((Paiement) obj);
-                    stage = thirdStage;
+                    //stage = thirdStage;
                     break;
                 }
                 case "ShowPaiementController": {
                     ShowPaiementController showPaiementController = loader.getController();
                     showPaiementController.setInput((Paiement) obj);
-                    stage = thirdStage;
+                    //stage = thirdStage;
                     break;
                 }
                 case "NewPaiementController": {

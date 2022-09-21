@@ -128,13 +128,15 @@ public class NewPaiementController extends PaiementController implements Initial
             PaiementSeancesController paiementSeancesController = loader.getController();
             paiementSeancesController.setInput(paiement);
             Scene scene = new Scene(ui);
-            if (!thirdStage.isShowing()) {
-                thirdStage.setScene(scene);
-                thirdStage.setTitle("جدول الحصص ");
-                thirdStage.showAndWait();
+            if (!SecondStage.isShowing()) {
+                SecondStage.setScene(scene);
+                SecondStage.setTitle("جدول الحصص ");
+                SecondStage.showAndWait();
             } else {
-                thirdStage.setAlwaysOnTop(true);
-                thirdStage.setAlwaysOnTop(false);
+                SecondStage.setScene(scene);
+                SecondStage.setTitle("جدول الحصص ");
+                SecondStage.setAlwaysOnTop(true);
+                SecondStage.setAlwaysOnTop(false);
             }
         }
     }
