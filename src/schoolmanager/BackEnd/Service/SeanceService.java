@@ -156,9 +156,9 @@ public class SeanceService {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE "
                     + " seance SET idOffer = ?"
-                    + ", idTeacher = ? , idRoom = ? ,presenceTeacher=? , idGroupe = ? , day=? "
+                    + ", idTeacher = ? , idRoom = ? ,presenceTeacher=?  , day=? , idGroupe = ?"
                     + " WHERE id = ? ");
-            System.out.println(seance.getIdGroupe());
+            System.out.println("idGroupe is : "+seance.getIdGroupe());
             stm.setLong(1, GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer());
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
