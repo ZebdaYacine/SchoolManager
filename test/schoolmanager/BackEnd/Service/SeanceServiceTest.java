@@ -7,11 +7,6 @@ import schoolmanager.BackEnd.Model.Group;
 import schoolmanager.BackEnd.Model.Paiement;
 import schoolmanager.BackEnd.Model.Seance;
 import schoolmanager.BackEnd.Model.Student;
-import schoolmanager.BackEnd.Service.SeanceService;
-
-import java.sql.Connection;
-
-import static org.junit.Assert.*;
 
 public class SeanceServiceTest {
 
@@ -27,9 +22,14 @@ public class SeanceServiceTest {
 
     @Test
     public void updateSeance() {
- /*       Seance snc = new Seance(1,1,1,1,10,"2022-08-13",
-                "","","","",1);
-        SeanceService.updateSeance(snc);*/
+        Seance snc = new Seance(251);
+        snc.setIdOffer(40);
+        snc.setIdTeacher(19);
+        snc.setIdRoom(10);
+        snc.setIdGroupe(51);
+        snc.setDate("2022-09-26 22:49:00");
+        snc.setPresenceTeacher(1);
+        SeanceService.updateSeance(snc);
     }
 
     @Test
@@ -40,20 +40,24 @@ public class SeanceServiceTest {
 
     @Test
     public void getAllSeances() {
-        Paiement paiement = new Paiement(new Student(10L),new Group(5L));
-        ObservableList<Seance> list= SeanceService.getAllSeances(paiement,0);
-        for (Seance snc:list) {
+        Paiement paiement = new Paiement(new Student(10L), new Group(5L));
+        ObservableList<Seance> list = SeanceService.getAllSeances(paiement, 0);
+        for (Seance snc : list) {
             snc.PresentSeance();
         }
     }
 
     @Test
     public void updateIdPaiementInSeance() {
-        SeanceService.updateIdPaiementInSeance(8,73);
+        SeanceService.updateIdPaiementInSeance(8, 73);
     }
 
     @Test
     public void countPaidSeances() {
         System.out.println(SeanceService.countPaidSeances(134));
+    }
+
+    @Test
+    public void testUpdateSeance() {
     }
 }

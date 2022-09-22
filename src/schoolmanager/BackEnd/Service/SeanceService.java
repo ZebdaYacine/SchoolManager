@@ -17,11 +17,11 @@ import schoolmanager.BackEnd.Results;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import static schoolmanager.BackEnd.Controller.PaiementSeancesController.*;
 import static schoolmanager.BackEnd.DataBaseConnection.con;
 import static schoolmanager.BackEnd.Service.GroupService.getGroupbyId;
-import static schoolmanager.BackEnd.Service.ObjectService.getCurrentDateTime;
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
 import static schoolmanager.BackEnd.Service.PaiementService.getPaiementForThisGroupIfExist;
 import static schoolmanager.BackEnd.Service.RoomService.searchRoomById;
@@ -35,7 +35,6 @@ public class SeanceService {
     private static long id;
 
 
-
     public static Results.Rstls addSeance(Seance seance) {
         if (seance == null) {
             return Results.Rstls.OBJECT_NOT_INSERTED;
@@ -44,7 +43,7 @@ public class SeanceService {
             PreparedStatement stm = con.prepareStatement(""
                     + "insert into seance (`idOffer`, `idTeacher`, `idRoom`, `presenceTeacher`, `day`, `idGroupe`)"
                     + " values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            long idOffer=GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer();
+            long idOffer = GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer();
             stm.setLong(1, idOffer);
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
@@ -60,44 +59,44 @@ public class SeanceService {
             Paiement p = new Paiement();
             p.setGrp(new Group(seance.getIdGroupe()));
             ObservableList<Student> listStudentInGroup = StudentService.getAllStudentsFollow(seance, "empty");
-            int nbr=0;
+            int nbr = 0;
             for (Student std : listStudentInGroup) {
                 p.setStd(new Student(std.getId()));
-                Paiement pmnt =getPaiementForThisGroupIfExist(p);
+                Paiement pmnt = getPaiementForThisGroupIfExist(p);
                 p.setId(pmnt.getId());
                 p.setNbrSeance(pmnt.getNbrSeance());
-                Follow flw ;
-                if(pmnt.getId()==0){
+                Follow flw;
+                if (pmnt.getId() == 0) {
                     flw = new Follow(std.getId(), seance.getId(), 1, 0);
-                    FollowService.addFollow(flw,"");
-                }else{
+                    FollowService.addFollow(flw, "");
+                } else {
                     flw = new Follow(std.getId(), seance.getId(), 1, 1);
                     flw.setIdPaiement(pmnt.getId());
                     flw.setIdSeance(id);
                     flw.setIdStudent(std.getId());
-                    String type=OfferService.getOfferAttFromIdOffer(new Offer(idOffer),"nameType");
-                    nbr= SeanceService.countPaidSeances(p.getId());
-                    switch (type.toLowerCase()){
-                        case "vip":{
-                            if(nbr<2){
-                                configFollowWithPayment(flw,p);
-                            }else{
+                    String type = OfferService.getOfferAttFromIdOffer(new Offer(idOffer), "nameType");
+                    nbr = SeanceService.countPaidSeances(p.getId());
+                    switch (type.toLowerCase()) {
+                        case "vip": {
+                            if (nbr < 2) {
+                                configFollowWithPayment(flw, p);
+                            } else {
                                 configFollow(flw);
                             }
                             break;
                         }
-                        case "simple":{
-                            if(nbr<4){
-                                configFollowWithPayment(flw,p);
-                            }else{
+                        case "simple": {
+                            if (nbr < 4) {
+                                configFollowWithPayment(flw, p);
+                            } else {
                                 configFollow(flw);
                             }
                             break;
                         }
-                        case "double":{
-                            if(nbr<8){
-                                configFollowWithPayment(flw,p);
-                            }else{
+                        case "double": {
+                            if (nbr < 8) {
+                                configFollowWithPayment(flw, p);
+                            } else {
                                 configFollow(flw);
                             }
                             break;
@@ -115,15 +114,39 @@ public class SeanceService {
         }
     }
 
-    private static void configFollowWithPayment(Follow flw ,Paiement p){
-        FollowService.addFollow(flw,"withP");
-        p.setNbrSeance(p.getNbrSeance()+1);
+    public static void checkPaiement(Seance snc) {
+        Paiement p = new Paiement();
+        p.setGrp(new Group(snc.getIdGroupe()));
+        ObservableList<Student> listStudentInGroup = StudentService.getAllStudentsFollow(snc, "empty");
+        for (Student std : listStudentInGroup) {
+            p.setStd(new Student(std.getId()));
+            Paiement pmnt = getPaiementForThisGroupIfExist(p);
+            p.setId(pmnt.getId());
+            p.setNbrSeance(pmnt.getNbrSeance());
+            Follow flw;
+            if (pmnt.getId() != 0) {
+                int nbr=p.getNbrSeance() - 1;
+                if(nbr>0){
+                    p.setNbrSeance(nbr);
+                }else{
+                    p.setNbrSeance(0);
+                }
+                SeanceService.updateNbrSeanceInPaiement(p);
+                flw = new Follow(std.getId(), snc.getId(), 1, 0);
+                FollowService.updateFollow(flw, "paiement");
+            }
+        }
+    }
+
+    private static void configFollowWithPayment(Follow flw, Paiement p) {
+        FollowService.addFollow(flw, "withP");
+        p.setNbrSeance(p.getNbrSeance() + 1);
         SeanceService.updateNbrSeanceInPaiement(p);
     }
 
-    private static void configFollow(Follow flw){
+    private static void configFollow(Follow flw) {
         flw.setStatus(0);
-        FollowService.addFollow(flw,"");
+        FollowService.addFollow(flw, "");
     }
 
     public static Results.Rstls updateSeance(Seance seance) {
@@ -135,6 +158,7 @@ public class SeanceService {
                     + " seance SET idOffer = ?"
                     + ", idTeacher = ? , idRoom = ? ,presenceTeacher=? , idGroupe = ? , day=? "
                     + " WHERE id = ? ");
+            System.out.println(seance.getIdGroupe());
             stm.setLong(1, GroupService.getGroupbyId(new Group(seance.getIdGroupe())).get(0).getIdOffer());
             stm.setLong(2, seance.getIdTeacher());
             stm.setLong(3, seance.getIdRoom());
@@ -171,6 +195,23 @@ public class SeanceService {
         }
     }
 
+    public static ArrayList<Long> getPaiementInFollow(long id) {
+        String query = "SELECT idPaiement  FROM follow where  idSeance=" + id;
+        ArrayList<Long> idPaimentArray = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                idPaimentArray.add(rs.getLong("idPaiement"));
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return idPaimentArray;
+    }
+
     public static Results.Rstls updateNbrSeanceInPaiement(Paiement p) {
         if (p == null) {
             return Results.Rstls.OBJECT_NOT_UPDATED;
@@ -204,21 +245,31 @@ public class SeanceService {
         }
     }
 
-    public static long getIdSeanceByIdPaiement(long idPaiement) {
-        String query = "SELECT count(*) as id  FROM seance where idPaiement=" + idPaiement;
-        long id = 0;
+    public static Seance getSeances(long id) {
+        String query = "SELECT * FROM seance  where id=" + id;
+        Seance seance = new Seance();
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                id = rs.getLong("id");
+                seance.setId(rs.getLong("id"));
+                seance.setIdTeacher(rs.getLong("idTeacher"));
+                Teacher t = new Teacher(seance.getIdTeacher());
+                t = searchTeacherById(t).get(0);
+                seance.setNameTeacher(t.getFirstName() + " " + t.getLastName());
+                seance.setIdRoom(rs.getLong("idRoom"));
+                Room r = new Room(seance.getIdRoom());
+                r = searchRoomById(r).get(0);
+                seance.setNameRoom(r.getName());
+                seance.setDate(rs.getString("day"));
+                seance.setIdGroupe(rs.getLong("idGroupe"));
             }
             rs.close();
             ps.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return id;
+        return seance;
     }
 
     //for get the nbr of seance  paid
@@ -377,9 +428,8 @@ public class SeanceService {
     }
 
 
-
     public static ObservableList<Seance> getSeancesOfGroup(long id) {
-        String query="SELECT id FROM seance  where idGroupe="+id+" order by id desc";
+        String query = "SELECT id FROM seance  where idGroupe=" + id + " order by id desc";
         ObservableList<Seance> listOffers = FXCollections.observableArrayList(new Seance());
         listOffers.remove(0);
         try {
@@ -398,28 +448,28 @@ public class SeanceService {
         return listOffers;
     }
 
-    public static boolean isPaid( long idStd,long idSnc) {
+    public static boolean isPaid(long idStd, long idSnc) {
         String query = "SELECT count(*) as nbr FROM schoolmanager.follow " +
-                "where idStudent="+idStd+" and idSeance="+idSnc+" and  idPaiement is not null";
-        int nbr=0;
+                "where idStudent=" + idStd + " and idSeance=" + idSnc + " and  idPaiement is not null";
+        int nbr = 0;
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                nbr=rs.getInt("nbr");
+                nbr = rs.getInt("nbr");
             }
             rs.close();
             ps.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return nbr!=0;
+        return nbr != 0;
     }
 
     public static ObservableList<Seance> getAllSeancesNoPaid(Paiement paiement) {
-        String query="select S.idRoom,S.idTeacher,S.day,S.presenceTeacher,F.presenceStudent " +
+        String query = "select S.idRoom,S.idTeacher,S.day,S.presenceTeacher,F.presenceStudent " +
                 "from follow  F  , seance S where F.idSeance= S.id and F.idPaiement is NULL and " +
-                "S.idGroupe="+paiement.getGrp().getId()+" and F.idStudent="+paiement.getStd().getId();
+                "S.idGroupe=" + paiement.getGrp().getId() + " and F.idStudent=" + paiement.getStd().getId();
         System.out.println(query);
         ObservableList<Seance> listOffers = FXCollections.observableArrayList(new Seance());
         listOffers.remove(0);

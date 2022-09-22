@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -208,10 +209,16 @@ public class SeanceController implements Initializable {
 
     @FXML
     private void update(ActionEvent event) {
-        if (seanceSelect.getId() != 0) {
+        long id =seanceSelect.getId();
+        if ( id != 0) {
             if (CommunController.confirm("sure de modifier  le seance")) {
                 Seance newSnc = Mapping.getObjectSeanceFromUiSeance(uiseance);
                 newSnc.setId(seanceSelect.getId());
+                Seance snc= SeanceService.getSeances(id);
+                if(snc.getIdGroupe()!=newSnc.getIdGroupe()){
+                    SeanceService.checkPaiement(snc);
+                }
+                newSnc.PresentSeance();
                 Results.Rstls r = SeanceService.updateSeance(newSnc);
                 if (r == Results.Rstls.OBJECT_NOT_UPDATED) {
                     CommunController.alert(r.toString());
@@ -225,8 +232,18 @@ public class SeanceController implements Initializable {
 
     @FXML
     private void delete(ActionEvent event) {
-        if (seanceSelect.getId() != 0) {
+        long idSeance =seanceSelect.getId();
+        if (idSeance != 0) {
             if (CommunController.confirm("sure de supprimer  le seance")) {
+                ArrayList<Long> idPaiemetArray = SeanceService.getPaiementInFollow(idSeance);
+                long nbrSeanceInPaiement=0;
+                for(Long idPaiement : idPaiemetArray){
+                    nbrSeanceInPaiement=SeanceService.countPaidSeances(idPaiement);
+                    Paiement p= new Paiement();
+                    p.setNbrSeance((int) nbrSeanceInPaiement-1);
+                    p.setId(idPaiement);
+                    SeanceService.updateNbrSeanceInPaiement(p);
+                }
                 Results.Rstls r = SeanceService.deleteSeance(seanceSelect);
                 if (r == Results.Rstls.OBJECT_NOT_DELETED) {
                     CommunController.alert(r.toString());

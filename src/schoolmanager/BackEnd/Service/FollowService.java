@@ -69,6 +69,11 @@ public class FollowService {
                 query = "update follow  set status = " + follow.getStatus() + " , presenceStudent=" + follow.getPresenceStudent()
                         + " where idSeance =" + follow.getIdSeance() + " and idStudent = " + follow.getIdStudent();
             }
+            else if (att.equals("paiement")) {
+                query = "update follow set idPaiement = null where " +
+                        " idStudent ="+follow.getIdStudent()+" and idSeance="+follow.getIdSeance();
+            }
+            System.out.println(query);
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();
             stm.close();
