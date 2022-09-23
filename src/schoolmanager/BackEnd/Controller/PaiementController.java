@@ -144,6 +144,12 @@ public class PaiementController implements Initializable {
                                 } else {
                                     setStyle("-fx-background-color: #FF0000;");
                                 }
+                                /*if (!s.isHasSeanceNoPaid()) {
+                                    setStyle("-fx-background-color: #081018;");
+                                } else {
+                                    setStyle("-fx-background-color: #eaf816;");
+                                }*/
+
                             } else {
                                 setStyle("-fx-background-color: #081018;");
                             }
@@ -204,7 +210,6 @@ public class PaiementController implements Initializable {
         if (GroupCmb.getSelectionModel().getSelectedItem().getId() != 0) {
             Group group = GroupCmb.getSelectionModel().getSelectedItem();
             std.setGroup(group);
-            std.PresentObject();
             b1 = true;
             refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                     phone2C, sectionNameC, std, "group");

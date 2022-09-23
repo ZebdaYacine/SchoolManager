@@ -19,6 +19,15 @@ public class Student extends Person {
     private Group group;
     private int  nbr;
     private boolean  paid;
+    private boolean hasSeanceNoPaid;
+
+    public boolean isHasSeanceNoPaid() {
+        return hasSeanceNoPaid;
+    }
+
+    public void setHasSeanceNoPaid(boolean hasSeanceNoPaid) {
+        this.hasSeanceNoPaid = hasSeanceNoPaid;
+    }
 
     public boolean isPaid() {
         return paid;

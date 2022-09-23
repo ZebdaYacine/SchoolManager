@@ -84,7 +84,8 @@ public class BelongsService {
                         student.setNbr(student.getNbr() + 1);
                     }
                 }
-                student.setPaid(student.getNbr() < nbrSeanceInOffer);
+                student.setPaid(student.getNbr() < 1);
+                //student.setHasSeanceNoPaid(student.getNbr()>0);
                 listStudents.add(student);
             }
             rs.close();
