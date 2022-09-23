@@ -8,7 +8,10 @@ package schoolmanager.BackEnd.Controller;
 import com.jfoenix.controls.JFXButton;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -131,6 +134,19 @@ public class MainController implements Initializable {
         swithchLayout(url, SecondStage, "إدارة القاعات");
 
     }
+
+    @FXML
+    private void goToSetting(ActionEvent event) throws IOException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String file=formatter.format(date);
+        String userNameSys= System.getProperty("user.name");;
+        String command= "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -uroot -proot --no-create-info SchoolManager >" +
+                " \"C:\\Users\\"+userNameSys+"\\Desktop\\schoolManager\\dumps\\"+file+".sql\"";
+        System.out.println(command);
+        //Process runtime = Runtime.getRuntime().exec(command);
+    }
+
 
 
 

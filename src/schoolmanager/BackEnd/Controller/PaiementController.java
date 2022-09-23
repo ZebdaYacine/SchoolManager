@@ -149,7 +149,6 @@ public class PaiementController implements Initializable {
                                 } else {
                                     setStyle("-fx-background-color: #eaf816;");
                                 }*/
-
                             } else {
                                 setStyle("-fx-background-color: #081018;");
                             }
@@ -160,7 +159,6 @@ public class PaiementController implements Initializable {
                     }
                 };
             }
-
         });
         PaiementTable.setOnMouseClicked(event -> {
             paiement = (Paiement) PaiementTable.getSelectionModel().getSelectedItem();
