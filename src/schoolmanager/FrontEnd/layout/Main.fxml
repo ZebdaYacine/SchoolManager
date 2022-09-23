@@ -84,7 +84,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="الإعدادات">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#goToSetting" text="النسخ الاحتياطي" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToSetting" text="حفظ قاعدة البيانات" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="إدارة">

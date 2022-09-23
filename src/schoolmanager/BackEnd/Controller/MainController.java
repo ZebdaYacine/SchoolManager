@@ -6,26 +6,29 @@
 package schoolmanager.BackEnd.Controller;
 
 import com.jfoenix.controls.JFXButton;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static schoolmanager.SchoolManager.SecondStage;
+import static schoolmanager.SchoolManager.loginStage;
 
 /**
  * FXML Controller class
@@ -70,7 +73,7 @@ public class MainController implements Initializable {
 
     public void changePane(JFXButton btn1, JFXButton btn2, JFXButton btn3,
                            JFXButton btn4, String rsc) throws IOException {
-        
+
         btn1.setStyle("-fx-background-color :  linear-gradient( #182532 80%, #0077cc 100%);");
         btn2.setStyle("-fx-background-color : transparent;");
         btn3.setStyle("-fx-background-color : transparent;");
@@ -79,7 +82,7 @@ public class MainController implements Initializable {
         main.setCenter(null);
         if (root != null) {
             main.setCenter(root);
-        }else{
+        } else {
             System.out.println(root);
         }
     }
@@ -105,7 +108,6 @@ public class MainController implements Initializable {
     private void goToLevel(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/level.fxml";
         swithchLayout(url, SecondStage, "إدارة المستويات");
-
     }
 
     @FXML
@@ -137,24 +139,38 @@ public class MainController implements Initializable {
 
     @FXML
     private void goToSetting(ActionEvent event) throws IOException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String file=formatter.format(date);
-        String userNameSys= System.getProperty("user.name");;
-        String command= "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -uroot -proot --no-create-info SchoolManager >" +
-                " \"C:\\Users\\"+userNameSys+"\\Desktop\\schoolManager\\dumps\\"+file+".sql\"";
-        System.out.println(command);
-        //Process runtime = Runtime.getRuntime().exec(command);
+        String url = "/schoolmanager/FrontEnd/layout/BackupDb.fxml";
+        swithchLayout(url, SecondStage, "حفظ  قاعدة البيانات ");
+
+       /* try {
+            createBackUpDb(getPath());
+        } catch (InterruptedException e) {
+            CommunController.alert("حدث خطأ في نسخ قاعدة البيانات ");
+        }*/
     }
 
 
-
+    public static void createBackUpDb(String Path) throws IOException, InterruptedException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String file = formatter.format(date);
+        Path="\""+Path+file+".sql\"";
+        String dump = "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -uroot -proot --no-create-info SchoolManager > " +
+                Path;
+        System.out.println(dump);
+        String[] cmdarray = {"cmd.exe", "/c", dump};
+        Process p = Runtime.getRuntime().exec(cmdarray);
+        if (p.waitFor() == 0) {
+            CommunController.alert("تم نسخ قاعدة البيانات ");
+        } else {
+            CommunController.alert("حدث خطأ في نسخ قاعدة البيانات ");
+        }
+    }
 
     @FXML
     private void About(ActionEvent event) {
 
     }
-
 
 
     @FXML
@@ -167,7 +183,7 @@ public class MainController implements Initializable {
 
     }
 
-    private void swithchLayout(String  url, Stage stage, String title) {
+    private void swithchLayout(String url, Stage stage, String title) {
         try {
             Parent uistd = FXMLLoader.load(this.getClass().getResource(url));
             Scene scene = new Scene(uistd);
@@ -195,26 +211,26 @@ public class MainController implements Initializable {
 
     @FXML
     private void presence(ActionEvent event) throws IOException {
-        String rsc="Paiement";
-        changePane(presence,seance,offres,groupes,rsc);
+        String rsc = "Paiement";
+        changePane(presence, seance, offres, groupes, rsc);
     }
 
     @FXML
     private void seance(ActionEvent event) throws IOException {
-        String rsc="seance";
-        changePane(seance,presence,offres,groupes,rsc);
+        String rsc = "seance";
+        changePane(seance, presence, offres, groupes, rsc);
     }
 
     @FXML
     private void offer(ActionEvent event) throws IOException {
-        String rsc="Offer";
-        changePane(offres,groupes,presence,seance,rsc);
+        String rsc = "Offer";
+        changePane(offres, groupes, presence, seance, rsc);
     }
 
     @FXML
     private void groupes(ActionEvent event) throws IOException {
-        String rsc="Groupes";
-        changePane(groupes,offres,presence,seance,rsc);
+        String rsc = "Groupes";
+        changePane(groupes, offres, presence, seance, rsc);
     }
 
 }
