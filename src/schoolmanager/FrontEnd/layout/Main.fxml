@@ -64,7 +64,7 @@
             </JFXButton>
          </children>
       </HBox>
-      <Label layoutX="1038.0" nodeOrientation="RIGHT_TO_LEFT" text="برنامج إدارة المدرسة" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+      <Label layoutX="1038.0" nodeOrientation="RIGHT_TO_LEFT" text="Hy Manager" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>

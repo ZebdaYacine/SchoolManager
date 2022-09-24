@@ -119,7 +119,7 @@ public class GroupeController implements Initializable {
                         if (grp != null) {
                             switch (grp.getLevel().toLowerCase()) {
                                 case "الثانوي": {
-                                    setStyle("-fx-background-color: #00ff7f;");
+                                    setStyle("-fx-background-color: #29A952;");
                                     break;
                                 }
                                 case "المتوسط": {

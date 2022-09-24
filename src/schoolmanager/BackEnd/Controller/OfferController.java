@@ -86,7 +86,7 @@ public class OfferController implements Initializable {
                         if (offer != null) {
                             switch (offer.getLevel().toLowerCase()){
                                 case "الثانوي" :{
-                                    setStyle("-fx-background-color: #00ff7f;");
+                                    setStyle("-fx-background-color: #29A952;");
                                     break;
                                 }
                                 case "المتوسط" :{
