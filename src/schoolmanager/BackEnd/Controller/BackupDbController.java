@@ -45,6 +45,8 @@ public class BackupDbController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        path_err.setVisible(false);
+        path_err.setText("");
         String userNameSys = System.getProperty("user.name");
         String pt = "\"C:\\Users\\" + userNameSys + "\\Desktop\\schoolManager\\dumps\\" + FileDb()+"\"";
         data.setSelected(true);
@@ -83,13 +85,14 @@ public class BackupDbController implements Initializable {
         String str=path.getText();
         if(str.isEmpty()){
             path_err.setText("اختر مسار المسار ");
+            path_err.setVisible(true);
             return;
         }
         if (data.isSelected()) {
-            dump=dump+path.getText();
+            dump=dump+str;
         } else if (all.isSelected()) {
             dump = "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -uroot -proot  SchoolManager > ";
-            dump=dump+path.getText();
+            dump=dump+str;
         }
         createDumpFile(dump);
     }
@@ -116,8 +119,13 @@ public class BackupDbController implements Initializable {
 
     @FXML
     private void browse(ActionEvent event) {
-        if(getPath()!=null){
-            path.setText("\""+getPath()+"\\"+ FileDb()+"\"");
+        String p=getPath();
+        if(p!=null){
+            path_err.setVisible(false);
+            path_err.setText("");
+            path.setText("\""+p+"\\"+ FileDb()+"\"");
+        }else{
+            path.setText("");
         }
     }
 

@@ -141,31 +141,8 @@ public class MainController implements Initializable {
     private void goToSetting(ActionEvent event) throws IOException {
         String url = "/schoolmanager/FrontEnd/layout/BackupDb.fxml";
         swithchLayout(url, SecondStage, "حفظ  قاعدة البيانات ");
-
-       /* try {
-            createBackUpDb(getPath());
-        } catch (InterruptedException e) {
-            CommunController.alert("حدث خطأ في نسخ قاعدة البيانات ");
-        }*/
     }
 
-
-    public static void createBackUpDb(String Path) throws IOException, InterruptedException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String file = formatter.format(date);
-        Path="\""+Path+file+".sql\"";
-        String dump = "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -uroot -proot --no-create-info SchoolManager > " +
-                Path;
-        System.out.println(dump);
-        String[] cmdarray = {"cmd.exe", "/c", dump};
-        Process p = Runtime.getRuntime().exec(cmdarray);
-        if (p.waitFor() == 0) {
-            CommunController.alert("تم نسخ قاعدة البيانات ");
-        } else {
-            CommunController.alert("حدث خطأ في نسخ قاعدة البيانات ");
-        }
-    }
 
     @FXML
     private void About(ActionEvent event) {
