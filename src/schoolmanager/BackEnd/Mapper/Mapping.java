@@ -5,6 +5,7 @@
  */
 package schoolmanager.BackEnd.Mapper;
 
+import schoolmanager.BackEnd.Controller.CommunController;
 import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.uiPresenter.*;
 
@@ -18,8 +19,8 @@ public abstract class Mapping {
         boolean a = UiStudent.UiStudentInputIsValid(uistd);
         if (a) {
             return new Student(
-                    uistd.getPhone1().getText(),
-                    uistd.getPhone2().getText(),
+                    CommunController.checkString(uistd.getPhone1().getText()),
+                    CommunController.checkString(uistd.getPhone2().getText()),
                     uistd.getSectionName().getSelectionModel().getSelectedItem().toString(),
                     uistd.getFirstName().getText(), uistd.getLastName().getText());
         } else {
@@ -48,7 +49,8 @@ public abstract class Mapping {
         boolean a = UiTeacher.UiTeacherInputIsValid(uitech);
         if (a) {
             return new Teacher(uitech.getFirstName().getText(), uitech.getLastName().getText(),
-                    uitech.getPhone().getText(), uitech.getWorkeSpace().getText());
+                    CommunController.checkString(uitech.getPhone().getText())
+                    , uitech.getWorkeSpace().getText());
         } else {
             return null;
         }
