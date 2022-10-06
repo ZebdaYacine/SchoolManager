@@ -104,6 +104,7 @@ public class BackupDbController implements Initializable {
             p = Runtime.getRuntime().exec(cmdarray);
         } catch (IOException e) {
             CommunController.alert("حدث خطأ في نسخ قاعدة البيانات ");
+            System.err.println("try 1");
         }
         try {
             if (p.waitFor() == 0) {
@@ -111,9 +112,11 @@ public class BackupDbController implements Initializable {
                 SecondStage.close();
             } else {
                 CommunController.alert("حدث خطأ في نسخ قاعدة البيانات ");
+                System.err.println("try 2");
             }
         } catch (InterruptedException e) {
             CommunController.alert("حدث خطأ في نسخ قاعدة البيانات ");
+            System.err.println("try 3");
         }
     }
 
