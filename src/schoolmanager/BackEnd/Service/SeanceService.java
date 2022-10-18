@@ -449,7 +449,7 @@ public class SeanceService {
     }
 
     public static boolean isPaid(long idStd, long idSnc) {
-        String query = "SELECT count(*) as nbr FROM schoolmanager.follow " +
+        String query = "SELECT count(*) as nbr FROM follow " +
                 "where idStudent=" + idStd + " and idSeance=" + idSnc + " and  idPaiement is not null";
         int nbr = 0;
         try {

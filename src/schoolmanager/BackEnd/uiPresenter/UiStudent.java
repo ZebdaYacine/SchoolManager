@@ -127,6 +127,8 @@ public class UiStudent extends TestingMethods {
     public void setSectionName(ComboBox sectionName) {
         this.sectionName = sectionName;
     }
+    
+     
 
     public static boolean UiStudentInputIsValid(UiStudent uistd) {
         boolean bFirstName = false, blastName = false, bphone1 = false, bphone2 = false;
@@ -148,8 +150,9 @@ public class UiStudent extends TestingMethods {
             uistd.getPhone1_err().setText("رقم الهاتف الاول فارغ");
             uistd.getPhone1_err().setVisible(true);
         } else {
-            if (testInt(uistd.getPhone1())) {
-                if (uistd.getPhone1().getText().length()  != 10) {
+            bphone1 = true;
+            /*if (testInt(uistd.getPhone1())) {
+                if (uistd.getPhone1().getText().length()  > 20) {
                     uistd.getPhone1_err().setText("رقم الهاتف يتكون من 10ارقام");
                     uistd.getPhone1_err().setVisible(true);
                 } else {
@@ -159,14 +162,15 @@ public class UiStudent extends TestingMethods {
             } else {
                 uistd.getPhone1_err().setText("أدخل ارقام");
                 uistd.getPhone1_err().setVisible(true);
-            }
+            }*/
         }
         if (uistd.getPhone2().getText().isEmpty()) {
             uistd.getPhone2_err().setText("رقم الهاتف الثاني فارغ");
             uistd.getPhone2_err().setVisible(true);
         } else {
-            if (testInt(uistd.getPhone2())) {
-                if (uistd.getPhone2().getText().length()  != 10) {
+            bphone2 = true;
+            /*if (testInt(uistd.getPhone2())) {
+                if (uistd.getPhone2().getText().length()  > 20) {
                     uistd.getPhone2_err().setText("رقم الهاتف يتكون من 10ارقام");
                     uistd.getPhone2_err().setVisible(true);
                 } else {
@@ -176,7 +180,7 @@ public class UiStudent extends TestingMethods {
             } else {
                 uistd.getPhone2_err().setText("أدخل ارقام");
                 uistd.getPhone2_err().setVisible(true);
-            }
+            }*/
         }
 
         return bFirstName && bphone1 && bphone2 && blastName;

@@ -117,6 +117,8 @@ public class GroupService {
             query = "SELECT * FROM groupe where idTeacher = " + tech.getId();
         }else if(att.equals("all")){
             query = "SELECT * FROM groupe ";
+        } else if(att.equals("std")){
+            query = "SELECT * FROM groupe g , belongs b where b.idGroupe=g.id and b.idStudnet="+tech.getId();
         }
         System.out.println(query);
         ObservableList<Group> listGroups = FXCollections.observableArrayList(new Group());

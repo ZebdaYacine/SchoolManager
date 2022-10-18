@@ -21,6 +21,7 @@ import schoolmanager.BackEnd.Results;
 /**
  * @author Zed Yacine
  */
+
 public class StudentService {
 
     private static final Section section = new Section();
@@ -46,6 +47,35 @@ public class StudentService {
         } catch (Exception ex) {
             ex.printStackTrace();
             return Results.Rstls.OBJECT_NOT_INSERTED;
+        }
+    }
+
+    public static long  addStudentWithGetLastId(Student student) {
+        if (student == null) {
+            return 0;
+        }
+        long last_inserted_id=0;
+        try {
+            PreparedStatement stm = con.prepareStatement(""
+                    + "insert into student (firstName,lastName,phone1,phone2,idSection)"
+                    + " values (?,?,?,?,?)");
+            stm.setString(1, student.getFirstName());
+            stm.setString(2, student.getLastName());
+            stm.setString(3, student.getPhone1());
+            stm.setString(4, student.getPhone2());
+            section.setName(student.getSectionName());
+            section.PresentTemplate();
+            stm.setLong(5, ObjectService.getIdObject(section, "section"));
+            stm.executeUpdate();
+            ResultSet rs = stm.getGeneratedKeys();
+            if(rs.next()) {
+                last_inserted_id = rs.getLong(1);
+            }
+            stm.close();
+            return last_inserted_id;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0;
         }
     }
 
@@ -95,7 +125,6 @@ public class StudentService {
         String query;
         if (type.equals("search")) {
             query = "SELECT * FROM student  where id = " + std.getId() + " order by id desc";
-
         } else {
             query = "SELECT * FROM student order by id desc ";
         }

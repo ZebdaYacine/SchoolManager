@@ -91,7 +91,7 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="stdLbl" layoutX="673.0" layoutY="10.0" prefHeight="50.0" prefWidth="378.0" text="التلميذ:" textFill="#02ff00" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="10.0">
+      <Label fx:id="stdLbl" layoutX="673.0" layoutY="10.0" prefHeight="50.0" prefWidth="489.0" text="التلميذ:" textFill="#02ff00" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="Candara" size="26.0" />
          </font>

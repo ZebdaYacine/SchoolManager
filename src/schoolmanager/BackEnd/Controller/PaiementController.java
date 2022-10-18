@@ -20,10 +20,7 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
-import schoolmanager.BackEnd.Model.Group;
-import schoolmanager.BackEnd.Model.Paiement;
-import schoolmanager.BackEnd.Model.Seance;
-import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Model.*;
 import schoolmanager.BackEnd.ReceiptPrinter.MainPrinter;
 import schoolmanager.BackEnd.Service.*;
 
@@ -58,7 +55,6 @@ public class PaiementController implements Initializable {
     private JFXComboBox<Group> GroupCmb;
     @FXML
     static JFXComboBox<Group> GroupCmb1;
-
     @FXML
     private TableColumn<?, ?> firstNameC, lastNameC, phone1C, phone2C, sectionNameC;
     @FXML
@@ -115,7 +111,12 @@ public class PaiementController implements Initializable {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
+                    if (GroupCmb.getSelectionModel().getSelectedItem()==null) {
+                        refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
+                    } else {
+                        std.setGroup(GroupCmb.getSelectionModel().getSelectedItem());
+                        refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
+                    }
                     stdLbl.setText("التلميذ : " + std.getFirstName() + " " + std.getLastName());
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     studentTable.setContextMenu(contextMenu);
@@ -271,6 +272,7 @@ public class PaiementController implements Initializable {
                                        TableColumn Column3, TableColumn Column4,
                                        TableColumn Column5, TableColumn Column6,
                                        Student std) {
+
         paiement.setStd(std);
         ObservableList<Paiement> pr = PaiementService.getPaiementOfStudent(paiement);
         Column1.setCellValueFactory(

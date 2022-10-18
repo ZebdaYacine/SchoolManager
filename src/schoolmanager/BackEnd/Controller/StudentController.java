@@ -81,15 +81,13 @@ public class StudentController implements Initializable {
     @FXML
     private JFXToggleButton enableSearch;
 
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> sectionsName = SectionService.getAllObjectName("section");
         this.sectionName.setItems(sectionsName);
         enableSearch.setSelected(false);
-        enableSearch.setOnAction(((event) -> {
+        /*enableSearch.setOnAction(((event) -> {
             if (enableSearch.isSelected()) {
                 if (!firstName.getText().equals("")) {
                     std.setFirstName(firstName.getText());
@@ -103,10 +101,15 @@ public class StudentController implements Initializable {
                 refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC,
                         std, "");
             }
-        }));
+        }));*/
         firstName.setOnKeyTyped(((event) -> {
             if (firstName.getText().equals("")) {
-                enableSearch.setSelected(false);
+                std.setFirstName(firstName.getText());
+                refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC,
+                        std, "searche");
+                //enableSearch.setSelected(false);
+            }else{
+                refrechStudent(studentTable, firstNameC, lastNameC, phone1C, phone2C, sectionNameC, new Student(), "");
             }
         }));
         uistd = new UiStudent(firstName, lastName, phone2, phone1, sectionName,
@@ -151,6 +154,7 @@ public class StudentController implements Initializable {
     @FXML
     private void add(ActionEvent event) {
         std = Mapping.getObjectStudentFromUiStudent(uistd);
+        std.PresentObject();
         if (std != null) {
             Results.Rstls r = StudentService.addStudent(std);
             if (r == Results.Rstls.OBJECT_NOT_INSERTED) {

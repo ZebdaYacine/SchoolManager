@@ -136,14 +136,14 @@ public class UiTeacher extends TestingMethods {
                 uistd.getWorkeSpace_err().setVisible(true);
             } else {
                 uistd.getWorkeSpace_err().setVisible(false);
-                bphone = true;
+                bWorkeSpace = true;
             }
         }
         if (uistd.getPhone().getText().isEmpty()) {
             uistd.getPhone_err().setText("رقم الهاتف فارغ");
             uistd.getPhone_err().setVisible(true);
         } else {
-            if (testInt(uistd.getPhone())) {
+            /*if (testInt(uistd.getPhone())) {
                 if (uistd.getPhone().getText().length() != 10) {
                     uistd.getPhone_err().setText("رقم الهاتف متكون من 10 ارقام");
                     uistd.getPhone_err().setVisible(true);
@@ -154,7 +154,8 @@ public class UiTeacher extends TestingMethods {
             } else {
                 uistd.getPhone_err().setText("أدخل ارقام");
                 uistd.getPhone_err().setVisible(true);
-            }
+            }*/
+            bphone=true;
         }
 
         return bFirstName && bphone && bWorkeSpace;
