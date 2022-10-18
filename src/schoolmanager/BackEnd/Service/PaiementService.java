@@ -99,11 +99,18 @@ public class PaiementService {
 
     public static ObservableList<Paiement> getPaiementOfStudent(Paiement paiement) {
         String query;
-        query = " SELECT A.id,A.idStudent,A.day,A.amount,A.amountC,A.idGroupe ,  G.idOffer  , A.around" +
-                " FROM paiement A ,  Groupe G " +
-                " where A.idGroupe=G.id  and " +
-                " A.idStudent=" + paiement.getStd().getId() + " order by A.idStudent desc ";
-        System.out.println(query);
+        if (paiement.getStd().getGroup()==null) {
+            query = " SELECT A.id,A.idStudent,A.day,A.amount,A.amountC,A.idGroupe ,  G.idOffer  , A.around" +
+                    " FROM paiement A ,  Groupe G " +
+                    " where A.idGroupe=G.id  and " +
+                    " A.idStudent=" + paiement.getStd().getId() + " order by A.idStudent desc ";
+        } else {
+            query = " SELECT A.id,A.idStudent,A.day,A.amount,A.amountC,A.idGroupe ,  G.idOffer  , A.around" +
+                    " FROM paiement A ,  Groupe G " +
+                    " where A.idGroupe=G.id  and " +
+                    " A.idStudent=" + paiement.getStd().getId() + " and G.id="+paiement.getStd().getGroup().getId()+" order by A.around asc ";
+        }
+
         ObservableList<Paiement> listPaiementsOfStudents = FXCollections.observableArrayList(new Paiement());
         listPaiementsOfStudents.remove(0);
         try {
@@ -162,7 +169,7 @@ public class PaiementService {
 
     public static Seance PaiementHasAseans(Paiement paiement) {
         String query = "SELECT S.id,S.idGroupe,S.idOffer,F.id from seance S , " +
-                "follow F where S.id=F.idSeance and F.idStudent="+paiement.getStd().getId() +
+                "follow F where S.id=F.idSeance and F.idStudent=" + paiement.getStd().getId() +
                 " and F.idPaiement=" + paiement.getId();
         Seance p = new Seance();
         try {

@@ -8,7 +8,10 @@ package schoolmanager.BackEnd.Controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -20,12 +23,17 @@ import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Service.BelongsService;
 import schoolmanager.BackEnd.Service.StudentService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import net.sf.jasperreports.engine.JRException;
 import schoolmanager.BackEnd.Printer.Print;
+
+import static schoolmanager.SchoolManager.SecondStage;
+import static schoolmanager.SchoolManager.thirdStage;
 
 /*import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -35,6 +43,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
+
 /**
  * FXML Controller class
  *
@@ -45,7 +54,11 @@ public class BelongsController implements Initializable {
     @FXML
     private TableView<?> studentTable;
     @FXML
+    static TableView<?> studentTable1;
+    @FXML
     private TableView<?> belongsTable;
+    @FXML
+    static TableView<?> belongsTable1;
     @FXML
     private TextField firstName;
     @FXML
@@ -56,23 +69,43 @@ public class BelongsController implements Initializable {
     @FXML
     private TableColumn<?, ?> firstNameC;
     @FXML
+    static TableColumn<?, ?> firstNameC10;
+    @FXML
     private TableColumn<?, ?> lastNameC;
+    @FXML
+    static TableColumn<?, ?> lastNameC10;
     @FXML
     private TableColumn<?, ?> phone1C;
     @FXML
+    static TableColumn<?, ?> phone1C10;
+    @FXML
     private TableColumn<?, ?> phone2C;
+    @FXML
+    static TableColumn<?, ?> phone2C10;
     @FXML
     private TableColumn<?, ?> sectionNameC;
     @FXML
+    static TableColumn<?, ?> sectionNameC10;
+    @FXML
     private TableColumn<?, ?> firstNameC1;
+    @FXML
+    static TableColumn<?, ?> firstNameC11;
     @FXML
     private TableColumn<?, ?> lastNameC1;
     @FXML
+    static TableColumn<?, ?> lastNameC11;
+    @FXML
     private TableColumn<?, ?> phone1C1;
+    @FXML
+    static TableColumn<?, ?> phone1C11;
     @FXML
     private TableColumn<?, ?> phone2C1;
     @FXML
+    static TableColumn<?, ?> phone2C11;
+    @FXML
     private TableColumn<?, ?> sectionNameC1;
+    @FXML
+    static TableColumn<?, ?> sectionNameC11;
     @FXML
     private Label nbrPlace;
     @FXML
@@ -95,7 +128,18 @@ public class BelongsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        studentTable1=studentTable;
+        belongsTable1=belongsTable;
+        firstNameC10=firstNameC;
+        lastNameC10=lastNameC;
+        phone1C10=phone1C;
+        phone2C10=phone2C;
+        firstNameC11=firstNameC1;
+        lastNameC11=lastNameC1;
+        phone1C11=phone1C1;
+        phone2C11=phone2C1;
+        sectionNameC10=sectionNameC;
+        sectionNameC11=sectionNameC1;
         contextMenu1.getItems().addAll(delete, showProfile1);
         contextMenu2.getItems().addAll(add, showProfile);
         studentTable.setOnMouseClicked(event -> {
@@ -158,7 +202,7 @@ public class BelongsController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
 
         if (type.equals("belongs")) {
@@ -190,14 +234,19 @@ public class BelongsController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
-        /* std = Mapping.getObjectStudentFromUiStudent(uistd);
-        Results.Rstls r = StudentService.addStudent(std);
-        if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
-            CommunController.alert(r.toString());
+    private void addStd(ActionEvent event) throws IOException {
+        String url = "/schoolmanager/FrontEnd/layout/AddStudent.fxml";
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url));
+        Parent uigrp = loader.load();
+        Scene scene = new Scene(uigrp);
+        if (!thirdStage.isShowing()) {
+            thirdStage.setScene(scene);
+            thirdStage.setTitle("إدارة التلاميذ");
+            thirdStage.showAndWait();
         } else {
-            uistd.clearInputs();
-        }*/
+            thirdStage.setAlwaysOnTop(true);
+            thirdStage.setAlwaysOnTop(false);
+        }
     }
 
     @FXML
@@ -303,7 +352,6 @@ public class BelongsController implements Initializable {
             std.setPhone1(phn);
             std.setPhone2(phn);
         }
-        std.PresentObject();
         refrechStudent(studentTable, firstNameC1, lastNameC1, phone1C1,
                 phone2C1, sectionNameC1, std, "");
     }
