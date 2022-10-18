@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
@@ -29,7 +28,7 @@
 <!--         </font></JFXTextField>-->
 <!--      <JFXTextField fx:id="phone2" focusColor="#0077cc" labelFloat="true" layoutX="500.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0" promptText="N°  Télephone 2 " styleClass="jfxtextfield" unFocusColor="#0099cc">-->
 <!--=======-->
-      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" promptText="اللقب" styleClass="jfxtextfield" unFocusColor="#0099cc">
+      <JFXTextField fx:id="firstName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="20.0" onKeyReleased="#searchByName" prefHeight="30.0" prefWidth="200.0" promptText="اللقب" styleClass="jfxtextfield" unFocusColor="#0099cc">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></JFXTextField>
@@ -38,17 +37,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="252.0" layoutY="20.0" text="بحث" textFill="WHITE">
-<!--&gt;>>>>>> 28fa90b4c34870dedb390330eecf3117addc63c5-->
-         <font>
-            <Font name="Times New Roman Bold" size="16.0" />
-         </font>
-      </Label>
-<!--<<<<<<< HEAD-->
-<!--      <JFXToggleButton fx:id="enableSearch" layoutX="232.0" layoutY="31.0" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />-->
-<!--      <Label layoutX="242.0" layoutY="25.0" text="Recherche">-->
-<!--=======-->
-      <JFXToggleButton fx:id="enableSearch" layoutX="240.0" layoutY="20.0" prefWidth="143.0" text="اضغط للبحث" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#0099cc" unToggleColor="WHITE" unToggleLineColor="WHITE" />
       <JFXTextField fx:id="lastName" focusColor="#0077cc" labelFloat="true" layoutX="20.0" layoutY="100.0" prefHeight="30.0" prefWidth="200.0" promptText="الإسم" styleClass="jfxtextfield" unFocusColor="#0099cc">
          <font>
             <Font name="Times New Roman" size="14.0" />

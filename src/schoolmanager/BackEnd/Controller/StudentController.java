@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
@@ -78,15 +79,13 @@ public class StudentController implements Initializable {
     private JFXButton delete;
     @FXML
     private JFXButton update;
-    @FXML
-    private JFXToggleButton enableSearch;
+
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> sectionsName = SectionService.getAllObjectName("section");
         this.sectionName.setItems(sectionsName);
-        enableSearch.setSelected(false);
         /*enableSearch.setOnAction(((event) -> {
             if (enableSearch.isSelected()) {
                 if (!firstName.getText().equals("")) {
@@ -218,6 +217,14 @@ public class StudentController implements Initializable {
             uistd = new UiStudent(firstName, lastName, phone2, phone1, sectionName,
                     firstName_err, lastName_err, phone1_err, phone2_err);
         }
+    }
+
+    @FXML
+    private void searchByName(KeyEvent event) {
+        Student std = new Student();
+        std.setFirstName(firstName.getText());
+        refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
+                phone2C, sectionNameC, std, "search");
     }
 
 }

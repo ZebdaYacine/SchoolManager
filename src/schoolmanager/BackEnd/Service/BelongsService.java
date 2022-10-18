@@ -70,6 +70,7 @@ public class BelongsService {
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
+            Paiement pamnt= new Paiement();
             while (rs.next()) {
                 Student student = new Student();
                 student.setId(rs.getLong("id"));
@@ -79,14 +80,19 @@ public class BelongsService {
                 student.setPhone2(rs.getString("phone2"));
                 student.setSectionName(
                         ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
-                for (Seance snc : SeancesOfGroup) {
+               /* for (Seance snc : SeancesOfGroup) {
                     if (!SeanceService.isPaid(student.getId(), snc.getId())) {
                         student.setNbr(student.getNbr() + 1);
                     }
                 }
-                student.setPaid(student.getNbr() < 1);
+                student.setPaid(student.getNbr() < 1);*/
+                pamnt.setGrp(grp);
+                pamnt.setStd(student);
+                int size =SeanceService.getAllSeancesNoPaid(pamnt).size();
+                student.setPaid(size<=0);
                 //student.setHasSeanceNoPaid(student.getNbr()>0);
                 listStudents.add(student);
+                student.PresentObject();
             }
             rs.close();
             ps.close();

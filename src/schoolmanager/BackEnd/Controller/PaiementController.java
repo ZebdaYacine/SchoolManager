@@ -111,7 +111,7 @@ public class PaiementController implements Initializable {
             std = (Student) studentTable.getSelectionModel().getSelectedItem();
             if (std != null) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if (GroupCmb.getSelectionModel().getSelectedItem()==null) {
+                    if (GroupCmb.getSelectionModel().getSelectedItem() == null) {
                         refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
                     } else {
                         std.setGroup(GroupCmb.getSelectionModel().getSelectedItem());
@@ -190,13 +190,18 @@ public class PaiementController implements Initializable {
                     deleteP.setOnAction(event1 -> {
                         boolean b = CommunController.confirm("هل أنت متاكد من حف عملية الدفع");
                         if (b) {
-                            Seance s = PaiementService.PaiementHasAseans(paiement);
-                            if (s.getId() == 0) {
-                                PaiementService.deletePaiement(paiement);
-                                refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
-                            } else {
+                            /*Seance s = PaiementService.PaiementHasAseans(paiement);
+                            if (s.getId() == 0) {*/
+                            Follow flw = new Follow();
+                            flw.setIdPaiement(paiement.getId());
+                            FollowService.updateFollow(flw, "deletepaiement");
+                            PaiementService.deletePaiement(paiement);
+                            refrechPaiement(PaiementTable, groupC, offerC, datePC, amountC, amountRC, nbrseanceC, std);
+                            refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
+                                    phone2C, sectionNameC, std, "group");
+                            /*} else {
                                 CommunController.alert("لايمكن حذف هذه العميلة");
-                            }
+                            }*/
                         }
                     });
                 }

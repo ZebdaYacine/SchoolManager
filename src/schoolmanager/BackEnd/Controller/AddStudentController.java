@@ -16,8 +16,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
+/*<<<<<<< HEAD
 import schoolmanager.BackEnd.Model.Student;
 import schoolmanager.BackEnd.Results;
+=======*/
+import schoolmanager.BackEnd.Model.Belongs;
+import schoolmanager.BackEnd.Model.Group;
+import schoolmanager.BackEnd.Model.Student;
+import schoolmanager.BackEnd.Results;
+import schoolmanager.BackEnd.Service.BelongsService;
+/*
+>>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522
+*/
 import schoolmanager.BackEnd.Service.SectionService;
 import schoolmanager.BackEnd.Service.StudentService;
 import schoolmanager.BackEnd.uiPresenter.UiStudent;
@@ -62,6 +72,13 @@ public class AddStudentController implements Initializable {
 
     private UiStudent uistd = new UiStudent();
 
+/*<<<<<<< HEAD
+=======*/
+    public static Group group = new Group();
+
+/*
+>>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522
+*/
 
 
     
@@ -75,9 +92,19 @@ public class AddStudentController implements Initializable {
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+/*<<<<<<< HEAD
         ObservableList<Student> pr;
         if (type.equals("searche")) {
             pr = StudentService.searchStudentByName(std);
+=======*/
+        ObservableList<Student> pr = null;
+        if (type.equals("searche")) {
+            pr = StudentService.searchStudentByName(std);
+        }else if(type.equals("belongs")){
+            pr = BelongsService.getStudentsOfGroup(group);
+/*
+>>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522
+*/
         } else {
             pr = StudentService.getAllStudents("", new Student());
         }
@@ -99,7 +126,8 @@ public class AddStudentController implements Initializable {
         table.setItems(pr);
     }
 
-    @FXML
+/*<<<<<<< HEAD*/
+/*    @FXML
     private void add(ActionEvent event) {
         std = Mapping.getObjectStudentFromUiStudent(uistd);
         if (std != null) {
@@ -114,6 +142,44 @@ public class AddStudentController implements Initializable {
                         phone2C10, sectionNameC10, new Student(), "");
             }
         }
+    }*/
+/*
+=======*/
+    public void setInputs(Group grp) {
+        group = grp;
     }
 
+    @FXML
+    private void add(ActionEvent event) {
+        std = Mapping.getObjectStudentFromUiStudent(uistd);
+        long lastId=0;
+        if (std != null) {
+            //Results.Rstls r = StudentService.addStudent(std);
+            lastId =StudentService.addStudentWithGetLastId(std);
+            std.setId(lastId);
+            if (lastId==0) {
+                CommunController.alert("حدث خطأ في عملية الإدخال");
+            } else {
+                uistd.clearInputs();
+                refrechStudent(studentTable1, firstNameC10, lastNameC10, phone1C10,
+                        phone2C10, sectionNameC10, new Student(), "");
+                if (group.getNbrRest() > 0) {
+                    Belongs blg=  new Belongs(std.getId(), group.getId());
+                    blg.PresentGroupe();
+                    Results.Rstls r =BelongsService.addBelongs(blg);
+                    if(r== Results.Rstls.OBJECT_INSERTED){
+                        refrechStudent(belongsTable1, firstNameC11, lastNameC11, phone1C11,
+                                phone2C11, sectionNameC11, new Student(), "belongs");
+                    }else {
+                        CommunController.alert("حدث خطأ في عملية الإدخال 1");
+                    }
+                    group.setNbrRest(group.getNbrPlace() - (BelongsService.getStudentsOfGroup(group).size()));
+                    nbrPlace1.setText(Integer.toString(group.getNbrRest()));
+                } else {
+                    CommunController.alert("فوج ممتلى ");
+                }
+            }
+        }
+    }
+/*>>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522*/
 }

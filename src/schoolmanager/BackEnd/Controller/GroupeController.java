@@ -166,7 +166,7 @@ public class GroupeController implements Initializable {
     private void showBelongsScene() {
         grp = GroupeTable.getSelectionModel().getSelectedItem();
         String url1 = "/schoolmanager/FrontEnd/layout/Belongs.fxml";
-
+        grp.PresentGroupe();
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url1));
             Parent uigrp = loader.load();

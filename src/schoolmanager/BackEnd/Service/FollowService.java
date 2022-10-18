@@ -73,6 +73,10 @@ public class FollowService {
                 query = "update follow set idPaiement = null where " +
                         " idStudent ="+follow.getIdStudent()+" and idSeance="+follow.getIdSeance();
             }
+            else if (att.equals("deletepaiement")) {
+                query = "update follow set idPaiement = null , status=0 where " +
+                        " idPaiement ="+follow.getIdPaiement();
+            }
             System.out.println(query);
             PreparedStatement stm = con.prepareStatement(query);
             stm.executeUpdate();

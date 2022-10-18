@@ -99,5 +99,13 @@ public class StudentServiceTest {
         System.err.println("0658185867".length());
         
     }
-    
+
+    @Test
+    public void addStudentWithGetLastId() {
+        DataBaseConnection.Connect();
+        System.out.println("addStudent");
+        Student student = new Student("0658185867", "0658185867","مقام", "fgdfg", "retert");
+        long result = StudentService.addStudentWithGetLastId(student);
+        System.err.println(result);
+    }
 }

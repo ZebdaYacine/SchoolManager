@@ -109,6 +109,8 @@ public class BelongsController implements Initializable {
     @FXML
     private Label nbrPlace;
     @FXML
+    static Label nbrPlace1;
+    @FXML
     private Label groupName;
     @FXML
     private Label offerName;
@@ -128,6 +130,12 @@ public class BelongsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+/*<<<<<<< HEAD
+=======*/
+        nbrPlace1=nbrPlace;
+/*
+>>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522
+*/
         studentTable1=studentTable;
         belongsTable1=belongsTable;
         firstNameC10=firstNameC;
@@ -238,6 +246,13 @@ public class BelongsController implements Initializable {
         String url = "/schoolmanager/FrontEnd/layout/AddStudent.fxml";
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url));
         Parent uigrp = loader.load();
+/*<<<<<<< HEAD
+=======*/
+        AddStudentController addStudentController = loader.getController();
+        addStudentController.setInputs(group);
+/*
+>>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522
+*/
         Scene scene = new Scene(uigrp);
         if (!thirdStage.isShowing()) {
             thirdStage.setScene(scene);
