@@ -217,7 +217,6 @@ public class BelongsController implements Initializable {
             pr = BelongsService.getStudentsOfGroup(group);
         } else {
             //pr = StudentService.getAllStudents("", new Student());
-            System.err.println(std.getFirstName());
             pr = BelongsService.getStudentsNotInGroup(group.getId(), std);
         }
         for (Student s : pr) {

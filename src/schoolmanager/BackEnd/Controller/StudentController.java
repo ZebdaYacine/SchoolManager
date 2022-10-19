@@ -127,11 +127,12 @@ public class StudentController implements Initializable {
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr;
-        if (type.equals("searche")) {
+        if (type.equals("search")) {
             pr = StudentService.searchStudentByName(std);
         } else {
             pr = StudentService.getAllStudents("", new Student());
         }
+        pr.get(0).PresentObject();
         Column1.setCellValueFactory(
                 new PropertyValueFactory<>("firstName")
         );
@@ -221,10 +222,14 @@ public class StudentController implements Initializable {
 
     @FXML
     private void searchByName(KeyEvent event) {
-        Student std = new Student();
-        std.setFirstName(firstName.getText());
-        refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
-                phone2C, sectionNameC, std, "search");
+        Student std= new Student();
+        String name = firstName.getText();
+        System.out.println(name);
+       if (!name.isEmpty()) {
+            std.setFirstName(name);
+            refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
+                    phone2C, sectionNameC, std, "search");
+        }
     }
 
 }

@@ -123,6 +123,7 @@ public class StudentService {
 
     public static ObservableList<Student> getAllStudents(String type, Student std) {
         String query;
+        System.out.println(std.getFirstName());
         if (type.equals("search")) {
             query = "SELECT * FROM student  where id = " + std.getId() + " order by id desc";
         } else {
@@ -196,6 +197,7 @@ public class StudentService {
                 listStudents.add(student);
             }
             rs.close();
+
             ps.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -205,28 +207,28 @@ public class StudentService {
 
     public static ObservableList<Student> searchStudentByName(Student student) {
         String query ;
-        student.PresentObject();
         query = "SELECT * FROM student where firstName LIKE'" + student.getFirstName() + "%'";
         System.out.println(query);
-        Student std = new Student();
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                Student std = new Student();
+
                 std.setId(rs.getLong("id"));
                 std.setFirstName(rs.getString("firstName"));
                 std.setLastName(rs.getString("lastName"));
                 std.setPhone1(rs.getString("phone1"));
                 std.setPhone2(rs.getString("phone2"));
-                student.setSectionName(
+                std.setSectionName(
                         ObjectService.getNameFromIdObject(new Section(rs.getLong("idSection")), "section"));
                 listStudents.add(std);
             }
             rs.close();
             ps.close();
-        } catch (Exception ex) {
+        }  catch (Exception ex) {
             ex.printStackTrace();
         }
         return listStudents;
