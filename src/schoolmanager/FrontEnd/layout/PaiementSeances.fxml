@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="643.0" prefWidth="740.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.PaiementSeancesController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" onKeyReleased="#hotkey" prefHeight="643.0" prefWidth="740.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.PaiementSeancesController">
     <children>
       <Label fx:id="idL" layoutX="13.0" layoutY="13.0" prefHeight="34.0" prefWidth="250.0" text=" رقم عملية الدفع :" textAlignment="JUSTIFY" textFill="#08e224" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="13.0">
          <font>

@@ -33,6 +33,7 @@ import schoolmanager.BackEnd.uiPresenter.UiStudentPaiement;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyEvent;
 
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
 import static schoolmanager.SchoolManager.SecondStage;
@@ -67,9 +68,9 @@ public class NewPaiementController extends PaiementController implements Initial
     @FXML
     private ProgressIndicator prg;
 
-    ObservableList<String> around =
-            FXCollections.observableArrayList(
-                    "1","2","3","4","5","6","7","8","9","10","11","12"
+    ObservableList<String> around
+            = FXCollections.observableArrayList(
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
             );
 
     /**
@@ -80,7 +81,7 @@ public class NewPaiementController extends PaiementController implements Initial
         prg.setProgress(0);
         aroundCmb1.getItems().clear();
         aroundCmb1.setItems(around);
-        uistd = new UiStudentPaiement(amount, amountP,  GroupCmb,aroundCmb1);
+        uistd = new UiStudentPaiement(amount, amountP, GroupCmb, aroundCmb1);
         GroupCmb.setOnAction(event -> {
             Group grp = GroupCmb.getSelectionModel().getSelectedItem();
             if (grp != null) {
@@ -104,10 +105,8 @@ public class NewPaiementController extends PaiementController implements Initial
         std1 = std;
     }
 
-
-
     @FXML
-    private void add(ActionEvent event) throws InterruptedException, IOException {
+    private void add() throws InterruptedException, IOException {
         paiement = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
         paiement.setTypeOfOffer(OfferService.getOfferAttFromIdOffer(new Offer(paiement.getGrp().getIdOffer()), "nameType"));
         paiement.setNbrSeance(0);
@@ -142,8 +141,14 @@ public class NewPaiementController extends PaiementController implements Initial
     }
 
     @FXML
-    private void selectStudent(MouseEvent event) {
-
+    private void hotkey(KeyEvent event) throws IOException, InterruptedException {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            default:
+                break;
+        }
     }
 
 }

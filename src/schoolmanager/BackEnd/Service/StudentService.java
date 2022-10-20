@@ -21,7 +21,6 @@ import schoolmanager.BackEnd.Results;
 /**
  * @author Zed Yacine
  */
-
 public class StudentService {
 
     private static final Section section = new Section();
@@ -50,15 +49,15 @@ public class StudentService {
         }
     }
 
-    public static long  addStudentWithGetLastId(Student student) {
+    public static long addStudentWithGetLastId(Student student) {
         if (student == null) {
             return 0;
         }
-        long last_inserted_id=0;
+        long last_inserted_id = 0;
         try {
             PreparedStatement stm = con.prepareStatement(""
                     + "insert into student (firstName,lastName,phone1,phone2,idSection)"
-                    + " values (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+                    + " values (?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             stm.setString(1, student.getFirstName());
             stm.setString(2, student.getLastName());
             stm.setString(3, student.getPhone1());
@@ -68,7 +67,7 @@ public class StudentService {
             stm.setLong(5, ObjectService.getIdObject(section, "section"));
             stm.executeUpdate();
             ResultSet rs = stm.getGeneratedKeys();
-            if(rs.next()) {
+            if (rs.next()) {
                 last_inserted_id = rs.getLong(1);
             }
             stm.close();
@@ -156,22 +155,43 @@ public class StudentService {
     public static ObservableList<Student> getAllStudentsFollow(Seance s, String type) {
         String query = "";
         boolean st = false;
-        if (type.equals("apsent")) {
-            st = true;
-            query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status "
-                    + "FROM follow F , student S , belongs B where S.id = F.idStudent "
-                    + " and F.idStudent=B.idStudnet and F.presenceStudent=0  and B.idGroupe = " + s.getIdGroupe()
-                    + " and F.idSeance=" + s.getId() + " group by S.id order by S.id desc";
-            /*query="select * from student where id in (select idStudent from follow where  presenceStudent=0 and  idStudent \n" +
-                    "in   (select idStudnet from belongs where idGroupe= "+s.getIdGroupe()+" ))";*/
-            //query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
-        } else if (type.equals("present")) {
-            st = true;
-            query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status FROM follow F , student S  where S.id = F.idStudent "
-                    + "and F.presenceStudent=1  and F.idSeance = " + s.getId() + " order by S.id desc";
-            //query = "SELECT * FROM student where id in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
-        } else if (type.equals("empty")) {
-            query = "SELECT * FROM student where id  in(select idStudnet from belongs where idGroupe = " + s.getIdGroupe() + ") order by id desc";
+        switch (type) {
+            case "apsent":
+                st = true;
+                query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status "
+                        + "FROM follow F , student S , belongs B where S.id = F.idStudent "
+                        + " and F.idStudent=B.idStudnet and F.presenceStudent=0  and B.idGroupe = " + s.getIdGroupe()
+                        + " and F.idSeance=" + s.getId() + " group by S.id order by S.id desc";
+                /*query="select * from student where id in (select idStudent from follow where  presenceStudent=0 and  idStudent \n" +
+                "in   (select idStudnet from belongs where idGroupe= "+s.getIdGroupe()+" ))";*/
+                //query = "SELECT * FROM student where id not in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
+                break;
+            case "apsentFirstName":
+                st = true;
+                query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status "
+                        + "FROM follow F , student S , belongs B where S.id = F.idStudent "
+                        + " and F.idStudent=B.idStudnet and F.presenceStudent=0  and B.idGroupe = " + s.getIdGroupe()
+                        + " and F.idSeance=" + s.getId() + " and S.firstName like '" + s.getpStudent()+ "%' group by S.id order by S.id desc";
+                System.err.println(query);
+                break;
+            case "present":
+                st = true;
+                query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status FROM follow F , student S  where S.id = F.idStudent "
+                        + "and F.presenceStudent=1  and F.idSeance = " + s.getId() + " order by S.id desc";
+                //query = "SELECT * FROM student where id in(select idStudent from follow where idSeance = " + s.getId() + ") order by id desc";
+                break;
+            case "presentFirstName":
+                st = true;
+                query = "SELECT S.id,S.idSection,S.firstName,S.lastName,S.phone1,S.phone2,F.idSeance,F.status "
+                        + "FROM follow F , student S , belongs B where S.id = F.idStudent "
+                        + " and F.idStudent=B.idStudnet and F.presenceStudent=1  and B.idGroupe = " + s.getIdGroupe()
+                        + " and F.idSeance=" + s.getId() + " and S.firstName like '" + s.getpStudent() + "%' group by S.id order by S.id desc";
+                break;
+            case "empty":
+                query = "SELECT * FROM student where id  in(select idStudnet from belongs where idGroupe = " + s.getIdGroupe() + ") order by id desc";
+                break;
+            default:
+                break;
         }
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
         listStudents.remove(0);
@@ -206,7 +226,7 @@ public class StudentService {
     }
 
     public static ObservableList<Student> searchStudentByName(Student student) {
-        String query ;
+        String query;
         query = "SELECT * FROM student where firstName LIKE'" + student.getFirstName() + "%'";
         System.out.println(query);
         ObservableList<Student> listStudents = FXCollections.observableArrayList(new Student());
@@ -228,7 +248,7 @@ public class StudentService {
             }
             rs.close();
             ps.close();
-        }  catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return listStudents;

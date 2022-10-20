@@ -92,7 +92,7 @@ public class LevelController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add( ) {
         Level lvel = Mapping.getObjectLevelFromUiLevl(uilevl);
         if (lvel != null) {
             Results.Rstls r = LevelService.addObject(lvel, "level");
@@ -123,7 +123,7 @@ public class LevelController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete( ) {
         if (levl.getId() != 0) {
             Level lvel = Mapping.getObjectLevelFromUiLevl(uilevl);
             lvel.setId(levl.getId());
@@ -163,6 +163,20 @@ public class LevelController implements Initializable {
             refrech(levelTable, nameC, "search", g);
         } else {
             refrech(levelTable, nameC, "", new Template());
+        }
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
         }
     }
 }

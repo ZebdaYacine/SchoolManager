@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import schoolmanager.BackEnd.Mapper.Mapping;
@@ -81,10 +83,6 @@ public class SeanceController implements Initializable {
     private final ContextMenu PresentMenu = new ContextMenu();
     private final MenuItem delItem = new MenuItem("غائب");
     private final MenuItem addPayItem = new MenuItem("حاضر");
-    private final MenuItem showProfile = new MenuItem("عرض ملف التلميذ");
-    private final MenuItem showProfile1 = new MenuItem("عرض ملف التلميذ");
-
-
 
     @FXML
     private TableColumn<?, ?> TeacherC;
@@ -113,7 +111,6 @@ public class SeanceController implements Initializable {
     @FXML
     private TableColumn<?, ?> sectionNameAC;
 
-
     private ObservableList<Room> roomlist;
     private ObservableList<Teacher> teacherlist;
     ObservableList<Group> grouplist;
@@ -121,33 +118,35 @@ public class SeanceController implements Initializable {
     private TableColumn<?, ?> paymentPC;
     @FXML
     private TableColumn<?, ?> paymentAC;
+    @FXML
+    private JFXTextField firstName;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        PresentMenu.getItems().addAll(addPayItem, showProfile1);
-        ApsentMenu.getItems().addAll(delItem, showProfile);
-        uiseance = new UiSeance( teacherErr, roomErr, groupErr,GroupCmb,  teacherCmb, RoomCmb,dateSeance,dateErr,time,timeErr);
+        PresentMenu.getItems().addAll(addPayItem);
+        ApsentMenu.getItems().addAll(delItem);
+        uiseance = new UiSeance(teacherErr, roomErr, groupErr, GroupCmb, teacherCmb, RoomCmb, dateSeance, dateErr, time, timeErr);
         roomlist = RoomService.getAllRoom();
         RoomCmb.getItems().addAll(roomlist);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime datTime = LocalDateTime.parse(ObjectService.getCurrentDateTime(),formatter);
+        LocalDateTime datTime = LocalDateTime.parse(ObjectService.getCurrentDateTime(), formatter);
         dateSeance.setValue(datTime.toLocalDate());
         time.setValue(datTime.toLocalTime());
         teacherlist = TeacherService.getAllTeachers();
         teacherCmb.getItems().addAll(teacherlist);
-        refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,  new Seance(), "",0);
+        refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC, new Seance(), "", 0);
     }
 
     public void refrechSeance(TableView table, TableColumn Column2,
             TableColumn Column3, TableColumn Column4, TableColumn Column5,
-            Seance seance, String type,int a) {
+            Seance seance, String type, int a) {
         ObservableList<Seance> pr = SeanceService.getAllSeances(null, 0);
         if (pr.size() > 0) {
             seanceSelect = pr.get(0);
-            if(a==1){
+            if (a == 1) {
                 refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, pr.get(0), "apsent");
                 refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, pr.get(0), "present");
             }
@@ -194,7 +193,7 @@ public class SeanceController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add() {
         seanceSelect = Mapping.getObjectSeanceFromUiSeance(uiseance);
         if (seanceSelect != null) {
             Results.Rstls r = SeanceService.addSeance(seanceSelect);
@@ -203,19 +202,19 @@ public class SeanceController implements Initializable {
             } else {
                 uiseance.clearInputs();
             }
-            refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC,  new Seance(), "",1);
+            refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC, new Seance(), "", 1);
         }
     }
 
     @FXML
     private void update(ActionEvent event) {
-        long id =seanceSelect.getId();
-        if ( id != 0) {
+        long id = seanceSelect.getId();
+        if (id != 0) {
             if (CommunController.confirm("sure de modifier  le seance")) {
                 Seance newSnc = Mapping.getObjectSeanceFromUiSeance(uiseance);
                 newSnc.setId(seanceSelect.getId());
-                Seance snc= SeanceService.getSeances(id);
-                if(snc.getIdGroupe()!=newSnc.getIdGroupe()){
+                Seance snc = SeanceService.getSeances(id);
+                if (snc.getIdGroupe() != newSnc.getIdGroupe()) {
                     SeanceService.checkPaiement(snc);
                 }
                 newSnc.PresentSeance();
@@ -225,22 +224,22 @@ public class SeanceController implements Initializable {
                 } else {
                     uiseance.clearInputs();
                 }
-                refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC,new Seance(), "",1);
+                refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC, new Seance(), "", 1);
             }
         }
     }
 
     @FXML
-    private void delete(ActionEvent event) {
-        long idSeance =seanceSelect.getId();
+    private void delete() {
+        long idSeance = seanceSelect.getId();
         if (idSeance != 0) {
             if (CommunController.confirm("sure de supprimer  le seance")) {
                 ArrayList<Long> idPaiemetArray = SeanceService.getPaiementInFollow(idSeance);
-                long nbrSeanceInPaiement=0;
-                for(Long idPaiement : idPaiemetArray){
-                    nbrSeanceInPaiement=SeanceService.countPaidSeances(idPaiement);
-                    Paiement p= new Paiement();
-                    p.setNbrSeance((int) nbrSeanceInPaiement-1);
+                long nbrSeanceInPaiement = 0;
+                for (Long idPaiement : idPaiemetArray) {
+                    nbrSeanceInPaiement = SeanceService.countPaidSeances(idPaiement);
+                    Paiement p = new Paiement();
+                    p.setNbrSeance((int) nbrSeanceInPaiement - 1);
                     p.setId(idPaiement);
                     SeanceService.updateNbrSeanceInPaiement(p);
                 }
@@ -250,10 +249,10 @@ public class SeanceController implements Initializable {
                 } else {
                     uiseance.clearInputs();
                 }
-                refrechSeance(SeanceTable,TeacherC, RoomC, GroupC, dateC,  new Seance(), "",1);
+                refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC, new Seance(), "", 1);
             }
         }
-        refrechSeance(SeanceTable,  TeacherC, RoomC, GroupC, dateC, new Seance(), "",1);
+        refrechSeance(SeanceTable, TeacherC, RoomC, GroupC, dateC, new Seance(), "", 1);
     }
 
     @FXML
@@ -261,12 +260,11 @@ public class SeanceController implements Initializable {
         Teacher tech = teacherCmb.getSelectionModel().getSelectedItem();
         if (tech != null) {
             GroupCmb.getSelectionModel().select(null);
-            grouplist = GroupService.getAllGroups(tech,"tech");
+            grouplist = GroupService.getAllGroups(tech, "tech");
             GroupCmb.setItems(grouplist);
         }
 
     }
-
 
     private int getIndexTeacher(int id) {
         int i = 0;
@@ -305,7 +303,7 @@ public class SeanceController implements Initializable {
             LocalDateTime dattime = LocalDateTime.parse(seanceSelect.getDate(), formatter);
             dateSeance.setValue(dattime.toLocalDate());
             time.setValue(dattime.toLocalTime());
-            uiseance = new UiSeance( teacherErr, roomErr, groupErr,GroupCmb,  teacherCmb, RoomCmb,dateSeance,dateErr,time,timeErr);
+            uiseance = new UiSeance(teacherErr, roomErr, groupErr, GroupCmb, teacherCmb, RoomCmb, dateSeance, dateErr, time, timeErr);
         }
     }
 
@@ -327,16 +325,11 @@ public class SeanceController implements Initializable {
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");
                     studentPTable.setContextMenu(null);
                 });
-                showProfile1.setOnAction(event1 -> {
-                    CommunController.alert("details profile");
-                    studentPTable.setContextMenu(null);
-                });
             }
         }
 
     }
 
-    /*<<<<<<< HEAD*/
     private boolean isPaiementFull(Paiement p) {
         return p.getNbrSeance() == CommunController.getnbrSeanceInOffer(PaiementService
                 .getPaiementForThisGroupIfExist(p).getTypeOfOffer());
@@ -382,20 +375,41 @@ public class SeanceController implements Initializable {
                         f.setStatus(1);
                         SeanceService.updatePaiementInFollow(f);
                         FollowService.updateFollow(f, "statusWithP");
-                    }else{
+                    } else {
                         FollowService.updateFollow(f, "presenceStudent");
                     }
                     refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, seanceSelect, "apsent");
                     refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, seanceSelect, "present");
                     studentATable.setContextMenu(null);
                 });
-                showProfile.setOnAction(event1 -> {
-                    CommunController.alert("details profile");
-                    studentPTable.setContextMenu(null);
-                });
             }
         }
 
+    }
+
+    @FXML
+    private void searchByName(KeyEvent event) {
+        Student std = new Student();
+        Seance snc = seanceSelect;
+        String name = firstName.getText();
+        System.out.println(name);
+        snc.setpStudent(name);
+        refrechStudents(studentATable, firstNameAC, lastNameAC, phone1AC, phone2AC, sectionNameAC, paymentAC, snc, "apsentFirstName");
+        refrechStudents(studentPTable, firstNamePC, lastNamePC, phone1PC, phone2PC, sectionNamePC, paymentPC, snc, "presentFirstName");
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
+        }
     }
 
 }

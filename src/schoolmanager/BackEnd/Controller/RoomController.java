@@ -92,7 +92,7 @@ public class RoomController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add( ) {
         rm = Mapping.getObjectRoomFromUiRoom(uirm);
         if (rm != null) {
             Results.Rstls r = RoomService.addRoom(rm);
@@ -126,7 +126,7 @@ public class RoomController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete() {
         if (rm.getId() != 0) {
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -162,6 +162,20 @@ public class RoomController implements Initializable {
             refrechRoom(RoomTable, nameC, nbrChairC, rm, "search");
         } else {
             refrechRoom(RoomTable, nameC, nbrChairC, rm, "");
+        }
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
         }
     }
 

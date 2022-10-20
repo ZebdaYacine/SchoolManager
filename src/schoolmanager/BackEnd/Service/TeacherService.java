@@ -101,7 +101,7 @@ public class TeacherService {
 
     public static ObservableList<Teacher> searchTeacherByName(Teacher teacher) {
         String query;
-        query = "SELECT * FROM teacher where firstName LIKE '" + teacher.getFirstName() + "'";
+        query = "SELECT * FROM teacher where firstName LIKE '" + teacher.getFirstName() + "%'";
         Teacher tchr = new Teacher();
         ObservableList<Teacher> listTeachers = FXCollections.observableArrayList(new Teacher());
         listTeachers.remove(0);

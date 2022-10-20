@@ -43,28 +43,27 @@ public class PaiementController implements Initializable {
 
     @FXML
     private TableView<Student> studentTable;
-    @FXML
     static TableView<Student> studentTable1;
     @FXML
     private TableView<?> PaiementTable;
-    @FXML
     public static TableView<?> PaiementTable1;
     @FXML
     private TextField firstName, phone;
     @FXML
     private JFXComboBox<Group> GroupCmb;
-    @FXML
     static JFXComboBox<Group> GroupCmb1;
     @FXML
     private TableColumn<?, ?> firstNameC, lastNameC, phone1C, phone2C, sectionNameC;
+    static TableColumn<?, ?> firstNameC1;
     @FXML
-    static TableColumn<?, ?> firstNameC1, lastNameC1, phone1C1, phone2C1, sectionNameC1;
+    static TableColumn<?, ?> lastNameC1, phone1C1, phone2C1, sectionNameC1;
     @FXML
     private Label stdLbl;
     @FXML
     private TableColumn<?, ?> offerC, datePC, groupC, amountC, amountRC, nbrseanceC;
+    public static TableColumn<?, ?> offerC1;
     @FXML
-    public static TableColumn<?, ?> offerC1, datePC1, groupC1, amountC1, amountRC1, nbrseanceC1;
+    public static TableColumn<?, ?> datePC1, groupC1, amountC1, amountRC1, nbrseanceC1;
 
     public static Student std = new Student();
     private static final Group group = new Group();
@@ -78,6 +77,14 @@ public class PaiementController implements Initializable {
     private final MenuItem showP = new MenuItem("عرض  ");
     private final MenuItem deleteP = new MenuItem("حذف  ");
     private static boolean b1 = false;
+    @FXML
+    private Label firstName_err;
+    @FXML
+    private Label phone1_err;
+    @FXML
+    private Label lastName_err;
+    @FXML
+    private Label phone2_err;
 
     /**
      * Initializes the controller class.adminضa

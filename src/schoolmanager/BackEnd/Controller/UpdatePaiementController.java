@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyEvent;
 
 import static schoolmanager.BackEnd.Service.OfferService.getOfferAttFromIdOffer;
 import static schoolmanager.SchoolManager.SecondStage;
@@ -64,13 +65,13 @@ public class UpdatePaiementController extends PaiementController implements Init
     private UiStudentPaiement uistd = new UiStudentPaiement();
     ObservableList<Group> grouplist;
 
-    @FXML
-    private JFXButton update;
 
     ObservableList<String> around =
             FXCollections.observableArrayList(
                     "1","2","3","4","5","6","7","8","9","10","11","12"
             );
+    @FXML
+    private JFXButton update1;
 
 
 
@@ -121,7 +122,7 @@ public class UpdatePaiementController extends PaiementController implements Init
     }
 
     @FXML
-    private void update(ActionEvent event) throws InterruptedException, IOException {
+    private void update( ) throws InterruptedException, IOException {
         Paiement paiementUpdated = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
         paiementUpdated.setStd(std1);
         paiementUpdated.setId(paiement.getId());
@@ -161,7 +162,14 @@ public class UpdatePaiementController extends PaiementController implements Init
     }
 
     @FXML
-    private void selectStudent(MouseEvent event) {
+    private void hotkey(KeyEvent event) throws InterruptedException, IOException {
+        switch (event.getCode()) {
+            case ENTER:
+                update();
+                break;
+            default:
+                break;
+        }
 
     }
 

@@ -91,7 +91,7 @@ public class TypeController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add( ) {
         Type type = Mapping.getObjectTypeFromUiType(uiType);
         if (type != null) {
             Results.Rstls r = TypeService.addObject(type, "type");
@@ -123,7 +123,7 @@ public class TypeController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete( ) {
         if (type.getId() != 0) {
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -157,6 +157,20 @@ public class TypeController implements Initializable {
             refrech(typeTable, nameC, "search", g);
         } else {
             refrech(typeTable, nameC, "", new Template());
+        }
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
         }
     }
 }

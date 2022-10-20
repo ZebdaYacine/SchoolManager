@@ -91,7 +91,7 @@ public class ModuleController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add( ) {
         Module mdl = Mapping.getObjectModuleFromUiModule(uiModule);
         if (mdl != null) {
             Results.Rstls r = ModuleService.addObject(mdl, "module");
@@ -122,7 +122,7 @@ public class ModuleController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete( ) {
         if (module.getId() != 0) {
             Module mdl = Mapping.getObjectModuleFromUiModule(uiModule);
             mdl.setId(module.getId());
@@ -164,6 +164,20 @@ public class ModuleController implements Initializable {
             refrech(moduleTable, nameC, "search", g);
         } else {
             refrech(moduleTable, nameC, "", new Template());
+        }
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
         }
     }
 }

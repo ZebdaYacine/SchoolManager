@@ -152,7 +152,7 @@ public class StudentController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add( ) {
         std = Mapping.getObjectStudentFromUiStudent(uistd);
         std.PresentObject();
         if (std != null) {
@@ -187,7 +187,7 @@ public class StudentController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete( ) {
         if (std.getId() != 0) {
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -229,6 +229,20 @@ public class StudentController implements Initializable {
             std.setFirstName(name);
             refrechStudent(studentTable, firstNameC, lastNameC, phone1C,
                     phone2C, sectionNameC, std, "search");
+        }
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
         }
     }
 

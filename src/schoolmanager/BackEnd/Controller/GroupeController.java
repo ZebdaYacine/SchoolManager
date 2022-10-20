@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.input.KeyEvent;
 
 import static schoolmanager.SchoolManager.SecondStage;
 
@@ -48,8 +49,6 @@ public class GroupeController implements Initializable {
 
     @FXML
     private JFXButton update;
-    @FXML
-    private JFXButton add;
     @FXML
     private JFXButton delete;
     @FXML
@@ -217,7 +216,7 @@ public class GroupeController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add() {
         grp = Mapping.getObjectGroupeFromUiGroupe(uigrp);
         Results.Rstls r = GroupService.addGroup(grp);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
@@ -246,7 +245,7 @@ public class GroupeController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete() {
         if (grp.getId() != 0) {
             if (CommunController.confirm("sure de supprimer  le group")) {
                 Results.Rstls r = GroupService.deleteGroup(grp);
@@ -262,6 +261,20 @@ public class GroupeController implements Initializable {
 
     @FXML
     private void selectGroup(MouseEvent event) {
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
+        }
     }
 
 }

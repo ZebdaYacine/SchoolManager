@@ -25,6 +25,7 @@ import schoolmanager.BackEnd.uiPresenter.UiStudentPaiement;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyEvent;
 
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import static schoolmanager.SchoolManager.alertUpdate;
@@ -132,7 +133,7 @@ public class PaiementCouresController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add() {
       /*  account = Mapping.getObjectAccountFromUiStudentPaiementHistory(uistd);
         Results.Rstls r = PaiementService.addPaiement(account);
         if (r == Results.Rstls.OBJECT_NOT_INSERTED) {
@@ -164,7 +165,7 @@ public class PaiementCouresController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete() {
         if (account.getId() != 0) {
             Optional<ButtonType> option = alertUpdate.showAndWait();
             if (option.get() == ButtonType.OK) {
@@ -184,6 +185,20 @@ public class PaiementCouresController implements Initializable {
     @FXML
     private void selectStudent(MouseEvent event) {
 
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
+        }
     }
 
 }

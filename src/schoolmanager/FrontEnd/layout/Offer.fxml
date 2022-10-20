@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.OfferController">
+<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" onKeyReleased="#hotkey" prefHeight="650.0" prefWidth="1340.0" styleClass="home" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolmanager.BackEnd.Controller.OfferController">
     <children>
         <!--<<<<<<< HEAD-->
         <JFXTextField fx:id="name" focusColor="#0077cc" labelFloat="true" layoutX="31.0" layoutY="50.0" onKeyReleased="#search" prefHeight="30.0" prefWidth="200.0" promptText="إسم العرض" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">

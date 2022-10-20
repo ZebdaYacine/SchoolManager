@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
 import schoolmanager.BackEnd.Mapper.Mapping;
@@ -74,54 +75,12 @@ public class TeacherController implements Initializable {
     private JFXButton delete;
     @FXML
     private JFXButton update;
-    @FXML
-    private JFXToggleButton enableSearch;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        enableSearch.setSelected(false);
-        enableSearch.setOnAction(((event) -> {
-            if (enableSearch.isSelected()) {
-                if (!firstName.getText().equals("")) {
-                    try {
-                        tech.setFirstName(firstName.getText());
-                        refrechTeacher(teacherTable, firstNameC,
-                                lastNameC, phoneC, workPlaceC,
-                                tech, "searche");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                } else {
-                    enableSearch.setSelected(false);
-                    uitech.clearInputs();
-                }
-            } else {
-                try {
-                    refrechTeacher(teacherTable, firstNameC,
-                            lastNameC, phoneC, workPlaceC,
-                            tech, "");
-                } catch (SQLException ex) {
-                    Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                uitech.clearInputs();
-            }
-        }));
-        firstName.setOnKeyTyped(((event) -> {
-            if (firstName.getText().equals("")) {
-                enableSearch.setSelected(false);
-                try {
-                    refrechTeacher(teacherTable, firstNameC,
-                            lastNameC, phoneC, workPlaceC,
-                            tech, "");
-                } catch (SQLException ex) {
-                    Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }));
         uitech = new UiTeacher(firstName, lastName, phone, workePlace,
                 firstName_err, lastName_err, phone_err, workeSpace_err);
         if (loginUser.getRole().equals("simple")) {
@@ -166,7 +125,7 @@ public class TeacherController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add( ) {
         tech = Mapping.getObjectTeacherFromUiTeacher(uitech);
         if (tech != null) {
             Results.Rstls r = TeacherService.addTeacher(tech);
@@ -209,7 +168,7 @@ public class TeacherController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete( ) {
         if (tech.getId() != 0) {
             Teacher newtech = Mapping.getObjectTeacherFromUiTeacher(uitech);
             newtech.setId(tech.getId());
@@ -243,6 +202,36 @@ public class TeacherController implements Initializable {
             workePlace.setText(tech.getWorkePlace());
             uitech = new UiTeacher(firstName, lastName, phone, workePlace,
                     firstName_err, lastName_err, phone_err, workeSpace_err);
+        }
+    }
+
+    @FXML
+    private void searchTeacher(KeyEvent event) throws SQLException {
+        Teacher t = new Teacher();
+        if (firstName.getText().isEmpty()) {
+            refrechTeacher(teacherTable, firstNameC,
+                    lastNameC, phoneC, workPlaceC,
+                    t, "");
+        } else {
+            t.setFirstName(firstName.getText());
+            refrechTeacher(teacherTable, firstNameC,
+                    lastNameC, phoneC, workPlaceC,
+                    t, "searche");
+        }
+
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
         }
     }
 }

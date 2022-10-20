@@ -21,6 +21,7 @@ import schoolmanager.BackEnd.Service.SeanceService;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyEvent;
 
 import static schoolmanager.BackEnd.Controller.PaiementController.*;
 import schoolmanager.SchoolManager;
@@ -117,7 +118,7 @@ public class PaiementSeancesController implements Initializable {
     }
 
     @FXML
-    private void pay(ActionEvent event) {
+    private void pay() {
         int nbr= SeanceService.countPaidSeances(p.getId());
         nbr=nbr+list.size();
         p.setNbrSeance(nbr);
@@ -185,6 +186,17 @@ public class PaiementSeancesController implements Initializable {
             amuntCL.setText(paiement.getAmountC() + " Da");
         }
         showSeancsOfGroup(std, group);
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                pay();
+                break;
+            default:
+                break;
+        }
     }
 
 

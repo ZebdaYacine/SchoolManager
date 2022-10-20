@@ -118,12 +118,14 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <JFXButton alignment="TOP_CENTER" buttonType="RAISED" layoutX="519.0" layoutY="20.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#addStd" prefHeight="40.0" prefWidth="117.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="إضافة">
+      <JFXButton alignment="TOP_CENTER" buttonType="RAISED" layoutX="535.0" layoutY="20.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#addStd" prefHeight="30.0" prefWidth="126.0" styleClass="printbtn" stylesheets="@../style/buttons_style.css" text="إضافة">
          <font>
-            <Font name="Times New Roman" size="24.0" />
+            <Font name="Times New Roman" size="18.0" />
          </font>
+         <graphic>
+            <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="18" strokeType="OUTSIDE" />
+         </graphic>
       </JFXButton>
-      <MaterialDesignIconView fill="WHITE" glyphName="PLUS" layoutX="603.0" layoutY="48.0" size="18" />
 <!--<<<<<<< HEAD-->
 <!--      <JFXComboBox fx:id="sectionName" focusColor="#0077cc" layoutX="30.0" layoutY="198.0" prefHeight="25.0" prefWidth="200.0" promptText="Section" styleClass="jfxtextfield" stylesheets="@../style/style.css" unFocusColor="#0099cc" />-->
 <!--=======-->

@@ -19,6 +19,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
+import schoolmanager.LocalSettings;
 
 import static schoolmanager.SchoolManager.SecondStage;
 
@@ -29,7 +30,6 @@ import static schoolmanager.SchoolManager.SecondStage;
  */
 public class BackupDbController implements Initializable {
 
-
     @FXML
     private TextField path;
 
@@ -39,7 +39,6 @@ public class BackupDbController implements Initializable {
     @FXML
     private Label path_err;
 
-
     /**
      * Initializes the controller class.
      */
@@ -48,13 +47,17 @@ public class BackupDbController implements Initializable {
         path_err.setVisible(false);
         path_err.setText("");
         String userNameSys = System.getProperty("user.name");
-        String pt = "\"C:\\Users\\" + userNameSys + "\\Desktop\\schoolManager\\dumps\\" + FileDb()+"\"";
+        String pt = "\"C:\\Users\\" + userNameSys + "\\Desktop\\schoolManager\\dumps\\" + FileDb() + "\"";
         data.setSelected(true);
         data.setOnAction(event -> {
-            if (data.isSelected()) all.setSelected(false);
+            if (data.isSelected()) {
+                all.setSelected(false);
+            }
         });
         all.setOnAction(event -> {
-            if (all.isSelected()) data.setSelected(false);
+            if (all.isSelected()) {
+                data.setSelected(false);
+            }
         });
         path.setText(pt);
     }
@@ -71,33 +74,32 @@ public class BackupDbController implements Initializable {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(SecondStage);
         if (selectedDirectory == null) {
-            str=null;
+            str = null;
         } else {
             str = selectedDirectory.getAbsolutePath();
         }
         return str;
     }
 
-
     @FXML
     private void clone(ActionEvent event) {
-        String dump = "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -uroot -proot --no-create-info SchoolManager > ";
-        String str=path.getText();
-        if(str.isEmpty()){
+        String dump = "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -u" + LocalSettings.user + " -p" + LocalSettings.Password + " --no-create-info SchoolManager > ";
+        String str = path.getText();
+        if (str.isEmpty()) {
             path_err.setText("اختر مسار المسار ");
             path_err.setVisible(true);
             return;
         }
         if (data.isSelected()) {
-            dump=dump+str;
+            dump = dump + str;
         } else if (all.isSelected()) {
             dump = "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump.exe -uroot -proot  SchoolManager > ";
-            dump=dump+str;
+            dump = dump + str;
         }
         createDumpFile(dump);
     }
 
-    private void createDumpFile(String dump){
+    private void createDumpFile(String dump) {
         String[] cmdarray = {"cmd.exe", "/c", dump};
         Process p = null;
         try {
@@ -122,12 +124,12 @@ public class BackupDbController implements Initializable {
 
     @FXML
     private void browse(ActionEvent event) {
-        String p=getPath();
-        if(p!=null){
+        String p = getPath();
+        if (p != null) {
             path_err.setVisible(false);
             path_err.setText("");
-            path.setText("\""+p+"\\"+ FileDb()+"\"");
-        }else{
+            path.setText("\"" + p + "\\" + FileDb() + "\"");
+        } else {
             path.setText("");
         }
     }

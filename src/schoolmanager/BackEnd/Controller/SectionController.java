@@ -89,7 +89,7 @@ public class SectionController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add( ) {
         Section section1 = Mapping.getObjectSectionFromUiSection(uiSection);
         if (section1 != null) {
             Results.Rstls r = LevelService.addObject(section1, "section");
@@ -120,7 +120,7 @@ public class SectionController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete( ) {
         if (section.getId() != 0) {
             Section section1 = Mapping.getObjectSectionFromUiSection(uiSection);
             section1.setId(section.getId());
@@ -160,6 +160,20 @@ public class SectionController implements Initializable {
             refrech(SectionTable, nameC, "search", g);
         } else {
             refrech(SectionTable, nameC, "", new Template());
+        }
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
         }
     }
 }

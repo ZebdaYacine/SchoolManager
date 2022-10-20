@@ -35,6 +35,7 @@ import schoolmanager.BackEnd.uiPresenter.UiStudent;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyEvent;
 
 import static schoolmanager.BackEnd.Controller.BelongsController.*;
 import static schoolmanager.BackEnd.Controller.LoginController.loginUser;
@@ -150,7 +151,7 @@ public class AddStudentController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add() {
         std = Mapping.getObjectStudentFromUiStudent(uistd);
         long lastId=0;
         if (std != null) {
@@ -182,4 +183,15 @@ public class AddStudentController implements Initializable {
         }
     }
 /*>>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522*/
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            default:
+                break;
+        }
+    }
 }

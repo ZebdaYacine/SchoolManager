@@ -43,7 +43,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;*/
-
 /**
  * FXML Controller class
  *
@@ -115,7 +114,7 @@ public class BelongsController implements Initializable {
     @FXML
     private Label offerName;
 
-    private Student std = new Student();
+    public static Student std = new Student();
     private static Group group = new Group();
 
     private final ContextMenu contextMenu1 = new ContextMenu();
@@ -130,24 +129,19 @@ public class BelongsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-/*<<<<<<< HEAD
-=======*/
-        nbrPlace1=nbrPlace;
-/*
->>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522
-*/
-        studentTable1=studentTable;
-        belongsTable1=belongsTable;
-        firstNameC10=firstNameC;
-        lastNameC10=lastNameC;
-        phone1C10=phone1C;
-        phone2C10=phone2C;
-        firstNameC11=firstNameC1;
-        lastNameC11=lastNameC1;
-        phone1C11=phone1C1;
-        phone2C11=phone2C1;
-        sectionNameC10=sectionNameC;
-        sectionNameC11=sectionNameC1;
+        nbrPlace1 = nbrPlace;
+        studentTable1 = studentTable;
+        belongsTable1 = belongsTable;
+        firstNameC10 = firstNameC;
+        lastNameC10 = lastNameC;
+        phone1C10 = phone1C;
+        phone2C10 = phone2C;
+        firstNameC11 = firstNameC1;
+        lastNameC11 = lastNameC1;
+        phone1C11 = phone1C1;
+        phone2C11 = phone2C1;
+        sectionNameC10 = sectionNameC;
+        sectionNameC11 = sectionNameC1;
         contextMenu1.getItems().addAll(delete, showProfile1);
         contextMenu2.getItems().addAll(add, showProfile);
         studentTable.setOnMouseClicked(event -> {
@@ -163,7 +157,7 @@ public class BelongsController implements Initializable {
                         addingToBelongs(std);
                     });
                     showProfile.setOnAction(event1 -> {
-                        CommunController.alert("details profile");
+                        showProfile();
                     });
                 }
             }
@@ -188,11 +182,31 @@ public class BelongsController implements Initializable {
                         }
                     });
                     showProfile1.setOnAction(event1 -> {
-                        CommunController.alert("details profile 1");
+                        showProfile();
                     });
                 }
             }
         });
+    }
+
+    private void showProfile() {
+        String urld = "/schoolmanager/FrontEnd/layout/profileStudent.fxml";
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(urld));
+        Parent uigrp;
+        try {
+            uigrp = loader.load();
+            Scene scene = new Scene(uigrp);
+            if (!thirdStage.isShowing()) {
+                thirdStage.setScene(scene);
+                thirdStage.setTitle("ملف التلميذ");
+                thirdStage.showAndWait();
+            } else {
+                thirdStage.setAlwaysOnTop(true);
+                thirdStage.setAlwaysOnTop(false);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(BelongsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void addingToBelongs(Student std) {
@@ -210,7 +224,7 @@ public class BelongsController implements Initializable {
     }
 
     public static void refrechStudent(TableView table, TableColumn Column1, TableColumn Column2,
-                                      TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
+            TableColumn Column3, TableColumn Column4, TableColumn Column5, Student std, String type) {
         ObservableList<Student> pr = null;
 
         if (type.equals("belongs")) {
@@ -245,13 +259,8 @@ public class BelongsController implements Initializable {
         String url = "/schoolmanager/FrontEnd/layout/AddStudent.fxml";
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(url));
         Parent uigrp = loader.load();
-/*<<<<<<< HEAD
-=======*/
         AddStudentController addStudentController = loader.getController();
         addStudentController.setInputs(group);
-/*
->>>>>>> e3bc2b46c7698858d23de104e75bf0784d826522
-*/
         Scene scene = new Scene(uigrp);
         if (!thirdStage.isShowing()) {
             thirdStage.setScene(scene);

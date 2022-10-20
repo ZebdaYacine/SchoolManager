@@ -136,7 +136,7 @@ public class OfferController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent event) {
+    private void add() {
         offer = Mapping.getOffreObjectFromOffreUi(uiOffre);
         if(offer!= null){
             Results.Rstls r = OfferService.addOffer(offer);
@@ -170,7 +170,7 @@ public class OfferController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent event) {
+    private void delete() {
         if (offer.getId() != 0) {
             Offer newOffer = Mapping.getOffreObjectFromOffreUi(uiOffre);
             newOffer.setId(offer.getId());
@@ -208,6 +208,20 @@ public class OfferController implements Initializable {
     @FXML
     private void search(KeyEvent event) {
 
+    }
+
+    @FXML
+    private void hotkey(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                add();
+                break;
+            case DELETE:
+                delete();
+                break;
+            default:
+                break;
+        }
     }
     
 }
